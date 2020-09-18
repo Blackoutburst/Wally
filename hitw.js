@@ -63,7 +63,7 @@ async function startTracking(msg) {
     var Q = 0;
     var F = 0;
 
-    if (!fs.existsSync("tracker") {
+    if (!fs.existsSync("tracker")) {
         msg.reply("Before tracking any player please set a tracking channel with **!settracker** !");
         return;
     }
