@@ -8,8 +8,9 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const client = new Discord.Client();
 const Hypixel = require('node-hypixel');
-const hypixel = new Hypixel('sample text');
-const token = 'js is broken';
+const hypixel = new Hypixel('hypixel api key');
+const token = 'bot token';
+const serverid = 'server id';
 
 //====================================================
 //                                                   BOT COMMANDS
@@ -18,24 +19,73 @@ const token = 'js is broken';
 client.on('message', msg => {
     if (msg.author.bot)return;
 
+    if (msg.content === "!role" && msg.author.id === '160854225943789569')showRole(msg);
+    if (msg.content === "!guild" && msg.author.id === '160854225943789569')showGuild(msg);
+
     if (msg.content === "!help")showHelp(msg);
     if (msg.content === "!pack")givePackLink(msg);
     if (msg.content.startsWith("!stats") || msg.content.startsWith("!stat"))showStats(msg);
-    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!link"))linkPlayer(msg);
+    if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!tracked")showTrackedPlayer(msg);
+    if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!linked")showLinkedPlayer(msg);
+    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!link") && msg.content !== "!linked")linkPlayer(msg);
     if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!unlink"))unlinkPlayer(msg);
     if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!ping")showPing(msg);
-    if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!list")showTrackedPlayer(msg);
-    if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!track"))startTracking(msg);
+    if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!track") && msg.content !== "!tracked")startTracking(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!stop"))stopTracking(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') && msg.content.startsWith("!settracker"))setTracker(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') && msg.content.startsWith("!showtracker"))showTracker(msg);
 });
 
 //====================================================
+//                                           AUTO SET ROLE FUNCTION
+//====================================================
+
+client.on('guildMemberAdd', (guildMember) => {
+   guildMember.addRole(guildMember.guild.roles.find(role => role.name === "Members"));
+});
+
+async function autoSetRole(msg, discord, ign) {
+    var uuid = "";
+    var user = msg.mentions.members.first();
+
+
+    request('https://api.mojang.com/users/profiles/minecraft/'+ign, function (error, response, body) {
+        if (body == "")msg.reply("Player not found");
+        if (!error && response.statusCode == 200) {
+            uuid = body.split("\"");
+            hypixel.getPlayer(uuid[7]).then(player => {
+                if (fs.existsSync('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1))) {
+                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 350){user.addRole(msg.guild.roles.find(r => r.name === "350+ Club"));return;}
+                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 300){user.addRole(msg.guild.roles.find(r => r.name === "300+ Club"));return;}
+                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 250){user.addRole(msg.guild.roles.find(r => r.name === "250+ Club"));return;}
+                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 200){user.addRole(msg.guild.roles.find(r => r.name === "200+ Club"));return;}
+                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 150){user.addRole(msg.guild.roles.find(r => r.name === "150+ Club"));return;}
+                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 100){user.addRole(msg.guild.roles.find(r => r.name === "100+ Club"));return;}
+                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 50){user.addRole(msg.guild.roles.find(r => r.name === "50+ Club"));return;}
+                }
+            });
+        }
+    });
+
+}
+
+//====================================================
 //                                           COMMANDS FUNCTION
 //====================================================
 
-//========================  !unlink ========================
+//========================  !guild ========================
+
+function showGuild(msg) {
+    console.log(msg.guild.id);
+}
+
+//========================  !role ========================
+
+function showRole(msg) {
+    msg.guild.roles.forEach(role => console.log(role.name));
+}
+
+//=======================  !unlink =======================
 
 async function unlinkPlayer(msg) {
     var str = msg.content.split(" ");
@@ -45,7 +95,7 @@ async function unlinkPlayer(msg) {
     var uuid = "";
 
     if (str[1] == null || str[2] == null) {
-        msg.reply('Bad command usage please try **!unlink @user IGN**');
+        msg.reply('Improper command usage **!unlink @user IGN**');
         return;
     }
     discord = String(msg.mentions.users.first());
@@ -80,7 +130,7 @@ async function linkPlayer(msg) {
     var uuid = "";
 
     if (str[1] == null || str[2] == null) {
-        msg.reply('Bad command usage please try **!link @user IGN**');
+        msg.reply('Improper command usage **!link @user IGN**');
         return;
     }
     discord = String(msg.mentions.users.first());
@@ -97,6 +147,7 @@ async function linkPlayer(msg) {
                 }
                 fs.mkdir('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1), function(err) {});
                 msg.channel.send(discord+" successfully linked to "+player.displayname);
+                autoSetRole(msg, discord, ign);
             });
         }
     });
@@ -108,7 +159,7 @@ async function stopTracking(msg) {
     var str = msg.content.split(" ");
 
     if (str[1] == null) {
-        msg.reply('Bad command usage please try **!stop player**');
+        msg.reply('Improper command usage please try **!stop player**');
         return;
     }
     request('https://api.mojang.com/users/profiles/minecraft/'+str[1], function (error, response, body) {
@@ -123,7 +174,7 @@ async function stopTracking(msg) {
                 if (err) {
                     throw err;
                 }
-                    msg.channel.send("Stopped tracking "+player.displayname+" personnal best!");
+                    msg.channel.send("Stopped tracking "+player.displayname+"'s personnal best!");
                 });
             });
         }
@@ -143,7 +194,7 @@ async function startTracking(msg) {
         return;
     }
     if (str[1] == null) {
-        msg.reply('Bad command usage please try **!track player**');
+        msg.reply('Improper command usage please try **!track player**');
         return;
     }
 
@@ -174,7 +225,25 @@ async function startTracking(msg) {
     });
 }
 
-//=======================  !list  =========================
+//=======================  !linked  =======================
+
+async function showLinkedPlayer(msg)  {
+    var playerlist = "```yml\nName : IGN\n"
+    const m = await msg.channel.send("...");
+
+    fs.readdir("linked player", (err, files) => {
+        files.forEach(file => {
+                var str = file.split(",");
+                var disc = client.guilds.get(serverid).members.get(str[1]);
+                hypixel.getPlayer(str[0]).then(player => {
+                    playerlist += disc.displayName+" : "+player.displayname+'\n';
+                    m.edit(playerlist+"```");
+            });
+        });
+    });
+}
+
+//======================  !tracked  =======================
 
 async function showTrackedPlayer(msg) {
     var playerlist = "```yml\nPlayer : uuid\n"
@@ -225,7 +294,7 @@ function givePackLink(msg) {
 
 function showHelp(msg) {
     if (msg.member.permissions.has('ADMINISTRATOR')) {
-        msg.reply('```yml\n\n!help: show this message\n\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n\n!ping: show current lag and api lag\n\n!stats [player]: show a player HitW stats\n\n!list: list tracked player\n\n!track [player]: track a player PB\n\n!stop [player]: stop tracking a player PB\n\n!settracker: select the current channel as the channel where every new player tracked pb is sended\n\n!showtracker: show the current track channel\n\n!link [@user IGN]: link the player discord account with his in game one\n\n!unlink [@user IGN]: unlink a player from his in game account```');
+        msg.reply('```yml\n\n!help: show this message\n\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n\n!ping: show current lag and api lag\n\n!stats [player]: show a player HitW stats\n\n!tracked: list tracked player\n\n!linked: list linked player\n\n!track [player]: track a player PB\n\n!stop [player]: stop tracking a player PB\n\n!settracker: select the current channel as the channel where every new player tracked pb is sended\n\n!showtracker: show the current track channel\n\n!link [@user IGN]: link the player discord account with his in game one\n\n!unlink [@user IGN]: unlink a player from his in game account```');
     } else {
         msg.reply('```yml\n\n!help: show this message\n\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n\n!stats [player]: show a player HitW stats\n\n```');
     }
@@ -244,7 +313,7 @@ async function showStats(msg) {
     var R = 0;
 
     if (str[1] == null) {
-        msg.reply('Bad command usage please try **!stats player**');
+        msg.reply('Improper command usage please try **!stats player**');
         return;
     }
     player = str[1];
@@ -290,8 +359,24 @@ async function tracker() {
                         Q = value.stats.Arcade.hitw_record_q;
                         if (Q == null) Q = 0;
                         if (Number(Q) > Number(score)) {
-                            client.channels.get(data.replace('<#', "").slice(0, -1)).send("**"+value.displayname+"** make a new **qualification** personnal record of **"+Q+"** !");
+                            client.channels.get(data.replace('<#', "").slice(0, -1)).send("**"+value.displayname+"** made a new **qualification** personnal record of **"+Q+"** !");
                             fs.writeFileSync('tracked player/'+file+"/Q", Q);
+                            fs.readdir("linked player", (err, F1) => {
+                                F1.forEach(F2 => {
+                                    if (String(F2).startsWith(file)) {
+                                        var usr = F2.split(",");
+                                        var serv = client.guilds.get(serverid);
+                                        var disc = client.guilds.get(serverid).members.get(usr[1]);
+                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 350){disc.addRole(serv.roles.find(r => r.name === "350+ Club"));disc.removeRole(serv.roles.find(r => r.name === "300+ Club"));disc.removeRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 300){disc.addRole(serv.roles.find(r => r.name === "300+ Club"));disc.removeRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 250){disc.addRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 200){disc.addRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 150){disc.addRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 100){disc.addRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 50){disc.addRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                    }
+                                });
+                            });
                         }
                     });
                     fs.readFile('tracked player/'+file+"/F", 'utf8', function (err2,score) {
@@ -301,7 +386,7 @@ async function tracker() {
                         F = value.stats.Arcade.hitw_record_f;
                         if (F == null) F = 0;
                         if (Number(F) > Number(score)) {
-                            client.channels.get(data.replace('<#', "").slice(0, -1)).send("**"+value.displayname+"** make a new **final** personnal record of **"+F+"** !");
+                            client.channels.get(data.replace('<#', "").slice(0, -1)).send("**"+value.displayname+"** made a new **final** personnal record of **"+F+"** !");
                             fs.writeFileSync('tracked player/'+file+"/F", F);
                         }
                     });
