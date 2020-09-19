@@ -8,8 +8,8 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const client = new Discord.Client();
 const Hypixel = require('node-hypixel');
-const hypixel = new Hypixel('I can not leak that');
-const token = 'I am not joking you know';
+const hypixel = new Hypixel('sample text');
+const token = 'js is broken';
 
 //====================================================
 //                                                   BOT COMMANDS
@@ -21,6 +21,8 @@ client.on('message', msg => {
     if (msg.content === "!help")showHelp(msg);
     if (msg.content === "!pack")givePackLink(msg);
     if (msg.content.startsWith("!stats") || msg.content.startsWith("!stat"))showStats(msg);
+    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!link"))linkPlayer(msg);
+    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!unlink"))unlinkPlayer(msg);
     if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!ping")showPing(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!list")showTrackedPlayer(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!track"))startTracking(msg);
@@ -33,7 +35,74 @@ client.on('message', msg => {
 //                                           COMMANDS FUNCTION
 //====================================================
 
-//======================  !stop =========================
+//========================  !unlink ========================
+
+async function unlinkPlayer(msg) {
+    var str = msg.content.split(" ");
+    var discord = "";
+    var discordFolder = "";
+    var ign = null;
+    var uuid = "";
+
+    if (str[1] == null || str[2] == null) {
+        msg.reply('Bad command usage please try **!unlink @user IGN**');
+        return;
+    }
+    discord = String(msg.mentions.users.first());
+    discordFolder = await discord.replace('<@', "").slice(0, -1);
+    ign = str[2];
+    request('https://api.mojang.com/users/profiles/minecraft/'+str[2], function (error, response, body) {
+        if (body == "")msg.reply("Player not found");
+        if (!error && response.statusCode == 200) {
+            uuid = body.split("\"");
+            hypixel.getPlayer(uuid[7]).then(player => {
+                if (!fs.existsSync('linked player/'+uuid[7]+","+discordFolder)) {
+                    msg.reply('User not linked!');
+                    return;
+                }
+                fs.rmdirSync('linked player/'+uuid[7]+","+discordFolder), { recursive: true }, (err) => {
+                    if (err) {
+                        throw err;
+                    }
+                }
+                msg.channel.send("Successfully unlinked "+discord+" from "+player.displayname);
+            });
+        }
+    });
+}
+
+//========================  !link ========================
+
+async function linkPlayer(msg) {
+    var str = msg.content.split(" ");
+    var discord = "";
+    var ign = null;
+    var uuid = "";
+
+    if (str[1] == null || str[2] == null) {
+        msg.reply('Bad command usage please try **!link @user IGN**');
+        return;
+    }
+    discord = String(msg.mentions.users.first());
+    ign = str[2];
+
+    request('https://api.mojang.com/users/profiles/minecraft/'+str[2], function (error, response, body) {
+        if (body == "")msg.reply("Player not found");
+        if (!error && response.statusCode == 200) {
+            uuid = body.split("\"");
+            hypixel.getPlayer(uuid[7]).then(player => {
+                if (fs.existsSync('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1))) {
+                    msg.reply('User already linked!');
+                    return;
+                }
+                fs.mkdir('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1), function(err) {});
+                msg.channel.send(discord+" successfully linked to "+player.displayname);
+            });
+        }
+    });
+}
+
+//========================  !stop ========================
 
 async function stopTracking(msg) {
     var str = msg.content.split(" ");
@@ -156,9 +225,9 @@ function givePackLink(msg) {
 
 function showHelp(msg) {
     if (msg.member.permissions.has('ADMINISTRATOR')) {
-        msg.reply('```yml\n\n!help: show this message\n\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n\n!ping: show current lag and api lag\n\n!stats player: show a player HitW stats\n\n!list: list tracked player\n\n!track player: track a player PB\n\n!stop player: stop tracking a player PB\n\n!settracker: select the current channel as the channel where every new player tracked pb is sended\n\n!showtracker: show the current track channel```');
+        msg.reply('```yml\n\n!help: show this message\n\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n\n!ping: show current lag and api lag\n\n!stats [player]: show a player HitW stats\n\n!list: list tracked player\n\n!track [player]: track a player PB\n\n!stop [player]: stop tracking a player PB\n\n!settracker: select the current channel as the channel where every new player tracked pb is sended\n\n!showtracker: show the current track channel\n\n!link [@user IGN]: link the player discord account with his in game one\n\n!unlink [@user IGN]: unlink a player from his in game account```');
     } else {
-        msg.reply('```yml\n\n!help: show this message\n\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n\n!stats player: show a player HitW stats\n\n```');
+        msg.reply('```yml\n\n!help: show this message\n\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n\n!stats [player]: show a player HitW stats\n\n```');
     }
 }
 
@@ -206,6 +275,7 @@ async function tracker() {
     var Q = 0;
     var F = 0;
 
+    if (!fs.existsSync("tracker"))return;
     fs.readdir("tracked player", (err, files) => {
         files.forEach(file => {
             fs.readFile('tracker', 'utf8', function (err,data) {
@@ -241,7 +311,7 @@ async function tracker() {
     });
 }
 
-//Check new PB every minute (probably need modification later)
+//Check new PB every 10s (probably need modification later)
 setInterval(tracker, 10000);
 
 //====================================================
