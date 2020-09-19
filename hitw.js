@@ -2,23 +2,22 @@
 //                                                      CONST VAR
 //====================================================
 
+const request = require('request');
 const Discord = require('discord.js');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const client = new Discord.Client();
 const Hypixel = require('node-hypixel');
-const hypixel = new Hypixel('Yes but no i this is my api code not your'');
-const token = 'Same for here go get your own bot token';
+const hypixel = new Hypixel('I can not leak that');
+const token = 'I am not joking you know';
 
 //====================================================
 //                                                   BOT COMMANDS
 //====================================================
 
 client.on('message', msg => {
-    //Ignore bot message
     if (msg.author.bot)return;
 
-    //Commands
     if (msg.content === "!help")showHelp(msg);
     if (msg.content === "!pack")givePackLink(msg);
     if (msg.content.startsWith("!stats") || msg.content.startsWith("!stat"))showStats(msg);
@@ -36,32 +35,39 @@ client.on('message', msg => {
 
 //======================  !stop =========================
 
-function stopTracking(msg) {
+async function stopTracking(msg) {
     var str = msg.content.split(" ");
 
     if (str[1] == null) {
         msg.reply('Bad command usage please try **!stop player**');
         return;
     }
-    if (!fs.existsSync('tracked player/'+str[1])) {
-        msg.reply('User not tracked!');
-        return;
-    }
-    fs.rmdir('tracked player/'+str[1], { recursive: true }, (err) => {
-    if (err) {
-        throw err;
-    }
-        msg.channel.send("Stopped tracking "+str[1]+" personnal best!");
+    request('https://api.mojang.com/users/profiles/minecraft/'+str[1], function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            uuid = body.split("\"");
+            hypixel.getPlayer(uuid[7]).then(player => {
+                if (!fs.existsSync('tracked player/'+uuid[7])) {
+                    msg.reply('User not tracked!');
+                    return;
+                }
+                fs.rmdir('tracked player/'+uuid[7], { recursive: true }, (err) => {
+                if (err) {
+                    throw err;
+                }
+                    msg.channel.send("Stopped tracking "+player.displayname+" personnal best!");
+                });
+            });
+        }
     });
 }
 
 //======================  !track =========================
 
 async function startTracking(msg) {
-    var player = null;
     var str = msg.content.split(" ");
     var Q = 0;
     var F = 0;
+    var uuid = "";
 
     if (!fs.existsSync("tracker")) {
         msg.reply("Before tracking any player please set a tracking channel with **!settracker** !");
@@ -71,35 +77,47 @@ async function startTracking(msg) {
         msg.reply('Bad command usage please try **!track player**');
         return;
     }
-    player = await hypixel.getPlayerByUsername(str[1]);
-    if (player == null) {
-        msg.reply("Player not found");
-        return;
-    }
-    if (fs.existsSync('tracked player/'+str[1])) {
-        msg.reply('User already tracked!');
-        return;
-    }
-    Q = player.stats.Arcade.hitw_record_q;
-    if (Q == null) Q = 0;
-    F = player.stats.Arcade.hitw_record_f;
-    if (F == null) F = 0;
-    fs.mkdir('tracked player/'+str[1], function(err) {});
-    fs.writeFileSync('tracked player/'+str[1]+"/Q", Q);
-    fs.writeFileSync('tracked player/'+str[1]+"/F", F);
-    msg.channel.send("Player tracked successfully!\n```yml\nCurrent "+player.displayname+" stats\nQ: "+Q+"\nF: "+F+"```");
+
+    request('https://api.mojang.com/users/profiles/minecraft/'+str[1], function (error, response, body) {
+        if (body == "")msg.reply("Player not found");
+        if (!error && response.statusCode == 200) {
+            uuid = body.split("\"");
+            hypixel.getPlayer(uuid[7]).then(player => {
+                if (player == null || typeof player.stats.Arcade === 'undefined') {
+                    msg.reply("Player not found");
+                    return;
+                }
+                if (fs.existsSync('tracked player/'+uuid[7])) {
+                    msg.reply('User already tracked!');
+                    return;
+                }
+                Q = player.stats.Arcade.hitw_record_q;
+                if (Q == null) Q = 0;
+                F = player.stats.Arcade.hitw_record_f;
+                if (F == null) F = 0;
+                fs.mkdir('tracked player/'+uuid[7], function(err) {});
+                fs.writeFileSync('tracked player/'+uuid[7]+"/Q", Q);
+                fs.writeFileSync('tracked player/'+uuid[7]+"/F", F);
+                msg.channel.send("Player tracked successfully!\n```yml\nCurrent "+player.displayname+" stats\nQ: "+Q+"\nF: "+F+"```");
+                return;
+            });
+        }
+    });
 }
 
 //=======================  !list  =========================
 
-function showTrackedPlayer(msg) {
-    var playerlist = "```yml\nPlayer :\n"
+async function showTrackedPlayer(msg) {
+    var playerlist = "```yml\nPlayer : uuid\n"
+    const m = await msg.channel.send("...");
 
     fs.readdir("tracked player", (err, files) => {
         files.forEach(file => {
-            playerlist += file+' \n';
+                hypixel.getPlayer(file).then(player => {
+                    playerlist += player.displayname+" : "+file+'\n';
+                    m.edit(playerlist+"```");
+            });
         });
-        msg.channel.send(playerlist+"```");
     });
 }
 
@@ -138,9 +156,9 @@ function givePackLink(msg) {
 
 function showHelp(msg) {
     if (msg.member.permissions.has('ADMINISTRATOR')) {
-        msg.reply('```yml\n!help: show this message\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n!ping: show current lag and api lag\n!stats player: show a player HitW stats\n!list: list tracked player\n!track player: track a player PB\n!stop player: stop tracking a player PB\n!settracker: select the current channel as the channel where every new player tracked pb is sended\n!showtracker: show the current track channel```');
+        msg.reply('```yml\n\n!help: show this message\n\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n\n!ping: show current lag and api lag\n\n!stats player: show a player HitW stats\n\n!list: list tracked player\n\n!track player: track a player PB\n\n!stop player: stop tracking a player PB\n\n!settracker: select the current channel as the channel where every new player tracked pb is sended\n\n!showtracker: show the current track channel```');
     } else {
-        msg.reply('```yml\n!help: show this message\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n!stats player: show a player HitW stats\n```');
+        msg.reply('```yml\n\n!help: show this message\n\n!pack: give link to the Hole in the Wall ressources pack made by Hammy in the Wall\n\n!stats player: show a player HitW stats\n\n```');
     }
 }
 
@@ -151,6 +169,10 @@ async function showStats(msg) {
     var player = null;
     var value = null;
     var total = 0;
+    var Q = 0;
+    var F = 0;
+    var W = 0;
+    var R = 0;
 
     if (str[1] == null) {
         msg.reply('Bad command usage please try **!stats player**');
@@ -162,8 +184,17 @@ async function showStats(msg) {
         msg.reply('Player not found!');
         return;
     }
-    total = Number(value.stats.Arcade.hitw_record_q)+Number(value.stats.Arcade.hitw_record_f);
-    msg.channel.send("```yml\nHitW Stats: "+value.displayname+"\n\nWins: "+String(value.stats.Arcade.wins_hole_in_the_wall).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"\nRounds Played: "+String(value.stats.Arcade.rounds_hole_in_the_wall).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"\n\nBest Qualification Score: "+value.stats.Arcade.hitw_record_q+"\nBest Finals Score: "+value.stats.Arcade.hitw_record_f+"\n\nQ/F Total: "+total+"```");
+    W = value.stats.Arcade.wins_hole_in_the_wall;
+    if (W == null) W = 0;
+    R = value.stats.Arcade.rounds_hole_in_the_wall;
+    if (R == null) R = 0;
+    Q = value.stats.Arcade.hitw_record_q;
+    if (Q == null) Q = 0;
+    F = value.stats.Arcade.hitw_record_f;
+    if (F == null) F = 0;
+
+    total = Number(Q)+Number(F);
+    msg.channel.send("```yml\nHitW Stats: "+value.displayname+"\n\nWins: "+String(W).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"\nRounds Played: "+String(R).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"\n\nBest Qualification Score: "+Q+"\nBest Finals Score: "+F+"\n\nQ/F Total: "+total+"```");
 }
 
 //====================================================
@@ -181,7 +212,7 @@ async function tracker() {
                 if (err) {
                     return console.log(err);
                 }
-                hypixel.getPlayerByUsername(file).then(value => {
+                hypixel.getPlayer(file).then(value => {
                     fs.readFile('tracked player/'+file+"/Q", 'utf8', function (err2,score) {
                         if (err2) {
                             return console.log(err2);
