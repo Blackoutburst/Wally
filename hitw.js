@@ -8,8 +8,8 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const client = new Discord.Client();
 const Hypixel = require('node-hypixel');
-const hypixel = new Hypixel('api key');
-const token = 'token';
+const hypixel = new Hypixel('hypixel api key');
+const token = 'discord bot token';
 const serverid = 'server id';
 
 var requestSend = 0;
@@ -21,8 +21,8 @@ var requestSend = 0;
 client.on('message', msg => {
     if (msg.author.bot)return;
 
-    if (msg.content === "!role" && msg.author.id === '160854225943789569')showRole(msg);
-    if (msg.content === "!guild" && msg.author.id === '160854225943789569')showGuild(msg);
+    if (msg.content === "!role" && msg.author.id === 'bot owner id')showRole(msg);
+    if (msg.content === "!guild" && msg.author.id === 'bot owner id')showGuild(msg);
 
     if (msg.content === "!help")showHelp(msg);
     if (msg.content === "!pack")givePackLink(msg);
@@ -31,7 +31,7 @@ client.on('message', msg => {
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!linked")showLinkedPlayer(msg);
     if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!link") && msg.content !== "!linked")linkPlayer(msg);
     if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!unlink"))unlinkPlayer(msg);
-    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!ping")showPing(msg);
+    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!ping" || msg.author.id === 'bot owner id' &&  msg.content === "!ping")showPing(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!track") && msg.content !== "!tracked")startTracking(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!stop"))stopTracking(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') && msg.content.startsWith("!settracker"))setTracker(msg);
@@ -48,13 +48,11 @@ client.on('guildMemberAdd', (guildMember) => {
 
 async function autoSetRole(msg, discord, ign) {
     var uuid = "";
-    var user = msg.mentions.members.first();
-
+    var user = client.guilds.get(serverid).members.get(discord);
     if(requestSend >= 119){
         msg.reply("Ammount of request per minute reach please try again in one minute");
         return;
     }
-
     request('https://api.mojang.com/users/profiles/minecraft/'+ign, function (error, response, body) {
         if (body == "")msg.reply("Player not found");
         if (!error && response.statusCode == 200) {
@@ -62,7 +60,7 @@ async function autoSetRole(msg, discord, ign) {
             hypixel.getPlayer(uuid[7]).then(player => {
                 requestSend++;
                 console.log("Request count : "+requestSend);
-                if (fs.existsSync('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1))) {
+                if (fs.existsSync('linked player/'+uuid[7]+","+discord)) {
                     if (player.stats.Arcade.hitw_record_q >= 350 || player.stats.Arcade.hitw_record_f >= 350){user.addRole(msg.guild.roles.find(r => r.name === "350+ Club"));return;}
                     if (player.stats.Arcade.hitw_record_q >= 300 || player.stats.Arcade.hitw_record_f >= 300){user.addRole(msg.guild.roles.find(r => r.name === "300+ Club"));return;}
                     if (player.stats.Arcade.hitw_record_q >= 250 || player.stats.Arcade.hitw_record_f >= 250){user.addRole(msg.guild.roles.find(r => r.name === "250+ Club"));return;}
@@ -74,7 +72,6 @@ async function autoSetRole(msg, discord, ign) {
             });
         }
     });
-
 }
 
 //====================================================
@@ -139,19 +136,20 @@ async function linkPlayer(msg) {
         msg.reply('Improper command usage **!link @user IGN**');
         return;
     }
-    discord = String(msg.mentions.users.first());
+    //discord = String(msg.mentions.users.first());
+    discord = str[1]
     ign = str[2];
 
     request('https://api.mojang.com/users/profiles/minecraft/'+ign, function (error, response, body) {
         if (body == "")msg.reply("Player not found");
         if (!error && response.statusCode == 200) {
             uuid = body.split("\"");
-            if (fs.existsSync('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1))) {
+            if (fs.existsSync('linked player/'+uuid[7]+","+discord)) {
                 msg.reply('User already linked!');
                 return;
             }
-            fs.mkdir('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1), function(err) {});
-            msg.channel.send(discord+" successfully linked to "+uuid[3]);
+            fs.mkdir('linked player/'+uuid[7]+","+discord, function(err) {});
+            msg.channel.send("<@"+discord+"> successfully linked to "+uuid[3]);
             autoSetRole(msg, discord, ign);
         }
     });
