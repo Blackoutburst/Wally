@@ -20,9 +20,11 @@ var requestSend = 0;
 
 client.on('message', msg => {
     if (msg.author.bot)return;
+    if (msg.member === null) return;
 
-    if (msg.content === "!role" && msg.author.id === 'bot owner id')showRole(msg);
-    if (msg.content === "!guild" && msg.author.id === 'bot owner id')showGuild(msg);
+    if (msg.content === "!role" && msg.author.id === 'owner id')showRole(msg);
+    if (msg.content === "!guild" && msg.author.id === 'owner id')showGuild(msg);
+    if (msg.content.startsWith("!say") && msg.author.id === 'owner id')talk(msg);
 
     if (msg.content === "!help")showHelp(msg);
     if (msg.content === "!pack")givePackLink(msg);
@@ -31,12 +33,21 @@ client.on('message', msg => {
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!linked")showLinkedPlayer(msg);
     if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!link") && msg.content !== "!linked")linkPlayer(msg);
     if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!unlink"))unlinkPlayer(msg);
-    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!ping" || msg.author.id === 'bot owner id' &&  msg.content === "!ping")showPing(msg);
+    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!ping" || msg.author.id === 'owner id' &&  msg.content === "!ping")showPing(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!track") && msg.content !== "!tracked")startTracking(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!stop"))stopTracking(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') && msg.content.startsWith("!settracker"))setTracker(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') && msg.content.startsWith("!showtracker"))showTracker(msg);
 });
+
+//====================================================
+//                                                   DUMB STUFF
+//====================================================
+
+function talk(msg) {
+    msg.channel.send(msg.content.replace("!say", ""))
+    msg.delete();
+}
 
 //====================================================
 //                                           AUTO SET ROLE FUNCTION
