@@ -12,6 +12,8 @@ const hypixel = new Hypixel('hypixel api key');
 const token = 'bot token';
 const serverid = 'server id';
 
+var requestSend = 0;
+
 //====================================================
 //                                                   BOT COMMANDS
 //====================================================
@@ -48,12 +50,18 @@ async function autoSetRole(msg, discord, ign) {
     var uuid = "";
     var user = msg.mentions.members.first();
 
+    if(requestSend >= 119){
+        msg.reply("Ammount of request per minute reach please try again in one minute");
+        return;
+    }
 
     request('https://api.mojang.com/users/profiles/minecraft/'+ign, function (error, response, body) {
         if (body == "")msg.reply("Player not found");
         if (!error && response.statusCode == 200) {
             uuid = body.split("\"");
             hypixel.getPlayer(uuid[7]).then(player => {
+                requestSend++;
+                console.log("Request count : "+requestSend);
                 if (fs.existsSync('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1))) {
                     if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 350){user.addRole(msg.guild.roles.find(r => r.name === "350+ Club"));return;}
                     if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 300){user.addRole(msg.guild.roles.find(r => r.name === "300+ Club"));return;}
@@ -105,18 +113,16 @@ async function unlinkPlayer(msg) {
         if (body == "")msg.reply("Player not found");
         if (!error && response.statusCode == 200) {
             uuid = body.split("\"");
-            hypixel.getPlayer(uuid[7]).then(player => {
-                if (!fs.existsSync('linked player/'+uuid[7]+","+discordFolder)) {
-                    msg.reply('User not linked!');
-                    return;
+            if (!fs.existsSync('linked player/'+uuid[7]+","+discordFolder)) {
+                msg.reply('User not linked!');
+                return;
+            }
+            fs.rmdirSync('linked player/'+uuid[7]+","+discordFolder), { recursive: true }, (err) => {
+                if (err) {
+                    throw err;
                 }
-                fs.rmdirSync('linked player/'+uuid[7]+","+discordFolder), { recursive: true }, (err) => {
-                    if (err) {
-                        throw err;
-                    }
-                }
-                msg.channel.send("Successfully unlinked "+discord+" from "+player.displayname);
-            });
+            }
+            msg.channel.send("Successfully unlinked "+discord+" from "+uuid[3]);
         }
     });
 }
@@ -136,19 +142,17 @@ async function linkPlayer(msg) {
     discord = String(msg.mentions.users.first());
     ign = str[2];
 
-    request('https://api.mojang.com/users/profiles/minecraft/'+str[2], function (error, response, body) {
+    request('https://api.mojang.com/users/profiles/minecraft/'+ign, function (error, response, body) {
         if (body == "")msg.reply("Player not found");
         if (!error && response.statusCode == 200) {
             uuid = body.split("\"");
-            hypixel.getPlayer(uuid[7]).then(player => {
-                if (fs.existsSync('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1))) {
-                    msg.reply('User already linked!');
-                    return;
-                }
-                fs.mkdir('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1), function(err) {});
-                msg.channel.send(discord+" successfully linked to "+player.displayname);
-                autoSetRole(msg, discord, ign);
-            });
+            if (fs.existsSync('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1))) {
+                msg.reply('User already linked!');
+                return;
+            }
+            fs.mkdir('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1), function(err) {});
+            msg.channel.send(discord+" successfully linked to "+uuid[3]);
+            autoSetRole(msg, discord, ign);
         }
     });
 }
@@ -165,17 +169,15 @@ async function stopTracking(msg) {
     request('https://api.mojang.com/users/profiles/minecraft/'+str[1], function (error, response, body) {
         if (!error && response.statusCode == 200) {
             uuid = body.split("\"");
-            hypixel.getPlayer(uuid[7]).then(player => {
-                if (!fs.existsSync('tracked player/'+uuid[7])) {
-                    msg.reply('User not tracked!');
-                    return;
-                }
-                fs.rmdir('tracked player/'+uuid[7], { recursive: true }, (err) => {
-                if (err) {
-                    throw err;
-                }
-                    msg.channel.send("Stopped tracking "+player.displayname+"'s personnal best!");
-                });
+            if (!fs.existsSync('tracked player/'+uuid[7])) {
+                msg.reply('User not tracked!');
+                return;
+            }
+            fs.rmdir('tracked player/'+uuid[7], { recursive: true }, (err) => {
+            if (err) {
+                throw err;
+            }
+                msg.channel.send("Stopped tracking "+uuid[3]+"'s personnal best!");
             });
         }
     });
@@ -189,6 +191,10 @@ async function startTracking(msg) {
     var F = 0;
     var uuid = "";
 
+    if(requestSend >= 119){
+        msg.reply("Ammount of request per minute reach please try again in one minute");
+        return;
+    }
     if (!fs.existsSync("tracker")) {
         msg.reply("Before tracking any player please set a tracking channel with **!settracker** !");
         return;
@@ -203,6 +209,8 @@ async function startTracking(msg) {
         if (!error && response.statusCode == 200) {
             uuid = body.split("\"");
             hypixel.getPlayer(uuid[7]).then(player => {
+                requestSend++;
+                console.log("Request count : "+requestSend);
                 if (player == null || typeof player.stats.Arcade === 'undefined') {
                     msg.reply("Player not found");
                     return;
@@ -235,9 +243,13 @@ async function showLinkedPlayer(msg)  {
         files.forEach(file => {
                 var str = file.split(",");
                 var disc = client.guilds.get(serverid).members.get(str[1]);
-                hypixel.getPlayer(str[0]).then(player => {
-                    playerlist += disc.displayName+" : "+player.displayname+'\n';
-                    m.edit(playerlist+"```");
+                request('https://sessionserver.mojang.com/session/minecraft/profile/'+str[0], function (error, response, body) {
+                    if (body == "")msg.reply("Player not found");
+                    if (!error && response.statusCode == 200) {
+                        var name = body.split("\"");
+                        playerlist += disc.displayName+" : "+name[7]+'\n';
+                        m.edit(playerlist+"```");
+                }
             });
         });
     });
@@ -251,9 +263,13 @@ async function showTrackedPlayer(msg) {
 
     fs.readdir("tracked player", (err, files) => {
         files.forEach(file => {
-                hypixel.getPlayer(file).then(player => {
-                    playerlist += player.displayname+" : "+file+'\n';
+            request('https://sessionserver.mojang.com/session/minecraft/profile/'+file, function (error, response, body) {
+                if (body == "")msg.reply("Player not found");
+                if (!error && response.statusCode == 200) {
+                    var name = body.split("\"");
+                    playerlist += name[7]+" : "+file+'\n';
                     m.edit(playerlist+"```");
+                }
             });
         });
     });
@@ -312,12 +328,19 @@ async function showStats(msg) {
     var W = 0;
     var R = 0;
 
+    if(requestSend >= 119){
+        msg.reply("Ammount of request per minute reach please try again in one minute");
+        return;
+    }
+
     if (str[1] == null) {
         msg.reply('Improper command usage please try **!stats player**');
         return;
     }
     player = str[1];
     value = await hypixel.getPlayerByUsername(player);
+    requestSend++;
+    console.log("Request count : "+requestSend);
     if (value == null) {
         msg.reply('Player not found!');
         return;
@@ -344,6 +367,7 @@ async function tracker() {
     var Q = 0;
     var F = 0;
 
+    console.log("Tracking player pb current request this minute : "+requestSend);
     if (!fs.existsSync("tracker"))return;
     fs.readdir("tracked player", (err, files) => {
         files.forEach(file => {
@@ -351,44 +375,68 @@ async function tracker() {
                 if (err) {
                     return console.log(err);
                 }
-                hypixel.getPlayer(file).then(value => {
-                    fs.readFile('tracked player/'+file+"/Q", 'utf8', function (err2,score) {
-                        if (err2) {
-                            return console.log(err2);
-                        }
-                        Q = value.stats.Arcade.hitw_record_q;
-                        if (Q == null) Q = 0;
-                        if (Number(Q) > Number(score)) {
-                            client.channels.get(data.replace('<#', "").slice(0, -1)).send("**"+value.displayname+"** made a new **qualification** personnal record of **"+Q+"** !");
-                            fs.writeFileSync('tracked player/'+file+"/Q", Q);
-                            fs.readdir("linked player", (err, F1) => {
-                                F1.forEach(F2 => {
-                                    if (String(F2).startsWith(file)) {
-                                        var usr = F2.split(",");
-                                        var serv = client.guilds.get(serverid);
-                                        var disc = client.guilds.get(serverid).members.get(usr[1]);
-                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 350){disc.addRole(serv.roles.find(r => r.name === "350+ Club"));disc.removeRole(serv.roles.find(r => r.name === "300+ Club"));disc.removeRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
-                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 300){disc.addRole(serv.roles.find(r => r.name === "300+ Club"));disc.removeRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
-                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 250){disc.addRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
-                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 200){disc.addRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
-                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 150){disc.addRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
-                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 100){disc.addRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
-                                        if ((value.stats.Arcade.hitw_record_q || value.stats.Arcade.hitw_record_f) >= 50){disc.addRole(serv.roles.find(r => r.name === "50+ Club"));return;}
-                                    }
+                sleep(500).then(k => {
+                    if(requestSend >= 119) {
+                        console.log("Tracker failled to get everyone request limit reached");
+                        return;
+                    }
+                    hypixel.getPlayer(file).then(value => {
+                        requestSend++;
+                        console.log("Request count : "+requestSend);
+                        fs.readFile('tracked player/'+file+"/Q", 'utf8', function (err2,score) {
+                            if (err2) {
+                                return console.log(err2);
+                            }
+                            Q = value.stats.Arcade.hitw_record_q;
+                            if (Q == null) Q = 0;
+                            if (Number(Q) > Number(score)) {
+                                client.channels.get(data.replace('<#', "").slice(0, -1)).send("**"+value.displayname+"** made a new **qualification** personnal record of **"+Q+"** !");
+                                fs.writeFileSync('tracked player/'+file+"/Q", Q);
+                                fs.readdir("linked player", (err, F1) => {
+                                    F1.forEach(F2 => {
+                                        if (String(F2).startsWith(file)) {
+                                            var usr = F2.split(",");
+                                            var serv = client.guilds.get(serverid);
+                                            var disc = client.guilds.get(serverid).members.get(usr[1]);
+                                            if (value.stats.Arcade.hitw_record_q >= 350){disc.addRole(serv.roles.find(r => r.name === "350+ Club"));disc.removeRole(serv.roles.find(r => r.name === "300+ Club"));disc.removeRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_q >= 300){disc.addRole(serv.roles.find(r => r.name === "300+ Club"));disc.removeRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_q >= 250){disc.addRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_q >= 200){disc.addRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_q >= 150){disc.addRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_q >= 100){disc.addRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_q >= 50){disc.addRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                        }
+                                    });
                                 });
-                            });
-                        }
-                    });
-                    fs.readFile('tracked player/'+file+"/F", 'utf8', function (err2,score) {
-                        if (err2) {
-                            return console.log(err2);
-                        }
-                        F = value.stats.Arcade.hitw_record_f;
-                        if (F == null) F = 0;
-                        if (Number(F) > Number(score)) {
-                            client.channels.get(data.replace('<#', "").slice(0, -1)).send("**"+value.displayname+"** made a new **final** personnal record of **"+F+"** !");
-                            fs.writeFileSync('tracked player/'+file+"/F", F);
-                        }
+                            }
+                        });
+                        fs.readFile('tracked player/'+file+"/F", 'utf8', function (err2,score) {
+                            if (err2) {
+                                return console.log(err2);
+                            }
+                            F = value.stats.Arcade.hitw_record_f;
+                            if (F == null) F = 0;
+                            if (Number(F) > Number(score)) {
+                                client.channels.get(data.replace('<#', "").slice(0, -1)).send("**"+value.displayname+"** made a new **final** personnal record of **"+F+"** !");
+                                fs.writeFileSync('tracked player/'+file+"/F", F);
+                                fs.readdir("linked player", (err, F1) => {
+                                    F1.forEach(F2 => {
+                                        if (String(F2).startsWith(file)) {
+                                            var usr = F2.split(",");
+                                            var serv = client.guilds.get(serverid);
+                                            var disc = client.guilds.get(serverid).members.get(usr[1]);
+                                            if (value.stats.Arcade.hitw_record_f >= 350){disc.addRole(serv.roles.find(r => r.name === "350+ Club"));disc.removeRole(serv.roles.find(r => r.name === "300+ Club"));disc.removeRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_f >= 300){disc.addRole(serv.roles.find(r => r.name === "300+ Club"));disc.removeRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_f >= 250){disc.addRole(serv.roles.find(r => r.name === "250+ Club"));disc.removeRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_f >= 200){disc.addRole(serv.roles.find(r => r.name === "200+ Club"));disc.removeRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_f >= 150){disc.addRole(serv.roles.find(r => r.name === "150+ Club"));disc.removeRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_f >= 100){disc.addRole(serv.roles.find(r => r.name === "100+ Club"));disc.removeRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                            if (value.stats.Arcade.hitw_record_f >= 50){disc.addRole(serv.roles.find(r => r.name === "50+ Club"));return;}
+                                        }
+                                    });
+                                });
+                            }
+                        });
                     });
                 });
             });
@@ -396,8 +444,24 @@ async function tracker() {
     });
 }
 
-//Check new PB every 60s (probably need modification later)
-setInterval(tracker, 60000);
+setInterval(tracker, 100000);
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+//====================================================
+//                                                 REQUEST COUNTER
+//====================================================
+
+function resetRequest() {
+    console.log("Request send during the previous minute : "+requestSend)
+    requestSend = 0;
+}
+
+setInterval(resetRequest, 60000);
 
 //====================================================
 //                                                       BOT LOGIN
