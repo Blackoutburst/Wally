@@ -396,8 +396,8 @@ async function tracker() {
     });
 }
 
-//Check new PB every 10s (probably need modification later)
-setInterval(tracker, 10000);
+//Check new PB every 60s (probably need modification later)
+setInterval(tracker, 60000);
 
 //====================================================
 //                                                       BOT LOGIN
