@@ -8,8 +8,8 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const client = new Discord.Client();
 const Hypixel = require('node-hypixel');
-const hypixel = new Hypixel('hypixel api key');
-const token = 'bot token';
+const hypixel = new Hypixel('api key');
+const token = 'token';
 const serverid = 'server id';
 
 var requestSend = 0;
@@ -63,13 +63,13 @@ async function autoSetRole(msg, discord, ign) {
                 requestSend++;
                 console.log("Request count : "+requestSend);
                 if (fs.existsSync('linked player/'+uuid[7]+","+discord.replace('<@', "").slice(0, -1))) {
-                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 350){user.addRole(msg.guild.roles.find(r => r.name === "350+ Club"));return;}
-                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 300){user.addRole(msg.guild.roles.find(r => r.name === "300+ Club"));return;}
-                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 250){user.addRole(msg.guild.roles.find(r => r.name === "250+ Club"));return;}
-                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 200){user.addRole(msg.guild.roles.find(r => r.name === "200+ Club"));return;}
-                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 150){user.addRole(msg.guild.roles.find(r => r.name === "150+ Club"));return;}
-                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 100){user.addRole(msg.guild.roles.find(r => r.name === "100+ Club"));return;}
-                    if ((player.stats.Arcade.hitw_record_q || player.stats.Arcade.hitw_record_f) >= 50){user.addRole(msg.guild.roles.find(r => r.name === "50+ Club"));return;}
+                    if (player.stats.Arcade.hitw_record_q >= 350 || player.stats.Arcade.hitw_record_f >= 350){user.addRole(msg.guild.roles.find(r => r.name === "350+ Club"));return;}
+                    if (player.stats.Arcade.hitw_record_q >= 300 || player.stats.Arcade.hitw_record_f >= 300){user.addRole(msg.guild.roles.find(r => r.name === "300+ Club"));return;}
+                    if (player.stats.Arcade.hitw_record_q >= 250 || player.stats.Arcade.hitw_record_f >= 250){user.addRole(msg.guild.roles.find(r => r.name === "250+ Club"));return;}
+                    if (player.stats.Arcade.hitw_record_q >= 200 || player.stats.Arcade.hitw_record_f >= 200){user.addRole(msg.guild.roles.find(r => r.name === "200+ Club"));return;}
+                    if (player.stats.Arcade.hitw_record_q >= 150 || player.stats.Arcade.hitw_record_f >= 150){user.addRole(msg.guild.roles.find(r => r.name === "150+ Club"));return;}
+                    if (player.stats.Arcade.hitw_record_q >= 100 || player.stats.Arcade.hitw_record_f >= 100){user.addRole(msg.guild.roles.find(r => r.name === "100+ Club"));return;}
+                    if (player.stats.Arcade.hitw_record_q >= 50 || player.stats.Arcade.hitw_record_f >= 50){user.addRole(msg.guild.roles.find(r => r.name === "50+ Club"));return;}
                 }
             });
         }
