@@ -9,9 +9,9 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const client = new Discord.Client();
 const Hypixel = require('node-hypixel');
-const hypixel = new Hypixel('b9ca2097-103e-42fe-93fa-8808f11ed7e4');
-const token = 'NzU1NTU5NDQ0MDM2ODQ1NjAx.X2FDkQ.qeFXhybTvyyjWrLAK3cbWaiuH04';
-const serverid = '709521394848890880';
+const hypixel = new Hypixel('Hypixel api key');
+const token = 'Bot token';
+const serverid = 'server id';
 
 const width = 600;
 const height = 400;
@@ -25,10 +25,10 @@ client.on('message', msg => {
     if (msg.author.bot)return;
     if (msg.member === null) return;
 
-    if (msg.content === "!role" && msg.author.id === '160854225943789569')showRole(msg);
-    if (msg.content === "!guild" && msg.author.id === '160854225943789569')showGuild(msg);
-    if (msg.content.startsWith("!say") && msg.author.id === '160854225943789569')talk(msg);
-    if (msg.content.startsWith("!usr") && msg.author.id === '160854225943789569')getUsrRole(msg);
+    if (msg.content === "!role" && msg.author.id === 'ownerid')showRole(msg);
+    if (msg.content === "!guild" && msg.author.id === 'ownerid')showGuild(msg);
+    if (msg.content.startsWith("!say") && msg.author.id === 'ownerid')talk(msg);
+    if (msg.content.startsWith("!usr") && msg.author.id === 'ownerid')getUsrRole(msg);
 
     if (msg.content === "!help")showHelp(msg);
     if (msg.content === "!pack")givePackLink(msg);
@@ -36,10 +36,10 @@ client.on('message', msg => {
     if (msg.content.startsWith("!compare"))compare(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!tracked")showTrackedPlayer(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!linked")showLinkedPlayer(msg);
-    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!link") && msg.content !== "!linked" || msg.author.id === '160854225943789569' && msg.content.startsWith("!link") && msg.content !== "!linked")linkPlayer(msg);
+    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!link") && msg.content !== "!linked" || msg.author.id === 'ownerid' && msg.content.startsWith("!link") && msg.content !== "!linked")linkPlayer(msg);
     if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!unlink"))unlinkPlayer(msg);
-    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!ping" || msg.author.id === '160854225943789569' &&  msg.content === "!ping")showPing(msg);
-    if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!track") && msg.content !== "!tracked" || msg.author.id === '160854225943789569' && msg.content.startsWith("!track") && msg.content !== "!tracked")startTracking(msg);
+    if(msg.member.permissions.has('ADMINISTRATOR') &&  msg.content === "!ping" || msg.author.id === 'ownerid' &&  msg.content === "!ping")showPing(msg);
+    if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!track") && msg.content !== "!tracked" || msg.author.id === 'ownerid' && msg.content.startsWith("!track") && msg.content !== "!tracked")startTracking(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') &&  msg.content.startsWith("!stop"))stopTracking(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') && msg.content.startsWith("!settracker"))setTracker(msg);
     if (msg.member.permissions.has('ADMINISTRATOR') && msg.content.startsWith("!showtracker"))showTracker(msg);
