@@ -1,5 +1,8 @@
 # HitW-discord-bot
-A bot for track player PB in HitW on Hypixel
+A bot for tracking player personnal best in Hole in the Wall on Hypixel
 
 
-Nothing much to say for now we'll see if the project is gonna live or not
+
+
+i'll make a better readme later
+
