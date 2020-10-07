@@ -13,8 +13,10 @@ import commands.Stats;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Bot extends ListenerAdapter {
 	// Bot instance
@@ -30,11 +32,19 @@ public class Bot extends ListenerAdapter {
 		bot = JDABuilder.createDefault(token);
 		bot.setActivity(Activity.playing(activity));
 		bot.addEventListeners(new Bot());
+		bot.enableIntents(GatewayIntent.GUILD_MEMBERS);
 		bot.build();
+	}
+
+	@Override
+	public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+		if (event.getMember().getUser().isBot()) return;
+		event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("Members", false).get(0)).complete();
 	}
 	
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
+		if (event.getMember().getUser().isBot()) return;
 		if (!event.isFromType(ChannelType.PRIVATE)) {
 			if (event.getMessage().getContentDisplay().startsWith("!help"))
 				Help.display(event);
