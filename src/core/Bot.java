@@ -3,7 +3,10 @@ package core;
 
 import javax.security.auth.login.LoginException;
 
+import commands.Compare;
 import commands.Help;
+import commands.Pack;
+import commands.Ping;
 import commands.Stats;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -31,12 +34,16 @@ public class Bot extends ListenerAdapter {
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (!event.isFromType(ChannelType.PRIVATE)) {
-			if (event.getMessage().getContentDisplay().startsWith("!help")) {
+			if (event.getMessage().getContentDisplay().startsWith("!help"))
 				Help.display(event);
-			}
-			if (event.getMessage().getContentDisplay().startsWith("!stats")) {
+			if (event.getMessage().getContentDisplay().startsWith("!pack"))
+				Pack.display(event);
+			if (event.getMessage().getContentDisplay().startsWith("!stats"))
 				Stats.display(event);
-			}
+			if (event.getMessage().getContentDisplay().startsWith("!ping"))
+				Ping.display(event);
+			if (event.getMessage().getContentDisplay().startsWith("!compare"))
+				Compare.display(event);
 		}
     }
 	

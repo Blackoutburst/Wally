@@ -4,12 +4,6 @@ const args = process.argv.slice(2)
 const canvas = createCanvas(600, 400);
 const context = canvas.getContext('2d');
 
-var qualifications = args[1];
-var finals = args[2];
-var wins = args[3];
-var rounds = args[4];
-var total = Number(qualifications) + Number(finals);
-
 create();
 
 async function create() {
@@ -27,18 +21,21 @@ async function create() {
     context.drawImage(finIcon, 100, 255, 24, 24);
     context.drawImage(totalIcon, 100, 305, 24, 24);
 
-    const text = args[0]+' stats';
+    context.shadowColor = "black";
+    context.shadowBlur = 5;
+    context.shadowOffsetX = 3;
+    context.shadowOffsetY = 3;
     context.font = 'regular 24pt ';
     context.textAlign = 'center';
     context.fillStyle = '#fff';
-    context.fillText(text, 300, 40);
+    context.fillText(args[0]+' stats', 300, 40);
     context.font = 'regular 16pt ';
     context.textAlign = 'left';
-    context.fillText("Wins: "+wins, 150, 125);
-    context.fillText("Walls cleared: "+rounds, 150, 175);
-    context.fillText("Best qualification score: "+qualifications, 150, 225);
-    context.fillText("Best final score: "+finals, 150, 275);
-    context.fillText("Q/F total: "+total, 150, 325);
+    context.fillText("Wins: "+args[3], 150, 125);
+    context.fillText("Walls cleared: "+args[4], 150, 175);
+    context.fillText("Best qualification score: "+args[1], 150, 225);
+    context.fillText("Best final score: "+args[2], 150, 275);
+    context.fillText("Q/F total: "+args[5], 150, 325);
 
     const buffer = canvas.toBuffer('image/png');
     fs.writeFileSync('./stats.png', buffer);

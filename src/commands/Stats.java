@@ -25,6 +25,7 @@ public class Stats {
 		String finals = "";
 		String wins = "";
 		String rounds = "";
+		String total = "";
 		
 		if (msg.length < 2) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!stats player")).complete();
@@ -46,12 +47,14 @@ public class Stats {
 			if (value[i].contains("displayname"))
 				user = value[i].replace(" ", "").replace("\'", "").split(":")[1];
 		}
+		total = String.valueOf(Integer.valueOf(qualification) + Integer.valueOf(finals));
 		qualification = formatter.format(Double.parseDouble(qualification));
 		finals = formatter.format(Double.parseDouble(finals));
 		wins = formatter.format(Double.parseDouble(wins));
 		rounds = formatter.format(Double.parseDouble(rounds));
+		total = formatter.format(Double.parseDouble(total));
 		
-		createCanvas(user, qualification, finals, wins, rounds);
+		createCanvas(user, qualification, finals, wins, rounds, total);
 		event.getChannel().sendFile(new File("stats.png")).complete();
 	}
 	
@@ -87,8 +90,8 @@ public class Stats {
 	 * @param wins
 	 * @param rounds
 	 */
-	private static void createCanvas(String user, String qualification, String finals, String wins, String rounds) {
-		ProcessBuilder pb = new ProcessBuilder("node", "stats.js", user, qualification, finals, wins, rounds);
+	private static void createCanvas(String user, String qualification, String finals, String wins, String rounds, String total) {
+		ProcessBuilder pb = new ProcessBuilder("node", "stats.js", user, qualification, finals, wins, rounds, total);
 		
 		try {
 			Process p = pb.start();
