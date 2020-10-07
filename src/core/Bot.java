@@ -8,6 +8,7 @@ import commands.Config;
 import commands.Help;
 import commands.Pack;
 import commands.Ping;
+import commands.Say;
 import commands.SetTracker;
 import commands.Stats;
 import net.dv8tion.jda.api.JDABuilder;
@@ -64,6 +65,8 @@ public class Bot extends ListenerAdapter {
 				SetTracker.set(event);
 			if (event.getMessage().getContentDisplay().startsWith("!showtracker"))
 				SetTracker.show(event);
+			if (event.getMessage().getContentDisplay().startsWith("!say"))
+				Say.talk(event);
 		}
     }
 	
