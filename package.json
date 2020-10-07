@@ -1,0 +1,28 @@
+{
+  "name": "wally",
+  "version": "1.0.0",
+  "description": "Discord bot for HitW",
+  "main": "player_request.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blackoutburst/HitW-discord-bot.git"
+  },
+  "keywords": [
+    "HitW",
+    "discord",
+    "bot"
+  ],
+  "author": "Blackoutburst",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blackoutburst/HitW-discord-bot/issues"
+  },
+  "homepage": "https://github.com/Blackoutburst/HitW-discord-bot#readme",
+  "dependencies": {
+    "canvas": "^2.6.1",
+    "node-hypixel": "^1.0.1"
+  }
+}

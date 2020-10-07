@@ -12,11 +12,10 @@ public class Help {
 	 * @param event
 	 */
 	public static void display(MessageReceivedEvent event) {
-		System.out.println(event.getChannel());
 		if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
-			event.getChannel().sendMessage(Reader.read(Lines.help_admin)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.help_admin)).complete();
 		} else {
-			event.getChannel().sendMessage(Reader.read(Lines.help)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.help)).complete();
 		}
 	}
 }

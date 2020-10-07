@@ -6,7 +6,7 @@ import core.Bot;
 
 public class Main {
 	// Constant definition
-	private static final String TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	private static final String TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 	private static final String ACTIVITY = "!help";
 	
 	/**
