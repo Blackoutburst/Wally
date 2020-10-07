@@ -80,7 +80,7 @@ public class Stats {
 	}
 	
 	/**
-	 * Call canvas scripts and send result
+	 * Call canvas scripts
 	 * @param user
 	 * @param qualification
 	 * @param finals
