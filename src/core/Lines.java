@@ -25,4 +25,5 @@ public interface Lines {
 	public static final int config_update = 21;
 	public static final int compare_not_found = 22;
 	public static final int misssing_perms = 23;
+	public static final int tracker_unset = 24;
 }

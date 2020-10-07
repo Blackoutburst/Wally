@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Compare {
 	/**
-	 * Get user and set up value to create canvas
+	 * Get both user and set up value to create canvas
 	 * @param event
 	 */
 	public static void display(MessageReceivedEvent event) {

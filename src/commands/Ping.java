@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class Ping {
 	
 	/**
-	 * Display texture pack link
+	 * Display ping
 	 * @param event
 	 */
 	public static void display(MessageReceivedEvent event) {

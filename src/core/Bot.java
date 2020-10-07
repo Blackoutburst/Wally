@@ -4,9 +4,11 @@ package core;
 import javax.security.auth.login.LoginException;
 
 import commands.Compare;
+import commands.Config;
 import commands.Help;
 import commands.Pack;
 import commands.Ping;
+import commands.SetTracker;
 import commands.Stats;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -44,6 +46,14 @@ public class Bot extends ListenerAdapter {
 				Ping.display(event);
 			if (event.getMessage().getContentDisplay().startsWith("!compare"))
 				Compare.display(event);
+			if (event.getMessage().getContentDisplay().startsWith("!getconfig"))
+				Config.get(event);
+			if (event.getMessage().getContentDisplay().startsWith("!update"))
+				Config.update(event);
+			if (event.getMessage().getContentDisplay().startsWith("!settracker"))
+				SetTracker.set(event);
+			if (event.getMessage().getContentDisplay().startsWith("!showtracker"))
+				SetTracker.show(event);
 		}
     }
 	
