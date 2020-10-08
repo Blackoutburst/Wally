@@ -7,10 +7,10 @@ import javax.security.auth.login.LoginException;
 import core.Bot;
 
 public class Main {
-	// Constant definition
 	private static final String TOKEN = "X";
 	private static final String ACTIVITY = "!help";
 	public static final String bypassID = "X";
+	public static final String serverID = "X";
 	
 	/**
 	 *  Main
@@ -23,7 +23,7 @@ public class Main {
 		setup();
 		try {
 			bot.login(TOKEN, ACTIVITY);
-		} catch (LoginException e) {
+		} catch (LoginException | InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

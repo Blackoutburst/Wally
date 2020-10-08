@@ -36,6 +36,36 @@ public class Request {
 	}
 	
 	/**
+	 * Run JS file to get player information
+	 * @param user
+	 * @return player information
+	 * @see player_requestuuid.js
+	 * @author Blackoutburst
+	 */
+	public static String getPlayerInfoUUID(String uuid) {
+		Bot.request++;
+		if (Bot.request >= 119) {
+			return "API LIMITATION";
+		}
+		ProcessBuilder pb = new ProcessBuilder("node", "player_requestuuid.js", uuid);
+		
+		try {
+			Process p = pb.start();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			StringBuilder builder = new StringBuilder();
+			String line = null;
+			while ( (line = reader.readLine()) != null) {
+			   builder.append(line);
+			   builder.append(System.getProperty("line.separator"));
+			}
+			return builder.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return e.toString();
+		}
+	}
+	
+	/**
 	 * Use username to get user uuid (JS)
 	 * @param user
 	 * @return user UUID

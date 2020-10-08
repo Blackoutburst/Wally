@@ -1,6 +1,7 @@
 package core;
 
 
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,13 +19,18 @@ import commands.Say;
 import commands.SetTracker;
 import commands.Stats;
 import commands.Unlink;
+import main.Main;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.ChunkingFilter;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 public class Bot extends ListenerAdapter {
 	private JDABuilder bot;
@@ -36,12 +42,15 @@ public class Bot extends ListenerAdapter {
 	 * @param token
 	 * @param activity
 	 * @throws LoginException
+	 * @throws InterruptedException 
 	 * @author Blackoutburst
 	 */
-	public void login(String token, String activity) throws LoginException {
+	public void login(String token, String activity) throws LoginException, InterruptedException {
 		bot = JDABuilder.createDefault(token);
 		bot.setActivity(Activity.playing(activity));
 		bot.addEventListeners(new Bot());
+		bot.setChunkingFilter(ChunkingFilter.ALL);
+		bot.setMemberCachePolicy(MemberCachePolicy.ALL);
 		bot.enableIntents(GatewayIntent.GUILD_MEMBERS);
 		bot.build();
 		
@@ -53,9 +62,23 @@ public class Bot extends ListenerAdapter {
 		};
 		ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
 		exec.scheduleAtFixedRate(runnable , 0, 1, TimeUnit.MINUTES);
+		
 	}
 	
-
+	@Override
+    public void onGenericEvent(GenericEvent event)
+    {
+        if (event instanceof ReadyEvent) {
+        	Tracker tracker = new Tracker();
+        	tracker.server = event.getJDA().getGuildById(Main.serverID);
+        	try {
+        		tracker.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
+    }
+	
 	@Override
 	public void onGuildMemberJoin(GuildMemberJoinEvent event) {
 		if (event.getMember().getUser().isBot()) return;

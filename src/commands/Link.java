@@ -72,7 +72,7 @@ public class Link {
 				writer.write(finals);
 				writer.close();
 			
-			
+				setRole(Integer.valueOf(qualification), Integer.valueOf(finals), event);
 				event.getChannel().sendMessage(Reader.read(Lines.link).replace("%discord%", "<@"+discord+">").replace("%ign%", ign).replace("%q%", qualification).replace("%f%", finals)).complete();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -80,6 +80,24 @@ public class Link {
 			
 		} else {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+		}
+	}
+	
+	private static void setRole(int qualification, int finals, MessageReceivedEvent event) {
+		if (qualification > 350 || finals > 350) {
+			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("350+ Club", false).get(0)).complete();
+		} else if (qualification > 300 || finals > 300) {
+			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("300+ Club", false).get(0)).complete();
+		} else if (qualification > 250 || finals > 250) {
+			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("250+ Club", false).get(0)).complete();
+		} else if (qualification > 200 || finals > 200) {
+			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("200+ Club", false).get(0)).complete();
+		} else if (qualification > 150 || finals > 150) {
+			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("150+ Club", false).get(0)).complete();
+		} else if (qualification > 100 || finals > 100) {
+			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("100+ Club", false).get(0)).complete();
+		} else if (qualification > 50 || finals > 50) {
+			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("50+ Club", false).get(0)).complete();
 		}
 	}
 }
