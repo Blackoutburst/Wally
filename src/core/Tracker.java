@@ -42,19 +42,29 @@ public class Tracker {
 							System.out.println("Tracker aborted due to api limiation");
 							break;
 						}
-						value = output.split(",");
+						value = output.split("\n");
 						for (int i = 0; i < value.length; i++) {
-							if (value[i].contains("hitw_record_q"))
+							if (value[i].contains("hitw_record_q")) {
 								qualification = value[i].replace(" ", "").split(":")[1];
-							if (value[i].contains("hitw_record_f"))
+								qualification = qualification.substring(0, qualification.length()-2);
+							}
+							if (value[i].contains("hitw_record_f")) {
 								finals = value[i].replace(" ", "").split(":")[1];
-							if (value[i].contains("displayname"))
+								finals = finals.substring(0, finals.length()-2);
+							}
+							if (value[i].contains("displayname")) {
 								user = value[i].replace(" ", "").replace("\'", "").split(":")[1];
+								user = user.substring(0, user.length()-2);
+							}
 						}
 						currentQualification = readValue(f+"/Q");
 						currentFinals = readValue(f+"/F");
 						discord = readValue(f+"/discord");
 						role_level = getRoleLevel(discord);
+						if (role_level == -1) {
+							System.out.println("Skipping...");
+							continue;
+						}
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user);
 						delay(1000);
 					}
@@ -151,8 +161,8 @@ public class Tracker {
 		try {
 			roles = server.getMemberById(discord).getRoles();
 		} catch(Exception e) {
-			System.out.println("User probably leave the server "+discord);
-			return 0;
+			System.out.println("User leaved the server "+discord);
+			return -1;
 		}
 		
 		
