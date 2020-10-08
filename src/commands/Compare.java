@@ -144,10 +144,10 @@ public class Compare {
 
 		ProcessBuilder pb = new ProcessBuilder("node", "compare.js", user, qualification, finals, wins, rounds, total, 
 		user2, qualification2, finals2, wins2, rounds2, total2, 
-		formatter.format(Double.parseDouble(q)), formatter.format(Double.parseDouble(f)), 
-		formatter.format(Double.parseDouble(w)), formatter.format(Double.parseDouble(r)), formatter.format(Double.parseDouble(t)),
-		formatter.format(-Double.parseDouble(q)), formatter.format(-Double.parseDouble(f)), 
-		formatter.format(-Double.parseDouble(w)), formatter.format(-Double.parseDouble(r)), formatter.format(-Double.parseDouble(t)));
+		formatter.format(Double.parseDouble(q)).replace(" ", " "), formatter.format(Double.parseDouble(f)).replace(" ", " "), 
+		formatter.format(Double.parseDouble(w)).replace(" ", " "), formatter.format(Double.parseDouble(r)).replace(" ", " "), formatter.format(Double.parseDouble(t)).replace(" ", " "),
+		formatter.format(-Double.parseDouble(q)).replace(" ", " "), formatter.format(-Double.parseDouble(f)).replace(" ", " "), 
+		formatter.format(-Double.parseDouble(w)).replace(" ", " "), formatter.format(-Double.parseDouble(r)).replace(" ", " "), formatter.format(-Double.parseDouble(t)).replace(" ", " "));
 		
 		try {
 			Process p = pb.start();
