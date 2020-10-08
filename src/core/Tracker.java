@@ -151,8 +151,7 @@ public class Tracker {
 		try {
 			roles = server.getMemberById(discord).getRoles();
 		} catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("User probably leave the server" + discord);
+			System.out.println("User probably leave the server "+discord);
 		}
 		
 		
