@@ -45,16 +45,14 @@ public class Tracker {
 						value = output.split("\n");
 						for (int i = 0; i < value.length; i++) {
 							if (value[i].contains("hitw_record_q")) {
-								qualification = value[i].replace(" ", "").split(":")[1];
-								qualification = qualification.substring(0, qualification.length()-2);
+								qualification = value[i].replaceAll("[^0-9]", "");
 							}
 							if (value[i].contains("hitw_record_f")) {
-								finals = value[i].replace(" ", "").split(":")[1];
-								finals = finals.substring(0, finals.length()-2);
+								finals = value[i].replaceAll("[^0-9]", "");
 							}
 							if (value[i].contains("displayname")) {
 								user = value[i].replace(" ", "").replace("\'", "").split(":")[1];
-								user = user.substring(0, user.length()-2);
+								user = user.substring(0, user.length()-1);
 							}
 						}
 						currentQualification = readValue(f+"/Q");

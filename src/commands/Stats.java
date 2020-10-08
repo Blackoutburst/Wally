@@ -40,24 +40,19 @@ public class Stats {
 		value = output.split("\n");
 		for (int i = 0; i < value.length; i++) {
 			if (value[i].contains("hitw_record_q")) {
-				qualification = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
-				qualification = qualification.substring(0, qualification.length()-1);
+				qualification = value[i].replaceAll("[^0-9]", "");
 			}
 			if (value[i].contains("hitw_record_f")) {
-				finals = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
-				finals = finals.substring(0, finals.length()-1);
+				finals = value[i].replaceAll("[^0-9]", "");
 			}
 			if (value[i].contains("rounds_hole_in_the_wall")) {
-				rounds = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
-				rounds = rounds.substring(0, rounds.length()-1);
+				rounds = value[i].replaceAll("[^0-9]", "");
 			}
 			if (value[i].contains("displayname")) {
 				user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
-				user = user.substring(0, user.length()-1);
 			}
 			if (value[i].contains("wins_hole_in_the_wall")) {
-				wins = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
-				wins = wins.substring(0, wins.length()-1);
+				wins = value[i].replaceAll("[^0-9]", "");
 			}
 		}
 		
