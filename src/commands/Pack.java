@@ -12,6 +12,7 @@ public class Pack {
 	/**
 	 * Display texture pack link
 	 * @param event
+	 * @author Blackoutburst
 	 */
 	public static void display(MessageReceivedEvent event) {
 		List<GuildChannel> chan = event.getGuild().getChannels();
@@ -23,8 +24,6 @@ public class Pack {
 				break;
 			}
 		}
-		
-		
 		event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.pack).replace("%link%", "<#"+pack.getId()+">")).complete();
 	}
 }

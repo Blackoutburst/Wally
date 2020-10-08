@@ -1,19 +1,19 @@
 package commands;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 
 import core.Lines;
 import core.Reader;
+import core.Request;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Compare {
 	/**
 	 * Get both user and set up value to create canvas
 	 * @param event
+	 * @author Blackoutburst
 	 */
 	public static void display(MessageReceivedEvent event) {
 		DecimalFormat formatter = new DecimalFormat("###,###.##");
@@ -40,10 +40,18 @@ public class Compare {
 			return;
 		}
 		user = msg[1];
-		output = getPlayerInfo(user);
+		output = Request.getPlayerInfo(user);
+		if (output.equals("API LIMITATION")) {
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();
+			return;
+		}
 		value = output.split(",");
 		user2 = msg[2];
-		output2 = getPlayerInfo(user2);
+		output2 = Request.getPlayerInfo(user2);
+		if (output2.equals("API LIMITATION")) {
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();
+			return;
+		}
 		value2 = output2.split(",");
 		
 		for (int i = 0; i < value.length; i++) {
@@ -89,41 +97,21 @@ public class Compare {
 	}
 	
 	/**
-	 * Run JS file to get player information
-	 * @param user
-	 * @return
-	 */
-	private static String getPlayerInfo(String user) {
-		ProcessBuilder pb = new ProcessBuilder("node", "player_request.js", user);
-		
-		try {
-			Process p = pb.start();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			StringBuilder builder = new StringBuilder();
-			String line = null;
-			while ( (line = reader.readLine()) != null) {
-			   builder.append(line);
-			   builder.append(System.getProperty("line.separator"));
-			}
-			return builder.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return e.toString();
-		}
-	}
-	
-	/**
-	 * Create canvas script
+	 * Create canvas script (JS)
 	 * @param user
 	 * @param qualification
 	 * @param finals
 	 * @param wins
 	 * @param rounds
+	 * @param total
 	 * @param user2
 	 * @param qualification2
 	 * @param finals2
 	 * @param wins2
 	 * @param rounds2
+	 * @param total2
+	 * @see compare.js
+	 * @author Blackoutburst
 	 */
 	private static void createCanvas(String user, String qualification, String finals, String wins, String rounds, String total, 
 	String user2, String qualification2, String finals2, String wins2, String rounds2, String total2) {
@@ -147,7 +135,5 @@ public class Compare {
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
 }

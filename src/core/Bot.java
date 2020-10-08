@@ -1,16 +1,23 @@
 package core;
 
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import javax.security.auth.login.LoginException;
 
 import commands.Compare;
 import commands.Config;
 import commands.Help;
+import commands.Link;
+import commands.Linked;
 import commands.Pack;
 import commands.Ping;
 import commands.Say;
 import commands.SetTracker;
 import commands.Stats;
+import commands.Unlink;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -20,14 +27,16 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Bot extends ListenerAdapter {
-	// Bot instance
 	private JDABuilder bot;
+	
+	public static int request = 0;
 	
 	/**
 	 * Log the bot and set the activity
 	 * @param token
 	 * @param activity
 	 * @throws LoginException
+	 * @author Blackoutburst
 	 */
 	public void login(String token, String activity) throws LoginException {
 		bot = JDABuilder.createDefault(token);
@@ -35,7 +44,17 @@ public class Bot extends ListenerAdapter {
 		bot.addEventListeners(new Bot());
 		bot.enableIntents(GatewayIntent.GUILD_MEMBERS);
 		bot.build();
+		
+		Runnable runnable = new Runnable() {
+		    public void run() {
+		    	System.out.println("Request send last minute: "+request);
+		        request = 0;
+		    }
+		};
+		ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+		exec.scheduleAtFixedRate(runnable , 0, 1, TimeUnit.MINUTES);
 	}
+	
 
 	@Override
 	public void onGuildMemberJoin(GuildMemberJoinEvent event) {
@@ -67,7 +86,12 @@ public class Bot extends ListenerAdapter {
 				SetTracker.show(event);
 			if (event.getMessage().getContentDisplay().startsWith("!say"))
 				Say.talk(event);
+			if (event.getMessage().getContentDisplay().startsWith("!link") && !event.getMessage().getContentDisplay().contains("!linked"))
+				Link.link(event);
+			if (event.getMessage().getContentDisplay().startsWith("!unlink"))
+				Unlink.unlink(event);
+			if (event.getMessage().getContentDisplay().startsWith("!linked"))
+				Linked.display(event);
 		}
     }
-	
 }

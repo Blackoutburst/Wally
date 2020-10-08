@@ -9,7 +9,8 @@ public class Reader {
 	/**
 	 *  Get specific line argument after :
 	 * @param line
-	 * @return
+	 * @return line read
+	 * @author Blackoutburst
 	 */
 	public static String read(int line) {
 		try {

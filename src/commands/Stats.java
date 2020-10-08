@@ -1,19 +1,19 @@
 package commands;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 
 import core.Lines;
 import core.Reader;
+import core.Request;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Stats {
 	/**
 	 * Get user and set up value to create canvas
 	 * @param event
+	 * @author Blackoutburst
 	 */
 	public static void display(MessageReceivedEvent event) {
 		DecimalFormat formatter = new DecimalFormat("###,###.##");
@@ -32,7 +32,11 @@ public class Stats {
 			return;
 		}
 		user = msg[1];
-		output = getPlayerInfo(user);
+		output = Request.getPlayerInfo(user);
+		if (output.equals("API LIMITATION")) {
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();
+			return;
+		}
 		value = output.split(",");
 		
 		for (int i = 0; i < value.length; i++) {
@@ -53,42 +57,20 @@ public class Stats {
 		wins = formatter.format(Double.parseDouble(wins));
 		rounds = formatter.format(Double.parseDouble(rounds));
 		total = formatter.format(Double.parseDouble(total));
-		
+
 		createCanvas(user, qualification, finals, wins, rounds, total);
 		event.getChannel().sendFile(new File("stats.png")).complete();
 	}
 	
 	/**
-	 * Run JS file to get player information
-	 * @param user
-	 * @return
-	 */
-	private static String getPlayerInfo(String user) {
-		ProcessBuilder pb = new ProcessBuilder("node", "player_request.js", user);
-		
-		try {
-			Process p = pb.start();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			StringBuilder builder = new StringBuilder();
-			String line = null;
-			while ( (line = reader.readLine()) != null) {
-			   builder.append(line);
-			   builder.append(System.getProperty("line.separator"));
-			}
-			return builder.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return e.toString();
-		}
-	}
-	
-	/**
-	 * Call canvas scripts
+	 * Call canvas scripts (JS)
 	 * @param user
 	 * @param qualification
 	 * @param finals
 	 * @param wins
 	 * @param rounds
+	 * @see stats.js
+	 * @author Blackoutburst
 	 */
 	private static void createCanvas(String user, String qualification, String finals, String wins, String rounds, String total) {
 		ProcessBuilder pb = new ProcessBuilder("node", "stats.js", user, qualification, finals, wins, rounds, total);
@@ -99,7 +81,5 @@ public class Stats {
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
 }

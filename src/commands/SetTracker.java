@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 
 import core.Lines;
 import core.Reader;
+import main.Main;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -17,9 +18,10 @@ public class SetTracker {
 	/**
 	 * Set pb tracker channel
 	 * @param event
+	 * @author Blackoutburst
 	 */
 	public static void set(MessageReceivedEvent event) {
-		if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
+		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getMember().getId().equals(Main.bypassID)) {
 			try {
 				PrintWriter writer = new PrintWriter("tracker");
 				writer.write(event.getChannel().getId());
@@ -36,9 +38,10 @@ public class SetTracker {
 	/**
 	 * Show pb tracker current channel
 	 * @param event
+	 * @author Blackoutburst
 	 */
 	public static void show(MessageReceivedEvent event) {
-		if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
+		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getMember().getId().equals(Main.bypassID)) {
 			if (!new File("tracker").exists()) {
 				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.tracker_unset)).complete();
 			} else {
@@ -46,7 +49,6 @@ public class SetTracker {
 					event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.tracker).replace("%channel%", "<#"+Files.readAllLines(Paths.get("tracker")).get(0)+">")).complete();
 				} catch (IOException e) {
 					e.printStackTrace();
-					event.getChannel().sendMessage(e.toString());
 				}
 			}
 		} else {
