@@ -152,6 +152,7 @@ public class Tracker {
 			roles = server.getMemberById(discord).getRoles();
 		} catch(Exception e) {
 			System.out.println("User probably leave the server "+discord);
+			return 0;
 		}
 		
 		
