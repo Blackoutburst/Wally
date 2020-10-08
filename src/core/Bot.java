@@ -56,7 +56,6 @@ public class Bot extends ListenerAdapter {
 		
 		Runnable runnable = new Runnable() {
 		    public void run() {
-		    	System.out.println("Request send last minute: "+request);
 		        request = 0;
 		    }
 		};

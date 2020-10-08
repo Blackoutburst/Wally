@@ -62,7 +62,6 @@ public class Tracker {
 						discord = readValue(f+"/discord");
 						role_level = getRoleLevel(discord);
 						if (role_level == -1) {
-							System.out.println("Skipping...");
 							continue;
 						}
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user);
@@ -161,7 +160,6 @@ public class Tracker {
 		try {
 			roles = server.getMemberById(discord).getRoles();
 		} catch(Exception e) {
-			System.out.println("User leaved the server "+discord);
 			return -1;
 		}
 		
