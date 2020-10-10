@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.login.LoginException;
 
+import commands.Background;
 import commands.Compare;
 import commands.Config;
 import commands.Help;
@@ -114,6 +115,10 @@ public class Bot extends ListenerAdapter {
 				Unlink.unlink(event);
 			if (event.getMessage().getContentDisplay().startsWith("!linked"))
 				Linked.display(event);
+			if (event.getMessage().getContentDisplay().startsWith("!setbackground"))
+				Background.set(event);
+			if (event.getMessage().getContentDisplay().startsWith("!resetbackground"))
+				Background.reset(event);
 		}
     }
 }

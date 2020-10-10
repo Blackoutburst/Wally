@@ -26,6 +26,8 @@ public class Stats {
 		String wins = "";
 		String rounds = "";
 		String total = "";
+		String uuid = "";
+		boolean linked = false;
 		
 		if (msg.length < 2) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!stats player")).complete();
@@ -56,6 +58,17 @@ public class Stats {
 			}
 		}
 		
+		uuid = Request.getPlayerUUID(user);
+		File index = new File("linked player");
+		String[]entries = index.list();
+		for(String s: entries) {
+			File f = new File(index.getPath(),s);
+			if (f.getName().equals(uuid)) {
+				linked = true;
+			}
+		}
+		
+		
 		total = String.valueOf(Integer.valueOf(qualification) + Integer.valueOf(finals));
 		qualification = formatter.format(Double.parseDouble(qualification));
 		finals = formatter.format(Double.parseDouble(finals));
@@ -63,7 +76,7 @@ public class Stats {
 		rounds = formatter.format(Double.parseDouble(rounds));
 		total = formatter.format(Double.parseDouble(total));
 
-		createCanvas(user, qualification, finals, wins, rounds, total);
+		createCanvas(user, qualification, finals, wins, rounds, total, linked, uuid);
 		event.getChannel().sendFile(new File("stats.png")).complete();
 	}
 	
@@ -77,8 +90,8 @@ public class Stats {
 	 * @see stats.js
 	 * @author Blackoutburst
 	 */
-	private static void createCanvas(String user, String qualification, String finals, String wins, String rounds, String total) {
-		ProcessBuilder pb = new ProcessBuilder("node", "stats.js", user, qualification, finals, wins, rounds, total);
+	private static void createCanvas(String user, String qualification, String finals, String wins, String rounds, String total, boolean linked, String uuid) {
+		ProcessBuilder pb = new ProcessBuilder("node", "stats.js", user, qualification, finals, wins, rounds, total, String.valueOf(linked), uuid);
 		
 		try {
 			Process p = pb.start();

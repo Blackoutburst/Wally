@@ -63,7 +63,7 @@ public class Tracker {
 							continue;
 						}
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user);
-						delay(1000);
+						delay(800);
 					}
 				}
 			}

@@ -23,4 +23,9 @@ public interface Lines {
 	public static final int misssing_perms = 19;
 	public static final int tracker_unset = 20;
 	public static final int linked_list = 21;
+	public static final int background_update = 22;
+	public static final int missing_background = 23;
+	public static final int wrong_background = 24;
+	public static final int background_reset = 25;
+	public static final int stock_background = 26;
 }
