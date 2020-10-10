@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 
@@ -37,6 +38,21 @@ public class Tracker {
 						String currentQualification = "0";
 						String currentFinals = "0";
 						File f = new File(index.getPath(),s);
+						
+						
+						discord = readValue(f+"/discord");
+						 try {
+							if (server.getMemberById(discord).getOnlineStatus() == OnlineStatus.OFFLINE) {
+								continue;
+							}
+						 } catch (Exception e) {
+							 continue;
+						 }
+						 role_level = getRoleLevel(discord);
+						if (role_level == -1) {
+							continue;
+						}
+						
 						output = Request.getPlayerInfoUUID(f.getName());
 						if (output.equals("API LIMITATION")) {
 							System.out.println("Tracker aborted due to api limiation");
@@ -57,13 +73,8 @@ public class Tracker {
 						}
 						currentQualification = readValue(f+"/Q");
 						currentFinals = readValue(f+"/F");
-						discord = readValue(f+"/discord");
-						role_level = getRoleLevel(discord);
-						if (role_level == -1) {
-							continue;
-						}
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user);
-						delay(800);
+						delay(700);
 					}
 				}
 			}

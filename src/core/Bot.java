@@ -53,6 +53,7 @@ public class Bot extends ListenerAdapter {
 		bot.setChunkingFilter(ChunkingFilter.ALL);
 		bot.setMemberCachePolicy(MemberCachePolicy.ALL);
 		bot.enableIntents(GatewayIntent.GUILD_MEMBERS);
+		bot.enableIntents(GatewayIntent.GUILD_PRESENCES);
 		bot.build();
 		
 		Runnable runnable = new Runnable() {

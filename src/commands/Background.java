@@ -34,7 +34,7 @@ public class Background {
 			File f = new File(index.getPath(),s);
 			try {
 				if (Files.readAllLines(Paths.get(f+"/discord")).get(0).equals(id)) {
-					if (at.getFileName().contains(".png")) {
+					if (at.getFileName().contains(".png") || at.getFileName().contains(".jpg") || at.getFileName().contains(".jpeg")) {
 						at.downloadToFile(new File(f+"/background.png"));
 						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.background_update)).complete();
 					} else {
