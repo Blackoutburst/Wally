@@ -21,11 +21,11 @@ public class Stats {
 		String user = "";
 		String output = "";
 		String[] value;
-		String qualification = "";
-		String finals = "";
-		String wins = "";
-		String rounds = "";
-		String total = "";
+		String qualification = "0";
+		String finals = "0";
+		String wins = "0";
+		String rounds = "0";
+		String total = "0";
 		String uuid = "";
 		boolean linked = false;
 		

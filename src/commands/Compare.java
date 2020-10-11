@@ -24,16 +24,16 @@ public class Compare {
 		String output2 = "";
 		String[] value;
 		String[] value2;
-		String qualification = "";
-		String finals = "";
-		String wins = "";
-		String rounds = "";
-		String total = "";
-		String qualification2 = "";
-		String finals2 = "";
-		String wins2 = "";
-		String rounds2 = "";
-		String total2 = "";
+		String qualification = "0";
+		String finals = "0";
+		String wins = "0";
+		String rounds = "0";
+		String total = "0";
+		String qualification2 = "0";
+		String finals2 = "0";
+		String wins2 = "0";
+		String rounds2 = "0";
+		String total2 = "0";
 		
 		if (msg.length < 3) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!compare player player")).complete();
