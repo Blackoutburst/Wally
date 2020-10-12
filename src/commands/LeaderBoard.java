@@ -49,6 +49,7 @@ public class LeaderBoard {
 		
 		if (!type.equals("w") && !type.equals("r") && !type.equals("q") && !type.equals("f") && !type.equals("t")) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page)")).complete();
+			return;
 		}
 		
 		if (msg.length > 2) {
@@ -56,6 +57,7 @@ public class LeaderBoard {
 				page = Integer.valueOf(msg[2]);
 			} catch (Exception e) {
 				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page)")).complete();
+				return;
 			}
 		}
 		page--;
@@ -92,7 +94,16 @@ public class LeaderBoard {
 		
 		
 		DecimalFormat formatter = new DecimalFormat("###,###.##");
-		String str = "```xml\n";
+		String str = "";
+		String title = "";
+		switch (type) {	
+			case "w":title = "Wins Leaderboard" ;break;
+			case "r":title = "Walls cleared Leaderboard" ;break;
+			case "q":title = "Qualifications Leaderboard " ;break;
+			case "f":title = "Final Leaderboard" ;break;
+			case "t":title = "Q/F Total Leaderboard" ;break;
+			default:title = "Wins Leaderboard" ;break;
+		}	
 		for (int i = (10 * page); i < (10 * page) + 10; i++) {
 			if (i >= player.size()) {
 				break;
@@ -100,16 +111,37 @@ public class LeaderBoard {
 			Player p = player.get(i);
 			
 			switch (type) {
-				case "w":str += "<#"+(i+1)+" "+p.name+" = Wins: "+formatter.format(Double.parseDouble(String.valueOf(p.W)))+">\n";break;
-				case "r":str += "<#"+(i+1)+" "+p.name+" = Walls: "+formatter.format(Double.parseDouble(String.valueOf(p.R)))+">\n";break;
-				case "q":str += "<#"+(i+1)+" "+p.name+" = Qualifications: "+formatter.format(Double.parseDouble(String.valueOf(p.Q)))+">\n";break;
-				case "f":str += "<#"+(i+1)+" "+p.name+" = Final: "+formatter.format(Double.parseDouble(String.valueOf(p.F)))+">\n";break;
-				case "t":str += "<#"+(i+1)+" "+p.name+" = Q/F_Total: "+formatter.format(Double.parseDouble(String.valueOf(p.total)))+">\n";break;
-				default:str += "<#"+(i+1)+" "+p.name+" = Wins: "+formatter.format(Double.parseDouble(String.valueOf(p.W)))+">\n";break;
+				case "w":str += "#"+(i+1)+" "+p.name+" - "+formatter.format(Double.parseDouble(String.valueOf(p.W)))+"/";break;
+				case "r":str += "#"+(i+1)+" "+p.name+" - "+formatter.format(Double.parseDouble(String.valueOf(p.R)))+"/";break;
+				case "q":str += "#"+(i+1)+" "+p.name+" - "+formatter.format(Double.parseDouble(String.valueOf(p.Q)))+"/";break;
+				case "f":str += "#"+(i+1)+" "+p.name+" - "+formatter.format(Double.parseDouble(String.valueOf(p.F)))+"/";break;
+				case "t":str += "#"+(i+1)+" "+p.name+" - "+formatter.format(Double.parseDouble(String.valueOf(p.total)))+"/";break;
+				default:str += "#"+(i+1)+" "+p.name+" - "+formatter.format(Double.parseDouble(String.valueOf(p.W)))+"/";break;
 			}
 		}
-		str += "```";
-		event.getChannel().sendMessage(str).complete();
+		createCanvas(str, title);
+		event.getChannel().sendFile(new File("lead.png")).complete();
+	}
+	
+	/**
+	 * Call canvas scripts (JS)
+	 * @param user
+	 * @param qualification
+	 * @param finals
+	 * @param wins
+	 * @param rounds
+	 * @see stats.js
+	 * @author Blackoutburst
+	 */
+	private static void createCanvas(String data, String title) {
+		ProcessBuilder pb = new ProcessBuilder("node", "leaderboard.js", data, title);
+		
+		try {
+			Process p = pb.start();
+			p.waitFor();
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

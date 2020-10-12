@@ -76,8 +76,7 @@ public class Tracker {
 								rounds = value[i].replaceAll("[^0-9]", "");
 							}
 							if (value[i].contains("displayname")) {
-								user = value[i].replace(" ", "").replace("\'", "").split(":")[1];
-								user = user.substring(0, user.length()-2);
+								user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
 							}
 						}
 						currentQualification = readValue(f+"/Q");
