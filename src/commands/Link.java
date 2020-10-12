@@ -52,6 +52,8 @@ public class Link {
 				String[] value;
 				String qualification = "";
 				String finals = "";
+				String wins = "";
+				String rounds = "";
 				String output = Request.getPlayerInfo(ign);
 				
 				value = output.split(",");
@@ -60,6 +62,10 @@ public class Link {
 						qualification = value[i].replace(" ", "").split(":")[1];
 					if (value[i].contains("hitw_record_f"))
 						finals = value[i].replace(" ", "").split(":")[1];
+					if (value[i].contains("wins_hole_in_the_wall"))
+						wins = value[i].replaceAll("[^0-9]", "");
+					if (value[i].contains("rounds_hole_in_the_wall"))
+						rounds = value[i].replaceAll("[^0-9]", "");
 				}
 				f.mkdirs();
 				PrintWriter writer = new PrintWriter("linked player/"+uuid+"/discord");
@@ -71,8 +77,17 @@ public class Link {
 				writer = new PrintWriter("linked player/"+uuid+"/F");
 				writer.write(finals);
 				writer.close();
-			
-				setRole(Integer.valueOf(qualification), Integer.valueOf(finals), event);
+				writer = new PrintWriter("linked player/"+uuid+"/W");
+				writer.write(wins);
+				writer.close();
+				writer = new PrintWriter("linked player/"+uuid+"/R");
+				writer.write(rounds);
+				writer.close();
+				writer = new PrintWriter("linked player/"+uuid+"/name");
+				writer.write(ign);
+				writer.close();		
+				
+				setRole(Integer.valueOf(qualification), Integer.valueOf(finals), event, discord);
 				event.getChannel().sendMessage(Reader.read(Lines.link).replace("%discord%", "<@"+discord+">").replace("%ign%", ign).replace("%q%", qualification).replace("%f%", finals)).complete();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -83,21 +98,21 @@ public class Link {
 		}
 	}
 	
-	private static void setRole(int qualification, int finals, MessageReceivedEvent event) {
+	private static void setRole(int qualification, int finals, MessageReceivedEvent event, String discord) {
 		if (qualification > 350 || finals > 350) {
-			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("350+ Club", false).get(0)).complete();
+			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("350+ Club", false).get(0)).complete();
 		} else if (qualification > 300 || finals > 300) {
-			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("300+ Club", false).get(0)).complete();
+			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("300+ Club", false).get(0)).complete();
 		} else if (qualification > 250 || finals > 250) {
-			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("250+ Club", false).get(0)).complete();
+			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("250+ Club", false).get(0)).complete();
 		} else if (qualification > 200 || finals > 200) {
-			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("200+ Club", false).get(0)).complete();
+			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("200+ Club", false).get(0)).complete();
 		} else if (qualification > 150 || finals > 150) {
-			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("150+ Club", false).get(0)).complete();
+			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("150+ Club", false).get(0)).complete();
 		} else if (qualification > 100 || finals > 100) {
-			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("100+ Club", false).get(0)).complete();
+			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("100+ Club", false).get(0)).complete();
 		} else if (qualification > 50 || finals > 50) {
-			event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("50+ Club", false).get(0)).complete();
+			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("50+ Club", false).get(0)).complete();
 		}
 	}
 }

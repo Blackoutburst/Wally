@@ -1,7 +1,9 @@
 package commands;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -21,19 +23,27 @@ public class Linked {
 	public static void display(MessageReceivedEvent event) {
 		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getMember().getId().equals(Main.bypassID)) {
 			event.getChannel().sendMessage(Reader.read(Lines.linked_list)).complete();
-			String str = "";
+			String str = "UUID DISCORD_ID\n";
 			
 			File index = new File("linked player");
 			String[]entries = index.list();
 			for(String s: entries){
 				File f = new File(index.getPath(),s);
 				try {
-					str += f.getName()+": "+Files.readAllLines(Paths.get(f+"/discord")).get(0)+"\n";
+					str += f.getName()+" "+Files.readAllLines(Paths.get(f+"/discord")).get(0)+"\n";
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-			event.getChannel().sendMessage("```yml\nUUID: discordID\n"+str+"```").complete();
+			PrintWriter writer;
+			try {
+				writer = new PrintWriter("linked list.txt");
+				writer.write(str);
+				writer.close();
+				event.getChannel().sendFile(new File("linked list.txt")).complete();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		} else {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
 		}

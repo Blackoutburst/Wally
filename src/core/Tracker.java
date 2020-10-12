@@ -35,6 +35,8 @@ public class Tracker {
 						String discord = "";
 						String qualification = "0";
 						String finals = "0";
+						String wins = "0";
+						String rounds = "0";
 						String currentQualification = "0";
 						String currentFinals = "0";
 						File f = new File(index.getPath(),s);
@@ -42,12 +44,13 @@ public class Tracker {
 						
 						discord = readValue(f+"/discord");
 						 try {
-							if (server.getMemberById(discord).getOnlineStatus() == OnlineStatus.OFFLINE) {
+							if (server.getMemberById(discord).getOnlineStatus() == OnlineStatus.OFFLINE || server.getMemberById(discord).getOnlineStatus() == OnlineStatus.IDLE) {
 								continue;
 							}
 						 } catch (Exception e) {
 							 continue;
 						 }
+						 
 						 role_level = getRoleLevel(discord);
 						if (role_level == -1) {
 							continue;
@@ -66,15 +69,36 @@ public class Tracker {
 							if (value[i].contains("hitw_record_f")) {
 								finals = value[i].replaceAll("[^0-9]", "");
 							}
+							if (value[i].contains("wins_hole_in_the_wall")) {
+								wins = value[i].replaceAll("[^0-9]", "");
+							}
+							if (value[i].contains("rounds_hole_in_the_wall")) {
+								rounds = value[i].replaceAll("[^0-9]", "");
+							}
 							if (value[i].contains("displayname")) {
 								user = value[i].replace(" ", "").replace("\'", "").split(":")[1];
-								user = user.substring(0, user.length()-1);
+								user = user.substring(0, user.length()-2);
 							}
 						}
 						currentQualification = readValue(f+"/Q");
 						currentFinals = readValue(f+"/F");
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user);
 						delay(700);
+						
+						try {
+							PrintWriter writer = new PrintWriter(f+"/W");
+							writer.write(String.valueOf(wins));
+							writer.close();
+							writer = new PrintWriter(f+"/R");
+							writer.write(String.valueOf(rounds));
+							writer.close();
+							writer = new PrintWriter(f+"/name");
+							writer.write(String.valueOf(user));
+							writer.close();
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
+						
 					}
 				}
 			}

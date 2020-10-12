@@ -12,6 +12,7 @@ import commands.Background;
 import commands.Compare;
 import commands.Config;
 import commands.Help;
+import commands.LeaderBoard;
 import commands.Link;
 import commands.Linked;
 import commands.Pack;
@@ -120,6 +121,8 @@ public class Bot extends ListenerAdapter {
 				Background.set(event);
 			if (event.getMessage().getContentDisplay().startsWith("!resetbackground"))
 				Background.reset(event);
+			if (event.getMessage().getContentDisplay().startsWith("!lead"))
+				LeaderBoard.display(event);
 		}
     }
 }
