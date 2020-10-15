@@ -59,9 +59,9 @@ public class Link {
 				value = output.split(",");
 				for (int i = 0; i < value.length; i++) {
 					if (value[i].contains("hitw_record_q"))
-						qualification = value[i].replace(" ", "").split(":")[1];
+						qualification = value[i].replaceAll("[^0-9]", "");
 					if (value[i].contains("hitw_record_f"))
-						finals = value[i].replace(" ", "").split(":")[1];
+						finals = value[i].replaceAll("[^0-9]", "");
 					if (value[i].contains("wins_hole_in_the_wall"))
 						wins = value[i].replaceAll("[^0-9]", "");
 					if (value[i].contains("rounds_hole_in_the_wall"))
