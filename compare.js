@@ -15,6 +15,10 @@ async function create() {
     var totalIcon = await loadImage('res/total.png');
 
     context.drawImage(background, 0, 0, 600, 400);
+
+    context.fillStyle = "rgba(0, 0, 0, 0.4)";
+    context.fillRect(0, 0, 600, 400);
+
     context.drawImage(winsIcon, 10, 105, 24, 24);
     context.drawImage(winsIcon, 566, 105, 24, 24);
     context.drawImage(wallsIcon, 10, 155, 24, 24);
