@@ -216,39 +216,38 @@ public class Tracker {
 	 * @author Blackoutburst
 	 */
 	private void setRole(String discord, int newScore, int role_level) {
+		List<Role> roles = server.getMemberById(discord).getRoles();
+		
 		if (Integer.valueOf(newScore) > 350 && role_level < 7) {
+			for (Role r : roles)
+				if (r.getName().contains("Club"))
+					server.removeRoleFromMember(server.getMemberById(discord), r).complete();
 			server.addRoleToMember(server.getMemberById(discord), server.getRolesByName("350+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("300+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("250+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("200+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("150+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("100+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("50+ Club", false).get(0)).complete();
 		} else if (Integer.valueOf(newScore) > 300 && role_level < 6) {
+			for (Role r : roles)
+				if (r.getName().contains("Club"))
+					server.removeRoleFromMember(server.getMemberById(discord), r).complete();
 			server.addRoleToMember(server.getMemberById(discord), server.getRolesByName("300+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("250+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("200+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("150+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("100+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("50+ Club", false).get(0)).complete();
 		} else if (Integer.valueOf(newScore) > 250 && role_level < 5) {
+			for (Role r : roles)
+				if (r.getName().contains("Club"))
+					server.removeRoleFromMember(server.getMemberById(discord), r).complete();
 			server.addRoleToMember(server.getMemberById(discord), server.getRolesByName("250+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("200+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("150+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("100+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("50+ Club", false).get(0)).complete();
 		} else if (Integer.valueOf(newScore) > 200 && role_level < 4) {
+			for (Role r : roles)
+				if (r.getName().contains("Club"))
+					server.removeRoleFromMember(server.getMemberById(discord), r).complete();
 			server.addRoleToMember(server.getMemberById(discord), server.getRolesByName("200+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("150+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("100+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("50+ Club", false).get(0)).complete();
 		} else if (Integer.valueOf(newScore) > 150 && role_level < 3) {
+			for (Role r : roles)
+				if (r.getName().contains("Club"))
+					server.removeRoleFromMember(server.getMemberById(discord), r).complete();
 			server.addRoleToMember(server.getMemberById(discord), server.getRolesByName("150+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("100+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("50+ Club", false).get(0)).complete();
 		} else if (Integer.valueOf(newScore) > 100 && role_level < 2) {
+			for (Role r : roles)
+				if (r.getName().contains("Club"))
+					server.removeRoleFromMember(server.getMemberById(discord), r).complete();
 			server.addRoleToMember(server.getMemberById(discord), server.getRolesByName("100+ Club", false).get(0)).complete();
-			server.removeRoleFromMember(server.getMemberById(discord), server.getRolesByName("50+ Club", false).get(0)).complete();
 		} else if (Integer.valueOf(newScore) > 50 && role_level < 1) {
 			server.addRoleToMember(server.getMemberById(discord), server.getRolesByName("50+ Club", false).get(0)).complete();
 		}
