@@ -218,11 +218,11 @@ public class Tracker {
 	private void setRole(String discord, int newScore, int role_level) {
 		List<Role> roles = server.getMemberById(discord).getRoles();
 		if (Integer.valueOf(newScore) > (Integer.valueOf(role_level)) * 50) {
-			for (Role r : roles)
-				if (r.getName().contains("Club"))
+			for (Role r : roles) {
+				if (r.getName().contains("Club")) {
 					server.removeRoleFromMember(server.getMemberById(discord), r).complete();
-					
-					
+				}
+			}
 		} if (Integer.valueOf(newScore) > 350 && role_level < 7) {
 			server.addRoleToMember(server.getMemberById(discord), server.getRolesByName("350+ Club", false).get(0)).complete();
 		} else if (Integer.valueOf(newScore) > 300 && role_level < 6) {
