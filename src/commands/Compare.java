@@ -132,12 +132,18 @@ public class Compare {
 		String r = String.valueOf(Integer.valueOf(rounds.replace(" ", "")) - Integer.valueOf(rounds2.replace(" ", "")));
 		String t = String.valueOf(Integer.valueOf(total.replace(" ", "")) - Integer.valueOf(total2.replace(" ", "")));
 
+		String mq = formatter.format(-Double.parseDouble(q)).replace(" ", " "); if(Integer.valueOf(mq) == 0) {mq = "0";}
+		String mf = formatter.format(-Double.parseDouble(f)).replace(" ", " "); if(Integer.valueOf(mf) == 0) {mf = "0";}
+		String mw = formatter.format(-Double.parseDouble(w)).replace(" ", " "); if(Integer.valueOf(mw) == 0) {mw = "0";}
+		String mr = formatter.format(-Double.parseDouble(r)).replace(" ", " "); if(Integer.valueOf(mr) == 0) {mr = "0";}
+		String mt = formatter.format(-Double.parseDouble(t)).replace(" ", " "); if(Integer.valueOf(mt) == 0) {mt = "0";}
+		
 		ProcessBuilder pb = new ProcessBuilder("node", "compare.js", user, qualification, finals, wins, rounds, total, 
 		user2, qualification2, finals2, wins2, rounds2, total2, 
 		formatter.format(Double.parseDouble(q)).replace(" ", " "), formatter.format(Double.parseDouble(f)).replace(" ", " "), 
 		formatter.format(Double.parseDouble(w)).replace(" ", " "), formatter.format(Double.parseDouble(r)).replace(" ", " "), formatter.format(Double.parseDouble(t)).replace(" ", " "),
-		formatter.format(-Double.parseDouble(q)).replace(" ", " "), formatter.format(-Double.parseDouble(f)).replace(" ", " "), 
-		formatter.format(-Double.parseDouble(w)).replace(" ", " "), formatter.format(-Double.parseDouble(r)).replace(" ", " "), formatter.format(-Double.parseDouble(t)).replace(" ", " "));
+		q, f, 
+		w, r, t);
 		
 		try {
 			Process p = pb.start();

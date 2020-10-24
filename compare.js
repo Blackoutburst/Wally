@@ -47,14 +47,19 @@ async function create() {
 
 
     if (Number(args[14].replace(" ", "")) < Number(args[19].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[14].replace(" ", "")) === Number(args[19].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("Wins: "+args[3]+" ("+args[14]+")", 50, 125);
     if (Number(args[15].replace(" ", "")) < Number(args[20].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[15].replace(" ", "")) === Number(args[20].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("Walls: "+args[4]+" ("+args[15]+")", 50, 175);
     if (Number(args[12].replace(" ", "")) < Number(args[17].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[12].replace(" ", "")) === Number(args[17].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("Qualification: "+args[1]+" ("+args[12]+")", 50, 225);
     if (Number(args[13].replace(" ", "")) < Number(args[18].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[13].replace(" ", "")) === Number(args[18].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("Finals: "+args[2]+" ("+args[13]+")", 50, 275);
     if (Number(args[16].replace(" ", "")) < Number(args[21].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[16].replace(" ", "")) === Number(args[21].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("Q/F Total: "+args[5]+" ("+args[16]+")", 50, 325);
 
     context.fillText("Wins: "+args[3]+" ("+args[14]+")", 50, 125);
@@ -65,14 +70,19 @@ async function create() {
 
     context.textAlign = 'right'
     if (Number(args[14].replace(" ", "")) > Number(args[19].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[14].replace(" ", "")) === Number(args[19].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("("+args[19]+") "+args[9]+" :Wins", 550, 125);
     if (Number(args[15].replace(" ", "")) > Number(args[20].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[15].replace(" ", "")) === Number(args[20].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("("+args[20]+") "+args[10]+" :Walls", 550, 175);
     if (Number(args[12].replace(" ", "")) > Number(args[17].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[12].replace(" ", "")) === Number(args[17].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("("+args[17]+") "+args[7]+" :Qualification", 550, 225);
     if (Number(args[13].replace(" ", "")) > Number(args[18].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[13].replace(" ", "")) === Number(args[18].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("("+args[18]+") "+args[8]+" :Finals", 550, 275);
     if (Number(args[16].replace(" ", "")) > Number(args[21].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
+    if (Number(args[16].replace(" ", "")) === Number(args[21].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("("+args[21]+") "+args[11]+" :Q/F Total", 550, 325);
 
     context.fillText("("+args[19]+") "+args[9]+" :Wins", 550, 125);
