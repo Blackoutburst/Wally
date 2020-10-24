@@ -123,12 +123,12 @@ public class Tracker {
 	private void onHighscore(String currentQualification, String qualification, String currentFinals, String finals,
 			int role_level, String channelID, String discord, File f, String user) {
 		if (Integer.valueOf(currentQualification) < Integer.valueOf(qualification)) {
-			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.qualifiers_score).replace("%player%", user.replace("_", "\\_")).replace("%score%", qualification)).complete();
+			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.qualifiers_score).replace("%player%", user.replace("_", "\\_")).replace("%score%", qualification).replace("%up%", String.valueOf(Integer.valueOf(qualification) - Integer.valueOf(currentQualification)))).complete();
 			writeHighScore(Integer.valueOf(qualification), f, "Q");
 			setRole(discord, Integer.valueOf(qualification), role_level);
 		}
 		if (Integer.valueOf(currentFinals) < Integer.valueOf(finals)) {
-			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.finals_score).replace("%player%", user.replace("_", "\\_")).replace("%score%", finals)).complete();
+			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.finals_score).replace("%player%", user.replace("_", "\\_")).replace("%score%", finals).replace("%up%", String.valueOf(Integer.valueOf(finals) - Integer.valueOf(currentFinals)))).complete();
 			writeHighScore(Integer.valueOf(finals), f, "F");
 			setRole(discord, Integer.valueOf(finals), role_level);
 		}
