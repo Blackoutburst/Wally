@@ -28,4 +28,6 @@ public interface Lines {
 	public static final int wrong_background = 24;
 	public static final int background_reset = 25;
 	public static final int stock_background = 26;
+	public static final int in_lead = 27;
+	public static final int add_lead = 28;
 }

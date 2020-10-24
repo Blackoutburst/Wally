@@ -17,7 +17,6 @@ import comparator.PlayerComparatorWins;
 import core.Lines;
 import core.Player;
 import core.Reader;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class LeaderBoard {
@@ -31,6 +30,7 @@ public class LeaderBoard {
 		List<Player> player = new ArrayList<Player>();
 		String[] msg = event.getMessage().getContentDisplay().split(" ");
 		int page = 1;
+		boolean isDiscord = false;
 		String type = "W";
 		String name = "";
 		String discord = "";
@@ -41,14 +41,14 @@ public class LeaderBoard {
 		int total = 0;
 		
 		if (msg.length < 2) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page)")).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page) (\"discord\")")).complete();
 			return;
 		}
 		type = msg[1];
 		type = type.toLowerCase();
 		
 		if (!type.equals("w") && !type.equals("r") && !type.equals("q") && !type.equals("f") && !type.equals("t")) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page)")).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page) (\\\"discord\\\")")).complete();
 			return;
 		}
 		
@@ -56,25 +56,24 @@ public class LeaderBoard {
 			try {
 				page = Integer.valueOf(msg[2]);
 			} catch (Exception e) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page)")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page) (\\\"discord\\\")")).complete();
 				return;
 			}
 		}
 		page--;
 		
-		File index = new File("linked player");
+		File index = new File("leaderboard");
+		if (msg.length > 3) {
+			if (msg[3].toLowerCase().equals("discord")) {
+				index = new File("linked player");
+				isDiscord = true;
+			}
+		}
+		
 		String[]entries = index.list();
 		for(String s: entries) {
 			File f = new File(index.getPath(),s);
-			try {
-				Member m = event.getGuild().getMemberById(readValue(f+"/discord"));
-				discord = m.getNickname();
-				if (discord == null) {
-					discord = m.getUser().getName();
-				}
-			} catch(Exception e) {
-				continue;
-			}
+			
 			name = readValue(f+"/name");
 			wins = Integer.valueOf(readValue(f+"/W"));
 			rounds = Integer.valueOf(readValue(f+"/R"));
@@ -96,14 +95,26 @@ public class LeaderBoard {
 		DecimalFormat formatter = new DecimalFormat("###,###.##");
 		String str = "";
 		String title = "";
-		switch (type) {	
-			case "w":title = "Wins Leaderboard" ;break;
-			case "r":title = "Walls cleared Leaderboard" ;break;
-			case "q":title = "Qualifications Leaderboard " ;break;
-			case "f":title = "Final Leaderboard" ;break;
-			case "t":title = "Q/F Total Leaderboard" ;break;
-			default:title = "Wins Leaderboard" ;break;
-		}	
+		
+		if (isDiscord) {
+			switch (type) {	
+			case "w":title = "Wins Leaderboard (Discord)" ;break;
+			case "r":title = "Walls cleared Leaderboard (Discord)" ;break;
+			case "q":title = "Qualifications Leaderboard  (Discord)" ;break;
+			case "f":title = "Final Leaderboard (Discord)" ;break;
+			case "t":title = "Q/F Total Leaderboard (Discord)" ;break;
+			default:title = "Wins Leaderboard (Discord)" ;break;
+		}
+		} else {
+			switch (type) {	
+				case "w":title = "Wins Leaderboard" ;break;
+				case "r":title = "Walls cleared Leaderboard" ;break;
+				case "q":title = "Qualifications Leaderboard " ;break;
+				case "f":title = "Final Leaderboard" ;break;
+				case "t":title = "Q/F Total Leaderboard" ;break;
+				default:title = "Wins Leaderboard" ;break;
+			}	
+		}
 		for (int i = (10 * page); i < (10 * page) + 10; i++) {
 			if (i >= player.size()) {
 				break;

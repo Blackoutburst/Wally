@@ -89,6 +89,7 @@ public class Link {
 				
 				setRole(Integer.valueOf(qualification), Integer.valueOf(finals), event, discord);
 				event.getChannel().sendMessage(Reader.read(Lines.link).replace("%discord%", "<@"+discord+">").replace("%ign%", ign).replace("%q%", qualification).replace("%f%", finals)).complete();
+				addToLeaderboard(event, uuid, ign, qualification, finals, wins, rounds);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -98,6 +99,55 @@ public class Link {
 		}
 	}
 	
+	/**
+	 * Add user inside the leaderboard
+	 * @param event
+	 * @param uuid
+	 * @param ign
+	 * @param qualification
+	 * @param finals
+	 * @param wins
+	 * @param rounds
+	 * @author Blackoutburst
+	 */
+	private static void addToLeaderboard(MessageReceivedEvent event, String uuid, String ign, String qualification, String finals, String wins, String rounds) {
+		File f = new File("leaderboard/"+uuid);
+		
+		if (f.exists()) {
+			event.getChannel().sendMessage(Reader.read(Lines.in_lead)).complete();
+			return;
+		}
+		try {
+			f.mkdirs();
+			PrintWriter writer = new PrintWriter("leaderboard/"+uuid+"/Q");
+			writer.write(qualification);
+			writer.close();
+			writer = new PrintWriter("leaderboard/"+uuid+"/F");
+			writer.write(finals);
+			writer.close();
+			writer = new PrintWriter("leaderboard/"+uuid+"/W");
+			writer.write(wins);
+			writer.close();
+			writer = new PrintWriter("leaderboard/"+uuid+"/R");
+			writer.write(rounds);
+			writer.close();
+			writer = new PrintWriter("leaderboard/"+uuid+"/name");
+			writer.write(ign);
+			writer.close();		
+			event.getChannel().sendMessage(Reader.read(Lines.add_lead)).complete();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Set user role
+	 * @param qualification
+	 * @param finals
+	 * @param event
+	 * @param discord
+	 * @author Blackoutburst
+	 */
 	private static void setRole(int qualification, int finals, MessageReceivedEvent event, String discord) {
 		if (qualification > 350 || finals > 350) {
 			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("350+ Club", false).get(0)).complete();

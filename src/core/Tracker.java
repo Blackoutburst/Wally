@@ -82,7 +82,7 @@ public class Tracker {
 						currentQualification = readValue(f+"/Q");
 						currentFinals = readValue(f+"/F");
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user);
-						delay(700);
+						delay(0);
 						
 						try {
 							PrintWriter writer = new PrintWriter(f+"/W");
@@ -249,5 +249,4 @@ public class Tracker {
 		}	
 		server.addRoleToMember(server.getMemberById(discord), server.getRolesByName(roleName, false).get(0)).complete();
 	}
-	
 }

@@ -73,8 +73,10 @@ public class Bot extends ListenerAdapter {
         if (event instanceof ReadyEvent) {
         	Tracker tracker = new Tracker();
         	tracker.server = event.getJDA().getGuildById(Main.serverID);
+        	LeaderboardUpdate lead = new LeaderboardUpdate();
         	try {
         		tracker.start();
+        		lead.start();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

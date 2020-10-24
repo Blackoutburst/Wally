@@ -15,12 +15,15 @@ public class Request {
 	public static String getPlayerInfo(String user) {
 		Bot.request++;
 		if (Bot.request >= 119) {
+			System.err.println("API limit reached");
 			return "API LIMITATION";
 		}
 		ProcessBuilder pb = new ProcessBuilder("node", "player_request.js", user);
 		
 		try {
 			Process p = pb.start();
+			pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+			pb.redirectError(ProcessBuilder.Redirect.INHERIT);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			StringBuilder builder = new StringBuilder();
 			String line = null;
@@ -45,12 +48,15 @@ public class Request {
 	public static String getPlayerInfoUUID(String uuid) {
 		Bot.request++;
 		if (Bot.request >= 119) {
+			System.err.println("API limit reached");
 			return "API LIMITATION";
 		}
 		ProcessBuilder pb = new ProcessBuilder("node", "player_requestuuid.js", uuid);
 		
 		try {
 			Process p = pb.start();
+			pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+			pb.redirectError(ProcessBuilder.Redirect.INHERIT);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			StringBuilder builder = new StringBuilder();
 			String line = null;
@@ -77,6 +83,8 @@ public class Request {
 		
 		try {
 			Process p = pb.start();
+			pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+			pb.redirectError(ProcessBuilder.Redirect.INHERIT);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			StringBuilder builder = new StringBuilder();
 			String line = null;
