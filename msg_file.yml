@@ -1,5 +1,5 @@
-qualifiers_score: "**%player%** scored a new **qualifiers** personal best of **%score%**, increasing it by **%up%**!"
-finals_score: "**%player%** scored a new **finals** personal best of **%score%**, increasing it by **%up%**!"
+qualifiers_score: "**%player%** scored a new **qualifiers** personal best of **%score%**, it increased their previous pb by **+%up%**!"
+finals_score: "**%player%** scored a new **finals** personal best of **%score%**, it increased their previous pb by **+%up%**!"
 api_error: "Number of requests per minute exceeded, please try again in a minute!"
 unknow_player: "that player doesn't exist!"
 help: "```yml\n\n!help: Show this message.\n\n!pack: Gives a link to the Hole in the Wall resource pack made by Hammy.\n\n!stats [player]: Shows a player's HitW stats.\n\n!compare [player] [player]: Compares two players' HitW stats.\n\n!setbackground: Change your HitW stats background (Upload the file with the command, format .png/.jpg/.jpeg recommended size 600x400).\n\n!resetbackground: Remove your HitW stats custom background.\n\n!lead [W/R/Q/F/T] [page] ['discord']: Show Hole in the Wall leaderboard```"
