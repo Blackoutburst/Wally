@@ -218,17 +218,17 @@ public class Tracker {
 	private void setRole(String discord, int newScore, int role_level) {
 		if (Integer.valueOf(newScore) > 350 && role_level < 7) {
 			manageUserRole(discord, "350+ Club");
-		} else if (Integer.valueOf(newScore) > 300 && role_level < 6) {
+		} else if (Integer.valueOf(newScore) >= 300 && role_level < 6) {
 			manageUserRole(discord, "300+ Club");
-		} else if (Integer.valueOf(newScore) > 250 && role_level < 5) {
+		} else if (Integer.valueOf(newScore) >= 250 && role_level < 5) {
 			manageUserRole(discord, "250+ Club");
-		} else if (Integer.valueOf(newScore) > 200 && role_level < 4) {
+		} else if (Integer.valueOf(newScore) >= 200 && role_level < 4) {
 			manageUserRole(discord, "200+ Club");
-		} else if (Integer.valueOf(newScore) > 150 && role_level < 3) {
+		} else if (Integer.valueOf(newScore) >= 150 && role_level < 3) {
 			manageUserRole(discord, "150+ Club");
-		} else if (Integer.valueOf(newScore) > 100 && role_level < 2) {
+		} else if (Integer.valueOf(newScore) >= 100 && role_level < 2) {
 			manageUserRole(discord, "100+ Club");
-		} else if (Integer.valueOf(newScore) > 50 && role_level < 1) {
+		} else if (Integer.valueOf(newScore) >= 50 && role_level < 1) {
 			manageUserRole(discord, "50+ Club");
 		}
 	}
