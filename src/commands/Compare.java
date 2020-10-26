@@ -16,7 +16,6 @@ public class Compare {
 	 * @author Blackoutburst
 	 */
 	public static void display(MessageReceivedEvent event) {
-		DecimalFormat formatter = new DecimalFormat("###,###.##");
 		String[] msg = event.getMessage().getContentDisplay().split(" ");
 		String user = "";
 		String user2 = "";
@@ -24,16 +23,16 @@ public class Compare {
 		String output2 = "";
 		String[] value;
 		String[] value2;
-		String qualification = "0";
-		String finals = "0";
-		String wins = "0";
-		String rounds = "0";
-		String total = "0";
-		String qualification2 = "0";
-		String finals2 = "0";
-		String wins2 = "0";
-		String rounds2 = "0";
-		String total2 = "0";
+		int qualification = 0;
+		int finals = 0;
+		int wins = 0;
+		int rounds = 0;
+		int total = 0;
+		int qualification2 = 0;
+		int finals2 = 0;
+		int wins2 = 0;
+		int rounds2 = 0;
+		int total2 = 0;
 		
 		if (msg.length < 3) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!compare player player")).complete();
@@ -55,52 +54,42 @@ public class Compare {
 		
 		for (int i = 0; i < value.length; i++) {
 			if (value[i].contains("hitw_record_q")) {
-				qualification = value[i].replaceAll("[^0-9]", "");
+				qualification = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
 			}
 			if (value[i].contains("hitw_record_f")) {
-				finals = value[i].replaceAll("[^0-9]", "");
+				finals = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
 			}
 			if (value[i].contains("rounds_hole_in_the_wall")) {
-				rounds = value[i].replaceAll("[^0-9]", "");
+				rounds = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
 			}
 			if (value[i].contains("displayname")) {
 				user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
 			}
 			if (value[i].contains("wins_hole_in_the_wall")) {
-				wins = value[i].replaceAll("[^0-9]", "");
+				wins = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
 			}
 		}
-		total = String.valueOf(Integer.valueOf(qualification) + Integer.valueOf(finals));
-		qualification = formatter.format(Double.parseDouble(qualification));
-		finals = formatter.format(Double.parseDouble(finals));
-		wins = formatter.format(Double.parseDouble(wins));
-		rounds = formatter.format(Double.parseDouble(rounds));
-		total = formatter.format(Double.parseDouble(total));
+		total = qualification + finals;
 
 		value2 = output2.split("\n");
 		for (int i = 0; i < value2.length; i++) {
 			if (value2[i].contains("hitw_record_q")) {
-				qualification2 = value2[i].replaceAll("[^0-9]", "");
+				qualification2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
 			}
 			if (value2[i].contains("hitw_record_f")) {
-				finals2 = value2[i].replaceAll("[^0-9]", "");
+				finals2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
 			}
 			if (value2[i].contains("rounds_hole_in_the_wall")) {
-				rounds2 = value2[i].replaceAll("[^0-9]", "");
+				rounds2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
 			}
 			if (value2[i].contains("displayname")) {
 				user2 = value2[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
 			}
 			if (value2[i].contains("wins_hole_in_the_wall")) {
-				wins2 = value2[i].replaceAll("[^0-9]", "");
+				wins2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
 			}
 		}
-		total2 = String.valueOf(Integer.valueOf(qualification2) + Integer.valueOf(finals2));
-		qualification2 = formatter.format(Double.parseDouble(qualification2));
-		finals2 = formatter.format(Double.parseDouble(finals2));
-		wins2 = formatter.format(Double.parseDouble(wins2));
-		rounds2 = formatter.format(Double.parseDouble(rounds2));
-		total2 = formatter.format(Double.parseDouble(total2));
+		total2 = qualification2 + finals2;
 		
 		createCanvas(user, qualification, finals, wins, rounds, total, user2, qualification2, finals2, wins2, rounds2, total2);
 		event.getChannel().sendFile(new File("compare.png")).complete();
@@ -123,27 +112,44 @@ public class Compare {
 	 * @see compare.js
 	 * @author Blackoutburst
 	 */
-	private static void createCanvas(String user, String qualification, String finals, String wins, String rounds, String total, 
-	String user2, String qualification2, String finals2, String wins2, String rounds2, String total2) {
+	private static void createCanvas(String user, int qualification, int finals, int wins, int rounds, int total, 
+	String user2, int qualification2, int finals2, int wins2, int rounds2, int total2) {
 		DecimalFormat formatter = new DecimalFormat("###,###.##");
-		String q = String.valueOf(Integer.valueOf(qualification.replace(" ", "")) - Integer.valueOf(qualification2.replace(" ", "")));
-		String f = String.valueOf(Integer.valueOf(finals.replace(" ", "")) - Integer.valueOf(finals2.replace(" ", "")));
-		String w = String.valueOf(Integer.valueOf(wins.replace(" ", "")) - Integer.valueOf(wins2.replace(" ", "")));
-		String r = String.valueOf(Integer.valueOf(rounds.replace(" ", "")) - Integer.valueOf(rounds2.replace(" ", "")));
-		String t = String.valueOf(Integer.valueOf(total.replace(" ", "")) - Integer.valueOf(total2.replace(" ", "")));
+		int q = qualification - qualification2;
+		int f = finals - finals2;
+		int w = wins - wins2;
+		int r = rounds - rounds2;
+		int t = total - total2;
 
-		String mq = formatter.format(-Double.parseDouble(q)).replace(" ", " "); if(Integer.valueOf(mq) == 0) {mq = "0";}
-		String mf = formatter.format(-Double.parseDouble(f)).replace(" ", " "); if(Integer.valueOf(mf) == 0) {mf = "0";}
-		String mw = formatter.format(-Double.parseDouble(w)).replace(" ", " "); if(Integer.valueOf(mw) == 0) {mw = "0";}
-		String mr = formatter.format(-Double.parseDouble(r)).replace(" ", " "); if(Integer.valueOf(mr) == 0) {mr = "0";}
-		String mt = formatter.format(-Double.parseDouble(t)).replace(" ", " "); if(Integer.valueOf(mt) == 0) {mt = "0";}
+		int mq = -q;
+		int mf = -f;
+		int mw = -w;
+		int mr = -r;
+		int mt = -t;
 		
-		ProcessBuilder pb = new ProcessBuilder("node", "compare.js", user, qualification, finals, wins, rounds, total, 
-		user2, qualification2, finals2, wins2, rounds2, total2, 
-		formatter.format(Double.parseDouble(q)).replace(" ", " "), formatter.format(Double.parseDouble(f)).replace(" ", " "), 
-		formatter.format(Double.parseDouble(w)).replace(" ", " "), formatter.format(Double.parseDouble(r)).replace(" ", " "), formatter.format(Double.parseDouble(t)).replace(" ", " "),
-		q, f, 
-		w, r, t);
+		ProcessBuilder pb = new ProcessBuilder("node", "compare.js", 
+			user, 
+			formatter.format(Double.parseDouble(String.valueOf(qualification))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(finals))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(wins))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(rounds))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(total))).replace(" ", " "), 
+			user2, 
+			formatter.format(Double.parseDouble(String.valueOf(qualification2))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(finals2))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(wins2))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(rounds2))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(total2))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(q))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(f))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(w))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(r))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(t))).replace(" ", " "),
+			formatter.format(Double.parseDouble(String.valueOf(mq))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(mf))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(mw))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(mr))).replace(" ", " "), 
+			formatter.format(Double.parseDouble(String.valueOf(mt))).replace(" ", " "));
 		
 		try {
 			Process p = pb.start();
