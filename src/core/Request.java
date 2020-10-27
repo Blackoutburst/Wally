@@ -2,7 +2,10 @@ package core;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class Request {
 	/**
@@ -72,29 +75,42 @@ public class Request {
 	}
 	
 	/**
-	 * Use username to get user uuid (JS)
+	 * Use username to get user uuid
 	 * @param user
-	 * @return user UUID
-	 * @see request_uuid.js
+	 * @return user uuid
 	 * @author Blackoutburst
 	 */
 	public static String getPlayerUUID(String user) {
-		ProcessBuilder pb = new ProcessBuilder("node", "request_uuid.js", user);
-		
 		try {
-			Process p = pb.start();
-			pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-			pb.redirectError(ProcessBuilder.Redirect.INHERIT);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			StringBuilder builder = new StringBuilder();
-			String line = null;
-			while ( (line = reader.readLine()) != null) {
-			   builder.append(line);
-			}
-			return builder.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return e.toString();
+			URL url = new URL("https://api.mojang.com/users/profiles/minecraft/"+user);
+		    URLConnection con = url.openConnection();
+		    InputStream is =con.getInputStream();
+		    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		    String uuid = br.readLine().split("\"")[7];
+			return (uuid);
+		} catch (Exception e) {
+			return (null);
+		}
+	}
+	
+	/**
+	 * Use uuid to get user name
+	 * @param user uuid
+	 * @return user
+	 * @author Blackoutburst
+	 */
+	public static String getPlayer(String uuid) {
+		try {
+			URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/"+uuid);
+		    URLConnection con = url.openConnection();
+		    InputStream is =con.getInputStream();
+		    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		    br.readLine();
+		    br.readLine();
+		    String ign = br.readLine().split("\"")[3];
+			return (ign);
+		} catch (Exception e) {
+			return (null);
 		}
 	}
 }

@@ -34,6 +34,13 @@ public class Stats {
 			return;
 		}
 		user = msg[1];
+		
+		
+		if (Request.getPlayerUUID(user) == null) {
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
+			return;
+		}
+		
 		output = Request.getPlayerInfo(user);
 		if (output.equals("API LIMITATION")) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();

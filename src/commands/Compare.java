@@ -39,6 +39,12 @@ public class Compare {
 			return;
 		}
 		user = msg[1];
+		
+		if (Request.getPlayerUUID(user) == null) {
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.compare_not_found).replace("%player%", user)).complete();
+			return;
+		}
+		
 		output = Request.getPlayerInfo(user);
 		if (output.equals("API LIMITATION")) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();
@@ -46,6 +52,12 @@ public class Compare {
 		}
 		value = output.split("\n");
 		user2 = msg[2];
+		
+		if (Request.getPlayerUUID(user2) == null) {
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.compare_not_found).replace("%player%", user2)).complete();
+			return;
+		}
+		
 		output2 = Request.getPlayerInfo(user2);
 		if (output2.equals("API LIMITATION")) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();
