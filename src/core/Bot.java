@@ -15,6 +15,7 @@ import commands.Help;
 import commands.LeaderBoard;
 import commands.Link;
 import commands.Linked;
+import commands.PBTester;
 import commands.Pack;
 import commands.Ping;
 import commands.Say;
@@ -123,8 +124,12 @@ public class Bot extends ListenerAdapter {
 				Background.set(event);
 			if (event.getMessage().getContentDisplay().startsWith("!resetbackground"))
 				Background.reset(event);
+			if (event.getMessage().getContentDisplay().startsWith("!removebackground"))
+				Background.remove(event);
 			if (event.getMessage().getContentDisplay().startsWith("!lead"))
 				LeaderBoard.display(event);
+			if (event.getMessage().getContentDisplay().startsWith("!forcepb"))
+				PBTester.force(event);
 		}
     }
 }

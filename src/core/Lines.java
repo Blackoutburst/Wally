@@ -30,4 +30,8 @@ public interface Lines {
 	public static final int stock_background = 26;
 	public static final int in_lead = 27;
 	public static final int add_lead = 28;
+	public static final int background_remove = 29;
+	public static final int background_stock2 = 30;
+	public static final int linked_only = 31;
+	public static final int force_pb = 32;
 }
