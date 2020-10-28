@@ -54,7 +54,7 @@ public class PBTester {
 							writer.close();
 						} catch (FileNotFoundException e) {}
 						
-						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.force_pb).replace("%ing%", ign).replace("%type%", "qualifier")).complete();
+						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.force_pb).replace("%ign%", ign).replace("%type%", "qualifier")).complete();
 						return;
 					} else {
 						try {
@@ -62,7 +62,7 @@ public class PBTester {
 							writer.write("0");
 							writer.close();
 						} catch (FileNotFoundException e) {}
-						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.force_pb).replace("%ing%", ign).replace("%type%", "qualifier")).complete();
+						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.force_pb).replace("%ign%", ign).replace("%type%", "qualifier")).complete();
 						return;
 					}
 				}
