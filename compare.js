@@ -1,4 +1,4 @@
-const { createCanvas, loadImage } = require('canvas');
+const { registerFont, createCanvas, loadImage } = require('canvas');
 const fs = require('fs');
 const args = process.argv.slice(2)
 const canvas = createCanvas(600, 400);
@@ -14,6 +14,7 @@ async function create() {
     var finIcon = await loadImage('res/f.png');
     var totalIcon = await loadImage('res/total.png');
 
+    registerFont('./font.ttf', { family: 'default' })
     context.drawImage(background, 0, 0, 600, 400);
 
     context.fillStyle = "rgba(0, 0, 0, 0.4)";
@@ -30,7 +31,7 @@ async function create() {
     context.drawImage(totalIcon, 10, 305, 24, 24);
     context.drawImage(totalIcon, 566, 305, 24, 24);
 
-    context.font = 'regular 24pt ';
+    context.font = 'regular 26pt ';
     context.textAlign = 'left';
     context.fillStyle = '#fff';
     context.shadowColor = "black";
@@ -42,7 +43,7 @@ async function create() {
     context.textAlign = 'right';
     context.fillText(args[6], 590, 40);
 
-    context.font = 'regular 14pt '
+    context.font = 'regular 18pt '
     context.textAlign = 'left'
 
 
@@ -84,6 +85,7 @@ async function create() {
     if (Number(args[16].replace(" ", "")) > Number(args[21].replace(" ", ""))) {context.strokeStyle = 'red';} else {context.strokeStyle = 'green';}
     if (Number(args[16].replace(" ", "")) === Number(args[21].replace(" ", ""))) {context.strokeStyle = 'yellow';}
     context.strokeText("("+args[21]+") "+args[11]+" :Q/F Total", 550, 325);
+    console.log(args[21]);
 
     context.fillText("("+args[19]+") "+args[9]+" :Wins", 550, 125);
     context.fillText("("+args[20]+") "+args[10]+" :Walls", 550, 175);

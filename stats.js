@@ -1,4 +1,4 @@
-const { createCanvas, loadImage } = require('canvas');
+const { registerFont, createCanvas, loadImage } = require('canvas');
 const fs = require('fs');
 const args = process.argv.slice(2)
 const canvas = createCanvas(600, 400);
@@ -23,6 +23,7 @@ async function create() {
     var finIcon = await loadImage('res/f.png');
     var totalIcon = await loadImage('res/total.png');
 
+    registerFont('./font.ttf', { family: 'default' });
     context.drawImage(background, 0, 0, 600, 400);
 
 
@@ -41,11 +42,11 @@ async function create() {
     context.shadowBlur = 10;
     context.shadowOffsetX = 2;
     context.shadowOffsetY = 2;
-    context.font = 'regular 24pt ';
+    context.font = 'regular 26pt ';
     context.textAlign = 'center';
     context.fillStyle = '#fff';
     context.fillText(args[0], 300, 40);
-    context.font = 'regular 16pt ';
+    context.font = 'regular 18pt ';
     context.textAlign = 'left';
     context.fillText("Wins: "+args[3], 150, 125);
     context.fillText("Walls cleared: "+args[4], 150, 175);

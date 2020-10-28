@@ -1,4 +1,4 @@
-const { createCanvas, loadImage } = require('canvas');
+const { registerFont, createCanvas, loadImage } = require('canvas');
 const fs = require('fs');
 const args = process.argv.slice(2)
 const canvas = createCanvas(600, 400);
@@ -10,6 +10,7 @@ create();
 async function create() {
     var background = await loadImage('res/background.png');
 
+    registerFont('./font.ttf', { family: 'default' });
     context.drawImage(background, 0, 0, 600, 400);
 
     context.fillStyle = "rgba(0, 0, 0, 0.4)";
@@ -23,7 +24,7 @@ async function create() {
     context.textAlign = 'center';
     context.fillStyle = '#fff';
     context.fillText(args[1], 300, 40);
-    context.font = 'regular 17pt ';
+    context.font = 'regular 19pt ';
     context.fillText(data[0], 300, 75);
     context.fillText(data[1], 300, 110);
     context.fillText(data[2], 300, 145);
