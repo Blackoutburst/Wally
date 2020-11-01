@@ -10,7 +10,7 @@ create();
 async function create() {
     var background = await loadImage('res/background.png');
 
-    registerFont('./font.ttf', { family: 'default' });
+    registerFont('res/font.ttf', { family: 'default' });
     context.drawImage(background, 0, 0, 600, 400);
 
     context.fillStyle = "rgba(0, 0, 0, 0.4)";
