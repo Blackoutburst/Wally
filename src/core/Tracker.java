@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import main.Main;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
@@ -43,8 +44,11 @@ public class Tracker {
 						
 						
 						discord = readValue(f+"/discord");
+						if (Main.trackerInformation) {System.out.println("User discord ID: "+discord);}
+						if (Main.trackerInformation) {System.out.println("User UUID: "+f.getName());}
 						 try {
 							if (server.getMemberById(discord).getOnlineStatus() == OnlineStatus.OFFLINE || server.getMemberById(discord).getOnlineStatus() == OnlineStatus.IDLE) {
+								if (Main.trackerInformation) {System.out.println("User offline skipped");}
 								continue;
 							}
 						 } catch (Exception e) {
@@ -52,7 +56,9 @@ public class Tracker {
 						 }
 						 
 						 role_level = getRoleLevel(discord);
+						 if (Main.trackerInformation) {System.out.println("User role level: "+role_level);}
 						if (role_level == -1) {
+							if (Main.trackerInformation) {System.out.println("User leaved the server skipped");}
 							continue;
 						}
 						
@@ -79,10 +85,21 @@ public class Tracker {
 								user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
 							}
 						}
+						
+						if (Main.trackerInformation) {System.out.println("User Q: "+qualification);}
+						if (Main.trackerInformation) {System.out.println("User F: "+finals);}
+						if (Main.trackerInformation) {System.out.println("User W: "+wins);}
+						if (Main.trackerInformation) {System.out.println("User R: "+rounds);}
+						if (Main.trackerInformation) {System.out.println("User IGN: "+user);}
+						
 						currentQualification = readValue(f+"/Q");
 						currentFinals = readValue(f+"/F");
+						
+						if (Main.trackerInformation) {System.out.println("User current Q: "+currentQualification);}
+						if (Main.trackerInformation) {System.out.println("User current F: "+currentFinals);}
+						
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user);
-						delay(0);
+						delay(0);// Currently unused
 						
 						try {
 							PrintWriter writer = new PrintWriter(f+"/W");
@@ -94,6 +111,7 @@ public class Tracker {
 							writer = new PrintWriter(f+"/name");
 							writer.write(String.valueOf(user));
 							writer.close();
+							if (Main.trackerInformation) {System.out.println("Successfully updater user data");}
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
@@ -158,7 +176,9 @@ public class Tracker {
 		try {
 			str = Files.readAllLines(Paths.get(file)).get(0);
 		} catch (IOException e) {
-			e.printStackTrace();
+			if (!file.equals("tracker")) {
+				e.printStackTrace();
+			}
 		}
 		return str;
 	}

@@ -10,6 +10,8 @@ public class Main {
 	private static final String ACTIVITY = "!help";
 	public static final String bypassID = "X";
 	public static final String serverID = "X";
+	public static boolean trackerInformation = false;
+	public static boolean leaderboardInformation = false;
 	
 	/**
 	 *  Main

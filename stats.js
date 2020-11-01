@@ -23,7 +23,7 @@ async function create() {
     var finIcon = await loadImage('res/f.png');
     var totalIcon = await loadImage('res/total.png');
 
-    registerFont('./font.ttf', { family: 'default' });
+    registerFont('res/font.ttf', { family: 'default' });
     context.drawImage(background, 0, 0, 600, 400);
 
 

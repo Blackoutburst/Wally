@@ -21,6 +21,8 @@ import commands.Ping;
 import commands.Say;
 import commands.SetTracker;
 import commands.Stats;
+import commands.ToggleLeaderboardInformation;
+import commands.ToggleTrackerInformation;
 import commands.Unlink;
 import main.Main;
 import net.dv8tion.jda.api.JDABuilder;
@@ -130,6 +132,10 @@ public class Bot extends ListenerAdapter {
 				LeaderBoard.display(event);
 			if (event.getMessage().getContentDisplay().startsWith("!forcepb"))
 				PBTester.force(event);
+			if (event.getMessage().getContentDisplay().startsWith("!tli"))
+				ToggleLeaderboardInformation.toggle(event);
+			if (event.getMessage().getContentDisplay().startsWith("!tti"))
+				ToggleTrackerInformation.toggle(event);
 		}
     }
 }

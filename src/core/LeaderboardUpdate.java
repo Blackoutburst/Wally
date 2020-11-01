@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import main.Main;
+
 public class LeaderboardUpdate {
 
 	/**
@@ -27,6 +29,7 @@ public class LeaderboardUpdate {
 						String rounds = "0";
 						File f = new File(index.getPath(),s);
 						
+						if (Main.leaderboardInformation) {System.out.println("User UUID: "+f.getName());}
 						output = Request.getPlayerInfoUUID(f.getName());
 						if (output.equals("API LIMITATION")) {
 							System.out.println("Lead aborted due to api limiation");
@@ -50,6 +53,12 @@ public class LeaderboardUpdate {
 								user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
 							}
 						}
+						
+						if (Main.leaderboardInformation) {System.out.println("User Q: "+qualification);}
+						if (Main.leaderboardInformation) {System.out.println("User F: "+finals);}
+						if (Main.leaderboardInformation) {System.out.println("User W: "+wins);}
+						if (Main.leaderboardInformation) {System.out.println("User R: "+rounds);}
+						if (Main.leaderboardInformation) {System.out.println("User IGN: "+user);}
 						
 						try {
 							PrintWriter writer = new PrintWriter(f+"/W");
