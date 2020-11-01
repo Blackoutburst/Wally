@@ -162,12 +162,11 @@ public class LeaderBoard {
 	 * @author Blackoutburst
 	 */
 	private static String readValue(String file) {
-		String str = "";
+		String str = "0";
 		try {
 			str = Files.readAllLines(Paths.get(file)).get(0);
 		} catch (Exception e) {
 			System.err.println("Corrupted: "+file);
-			e.printStackTrace();
 		}
 		return str;
 	}

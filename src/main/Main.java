@@ -35,13 +35,10 @@ public class Main {
 	private static void setup() {
 		File f = new File("linked player");
 		
-		if (!f.exists()) {
+		if (!f.exists())
 			f.mkdir();
-		}
 		f = new File("leaderboard");
-		
-		if (!f.exists()) {
+		if (!f.exists())
 			f.mkdir();
-		}
 	}
 }
