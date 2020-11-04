@@ -1,6 +1,9 @@
 package core;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -109,6 +112,79 @@ public class Request {
 		    br.readLine();
 		    String ign = br.readLine().split("\"")[3];
 			return (ign);
+		} catch (Exception e) {
+			return (null);
+		}
+	}
+	
+	/**
+	 * Get player Hypixel AP
+	 * @param user name
+	 * @return ap
+	 * @author Blackoutburst
+	 */
+	public static String getPlanckeAP(String name) {
+		try {
+			URL url = new URL("https://gen.plancke.io/achievementPoints/"+name+".png");
+		    URLConnection con = url.openConnection();
+		    InputStream is =con.getInputStream();
+		    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		    if (br.readLine().contains("ensure==BadPlayerException")) {
+		    	return (null);
+		    } else {
+		    	InputStream in = new BufferedInputStream(url.openStream());
+		    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+		    	byte[] buf = new byte[1024];
+		    	int n = 0;
+		    	while (-1!=(n=in.read(buf)))
+		    	{
+		    	   out.write(buf, 0, n);
+		    	}
+		    	out.close();
+		    	in.close();
+		    	byte[] response = out.toByteArray();
+		    	FileOutputStream fos = new FileOutputStream("ap.png");
+		    	fos.write(response);
+		    	fos.close();
+		    	return ("ok");
+		    }
+		} catch (Exception e) {
+			return (null);
+		}
+	}
+	
+	
+	/**
+	 * Get player Hypixel Level
+	 * @param user name
+	 * @return level
+	 * @author Blackoutburst
+	 */
+	public static String getPlanckeLevel(String name) {
+		try {
+			URL url = new URL("https://gen.plancke.io/exp/"+name+".png");
+		    URLConnection con = url.openConnection();
+		    InputStream is =con.getInputStream();
+		    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		    if (br.readLine().contains("ensure==BadPlayerException")) {
+		    	return (null);
+		    } else {
+		    	InputStream in = new BufferedInputStream(url.openStream());
+		    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+		    	byte[] buf = new byte[1024];
+		    	int n = 0;
+		    	while (-1!=(n=in.read(buf)))
+		    	{
+		    	   out.write(buf, 0, n);
+		    	}
+		    	out.close();
+		    	in.close();
+		    	byte[] response = out.toByteArray();
+		    	FileOutputStream fos = new FileOutputStream("level.png");
+		    	fos.write(response);
+		    	fos.close();
+		    	return ("ok");
+		    }
 		} catch (Exception e) {
 			return (null);
 		}

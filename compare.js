@@ -40,9 +40,19 @@ async function create() {
     context.shadowOffsetY = 3;
     context.fillText(args[0], 10, 40);
 
+    if (args[0] === "doguette") {
+        context.font = 'regular 24pt ';
+        context.fillText("eeeeee", 10, 70);
+    }
+    context.font = 'regular 26pt ';
     context.textAlign = 'right';
     context.fillText(args[6], 590, 40);
 
+
+    if (args[6] === "doguette") {
+        context.font = 'regular 24pt ';
+        context.fillText("eeeeee", 590, 70);
+    }
     context.font = 'regular 18pt '
     context.textAlign = 'left'
 

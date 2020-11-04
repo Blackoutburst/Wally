@@ -46,6 +46,10 @@ async function create() {
     context.textAlign = 'center';
     context.fillStyle = '#fff';
     context.fillText(args[0], 300, 40);
+    if (args[0] === "doguette") {
+        context.font = 'regular 24pt ';
+        context.fillText("eeeeee", 300, 70);
+    }
     context.font = 'regular 18pt ';
     context.textAlign = 'left';
     context.fillText("Wins: "+args[3], 150, 125);

@@ -8,11 +8,13 @@ import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.login.LoginException;
 
+import commands.Ap;
 import commands.Background;
 import commands.Compare;
 import commands.Config;
 import commands.Help;
 import commands.LeaderBoard;
+import commands.Level;
 import commands.Link;
 import commands.Linked;
 import commands.PBTester;
@@ -96,46 +98,50 @@ public class Bot extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getMember().getUser().isBot()) return;
 		if (!event.isFromType(ChannelType.PRIVATE)) {
-			if (event.getMessage().getContentDisplay().startsWith("!help"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!help"))
 				Help.display(event);
-			if (event.getMessage().getContentDisplay().startsWith("!pack"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!pack"))
 				Pack.display(event);
-			if (event.getMessage().getContentDisplay().startsWith("!stats"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!stats"))
 				Stats.display(event);
-			if (event.getMessage().getContentDisplay().startsWith("!ping"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!ping"))
 				Ping.display(event);
-			if (event.getMessage().getContentDisplay().startsWith("!compare"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!compare"))
 				Compare.display(event);
-			if (event.getMessage().getContentDisplay().startsWith("!getconfig"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!getconfig"))
 				Config.get(event);
-			if (event.getMessage().getContentDisplay().startsWith("!update"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!update"))
 				Config.update(event);
-			if (event.getMessage().getContentDisplay().startsWith("!settracker"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!settracker"))
 				SetTracker.set(event);
-			if (event.getMessage().getContentDisplay().startsWith("!showtracker"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!showtracker"))
 				SetTracker.show(event);
-			if (event.getMessage().getContentDisplay().startsWith("!say"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!say"))
 				Say.talk(event);
-			if (event.getMessage().getContentDisplay().startsWith("!link") && !event.getMessage().getContentDisplay().contains("!linked"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!link"))
 				Link.link(event);
-			if (event.getMessage().getContentDisplay().startsWith("!unlink"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!unlink"))
 				Unlink.unlink(event);
-			if (event.getMessage().getContentDisplay().startsWith("!linked"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!linked"))
 				Linked.display(event);
-			if (event.getMessage().getContentDisplay().startsWith("!setbackground"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!setbackground"))
 				Background.set(event);
-			if (event.getMessage().getContentDisplay().startsWith("!resetbackground"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!resetbackground"))
 				Background.reset(event);
-			if (event.getMessage().getContentDisplay().startsWith("!removebackground"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!removebackground"))
 				Background.remove(event);
-			if (event.getMessage().getContentDisplay().startsWith("!lead"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!lead"))
 				LeaderBoard.display(event);
-			if (event.getMessage().getContentDisplay().startsWith("!forcepb"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!forcepb"))
 				PBTester.force(event);
-			if (event.getMessage().getContentDisplay().startsWith("!tli"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!tli"))
 				ToggleLeaderboardInformation.toggle(event);
-			if (event.getMessage().getContentDisplay().startsWith("!tti"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!tti"))
 				ToggleTrackerInformation.toggle(event);
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!ap"))
+				Ap.display(event);
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!level"))
+				Level.display(event);
 		}
     }
 }
