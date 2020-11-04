@@ -129,7 +129,7 @@ public class Request {
 		    URLConnection con = url.openConnection();
 		    InputStream is =con.getInputStream();
 		    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		    if (br.readLine().contains("ensure==BadPlayerException")) {
+		    if (br.readLine().contains("ensure")) {
 		    	return (null);
 		    } else {
 		    	InputStream in = new BufferedInputStream(url.openStream());
@@ -166,7 +166,7 @@ public class Request {
 		    URLConnection con = url.openConnection();
 		    InputStream is =con.getInputStream();
 		    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		    if (br.readLine().contains("ensure==BadPlayerException")) {
+		    if (br.readLine().contains("ensure")) {
 		    	return (null);
 		    } else {
 		    	InputStream in = new BufferedInputStream(url.openStream());

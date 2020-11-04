@@ -8,18 +8,17 @@ import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.login.LoginException;
 
-import commands.Ap;
 import commands.Background;
 import commands.Compare;
 import commands.Config;
 import commands.Help;
 import commands.LeaderBoard;
-import commands.Level;
 import commands.Link;
 import commands.Linked;
 import commands.PBTester;
 import commands.Pack;
 import commands.Ping;
+import commands.Profile;
 import commands.Say;
 import commands.SetTracker;
 import commands.Stats;
@@ -138,10 +137,8 @@ public class Bot extends ListenerAdapter {
 				ToggleLeaderboardInformation.toggle(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!tti"))
 				ToggleTrackerInformation.toggle(event);
-			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!ap"))
-				Ap.display(event);
-			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!level"))
-				Level.display(event);
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!profile"))
+				Profile.display(event);
 		}
     }
 }
