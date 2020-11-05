@@ -22,7 +22,7 @@ public class Profile {
 		boolean linked = false;
 		
 		if (msg.length < 2) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!level player")).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!profile player")).complete();
 			return;
 		}
 		uuid = Request.getPlayerUUID(msg[1]);

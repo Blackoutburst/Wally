@@ -11,6 +11,7 @@ import javax.security.auth.login.LoginException;
 import commands.Background;
 import commands.Compare;
 import commands.Config;
+import commands.GetRole;
 import commands.Help;
 import commands.LeaderBoard;
 import commands.Link;
@@ -19,6 +20,7 @@ import commands.PBTester;
 import commands.Pack;
 import commands.Ping;
 import commands.Profile;
+import commands.Register;
 import commands.Say;
 import commands.SetTracker;
 import commands.Stats;
@@ -29,10 +31,14 @@ import main.Main;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
@@ -93,6 +99,26 @@ public class Bot extends ListenerAdapter {
 		event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRolesByName("Members", false).get(0)).complete();
 	}
 	
+	
+	@Override
+	public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
+		if (event.getMessageId().equals("773957012358168659")) {
+			Member user = event.getGuild().getMember(event.getUser());
+			Role role = event.getGuild().getRolesByName("Tournament Player", false).get(0);
+			event.getGuild().addRoleToMember(user, role).complete();
+			
+		}
+	}
+	
+	@Override
+    public void onGuildMessageReactionRemove(GuildMessageReactionRemoveEvent event) {
+		if (event.getMessageId().equals("773957012358168659")) {
+			Member user = event.getGuild().getMember(event.getUser());
+			Role role = event.getGuild().getRolesByName("Tournament Player", false).get(0);
+			event.getGuild().removeRoleFromMember(user, role).complete();
+		}
+	}
+	
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getMember().getUser().isBot()) return;
@@ -139,6 +165,10 @@ public class Bot extends ListenerAdapter {
 				ToggleTrackerInformation.toggle(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!profile"))
 				Profile.display(event);
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!getrole"))
+				GetRole.display(event);
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!register"))
+				Register.display(event);
 		}
     }
 }
