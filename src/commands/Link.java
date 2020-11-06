@@ -149,7 +149,9 @@ public class Link {
 	 * @author Blackoutburst
 	 */
 	private static void setRole(int qualification, int finals, MessageReceivedEvent event, String discord) {
-		if (qualification > 350 || finals > 350) {
+		if (qualification > 400 || finals > 400) {
+			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("400+ Club", false).get(0)).complete();
+		}	else if (qualification > 350 || finals > 350) {
 			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("350+ Club", false).get(0)).complete();
 		} else if (qualification > 300 || finals > 300) {
 			event.getGuild().addRoleToMember(event.getGuild().getMemberById(discord), event.getGuild().getRolesByName("300+ Club", false).get(0)).complete();

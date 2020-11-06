@@ -161,7 +161,10 @@ public class Compare {
 			formatter.format(Double.parseDouble(String.valueOf(mf))).replace(",", " "), 
 			formatter.format(Double.parseDouble(String.valueOf(mw))).replace(",", " "), 
 			formatter.format(Double.parseDouble(String.valueOf(mr))).replace(",", " "), 
-			formatter.format(Double.parseDouble(String.valueOf(mt))).replace(",", " "));
+			formatter.format(Double.parseDouble(String.valueOf(mt))).replace(",", " "),
+			Request.getPlayerUUID(user),
+			Request.getPlayerUUID(user2));
+		
 		
 		try {
 			Process p = pb.start();

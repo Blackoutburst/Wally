@@ -40,9 +40,25 @@ async function create() {
     context.textAlign = 'center';
     context.fillStyle = '#fff';
     context.fillText(args[0], 300, 40);
-    if (args[0] === "doguette") {
-        context.font = 'regular 24pt ';
+    if (args[2] === "75203801f5a54ba6baa691523aa15848") {
+        context.font = 'regular 20pt ';
         context.fillText("eeeeee", 300, 70);
+    }
+    if (args[2] === "16d455475ddf42d48e9ffdb45cd69fa5") {
+        context.font = 'regular 20pt ';
+        context.fillText("The Champion himself", 300, 70);
+    }
+    if (args[2] === "983b1593a9a443ab8f2a15e0a65f720f") {
+        context.font = 'regular 20pt ';
+        context.fillText("No Fly Queen", 300, 70);
+    }
+    if (args[2] === "c46f6438006049d4830ca6fa732303fc") {
+        context.font = 'regular 20pt ';
+        context.fillText("HitW Elder", 300, 70);
+    }
+    if (args[2] === "b00d07b27984424db8f2d96c1e4aace5") {
+        context.font = 'regular 20pt ';
+        context.fillText("Community Father", 300, 70);
     }
     const buffer = canvas.toBuffer('image/png');
     fs.writeFileSync('./profile.png', buffer);

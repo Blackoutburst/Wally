@@ -59,7 +59,7 @@ public class Bot extends ListenerAdapter {
 	 */
 	public void login(String token, String activity) throws LoginException, InterruptedException {
 		bot = JDABuilder.createDefault(token);
-		bot.setActivity(Activity.playing(activity));
+		bot.setActivity(Activity.watching(activity));
 		bot.addEventListeners(new Bot());
 		bot.setChunkingFilter(ChunkingFilter.ALL);
 		bot.setMemberCachePolicy(MemberCachePolicy.ALL);
@@ -123,15 +123,15 @@ public class Bot extends ListenerAdapter {
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getMember().getUser().isBot()) return;
 		if (!event.isFromType(ChannelType.PRIVATE)) {
-			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!help"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!help") || event.getMessage().getContentDisplay().split(" ")[0].equals("!h"))
 				Help.display(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!pack"))
 				Pack.display(event);
-			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!stats"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!stats") || event.getMessage().getContentDisplay().split(" ")[0].equals("!s"))
 				Stats.display(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!ping"))
 				Ping.display(event);
-			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!compare"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!compare") || event.getMessage().getContentDisplay().split(" ")[0].equals("!c"))
 				Compare.display(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!getconfig"))
 				Config.get(event);
@@ -149,13 +149,13 @@ public class Bot extends ListenerAdapter {
 				Unlink.unlink(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!linked"))
 				Linked.display(event);
-			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!setbackground"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!setbackground") || event.getMessage().getContentDisplay().split(" ")[0].equals("!setbg"))
 				Background.set(event);
-			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!resetbackground"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!resetbackground") || event.getMessage().getContentDisplay().split(" ")[0].equals("!rbg"))
 				Background.reset(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!removebackground"))
 				Background.remove(event);
-			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!lead"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!lead") || event.getMessage().getContentDisplay().split(" ")[0].equals("!lb") || event.getMessage().getContentDisplay().split(" ")[0].equals("!leaderboard"))
 				LeaderBoard.display(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!forcepb"))
 				PBTester.force(event);
@@ -163,7 +163,7 @@ public class Bot extends ListenerAdapter {
 				ToggleLeaderboardInformation.toggle(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!tti"))
 				ToggleTrackerInformation.toggle(event);
-			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!profile"))
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!profile") || event.getMessage().getContentDisplay().split(" ")[0].equals("!p"))
 				Profile.display(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!getrole"))
 				GetRole.display(event);

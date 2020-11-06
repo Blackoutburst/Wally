@@ -7,7 +7,7 @@ import core.Bot;
 
 public class Main {
 	private static final String TOKEN = "X";
-	private static final String ACTIVITY = "R.I.P (1893-1965)";
+	private static final String ACTIVITY = "Simon 405F :O";
 	public static final String bypassID = "X";
 	public static final String serverID = "X";
 	public static boolean trackerInformation = false;
