@@ -11,6 +11,7 @@ import javax.security.auth.login.LoginException;
 import commands.Background;
 import commands.Compare;
 import commands.Config;
+import commands.ForceTracker;
 import commands.GetRole;
 import commands.Help;
 import commands.LeaderBoard;
@@ -59,7 +60,7 @@ public class Bot extends ListenerAdapter {
 	 */
 	public void login(String token, String activity) throws LoginException, InterruptedException {
 		bot = JDABuilder.createDefault(token);
-		bot.setActivity(Activity.watching(activity));
+		bot.setActivity(Activity.playing(activity));
 		bot.addEventListeners(new Bot());
 		bot.setChunkingFilter(ChunkingFilter.ALL);
 		bot.setMemberCachePolicy(MemberCachePolicy.ALL);
@@ -169,6 +170,8 @@ public class Bot extends ListenerAdapter {
 				GetRole.display(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!register"))
 				Register.display(event);
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!forcetracker"))
+				ForceTracker.toggle(event);
 		}
     }
 }

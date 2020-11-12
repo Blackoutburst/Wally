@@ -66,6 +66,11 @@ async function create() {
         context.font = 'regular 20pt ';
         context.fillText("Community Father", 300, 70);
     }
+    if (args[7] === "bedb53e2dd754786a2ac1ec80023aabe") {
+        context.font = 'regular 20pt ';
+        context.fillText("Simon's Cube Slave", 300, 70);
+    }
+
     context.font = 'regular 18pt ';
     context.textAlign = 'left';
     context.fillText("Wins: "+args[3], 150, 125);

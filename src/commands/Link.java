@@ -50,22 +50,26 @@ public class Link {
 			}
 			try {
 				String[] value;
-				String qualification = "";
-				String finals = "";
-				String wins = "";
-				String rounds = "";
+				String qualification = "0";
+				String finals = "0";
+				String wins = "0";
+				String rounds = "0";
 				String output = Request.getPlayerInfo(ign);
 				
 				value = output.split(",");
 				for (int i = 0; i < value.length; i++) {
-					if (value[i].contains("hitw_record_q"))
+					if (value[i].contains("hitw_record_q")) {
 						qualification = value[i].replaceAll("[^0-9]", "");
-					if (value[i].contains("hitw_record_f"))
+					}
+					if (value[i].contains("hitw_record_f")) {
 						finals = value[i].replaceAll("[^0-9]", "");
-					if (value[i].contains("wins_hole_in_the_wall"))
+					}
+					if (value[i].contains("wins_hole_in_the_wall")) {
 						wins = value[i].replaceAll("[^0-9]", "");
-					if (value[i].contains("rounds_hole_in_the_wall"))
+					}
+					if (value[i].contains("rounds_hole_in_the_wall")) {
 						rounds = value[i].replaceAll("[^0-9]", "");
+					}
 				}
 				f.mkdirs();
 				PrintWriter writer = new PrintWriter("linked player/"+uuid+"/discord");

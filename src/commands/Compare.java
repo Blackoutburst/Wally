@@ -2,9 +2,20 @@ package commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import comparator.PlayerComparatorF;
+import comparator.PlayerComparatorQ;
+import comparator.PlayerComparatorRounds;
+import comparator.PlayerComparatorTotal;
+import comparator.PlayerComparatorWins;
 import core.Lines;
+import core.Player;
 import core.Reader;
 import core.Request;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -64,47 +75,118 @@ public class Compare {
 			return;
 		}
 		
-		for (int i = 0; i < value.length; i++) {
-			if (value[i].contains("hitw_record_q")) {
-				qualification = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
+		if (user.toLowerCase().equals("wally")) {
+			List<Player> player = new ArrayList<Player>();
+			File index = new File("leaderboard");
+			
+			String[] entries = index.list();
+			for(String s: entries) {
+				File f = new File(index.getPath(),s);
+				
+				wins = Integer.valueOf(readValue(f+"/W"));
+				rounds = Integer.valueOf(readValue(f+"/R"));
+				qualification = Integer.valueOf(readValue(f+"/Q"));
+				finals = Integer.valueOf(readValue(f+"/F"));
+				total = qualification + finals;
+				player.add(new Player(wins, rounds, qualification, finals, total, "", ""));
 			}
-			if (value[i].contains("hitw_record_f")) {
-				finals = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
+			
+			Collections.sort(player, new PlayerComparatorWins());Collections.reverse(player);
+			wins = player.get(0).W+1;
+			Collections.sort(player, new PlayerComparatorRounds());Collections.reverse(player);
+			rounds = player.get(0).R+1;
+			Collections.sort(player, new PlayerComparatorQ());Collections.reverse(player);
+			qualification = player.get(0).Q+1;
+			Collections.sort(player, new PlayerComparatorF());Collections.reverse(player);
+			finals = player.get(0).F+1;
+			Collections.sort(player, new PlayerComparatorTotal());Collections.reverse(player);
+			total = player.get(0).total+1;
+			
+			total = qualification + finals;
+		} else {
+			for (int i = 0; i < value.length; i++) {
+				if (value[i].contains("hitw_record_q")) {
+					qualification = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
+				}
+				if (value[i].contains("hitw_record_f")) {
+					finals = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
+				}
+				if (value[i].contains("rounds_hole_in_the_wall")) {
+					rounds = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
+				}
+				if (value[i].contains("displayname")) {
+					user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
+				}
+				if (value[i].contains("wins_hole_in_the_wall")) {
+					wins = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
+				}
 			}
-			if (value[i].contains("rounds_hole_in_the_wall")) {
-				rounds = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
-			}
-			if (value[i].contains("displayname")) {
-				user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
-			}
-			if (value[i].contains("wins_hole_in_the_wall")) {
-				wins = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
-			}
+			total = qualification + finals;
 		}
-		total = qualification + finals;
 
-		value2 = output2.split("\n");
-		for (int i = 0; i < value2.length; i++) {
-			if (value2[i].contains("hitw_record_q")) {
-				qualification2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
+		if (user2.toLowerCase().equals("wally")) {
+			List<Player> player = new ArrayList<Player>();
+			File index = new File("leaderboard");
+			
+			String[] entries = index.list();
+			for(String s: entries) {
+				File f = new File(index.getPath(),s);
+				
+				wins2 = Integer.valueOf(readValue(f+"/W"));
+				rounds2 = Integer.valueOf(readValue(f+"/R"));
+				qualification2 = Integer.valueOf(readValue(f+"/Q"));
+				finals2 = Integer.valueOf(readValue(f+"/F"));
+				total2 = qualification2 + finals2;
+				player.add(new Player(wins2, rounds2, qualification2, finals2, total2, "", ""));
 			}
-			if (value2[i].contains("hitw_record_f")) {
-				finals2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
+			
+			Collections.sort(player, new PlayerComparatorWins());Collections.reverse(player);
+			wins2 = player.get(0).W+1;
+			Collections.sort(player, new PlayerComparatorRounds());Collections.reverse(player);
+			rounds2 = player.get(0).R+1;
+			Collections.sort(player, new PlayerComparatorQ());Collections.reverse(player);
+			qualification2 = player.get(0).Q+1;
+			Collections.sort(player, new PlayerComparatorF());Collections.reverse(player);
+			finals2 = player.get(0).F+1;
+			Collections.sort(player, new PlayerComparatorTotal());Collections.reverse(player);
+			total2 = player.get(0).total+1;
+			
+			total2 = qualification2 + finals2;
+		} else {
+			value2 = output2.split("\n");
+			for (int i = 0; i < value2.length; i++) {
+				if (value2[i].contains("hitw_record_q")) {
+					qualification2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
+				}
+				if (value2[i].contains("hitw_record_f")) {
+					finals2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
+				}
+				if (value2[i].contains("rounds_hole_in_the_wall")) {
+					rounds2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
+				}
+				if (value2[i].contains("displayname")) {
+					user2 = value2[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
+				}
+				if (value2[i].contains("wins_hole_in_the_wall")) {
+					wins2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
+				}
 			}
-			if (value2[i].contains("rounds_hole_in_the_wall")) {
-				rounds2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
-			}
-			if (value2[i].contains("displayname")) {
-				user2 = value2[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
-			}
-			if (value2[i].contains("wins_hole_in_the_wall")) {
-				wins2 = Integer.valueOf(value2[i].replaceAll("[^0-9]", ""));
-			}
+			total2 = qualification2 + finals2;
 		}
-		total2 = qualification2 + finals2;
 		
 		createCanvas(user, qualification, finals, wins, rounds, total, user2, qualification2, finals2, wins2, rounds2, total2);
 		event.getChannel().sendFile(new File("compare.png")).complete();
+	}
+	
+	
+	private static String readValue(String file) {
+		String str = "0";
+		try {
+			str = Files.readAllLines(Paths.get(file)).get(0);
+		} catch (Exception e) {
+			System.err.println("Corrupted: "+file);
+		}
+		return str;
 	}
 	
 	/**

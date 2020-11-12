@@ -46,14 +46,17 @@ public class Tracker {
 						discord = readValue(f+"/discord");
 						if (Main.trackerInformation) {System.out.println("User discord ID: "+discord);}
 						if (Main.trackerInformation) {System.out.println("User UUID: "+f.getName());}
-						 try {
-							if (server.getMemberById(discord).getOnlineStatus() == OnlineStatus.OFFLINE || server.getMemberById(discord).getOnlineStatus() == OnlineStatus.IDLE) {
-								if (Main.trackerInformation) {System.out.println("User offline skipped");}
-								continue;
-							}
-						 } catch (Exception e) {
-							 continue;
-						 }
+						 
+						if (!Main.forceTracker) {
+							try {
+								if (server.getMemberById(discord).getOnlineStatus() == OnlineStatus.OFFLINE || server.getMemberById(discord).getOnlineStatus() == OnlineStatus.IDLE) {
+									if (Main.trackerInformation) {System.out.println("User offline skipped");}
+									continue;
+								}
+							 } catch (Exception e) {
+								 continue;
+							 }
+						}
 						 
 						 role_level = getRoleLevel(discord);
 						 if (Main.trackerInformation) {System.out.println("User role level: "+role_level);}

@@ -60,6 +60,10 @@ async function create() {
         context.font = 'regular 20pt ';
         context.fillText("Community Father", 300, 70);
     }
+    if (args[2] === "bedb53e2dd754786a2ac1ec80023aabe") {
+        context.font = 'regular 20pt ';
+        context.fillText("Simon's Cube Slave", 300, 70);
+    }
     const buffer = canvas.toBuffer('image/png');
     fs.writeFileSync('./profile.png', buffer);
 }

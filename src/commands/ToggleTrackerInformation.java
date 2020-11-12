@@ -16,7 +16,7 @@ public class ToggleTrackerInformation {
 	public static void toggle(MessageReceivedEvent event) {
 		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getMember().getId().equals(Main.bypassID)) {
 			Main.trackerInformation = (Main.trackerInformation) ? false : true;
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", done.").complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Main.trackerInformation).complete();
 		} else {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
 		}

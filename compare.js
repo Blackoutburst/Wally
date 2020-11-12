@@ -60,6 +60,10 @@ async function create() {
         context.font = 'regular 20pt ';
         context.fillText("Community Father", 10, 70);
     }
+    if (args[22] === "bedb53e2dd754786a2ac1ec80023aabe") {
+        context.font = 'regular 20pt ';
+        context.fillText("Simon's Cube Slave", 10, 70);
+    }
     context.font = 'regular 26pt ';
     context.textAlign = 'right';
     context.fillText(args[6], 590, 40);
@@ -84,6 +88,10 @@ async function create() {
     if (args[23] === "b00d07b27984424db8f2d96c1e4aace5") {
         context.font = 'regular 20pt ';
         context.fillText("Community Father", 590, 70);
+    }
+    if (args[23] === "bedb53e2dd754786a2ac1ec80023aabe") {
+        context.font = 'regular 20pt ';
+        context.fillText("Simon's Cube Slave", 590, 70);
     }
     context.font = 'regular 18pt '
     context.textAlign = 'left'
