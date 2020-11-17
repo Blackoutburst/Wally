@@ -109,6 +109,8 @@ public class Bot extends ListenerAdapter {
 			event.getGuild().addRoleToMember(user, role).complete();
 			
 		}
+		if (event.getMessageId().equals("778301653748285460"))
+			SetGender.setRole(event);
 	}
 	
 	@Override
@@ -118,6 +120,8 @@ public class Bot extends ListenerAdapter {
 			Role role = event.getGuild().getRolesByName("Tournament Player", false).get(0);
 			event.getGuild().removeRoleFromMember(user, role).complete();
 		}
+		if (event.getMessageId().equals("778301653748285460"))
+			SetGender.removeRole(event);
 	}
 	
 	@Override

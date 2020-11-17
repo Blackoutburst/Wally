@@ -44,13 +44,16 @@ public class Tracker {
 						
 						
 						discord = readValue(f+"/discord");
-						if (Main.trackerInformation) {System.out.println("User discord ID: "+discord);}
-						if (Main.trackerInformation) {System.out.println("User UUID: "+f.getName());}
-						 
+						try {
+							if (Main.trackerInformation) {System.out.print(Request.getPlayer(f.getName())+" "+server.getMemberById(discord).getUser().getName()+" | ");}
+						 } catch (Exception e) {
+							 if (Main.trackerInformation) {System.out.println("User leaved the server.");}
+							 continue;
+						 }
 						if (!Main.forceTracker) {
 							try {
 								if (server.getMemberById(discord).getOnlineStatus() == OnlineStatus.OFFLINE || server.getMemberById(discord).getOnlineStatus() == OnlineStatus.IDLE) {
-									if (Main.trackerInformation) {System.out.println("User offline skipped");}
+									if (Main.trackerInformation) {System.out.println("skipped : "+server.getMemberById(discord).getOnlineStatus());}
 									continue;
 								}
 							 } catch (Exception e) {
@@ -59,11 +62,8 @@ public class Tracker {
 						}
 						 
 						 role_level = getRoleLevel(discord);
-						 if (Main.trackerInformation) {System.out.println("User role level: "+role_level);}
-						if (role_level == -1) {
-							if (Main.trackerInformation) {System.out.println("User leaved the server skipped");}
+						if (role_level == -1)
 							continue;
-						}
 						
 						output = Request.getPlayerInfoUUID(f.getName());
 						if (output.equals("API LIMITATION")) {
@@ -89,17 +89,8 @@ public class Tracker {
 							}
 						}
 						
-						if (Main.trackerInformation) {System.out.println("User Q: "+qualification);}
-						if (Main.trackerInformation) {System.out.println("User F: "+finals);}
-						if (Main.trackerInformation) {System.out.println("User W: "+wins);}
-						if (Main.trackerInformation) {System.out.println("User R: "+rounds);}
-						if (Main.trackerInformation) {System.out.println("User IGN: "+user);}
-						
 						currentQualification = readValue(f+"/Q");
 						currentFinals = readValue(f+"/F");
-						
-						if (Main.trackerInformation) {System.out.println("User current Q: "+currentQualification);}
-						if (Main.trackerInformation) {System.out.println("User current F: "+currentFinals);}
 						
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user);
 						delay(0);// Currently unused

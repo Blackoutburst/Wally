@@ -29,7 +29,7 @@ public class LeaderboardUpdate {
 						String rounds = "0";
 						File f = new File(index.getPath(),s);
 						
-						if (Main.leaderboardInformation) {System.out.println("User UUID: "+f.getName());}
+						if (Main.leaderboardInformation) {System.out.print(Request.getPlayer(f.getName())+" ");}
 						output = Request.getPlayerInfoUUID(f.getName());
 						if (output.equals("API LIMITATION")) {
 							System.out.println("Lead aborted due to api limiation");
@@ -54,12 +54,6 @@ public class LeaderboardUpdate {
 							}
 						}
 						
-						if (Main.leaderboardInformation) {System.out.println("User Q: "+qualification);}
-						if (Main.leaderboardInformation) {System.out.println("User F: "+finals);}
-						if (Main.leaderboardInformation) {System.out.println("User W: "+wins);}
-						if (Main.leaderboardInformation) {System.out.println("User R: "+rounds);}
-						if (Main.leaderboardInformation) {System.out.println("User IGN: "+user);}
-						
 						try {
 							PrintWriter writer = new PrintWriter(f+"/W");
 							writer.write(String.valueOf(wins));
@@ -76,6 +70,7 @@ public class LeaderboardUpdate {
 							writer = new PrintWriter(f+"/F");
 							writer.write(String.valueOf(finals));
 							writer.close();
+							if (Main.leaderboardInformation) {System.out.println("Successfully updater user data");}
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
