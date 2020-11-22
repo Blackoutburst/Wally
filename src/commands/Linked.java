@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 import core.Lines;
 import core.Reader;
-import main.Main;
+import core.Utils;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -21,7 +21,7 @@ public class Linked {
 	 * @author Blackoutburst
 	 */
 	public static void display(MessageReceivedEvent event) {
-		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getMember().getId().equals(Main.bypassID)) {
+		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || Utils.isStaff(event.getMember())) {
 			event.getChannel().sendMessage(Reader.read(Lines.linked_list)).complete();
 			String str = "UUID DISCORD_ID\n";
 			

@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import core.Lines;
 import core.Reader;
 import core.Request;
-import main.Main;
+import core.Utils;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -19,7 +19,7 @@ public class PBTester {
 	 * @author Blackoutburst
 	 */
 	public static void force(MessageReceivedEvent event) {
-		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getMember().getId().equals(Main.bypassID)) {
+		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || Utils.isStaff(event.getMember())) {
 			String msg[] = event.getMessage().getContentDisplay().split(" ");
 			String ign = null;
 			String uuid = null;

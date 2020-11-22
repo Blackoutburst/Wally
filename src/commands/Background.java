@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import core.Lines;
 import core.Reader;
 import core.Request;
-import main.Main;
+import core.Utils;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -90,7 +90,7 @@ public class Background {
 	 * @author Blackoutburst
 	 */
 	public static void remove(MessageReceivedEvent event) {
-		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getMember().getId().equals(Main.bypassID)) {
+		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || Utils.isStaff(event.getMember())) {
 			String[] msg = event.getMessage().getContentDisplay().split(" ");
 			String id = "";
 			

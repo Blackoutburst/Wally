@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 import core.Lines;
 import core.Reader;
-import main.Main;
+import core.Utils;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -21,7 +21,7 @@ public class SetTracker {
 	 * @author Blackoutburst
 	 */
 	public static void set(MessageReceivedEvent event) {
-		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getMember().getId().equals(Main.bypassID)) {
+		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || Utils.isStaff(event.getMember())) {
 			try {
 				PrintWriter writer = new PrintWriter("tracker");
 				writer.write(event.getChannel().getId());
@@ -41,7 +41,7 @@ public class SetTracker {
 	 * @author Blackoutburst
 	 */
 	public static void show(MessageReceivedEvent event) {
-		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getMember().getId().equals(Main.bypassID)) {
+		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || Utils.isStaff(event.getMember())) {
 			if (!new File("tracker").exists()) {
 				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.tracker_unset)).complete();
 			} else {
