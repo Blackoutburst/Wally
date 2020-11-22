@@ -229,6 +229,8 @@ public class Tracker {
 	 * @param newScore
 	 * @param role_level
 	 * @author Blackoutburst
+	 * @author Fuby
+	 * @author eatmyvenom
 	 */
 	private void setRole(String discord, int newScore, int role_level) {
 		if (Integer.valueOf(newScore) > 400 && role_level < 8) {

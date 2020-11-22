@@ -14,7 +14,7 @@ public class Main {
 	public static boolean forceTracker  = false;
 	
 	/**
-	 *  Main
+	 * Main
 	 * @param args
 	 * @author Blackoutburst
 	 */
@@ -31,7 +31,7 @@ public class Main {
 	}
 	
 	/**
-	 * Generate usefull folder on start
+	 * Generate useful folder on start
 	 * @author Blackoutburst
 	 */
 	private static void setup() {

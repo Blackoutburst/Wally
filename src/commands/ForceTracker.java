@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class ForceTracker {
 	
 	/**
-	 * Toggle information
+	 * Force tracker to check every server member
 	 * @param event
 	 * @author Blackoutburst
 	 */

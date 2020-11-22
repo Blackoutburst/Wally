@@ -85,7 +85,7 @@ public class LeaderboardUpdate {
 	}
 	
 	/**
-	 * Add delay to tracker
+	 * Add delay to leaderboard updater
 	 * @param ms
 	 * @author Blackoutburst
 	 */

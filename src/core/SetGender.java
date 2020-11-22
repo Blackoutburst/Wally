@@ -2,82 +2,69 @@ package core;
 
 import java.util.List;
 
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
 
 public class SetGender {
 	
-	public static void setRole(GuildMessageReactionAddEvent event) {
-		Member user = event.getGuild().getMember(event.getUser());
-		Role role = null;
-		List<Role> roles = event.getGuild().getRoles();
-		
-		// She/Her
-		if (event.getReactionEmote().toString().equals("RE:U+1f1f8")) {
-			for (Role r : roles) {
-				if (r.getName().contains("She/Her")) {
-				role = r;
-				}
-			}
-			event.getGuild().addRoleToMember(user, role).complete();
-		}
-		
-		// He/Him
-		if (event.getReactionEmote().toString().equals("RE:U+1f1ed")) {
-			for (Role r : roles) {
-				if (r.getName().contains("He/Him")) {
-				role = r;
-				}
-			}
-			event.getGuild().addRoleToMember(user, role).complete();
-		}
-		
-		// They/Them
-		if (event.getReactionEmote().toString().equals("RE:U+1f1f9")) {
-			for (Role r : roles) {
-				if (r.getName().contains("They/Them")) {
-				role = r;
-				}
-			}
-			event.getGuild().addRoleToMember(user, role).complete();
+	/**
+	 * Set user role on message reaction
+	 * @param event
+	 * @author Blackoutburst
+	 */
+	public static void addRole(GuildMessageReactionAddEvent event) {
+		switch(event.getReactionEmote().toString()) {
+			case "RE:U+1f1ed" : add("He/Him", event); break;
+			case "RE:U+1f1f8" : add("She/Her", event); break;
+			case "RE:U+1f1f9" : add("They/Them", event); break;
 		}
 	}
 	
-	public static void removeRole(GuildMessageReactionRemoveEvent event) {
-		Member user = event.getGuild().getMember(event.getUser());
-		Role role = null;
+	/**
+	 * Add specified role
+	 * @param roleName
+	 * @param event
+	 * @author Blackoutburst
+	 */
+	private static void add(String roleName, GuildMessageReactionAddEvent event) {
 		List<Role> roles = event.getGuild().getRoles();
 		
-		// She/Her
-		if (event.getReactionEmote().toString().equals("RE:U+1f1f8")) {
-			for (Role r : roles) {
-				if (r.getName().contains("She/Her")) {
-				role = r;
-				}
+		for (Role r : roles) {
+			if (r.getName().equals(roleName)) {
+				event.getGuild().addRoleToMember(event.getMember(), r).complete();
+				break;
 			}
-			event.getGuild().removeRoleFromMember(user, role).complete();
 		}
-		
-		// He/Him
-		if (event.getReactionEmote().toString().equals("RE:U+1f1ed")) {
-			for (Role r : roles) {
-				if (r.getName().contains("He/Him")) {
-				role = r;
-				}
-			}
-			event.getGuild().removeRoleFromMember(user, role).complete();
+	}
+	
+	/**
+	 * Remove user role when user remove message reaction
+	 * @param event
+	 * @author Blackoutburst
+	 */
+	public static void removeRole(GuildMessageReactionRemoveEvent event) {
+		switch(event.getReactionEmote().toString()) {
+			case "RE:U+1f1ed" : remove("He/Him", event); break;
+			case "RE:U+1f1f8" : remove("She/Her", event); break;
+			case "RE:U+1f1f9" : remove("They/Them", event); break;
 		}
+	}
+	
+	/**
+	 * Remove specified role
+	 * @param roleName
+	 * @param event
+	 * @author Blackoutburst
+	 */
+	private static void remove(String roleName, GuildMessageReactionRemoveEvent event) {
+		List<Role> roles = event.getGuild().getRoles();
 		
-		// They/Them
-		if (event.getReactionEmote().toString().equals("RE:U+1f1f9")) {
-			for (Role r : roles) {
-				if (r.getName().contains("They/Them")) {
-				role = r;
-				}
+		for (Role r : roles) {
+			if (r.getName().equals(roleName)) {
+				event.getGuild().removeRoleFromMember(event.getMember(), r).complete();
+				break;
 			}
-			event.getGuild().removeRoleFromMember(user, role).complete();
 		}
 	}
 }

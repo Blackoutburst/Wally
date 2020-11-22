@@ -104,7 +104,13 @@ public class Stats {
 		event.getChannel().sendFile(new File("stats.png")).complete();
 	}
 	
-	
+	/**
+	 * Get Wally fake stats from every leaderboard
+	 * @param user
+	 * @param event
+	 * @param formatter
+	 * @author Blackoutburst
+	 */
 	private static void getWallyStats(String user, MessageReceivedEvent event, DecimalFormat formatter) {
 		List<Player> player = new ArrayList<Player>();
 		String qualification = "0";
@@ -161,6 +167,12 @@ public class Stats {
 		event.getChannel().sendFile(new File("stats.png")).complete();
 	}
 	
+	/**
+	 * Read file value
+	 * @param file
+	 * @return file value
+	 * @author Blackoutburst
+	 */
 	private static String readValue(String file) {
 		String str = "0";
 		try {

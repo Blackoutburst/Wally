@@ -110,7 +110,7 @@ public class Bot extends ListenerAdapter {
 			
 		}
 		if (event.getMessageId().equals("778301653748285460"))
-			SetGender.setRole(event);
+			SetGender.addRole(event);
 	}
 	
 	@Override

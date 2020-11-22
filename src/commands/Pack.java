@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class Pack {
 	
 	/**
-	 * Display texture pack link
+	 * Send link to #ressource-pack channel
 	 * @param event
 	 * @author Blackoutburst
 	 */

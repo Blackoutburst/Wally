@@ -22,7 +22,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class LeaderBoard {
 
 	/**
-	 * Display discord user leaderboard
+	 * Display leaderboard
 	 * @param event
 	 * @author Blackoutburst
 	 */
