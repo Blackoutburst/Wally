@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import javax.security.auth.login.LoginException;
 
 import commands.Background;
+import commands.Changelog;
 import commands.Compare;
 import commands.Config;
 import commands.ForceTracker;
@@ -176,6 +177,9 @@ public class Bot extends ListenerAdapter {
 				Register.display(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!forcetracker"))
 				ForceTracker.toggle(event);
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!changelog"))
+				Changelog.display(event);
+			
 		}
     }
 }

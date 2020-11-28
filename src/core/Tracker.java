@@ -28,6 +28,7 @@ public class Tracker {
 					String output = "";
 					String[] value;
 					File index = new File("linked player");
+					File lbfile = new File("leaderboard");
 					String[]entries = index.list();
 					String channelID = readValue("tracker");
 					for(String s: entries) {
@@ -41,6 +42,7 @@ public class Tracker {
 						String currentQualification = "0";
 						String currentFinals = "0";
 						File f = new File(index.getPath(),s);
+						File lbf = new File(lbfile.getPath(),s);
 						
 						
 						discord = readValue(f+"/discord");
@@ -92,7 +94,7 @@ public class Tracker {
 						currentQualification = readValue(f+"/Q");
 						currentFinals = readValue(f+"/F");
 						
-						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user);
+						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user, lbf);
 						delay(0);// Currently unused
 						
 						try {
@@ -106,6 +108,16 @@ public class Tracker {
 							writer.write(String.valueOf(user));
 							writer.close();
 							if (Main.trackerInformation) {System.out.println("Successfully updater user data");}
+							writer = new PrintWriter(lbf+"/W");
+							writer.write(String.valueOf(wins));
+							writer.close();
+							writer = new PrintWriter(lbf+"/R");
+							writer.write(String.valueOf(rounds));
+							writer.close();
+							writer = new PrintWriter(lbf+"/name");
+							writer.write(String.valueOf(user));
+							writer.close();
+							if (Main.trackerInformation) {System.out.println("Successfully updater leaderboard data");}
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
@@ -133,15 +145,17 @@ public class Tracker {
 	 * @author Blackoutburst
 	 */
 	private void onHighscore(String currentQualification, String qualification, String currentFinals, String finals,
-			int role_level, String channelID, String discord, File f, String user) {
+			int role_level, String channelID, String discord, File f, String user, File lbf) {
 		if (Integer.valueOf(currentQualification) < Integer.valueOf(qualification)) {
 			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.qualifiers_score).replace("%player%", user.replace("_", "\\_")).replace("%score%", qualification).replace("%up%", String.valueOf(Integer.valueOf(qualification) - Integer.valueOf(currentQualification)))).complete();
 			writeHighScore(Integer.valueOf(qualification), f, "Q");
+			writeHighScore(Integer.valueOf(qualification), lbf, "Q");
 			setRole(discord, Integer.valueOf(qualification), role_level);
 		}
 		if (Integer.valueOf(currentFinals) < Integer.valueOf(finals)) {
 			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.finals_score).replace("%player%", user.replace("_", "\\_")).replace("%score%", finals).replace("%up%", String.valueOf(Integer.valueOf(finals) - Integer.valueOf(currentFinals)))).complete();
 			writeHighScore(Integer.valueOf(finals), f, "F");
+			writeHighScore(Integer.valueOf(finals), lbf, "F");
 			setRole(discord, Integer.valueOf(finals), role_level);
 		}
 	}
