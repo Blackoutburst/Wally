@@ -12,6 +12,7 @@ import commands.Background;
 import commands.Changelog;
 import commands.Compare;
 import commands.Config;
+import commands.Convert;
 import commands.ForceTracker;
 import commands.GetRole;
 import commands.Help;
@@ -179,6 +180,8 @@ public class Bot extends ListenerAdapter {
 				ForceTracker.toggle(event);
 			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!changelog"))
 				Changelog.display(event);
+			if (event.getMessage().getContentDisplay().split(" ")[0].equals("!convert"))
+				Convert.convert(event);
 			
 		}
     }

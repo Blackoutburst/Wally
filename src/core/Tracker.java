@@ -146,14 +146,27 @@ public class Tracker {
 	 */
 	private void onHighscore(String currentQualification, String qualification, String currentFinals, String finals,
 			int role_level, String channelID, String discord, File f, String user, File lbf) {
+		
+		String gender = "their";
+		
+		if (Utils.isHe(server.getMemberById(discord))) {
+			gender = "his";
+		}
+		if (Utils.isShe(server.getMemberById(discord))) {
+			gender = "her";
+		}
+		if (Utils.isBoth(server.getMemberById(discord))) {
+			gender = "their";
+		}
+			
 		if (Integer.valueOf(currentQualification) < Integer.valueOf(qualification)) {
-			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.qualifiers_score).replace("%player%", user.replace("_", "\\_")).replace("%score%", qualification).replace("%up%", String.valueOf(Integer.valueOf(qualification) - Integer.valueOf(currentQualification)))).complete();
+			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.qualifiers_score).replace("%player%", user.replace("_", "\\_")).replace("%gender%", gender).replace("%score%", qualification).replace("%up%", String.valueOf(Integer.valueOf(qualification) - Integer.valueOf(currentQualification)))).complete();
 			writeHighScore(Integer.valueOf(qualification), f, "Q");
 			writeHighScore(Integer.valueOf(qualification), lbf, "Q");
 			setRole(discord, Integer.valueOf(qualification), role_level);
 		}
 		if (Integer.valueOf(currentFinals) < Integer.valueOf(finals)) {
-			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.finals_score).replace("%player%", user.replace("_", "\\_")).replace("%score%", finals).replace("%up%", String.valueOf(Integer.valueOf(finals) - Integer.valueOf(currentFinals)))).complete();
+			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.finals_score).replace("%player%", user.replace("_", "\\_")).replace("%gender%", gender).replace("%score%", finals).replace("%up%", String.valueOf(Integer.valueOf(finals) - Integer.valueOf(currentFinals)))).complete();
 			writeHighScore(Integer.valueOf(finals), f, "F");
 			writeHighScore(Integer.valueOf(finals), lbf, "F");
 			setRole(discord, Integer.valueOf(finals), role_level);

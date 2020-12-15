@@ -12,4 +12,28 @@ public class Utils {
 		}
 		return (false);
 	}
+	
+	public static boolean isHe(Member member) {
+		for (Role r : member.getRoles()) {
+			if (r.getName().equals("He/Him")) {
+				return (true);
+			}
+		}
+		return (false);
+	}
+	public static boolean isShe(Member member) {
+		for (Role r : member.getRoles()) {
+			if (r.getName().equals("She/Her")) {
+				return (true);
+			}
+		}
+		return (false);
+	}
+	
+	public static boolean isBoth(Member member) {
+		if (isShe(member) && isHe(member)) {
+			return (true);
+		}
+		return (false);
+	}
 }
