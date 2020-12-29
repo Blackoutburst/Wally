@@ -73,11 +73,11 @@ async function create() {
 
     context.font = 'regular 18pt ';
     context.textAlign = 'left';
-    context.fillText("Wins: "+args[3], 150, 125);
-    context.fillText("Walls cleared: "+args[4], 150, 175);
-    context.fillText("Best qualification score: "+args[1], 150, 225);
-    context.fillText("Best final score: "+args[2], 150, 275);
-    context.fillText("Q/F total: "+args[5], 150, 325);
+    context.fillText("Wins: "+args[3]+" (#"+args[8]+")", 150, 125);
+    context.fillText("Walls cleared: "+args[4]+" (#"+args[9]+")", 150, 175);
+    context.fillText("Best qualification score: "+args[1]+" (#"+args[10]+")", 150, 225);
+    context.fillText("Best final score: "+args[2]+" (#"+args[11]+")", 150, 275);
+    context.fillText("Q/F total: "+args[5]+" (#"+args[12]+")", 150, 325);
 
 
 

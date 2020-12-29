@@ -37,6 +37,11 @@ public class Stats {
 		String wins = "0";
 		String rounds = "0";
 		String total = "0";
+		String qplace = "0";
+		String fplace = "0";
+		String wplace = "0";
+		String rplace = "0";
+		String tplace = "0";
 		String uuid = "";
 		boolean linked = false;
 		
@@ -92,15 +97,46 @@ public class Stats {
 			}
 		}
 		
-		
 		total = String.valueOf(Integer.valueOf(qualification) + Integer.valueOf(finals));
 		qualification = formatter.format(Double.parseDouble(qualification));
 		finals = formatter.format(Double.parseDouble(finals));
 		wins = formatter.format(Double.parseDouble(wins));
 		rounds = formatter.format(Double.parseDouble(rounds));
 		total = formatter.format(Double.parseDouble(total));
-
-		createCanvas(user, qualification, finals, wins, rounds, total, linked, uuid);
+		
+		List<Player> player = new ArrayList<Player>();
+		index = new File("leaderboard");
+		entries = index.list();
+		String name = "";
+		String Q = "0";
+		String F = "0";
+		String W = "0";
+		String R = "0";
+		String T = "0";
+		int i = 0;
+		for(String s: entries) {
+			File f = new File(index.getPath(),s);
+			
+			W = readValue(f+"/W");
+			R = readValue(f+"/R");
+			Q = readValue(f+"/Q");
+			F = readValue(f+"/F");
+			T = String.valueOf(Integer.valueOf(Q) + Integer.valueOf(F));
+			name = readValue(f+"/name");
+			player.add(new Player(Integer.valueOf(W), Integer.valueOf(R), Integer.valueOf(Q), Integer.valueOf(F), Integer.valueOf(T), name, ""));
+		}
+		
+		Collections.sort(player, new PlayerComparatorWins());Collections.reverse(player);
+		i = 0;for (Player p : player) { i++; if (p.name.equals(user)) {wplace = String.valueOf(i);}}
+		Collections.sort(player, new PlayerComparatorRounds());Collections.reverse(player);
+		i = 0;for (Player p : player) { i++; if (p.name.equals(user)) {rplace = String.valueOf(i);}}
+		Collections.sort(player, new PlayerComparatorQ());Collections.reverse(player);
+		i = 0;for (Player p : player) { i++; if (p.name.equals(user)) {qplace = String.valueOf(i);}}
+		Collections.sort(player, new PlayerComparatorF());Collections.reverse(player);
+		i = 0;for (Player p : player) { i++; if (p.name.equals(user)) {fplace = String.valueOf(i);}}
+		Collections.sort(player, new PlayerComparatorTotal());Collections.reverse(player);
+		i = 0;for (Player p : player) { i++; if (p.name.equals(user)) {tplace = String.valueOf(i);}}
+		createCanvas(user, qualification, finals, wins, rounds, total, linked, uuid, wplace, rplace, qplace, fplace, tplace);
 		event.getChannel().sendFile(new File("stats.png")).complete();
 	}
 	
@@ -163,7 +199,7 @@ public class Stats {
 		rounds = formatter.format(Double.parseDouble(rounds));
 		total = formatter.format(Double.parseDouble(total));
 		
-		createCanvas(user, qualification, finals, wins, rounds, total, linked, uuid);
+		createCanvas(user, qualification, finals, wins, rounds, total, linked, uuid, "1", "1", "1", "1", "1");
 		event.getChannel().sendFile(new File("stats.png")).complete();
 	}
 	
@@ -193,8 +229,10 @@ public class Stats {
 	 * @see stats.js
 	 * @author Blackoutburst
 	 */
-	private static void createCanvas(String user, String qualification, String finals, String wins, String rounds, String total, boolean linked, String uuid) {
-		ProcessBuilder pb = new ProcessBuilder("node", "stats.js", user, qualification, finals, wins, rounds, total, String.valueOf(linked), uuid);
+	private static void createCanvas(String user, String qualification, String finals, String wins, String rounds, String total, boolean linked, String uuid,
+			String wplace, String rplace, String qplace, String fplace, String tplace) {
+		ProcessBuilder pb = new ProcessBuilder("node", "stats.js", user, qualification, 
+				finals, wins, rounds, total, String.valueOf(linked), uuid, wplace, rplace, qplace, fplace, tplace);
 		
 		try {
 			Process p = pb.start();

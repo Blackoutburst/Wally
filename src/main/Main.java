@@ -6,9 +6,9 @@ import javax.security.auth.login.LoginException;
 import core.Bot;
 
 public class Main {
-	private static final String TOKEN = "X";
-	private static final String ACTIVITY = "Hole in the Wall";
-	public static final String serverID = "X";
+	private static final String TOKEN = "";
+	private static final String ACTIVITY = "";
+	public static final String serverID = "";
 	public static boolean trackerInformation = false;
 	public static boolean leaderboardInformation = false;
 	public static boolean forceTracker  = false;
