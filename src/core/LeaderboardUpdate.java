@@ -35,7 +35,7 @@ public class LeaderboardUpdate {
 							System.out.println("Lead aborted due to api limiation");
 							break;
 						}
-						value = output.split("\n");
+						value = output.split(",");
 						for (int i = 0; i < value.length; i++) {
 							if (value[i].contains("hitw_record_q")) {
 								qualification = value[i].replaceAll("[^0-9]", "");
@@ -50,7 +50,7 @@ public class LeaderboardUpdate {
 								rounds = value[i].replaceAll("[^0-9]", "");
 							}
 							if (value[i].contains("displayname")) {
-								user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
+								user = value[i].replace(" ", "").replace("\'", "").replace(",", "").replace("\"", "").split(":")[1];
 							}
 						}
 						
@@ -74,7 +74,7 @@ public class LeaderboardUpdate {
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
-						delay(1000);
+						delay(3000);
 					}
 				}
 			}

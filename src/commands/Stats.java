@@ -50,14 +50,14 @@ public class Stats {
 			return;
 		}
 		user = msg[1];
+		uuid = Request.getPlayerUUID(user);
 		
-		
-		if (Request.getPlayerUUID(user) == null) {
+		if (uuid == null) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
 			return;
 		}
 		
-		output = Request.getPlayerInfo(user);
+		output = Request.getPlayerInfoUUID(uuid);
 		if (output.equals("API LIMITATION")) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();
 			return;
@@ -68,7 +68,7 @@ public class Stats {
 			return;
 		}
 		
-		value = output.split("\n");
+		value = output.split(",");
 		for (int i = 0; i < value.length; i++) {
 			if (value[i].contains("hitw_record_q")) {
 				qualification = value[i].replaceAll("[^0-9]", "");
@@ -80,14 +80,13 @@ public class Stats {
 				rounds = value[i].replaceAll("[^0-9]", "");
 			}
 			if (value[i].contains("displayname")) {
-				user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
+				user = value[i].replace(" ", "").replace("\'", "").replace(",", "").replace("\"", "").split(":")[1];
 			}
 			if (value[i].contains("wins_hole_in_the_wall")) {
 				wins = value[i].replaceAll("[^0-9]", "");
 			}
 		}
 		
-		uuid = Request.getPlayerUUID(user);
 		File index = new File("linked player");
 		String[]entries = index.list();
 		for(String s: entries) {
@@ -214,7 +213,6 @@ public class Stats {
 		try {
 			str = Files.readAllLines(Paths.get(file)).get(0);
 		} catch (Exception e) {
-			System.err.println("Corrupted: "+file);
 		}
 		return str;
 	}

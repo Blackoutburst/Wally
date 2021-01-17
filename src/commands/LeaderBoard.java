@@ -166,7 +166,6 @@ public class LeaderBoard {
 		try {
 			str = Files.readAllLines(Paths.get(file)).get(0);
 		} catch (Exception e) {
-			System.err.println("Corrupted: "+file);
 		}
 		return str;
 	}

@@ -48,10 +48,18 @@ public class Tracker {
 						discord = readValue(f+"/discord");
 						try {
 							if (Main.trackerInformation) {System.out.print(Request.getPlayer(f.getName())+" "+server.getMemberById(discord).getUser().getName()+" | ");}
-						 } catch (Exception e) {
-							 if (Main.trackerInformation) {System.out.println("User leaved the server.");}
-							 continue;
-						 }
+						} catch (Exception e) {
+							if (Main.trackerInformation) {System.out.println("User leaved the server.");}
+							
+							String unm = readValue(f+"/name");
+							for(String ent: entries) {
+								File currentFile = new File(f.getPath(),ent);
+								currentFile.delete();
+							}
+							System.out.println("Automatically unlinked "+unm);
+							f.delete();
+							continue;
+						}
 						if (!Main.forceTracker) {
 							try {
 								if (server.getMemberById(discord).getOnlineStatus() == OnlineStatus.OFFLINE || server.getMemberById(discord).getOnlineStatus() == OnlineStatus.IDLE) {
@@ -72,7 +80,7 @@ public class Tracker {
 							System.out.println("Tracker aborted due to api limiation");
 							break;
 						}
-						value = output.split("\n");
+						value = output.split(",");
 						for (int i = 0; i < value.length; i++) {
 							if (value[i].contains("hitw_record_q")) {
 								qualification = value[i].replaceAll("[^0-9]", "");
@@ -87,7 +95,7 @@ public class Tracker {
 								rounds = value[i].replaceAll("[^0-9]", "");
 							}
 							if (value[i].contains("displayname")) {
-								user = value[i].replace(" ", "").replace("\'", "").replace(",", "").split(":")[1];
+								user = value[i].replace(" ", "").replace("\'", "").replace(",", "").replace("\"", "").split(":")[1];
 							}
 						}
 						
@@ -95,7 +103,7 @@ public class Tracker {
 						currentFinals = readValue(f+"/F");
 						
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user, lbf);
-						delay(0);// Currently unused
+						delay(750);
 						
 						try {
 							PrintWriter writer = new PrintWriter(f+"/W");

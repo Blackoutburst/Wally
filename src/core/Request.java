@@ -4,11 +4,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+
+import main.Main;
 
 public class Request {
 	/**
@@ -24,23 +25,24 @@ public class Request {
 			System.err.println("API limit reached");
 			return "API LIMITATION";
 		}
-		ProcessBuilder pb = new ProcessBuilder("node", "player_request.js", user);
+		
+		String uuid = getPlayerUUID(user);
 		
 		try {
-			Process p = pb.start();
-			pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-			pb.redirectError(ProcessBuilder.Redirect.INHERIT);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			StringBuilder builder = new StringBuilder();
+			URL url = new URL("https://api.hypixel.net/player?uuid="+uuid+"&key="+Main.API);
+		    URLConnection con = url.openConnection();
+		    InputStream is =con.getInputStream();
+		    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		    StringBuilder builder = new StringBuilder();
 			String line = null;
-			while ( (line = reader.readLine()) != null) {
+			while ( (line = br.readLine()) != null) {
 			   builder.append(line);
 			   builder.append(System.getProperty("line.separator"));
 			}
 			return builder.toString();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			return e.toString();
+			return null;
 		}
 	}
 	
@@ -57,23 +59,21 @@ public class Request {
 			System.err.println("API limit reached");
 			return "API LIMITATION";
 		}
-		ProcessBuilder pb = new ProcessBuilder("node", "player_requestuuid.js", uuid);
-		
 		try {
-			Process p = pb.start();
-			pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-			pb.redirectError(ProcessBuilder.Redirect.INHERIT);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			StringBuilder builder = new StringBuilder();
+			URL url = new URL("https://api.hypixel.net/player?uuid="+uuid+"&key="+Main.API);
+		    URLConnection con = url.openConnection();
+		    InputStream is =con.getInputStream();
+		    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		    StringBuilder builder = new StringBuilder();
 			String line = null;
-			while ( (line = reader.readLine()) != null) {
+			while ( (line = br.readLine()) != null) {
 			   builder.append(line);
 			   builder.append(System.getProperty("line.separator"));
 			}
 			return builder.toString();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			return e.toString();
+			return null;
 		}
 	}
 	
