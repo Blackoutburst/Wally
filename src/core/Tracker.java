@@ -48,16 +48,18 @@ public class Tracker {
 						discord = readValue(f+"/discord");
 						try {
 							if (Main.trackerInformation) {System.out.print(Request.getPlayer(f.getName())+" "+server.getMemberById(discord).getUser().getName()+" | ");}
+							server.getMemberById(discord).getUser().getName();
 						} catch (Exception e) {
 							if (Main.trackerInformation) {System.out.println("User leaved the server.");}
 							
 							String unm = readValue(f+"/name");
-							for(String ent: entries) {
+							String[]entr = f.list();
+							for(String ent: entr) {
 								File currentFile = new File(f.getPath(),ent);
 								currentFile.delete();
 							}
-							System.out.println("Automatically unlinked "+unm);
 							f.delete();
+							System.out.println("Automatically unlinked "+unm);
 							continue;
 						}
 						if (!Main.forceTracker) {
