@@ -74,7 +74,7 @@ public class LeaderboardUpdate {
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
-						delay(3000);
+						delay(60000);
 					}
 				}
 			}

@@ -2,9 +2,6 @@ package core;
 
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.login.LoginException;
 
@@ -50,8 +47,6 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 public class Bot extends ListenerAdapter {
 	private JDABuilder bot;
 	
-	public static int request = 0;
-	
 	/**
 	 * Log the bot and set the activity
 	 * @param token
@@ -69,15 +64,6 @@ public class Bot extends ListenerAdapter {
 		bot.enableIntents(GatewayIntent.GUILD_MEMBERS);
 		bot.enableIntents(GatewayIntent.GUILD_PRESENCES);
 		bot.build();
-		
-		Runnable runnable = new Runnable() {
-		    public void run() {
-		        request = 0;
-		    }
-		};
-		ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-		exec.scheduleAtFixedRate(runnable , 0, 1, TimeUnit.MINUTES);
-		
 	}
 	
 	@Override
@@ -85,7 +71,7 @@ public class Bot extends ListenerAdapter {
     {
         if (event instanceof ReadyEvent) {
         	Tracker tracker = new Tracker();
-        	tracker.server = event.getJDA().getGuildById(Main.serverID);
+        	Tracker.server = event.getJDA().getGuildById(Main.serverID);
         	LeaderboardUpdate lead = new LeaderboardUpdate();
         	try {
         		tracker.start();

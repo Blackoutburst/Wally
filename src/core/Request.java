@@ -20,12 +20,6 @@ public class Request {
 	 * @author Blackoutburst
 	 */
 	public static String getPlayerInfo(String user) {
-		Bot.request++;
-		if (Bot.request >= 119) {
-			System.err.println("API limit reached");
-			return "API LIMITATION";
-		}
-		
 		String uuid = getPlayerUUID(user);
 		
 		try {
@@ -41,8 +35,8 @@ public class Request {
 			}
 			return builder.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			System.err.println("API limit reached");
+			return "API LIMITATION";
 		}
 	}
 	
@@ -54,11 +48,6 @@ public class Request {
 	 * @author Blackoutburst
 	 */
 	public static String getPlayerInfoUUID(String uuid) {
-		Bot.request++;
-		if (Bot.request >= 119) {
-			System.err.println("API limit reached");
-			return "API LIMITATION";
-		}
 		try {
 			URL url = new URL("https://api.hypixel.net/player?uuid="+uuid+"&key="+Main.API);
 		    URLConnection con = url.openConnection();
@@ -72,8 +61,8 @@ public class Request {
 			}
 			return builder.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			System.err.println("API limit reached");
+			return "API LIMITATION";
 		}
 	}
 	

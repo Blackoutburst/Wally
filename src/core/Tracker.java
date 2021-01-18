@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.entities.Role;
 
 public class Tracker {
 
-	public Guild server;
+	public static Guild server;
 
 	/**
 	 * Track user pb displays them in chat and change user role
@@ -73,7 +73,7 @@ public class Tracker {
 							 }
 						}
 						 
-						 role_level = getRoleLevel(discord);
+						role_level = getRoleLevel(discord);
 						if (role_level == -1)
 							continue;
 						
@@ -105,7 +105,7 @@ public class Tracker {
 						currentFinals = readValue(f+"/F");
 						
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user, lbf);
-						delay(750);
+						delay(1000);
 						
 						try {
 							PrintWriter writer = new PrintWriter(f+"/W");
@@ -131,7 +131,6 @@ public class Tracker {
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
-						
 					}
 				}
 			}
