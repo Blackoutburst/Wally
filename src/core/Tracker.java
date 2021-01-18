@@ -25,13 +25,16 @@ public class Tracker {
 		Thread trackerThread = new Thread(new Runnable(){
 			public void run(){
 				while (true) {
+					int userIndex = 0;
 					String output = "";
 					String[] value;
 					File index = new File("linked player");
 					File lbfile = new File("leaderboard");
 					String[]entries = index.list();
 					String channelID = readValue("tracker");
+					userIndex = 0;
 					for(String s: entries) {
+						userIndex++;
 						int role_level = 0;
 						String user = "";
 						String discord = "";
@@ -79,7 +82,8 @@ public class Tracker {
 						
 						output = Request.getPlayerInfoUUID(f.getName());
 						if (output.equals("API LIMITATION")) {
-							System.out.println("Tracker aborted due to api limiation");
+							
+							System.out.println("Tracker aborted due to api limiation User : "+userIndex+"/"+entries.length);
 							break;
 						}
 						value = output.split(",");
