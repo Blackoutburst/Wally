@@ -45,12 +45,30 @@ public class Stats {
 		String uuid = "";
 		boolean linked = false;
 		
-		if (msg.length < 2) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!stats player")).complete();
-			return;
+		if (msg.length >= 2) {
+			user = msg[1];
+			uuid = Request.getPlayerUUID(user);
+		} else {
+			String id = event.getAuthor().getId();
+			File index = new File("linked player");
+			String[]entries = index.list();
+			
+			for (String s: entries) {
+				File f = new File(index.getPath(),s);
+				try {
+					if (Files.readAllLines(Paths.get(f+"/discord")).get(0).equals(id)) {
+						uuid = f.getName();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (uuid.equals("")) {
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!stats player")).complete();
+				return;
+			}
 		}
-		user = msg[1];
-		uuid = Request.getPlayerUUID(user);
+		
 		
 		if (uuid == null) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();

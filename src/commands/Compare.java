@@ -47,12 +47,32 @@ public class Compare {
 		int rounds2 = 0;
 		int total2 = 0;
 		
-		if (msg.length < 3) {
+		if (msg.length >= 3) {
+			user = msg[1];
+			uuid = Request.getPlayerUUID(user);
+		} else if (msg.length == 2) {
+			String id = event.getAuthor().getId();
+			File index = new File("linked player");
+			String[]entries = index.list();
+			
+			for (String s: entries) {
+				File f = new File(index.getPath(),s);
+				try {
+					if (Files.readAllLines(Paths.get(f+"/discord")).get(0).equals(id)) {
+						uuid = f.getName();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (uuid.equals("")) {
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!compare player player")).complete();
+				return;
+			}
+		} else {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!compare player player")).complete();
 			return;
 		}
-		user = msg[1];
-		uuid = Request.getPlayerUUID(user);
 		if (uuid == null) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.compare_not_found).replace("%player%", user)).complete();
 			return;
@@ -64,7 +84,11 @@ public class Compare {
 			return;
 		}
 		value = output.split(",");
-		user2 = msg[2];
+		if (msg.length == 2) {
+			user2 = msg[1];
+		} else {
+			user2 = msg[2];
+		}
 		uuid2 = Request.getPlayerUUID(user2);
 		if (uuid2 == null) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.compare_not_found).replace("%player%", user2)).complete();
