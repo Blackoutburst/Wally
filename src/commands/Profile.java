@@ -2,6 +2,8 @@ package commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import core.Lines;
 import core.Reader;
@@ -18,14 +20,34 @@ public class Profile {
 		String[] msg = event.getMessage().getContentDisplay().split(" ");
 		String level = null;
 		String ap = null;
-		String uuid = null;
+		String uuid = "";
+		String name = "";
 		boolean linked = false;
 		
-		if (msg.length < 2) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!profile player")).complete();
-			return;
+		if (msg.length >= 2) {
+			uuid = Request.getPlayerUUID(msg[1]);
+		} else {
+			String id = event.getAuthor().getId();
+			File index = new File("linked player");
+			String[]entries = index.list();
+			
+			for (String s: entries) {
+				File f = new File(index.getPath(),s);
+				try {
+					if (Files.readAllLines(Paths.get(f+"/discord")).get(0).equals(id)) {
+						uuid = f.getName();
+						name = readValue(f+"/name");
+						break;
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (uuid.equals("")) {
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!profile player")).complete();
+				return;
+			}
 		}
-		uuid = Request.getPlayerUUID(msg[1]);
 		if (uuid == null) {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
 			return;
@@ -52,9 +74,27 @@ public class Profile {
 			}
 		}
 		
-		
-		createCanvas(msg[1], linked, uuid);
+		if (msg.length >= 2) {
+			createCanvas(msg[1], linked, uuid);
+		} else {
+			createCanvas(name, linked, uuid);
+		}
 		event.getChannel().sendFile(new File("profile.png")).complete();
+	}
+	
+	/**
+	 * Read file value
+	 * @param file
+	 * @return file value
+	 * @author Blackoutburst
+	 */
+	private static String readValue(String file) {
+		String str = "0";
+		try {
+			str = Files.readAllLines(Paths.get(file)).get(0);
+		} catch (Exception e) {
+		}
+		return str;
 	}
 	
 	/**
