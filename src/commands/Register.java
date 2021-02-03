@@ -1,9 +1,6 @@
 package commands;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import core.Lines;
@@ -38,13 +35,13 @@ public class Register {
 					String T = "";
 					File f = new File(index.getPath(),s);
 					
-					lid = readValue(f+"/discord");
+					lid = Utils.readValue(f+"/discord");
 					if (lid.equals(id)) {
 						List<Role> roles = m.getRoles();
 						for (Role r : roles) {
 							if (r.getName().equals("Tournament Player")) {
-								Q = readValue(f+"/Q");
-								F = readValue(f+"/F");
+								Q = Utils.readValue(f+"/Q");
+								F = Utils.readValue(f+"/F");
 								T = String.valueOf(Integer.valueOf(Q) + Integer.valueOf(F));
 								str += m.getUser().getName()+": ["+Request.getPlayer(f.getName())+"] "+Q+"/"+F+" "+T+"\n";
 							}
@@ -58,21 +55,5 @@ public class Register {
 		} else {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
-	}
-	
-	/**
-	 * Read file value
-	 * @param file
-	 * @return value read
-	 * @author Blackoutburst
-	 */
-	private static String readValue(String file) {
-		String str = "";
-		try {
-			str = Files.readAllLines(Paths.get(file)).get(0);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return str;
 	}
 }

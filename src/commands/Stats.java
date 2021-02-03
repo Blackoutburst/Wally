@@ -18,6 +18,7 @@ import core.Lines;
 import core.Player;
 import core.Reader;
 import core.Request;
+import core.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Stats {
@@ -134,12 +135,12 @@ public class Stats {
 		for(String s: entries) {
 			File f = new File(index.getPath(),s);
 			
-			W = readValue(f+"/W");
-			R = readValue(f+"/R");
-			Q = readValue(f+"/Q");
-			F = readValue(f+"/F");
+			W = Utils.readValue(f+"/W");
+			R = Utils.readValue(f+"/R");
+			Q = Utils.readValue(f+"/Q");
+			F = Utils.readValue(f+"/F");
 			T = String.valueOf(Integer.valueOf(Q) + Integer.valueOf(F));
-			name = readValue(f+"/name");
+			name = Utils.readValue(f+"/name");
 			player.add(new Player(Integer.valueOf(W), Integer.valueOf(R), Integer.valueOf(Q), Integer.valueOf(F), Integer.valueOf(T), name, ""));
 		}
 		
@@ -190,10 +191,10 @@ public class Stats {
 		for(String s: entries) {
 			File f = new File(index.getPath(),s);
 			
-			wins = readValue(f+"/W");
-			rounds = readValue(f+"/R");
-			qualification = readValue(f+"/Q");
-			finals = readValue(f+"/F");
+			wins = Utils.readValue(f+"/W");
+			rounds = Utils.readValue(f+"/R");
+			qualification = Utils.readValue(f+"/Q");
+			finals = Utils.readValue(f+"/F");
 			total = qualification + finals;
 			player.add(new Player(Integer.valueOf(wins), Integer.valueOf(rounds), Integer.valueOf(qualification), Integer.valueOf(finals), Integer.valueOf(total), "", ""));
 		}
@@ -218,21 +219,6 @@ public class Stats {
 		
 		createCanvas(user, qualification, finals, wins, rounds, total, linked, uuid, "1", "1", "1", "1", "1");
 		event.getChannel().sendFile(new File("stats.png")).complete();
-	}
-	
-	/**
-	 * Read file value
-	 * @param file
-	 * @return file value
-	 * @author Blackoutburst
-	 */
-	private static String readValue(String file) {
-		String str = "0";
-		try {
-			str = Files.readAllLines(Paths.get(file)).get(0);
-		} catch (Exception e) {
-		}
-		return str;
 	}
 	
 	/**

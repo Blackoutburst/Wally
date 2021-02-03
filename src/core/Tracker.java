@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import main.Main;
@@ -34,7 +32,7 @@ public class Tracker {
 					File index = new File("linked player");
 					File lbfile = new File("leaderboard");
 					String[]entries = index.list();
-					String channelID = readValue("tracker");
+					String channelID = Utils.readValue("tracker");
 					userIndex = 0;
 					for(String s: entries) {
 						userIndex++;
@@ -51,14 +49,14 @@ public class Tracker {
 						File lbf = new File(lbfile.getPath(),s);
 						
 						
-						discord = readValue(f+"/discord");
+						discord = Utils.readValue(f+"/discord");
 						try {
 							if (Main.trackerInformation) {System.out.print(Request.getPlayer(f.getName())+" "+server.getMemberById(discord).getUser().getName()+" | ");}
 							server.getMemberById(discord).getUser().getName();
 						} catch (Exception e) {
 							if (Main.trackerInformation) {System.out.println("User leaved the server.");}
 							
-							String unm = readValue(f+"/name");
+							String unm = Utils.readValue(f+"/name");
 							String[]entr = f.list();
 							for(String ent: entr) {
 								File currentFile = new File(f.getPath(),ent);
@@ -110,8 +108,8 @@ public class Tracker {
 							}
 						}
 						
-						currentQualification = readValue(f+"/Q");
-						currentFinals = readValue(f+"/F");
+						currentQualification = Utils.readValue(f+"/Q");
+						currentFinals = Utils.readValue(f+"/F");
 						
 						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user, lbf, uuid);
 						delay(1000);
@@ -233,24 +231,6 @@ public class Tracker {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Read file value
-	 * @param file
-	 * @return value read
-	 * @author Blackoutburst
-	 */
-	private String readValue(String file) {
-		String str = "";
-		try {
-			str = Files.readAllLines(Paths.get(file)).get(0);
-		} catch (IOException e) {
-			if (!file.equals("tracker")) {
-				e.printStackTrace();
-			}
-		}
-		return str;
 	}
 	
 	/**

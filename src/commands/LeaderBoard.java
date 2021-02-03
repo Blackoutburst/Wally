@@ -2,8 +2,6 @@ package commands;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +15,7 @@ import comparator.PlayerComparatorWins;
 import core.Lines;
 import core.Player;
 import core.Reader;
+import core.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class LeaderBoard {
@@ -74,11 +73,11 @@ public class LeaderBoard {
 		for(String s: entries) {
 			File f = new File(index.getPath(),s);
 			
-			name = readValue(f+"/name");
-			wins = Integer.valueOf(readValue(f+"/W"));
-			rounds = Integer.valueOf(readValue(f+"/R"));
-			qualification = Integer.valueOf(readValue(f+"/Q"));
-			finals = Integer.valueOf(readValue(f+"/F"));
+			name = Utils.readValue(f+"/name");
+			wins = Integer.valueOf(Utils.readValue(f+"/W"));
+			rounds = Integer.valueOf(Utils.readValue(f+"/R"));
+			qualification = Integer.valueOf(Utils.readValue(f+"/Q"));
+			finals = Integer.valueOf(Utils.readValue(f+"/F"));
 			total = qualification + finals;
 			player.add(new Player(wins, rounds, qualification, finals, total, name, discord));
 		}
@@ -153,20 +152,5 @@ public class LeaderBoard {
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Read file value
-	 * @param file
-	 * @return value read
-	 * @author Blackoutburst
-	 */
-	private static String readValue(String file) {
-		String str = "0";
-		try {
-			str = Files.readAllLines(Paths.get(file)).get(0);
-		} catch (Exception e) {
-		}
-		return str;
 	}
 }

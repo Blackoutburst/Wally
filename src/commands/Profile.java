@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import core.Lines;
 import core.Reader;
 import core.Request;
+import core.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Profile {
@@ -36,7 +37,7 @@ public class Profile {
 				try {
 					if (Files.readAllLines(Paths.get(f+"/discord")).get(0).equals(id)) {
 						uuid = f.getName();
-						name = readValue(f+"/name");
+						name = Utils.readValue(f+"/name");
 						break;
 					}
 				} catch (IOException e) {
@@ -80,21 +81,6 @@ public class Profile {
 			createCanvas(name, linked, uuid);
 		}
 		event.getChannel().sendFile(new File("profile.png")).complete();
-	}
-	
-	/**
-	 * Read file value
-	 * @param file
-	 * @return file value
-	 * @author Blackoutburst
-	 */
-	private static String readValue(String file) {
-		String str = "0";
-		try {
-			str = Files.readAllLines(Paths.get(file)).get(0);
-		} catch (Exception e) {
-		}
-		return str;
 	}
 	
 	/**

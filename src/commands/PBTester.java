@@ -3,10 +3,7 @@ package commands;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import core.Lines;
@@ -48,7 +45,7 @@ public class PBTester {
 			
 			File lbfile = new File("leaderboard");
 			File index = new File("linked player");
-			String channelID = readValue("tracker");
+			String channelID = Utils.readValue("tracker");
 			String[]entries = index.list();
 			for(String s: entries) {
 				File f = new File(index.getPath(),s);
@@ -66,7 +63,7 @@ public class PBTester {
 					String output = "";
 					String[] value;
 					
-					discord = readValue(f+"/discord");
+					discord = Utils.readValue(f+"/discord");
 					role_level = getRoleLevel(discord);
 					if (role_level == -1)
 						continue;
@@ -95,8 +92,8 @@ public class PBTester {
 						}
 					}
 					
-					currentQualification = readValue(f+"/Q");
-					currentFinals = readValue(f+"/F");
+					currentQualification = Utils.readValue(f+"/Q");
+					currentFinals = Utils.readValue(f+"/F");
 					
 					onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user, lbf, uuid);
 					
@@ -202,24 +199,6 @@ public class PBTester {
 		writeHighScore(pb, lbf, pb_type);
 		channel.sendMessage(embed.build()).complete();
 		embed.clearFields();
-	}
-	
-	/**
-	 * Read file value
-	 * @param file
-	 * @return value read
-	 * @author Blackoutburst
-	 */
-	private static String readValue(String file) {
-		String str = "";
-		try {
-			str = Files.readAllLines(Paths.get(file)).get(0);
-		} catch (IOException e) {
-			if (!file.equals("tracker")) {
-				e.printStackTrace();
-			}
-		}
-		return str;
 	}
 	
 	/**

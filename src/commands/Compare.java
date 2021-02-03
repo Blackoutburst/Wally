@@ -18,6 +18,7 @@ import core.Lines;
 import core.Player;
 import core.Reader;
 import core.Request;
+import core.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Compare {
@@ -109,10 +110,10 @@ public class Compare {
 			for(String s: entries) {
 				File f = new File(index.getPath(),s);
 				
-				wins = Integer.valueOf(readValue(f+"/W"));
-				rounds = Integer.valueOf(readValue(f+"/R"));
-				qualification = Integer.valueOf(readValue(f+"/Q"));
-				finals = Integer.valueOf(readValue(f+"/F"));
+				wins = Integer.valueOf(Utils.readValue(f+"/W"));
+				rounds = Integer.valueOf(Utils.readValue(f+"/R"));
+				qualification = Integer.valueOf(Utils.readValue(f+"/Q"));
+				finals = Integer.valueOf(Utils.readValue(f+"/F"));
 				total = qualification + finals;
 				player.add(new Player(wins, rounds, qualification, finals, total, "", ""));
 			}
@@ -158,10 +159,10 @@ public class Compare {
 			for(String s: entries) {
 				File f = new File(index.getPath(),s);
 				
-				wins2 = Integer.valueOf(readValue(f+"/W"));
-				rounds2 = Integer.valueOf(readValue(f+"/R"));
-				qualification2 = Integer.valueOf(readValue(f+"/Q"));
-				finals2 = Integer.valueOf(readValue(f+"/F"));
+				wins2 = Integer.valueOf(Utils.readValue(f+"/W"));
+				rounds2 = Integer.valueOf(Utils.readValue(f+"/R"));
+				qualification2 = Integer.valueOf(Utils.readValue(f+"/Q"));
+				finals2 = Integer.valueOf(Utils.readValue(f+"/F"));
 				total2 = qualification2 + finals2;
 				player.add(new Player(wins2, rounds2, qualification2, finals2, total2, "", ""));
 			}
@@ -202,16 +203,6 @@ public class Compare {
 		
 		createCanvas(user, qualification, finals, wins, rounds, total, user2, qualification2, finals2, wins2, rounds2, total2, uuid, uuid2);
 		event.getChannel().sendFile(new File("compare.png")).complete();
-	}
-	
-	
-	private static String readValue(String file) {
-		String str = "0";
-		try {
-			str = Files.readAllLines(Paths.get(file)).get(0);
-		} catch (Exception e) {
-		}
-		return str;
 	}
 	
 	/**
