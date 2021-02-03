@@ -37,7 +37,7 @@ public class Link {
 			ign = str[2];
 			uuid = Request.getPlayerUUID(ign);
 			
-			if (uuid.equals("null")) {
+			if (uuid == null) {
 				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
 				return;
 			}
