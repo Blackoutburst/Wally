@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import main.Main;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
@@ -16,6 +17,7 @@ import net.dv8tion.jda.api.entities.Role;
 public class Tracker {
 
 	public static Guild server;
+	private EmbedBuilder embed = new EmbedBuilder();
 
 	/**
 	 * Track user pb displays them in chat and change user role
@@ -79,8 +81,10 @@ public class Tracker {
 						role_level = getRoleLevel(discord);
 						if (role_level == -1)
 							continue;
-						
-						output = Request.getPlayerInfoUUID(f.getName());
+
+						String uuid = f.getName();
+
+						output = Request.getPlayerInfoUUID(uuid);
 						if (output.equals("API LIMITATION")) {
 							
 							System.out.println("Tracker aborted due to api limiation User : "+userIndex+"/"+entries.length);
@@ -108,7 +112,7 @@ public class Tracker {
 						currentQualification = readValue(f+"/Q");
 						currentFinals = readValue(f+"/F");
 						
-						onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user, lbf);
+						onHighscore(currentQualification, qualification, currentFinals, finals, channelID, discord, f, user, lbf, uuid);
 						delay(1000);
 						
 						try {
@@ -146,46 +150,73 @@ public class Tracker {
 	
 	/**
 	 * Perform action on new user highscore
+	 * @param channelID
 	 * @param currentQualification
 	 * @param qualification
 	 * @param currentFinals
 	 * @param finals
-	 * @param role_level
-	 * @param channelID
 	 * @param discord
 	 * @param f
 	 * @param user
 	 * @author Blackoutburst
 	 */
-	private void onHighscore(String currentQualification, String qualification, String currentFinals, String finals,
-			int role_level, String channelID, String discord, File f, String user, File lbf) {
-		
+	private void onHighscore(String currentQualification, String qualification, String currentFinals, String finals, String channelID, String discord, File f, String user, File lbf, String uuid) {
+		/**
+		 * @author Heartbreaker
+		 * @author Fuby
+		 */
 		String gender = "their";
-		
 		if (Utils.isHe(server.getMemberById(discord))) {
 			gender = "his";
 		}
-		if (Utils.isShe(server.getMemberById(discord))) {
+			if (Utils.isShe(server.getMemberById(discord))) {
 			gender = "her";
 		}
-		if (Utils.isBoth(server.getMemberById(discord))) {
+			if (Utils.isBoth(server.getMemberById(discord))) {
 			gender = "their";
 		}
-			
-		if (Integer.valueOf(currentQualification) < Integer.valueOf(qualification)) {
-			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.qualifiers_score).replace("%player%", user.replace("_", "\\_")).replace("%gender%", gender).replace("%score%", qualification).replace("%up%", String.valueOf(Integer.valueOf(qualification) - Integer.valueOf(currentQualification)))).complete();
-			writeHighScore(Integer.valueOf(qualification), f, "Q");
-			writeHighScore(Integer.valueOf(qualification), lbf, "Q");
-			setRole(discord, Integer.valueOf(qualification), role_level);
+		int qual_int = Integer.parseInt(qualification);
+		int cur_qual_int = Integer.parseInt(currentQualification);
+		int final_int = Integer.parseInt(finals);
+		int cur_final_int = Integer.parseInt(currentFinals);
+		int x = 0;
+		if (final_int > cur_final_int) {
+			x = x + 1;
 		}
-		if (Integer.valueOf(currentFinals) < Integer.valueOf(finals)) {
-			server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.finals_score).replace("%player%", user.replace("_", "\\_")).replace("%gender%", gender).replace("%score%", finals).replace("%up%", String.valueOf(Integer.valueOf(finals) - Integer.valueOf(currentFinals)))).complete();
-			writeHighScore(Integer.valueOf(finals), f, "F");
-			writeHighScore(Integer.valueOf(finals), lbf, "F");
-			setRole(discord, Integer.valueOf(finals), role_level);
+		if (qual_int > cur_qual_int) {
+			x = x + 2;
+		}
+		if (x > 0) {
+			String url = "https://www.mc-heads.net/body/" + uuid;
+			String avatarUrl = server.getMemberById(discord).getUser().getAvatarUrl();
+			String name = server.getMemberById(discord).getEffectiveName();
+			embed.setAuthor(name + " | " + user,url,avatarUrl);
+			embed.setThumbnail(url);
+			embed.setFooter("Discord ID: " + discord + "\nUUID: " + uuid);
+		}
+		if (x > 1) {
+			int score = cur_qual_int;
+			int pb = qual_int;
+			embed.setTitle(user+" Improved "+gender+" **Qualifiers** Personal Best!");
+			pb_embed("Q", f, lbf, score, pb, channelID);
+		}
+		if ((x % 2)==1) {
+			int score = cur_final_int;
+			int pb = final_int;
+			embed.setTitle(user+" Improved "+gender+" **Finals** Personal Best!");
+			pb_embed("F",f, lbf, score, pb, channelID);
 		}
 	}
-	
+	private void pb_embed(String pb_type, File f, File lbf, int score, int pb, String channelID) {
+		net.dv8tion.jda.api.entities.TextChannel channel = server.getTextChannelById(channelID);
+		embed.addField("Old PB", "**" + score + "**",true);
+		embed.addField("New PB", "**" + pb + "**",true);
+		embed.addField("Increase","**" + (pb - score) + "**",true);
+		writeHighScore(pb, f, pb_type);
+		writeHighScore(pb, lbf, pb_type);
+		channel.sendMessage(embed.build()).queue();
+		embed.clearFields();
+	}
 	/**
 	 * Add delay to tracker
 	 * @param ms
@@ -273,9 +304,9 @@ public class Tracker {
 	 * @author eatmyvenom
 	 */
 	private void setRole(String discord, int newScore, int role_level) {
-		if (Integer.valueOf(newScore) > 400 && role_level < 8) {
+		if (Integer.valueOf(newScore) >= 400 && role_level < 8) {
 			manageUserRole(discord, "400+ Club");
-		} else if (Integer.valueOf(newScore) > 350 && role_level < 7) {
+		} else if (Integer.valueOf(newScore) >= 350 && role_level < 7) {
 			manageUserRole(discord, "350+ Club");
 		} else if (Integer.valueOf(newScore) >= 300 && role_level < 6) {
 			manageUserRole(discord, "300+ Club");
