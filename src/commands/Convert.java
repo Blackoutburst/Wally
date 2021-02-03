@@ -16,7 +16,7 @@ public class Convert {
 		String[] args = event.getMessage().getContentDisplay().split(" ");
 		
 		if (args.length < 3) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!convert q/f [value]")).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!convert q/f [value]")).complete();
 			return;
 		}
 		if (args[1].toLowerCase().equals("f")) {
@@ -75,7 +75,7 @@ public class Convert {
 			F = a * Math.pow(Q, 3) + b * Math.pow(Q, 2) + c * Q + d;
 			event.getChannel().sendMessage(+Q+"Q compares to **"+Math.round(F)+"**F").complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!convert q/f [value]")).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!convert q/f [value]")).complete();
 		}
 	}
 }

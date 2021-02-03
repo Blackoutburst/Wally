@@ -26,12 +26,12 @@ public class SetTracker {
 				PrintWriter writer = new PrintWriter("tracker");
 				writer.write(event.getChannel().getId());
 				writer.close();
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.tracker_set).replace("%channel%", "<#"+event.getChannel().getId()+">")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.TRACKER_SET).replace("%channel%", "<#"+event.getChannel().getId()+">")).complete();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 	
@@ -43,16 +43,16 @@ public class SetTracker {
 	public static void show(MessageReceivedEvent event) {
 		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || Utils.isStaff(event.getMember())) {
 			if (!new File("tracker").exists()) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.tracker_unset)).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.TRACKER_UNSET)).complete();
 			} else {
 				try {
-					event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.tracker).replace("%channel%", "<#"+Files.readAllLines(Paths.get("tracker")).get(0)+">")).complete();
+					event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.TRACKER).replace("%channel%", "<#"+Files.readAllLines(Paths.get("tracker")).get(0)+">")).complete();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }

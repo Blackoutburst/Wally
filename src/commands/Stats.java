@@ -64,20 +64,20 @@ public class Stats {
 				}
 			}
 			if (uuid.equals("")) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!stats player")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!stats player")).complete();
 				return;
 			}
 		}
 		
 		
 		if (uuid == null) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.UNKNOW_PLAYER)).complete();
 			return;
 		}
 		
 		output = Request.getPlayerInfoUUID(uuid);
 		if (output.equals("API LIMITATION")) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.API_ERROR)).complete();
 			return;
 		}
 		

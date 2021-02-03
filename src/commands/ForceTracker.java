@@ -19,7 +19,7 @@ public class ForceTracker {
 			Main.forceTracker = (Main.forceTracker) ? false : true;
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Main.forceTracker).complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }

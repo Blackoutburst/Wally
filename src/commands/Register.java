@@ -56,7 +56,7 @@ public class Register {
 			str += "```";
 			event.getChannel().sendMessage(str).complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 	

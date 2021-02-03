@@ -41,14 +41,14 @@ public class LeaderBoard {
 		int total = 0;
 		
 		if (msg.length < 2) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page) (\"discord\")")).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!lead W/R/Q/F/T (page) (\"discord\")")).complete();
 			return;
 		}
 		type = msg[1];
 		type = type.toLowerCase();
 		
 		if (!type.equals("w") && !type.equals("r") && !type.equals("q") && !type.equals("f") && !type.equals("t")) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page) (\\\"discord\\\")")).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!lead W/R/Q/F/T (page) (\\\"discord\\\")")).complete();
 			return;
 		}
 		
@@ -56,7 +56,7 @@ public class LeaderBoard {
 			try {
 				page = Integer.valueOf(msg[2]);
 			} catch (Exception e) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!lead W/R/Q/F/T (page) (\\\"discord\\\")")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!lead W/R/Q/F/T (page) (\\\"discord\\\")")).complete();
 				return;
 			}
 		}

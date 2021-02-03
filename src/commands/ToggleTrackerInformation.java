@@ -19,7 +19,7 @@ public class ToggleTrackerInformation {
 			Main.trackerInformation = (Main.trackerInformation) ? false : true;
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Main.trackerInformation).complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }

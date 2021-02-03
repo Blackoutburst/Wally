@@ -12,9 +12,9 @@ public class Reader {
 	 * @return line read
 	 * @author Blackoutburst
 	 */
-	public static String read(int line) {
+	public static String read(Lines line) {
 		try {
-			String[] str = Files.readAllLines(Paths.get("msg_file.yml")).get(line).split(":", 2); 
+			String[] str = Files.readAllLines(Paths.get("msg_file.yml")).get(line.ordinal()).split(":", 2); 
 			
 			return str[1].substring(2, str[1].length()-1).replace("\\n", "\n");
 		} catch (IOException e) {

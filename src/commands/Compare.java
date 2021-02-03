@@ -66,21 +66,21 @@ public class Compare {
 				}
 			}
 			if (uuid.equals("")) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!compare player player")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!compare player player")).complete();
 				return;
 			}
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!compare player player")).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!compare player player")).complete();
 			return;
 		}
 		if (uuid == null) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.compare_not_found).replace("%player%", user)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.COMPARE_NOT_FOUND).replace("%player%", user)).complete();
 			return;
 		}
 		
 		output = Request.getPlayerInfoUUID(uuid);
 		if (output.equals("API LIMITATION")) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.API_ERROR)).complete();
 			return;
 		}
 		value = output.split(",");
@@ -91,13 +91,13 @@ public class Compare {
 		}
 		uuid2 = Request.getPlayerUUID(user2);
 		if (uuid2 == null) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.compare_not_found).replace("%player%", user2)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.COMPARE_NOT_FOUND).replace("%player%", user2)).complete();
 			return;
 		}
 		
 		output2 = Request.getPlayerInfoUUID(uuid2);
 		if (output2.equals("API LIMITATION")) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.api_error)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.API_ERROR)).complete();
 			return;
 		}
 		

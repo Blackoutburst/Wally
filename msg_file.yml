@@ -11,7 +11,7 @@ link: "%discord% successfully linked to %ign%.\nTracking %ign% personal best.\n`
 tracker_undefined: "Before tracking any player please set a tracking channel with **!settracker**!"
 tracker_set: "Tracker set in channel %channel%."
 tracker: "Tracker currently set in %channel%."
-pack: "You can download the resource pack here: %link%\n*All credit goes to Hammy!*"
+pack: "You can download community resource pack here: %link%\n Ask any staff member to publish your own pack\n"
 wrong_file: "Wrong file"
 missing_file: "The configuration file is missing!"
 config_update: "Config updated successfully!"

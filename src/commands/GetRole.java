@@ -25,7 +25,7 @@ public class GetRole {
 			}
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", done.").complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }

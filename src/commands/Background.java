@@ -31,7 +31,7 @@ public class Background {
 		try {
 			at = event.getMessage().getAttachments().get(0);
 		} catch (Exception e) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.missing_background)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_BACKGROUND)).complete();
 			return; 
 		}
 		
@@ -42,10 +42,10 @@ public class Background {
 				if (Files.readAllLines(Paths.get(f+"/discord")).get(0).equals(id)) {
 					if (at.getFileName().contains(".png") || at.getFileName().contains(".jpg") || at.getFileName().contains(".jpeg")) {
 						at.downloadToFile(new File(f+"/background.png"));
-						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.background_update)).complete();
+						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BACKGROUND_UPDATE)).complete();
 						return;
 					} else {
-						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.wrong_background)).complete();
+						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.WRONG_BACKGROUND)).complete();
 						return;
 					}
 				}
@@ -53,7 +53,7 @@ public class Background {
 				e.printStackTrace();
 			}
 		}
-		event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.linked_only)).complete();
+		event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.LINKED_OLNY)).complete();
 	}
 	
 	/**
@@ -74,10 +74,10 @@ public class Background {
 					File bg = new File(f+"/background.png");
 					if (bg.exists()) {
 						bg.delete();
-						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.background_reset)).complete();
+						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BACKGROUND_RESET)).complete();
 						return;
 					} else {
-						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.stock_background)).complete();
+						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.STOCK_BACKGROUND)).complete();
 						return;
 					}
 				}
@@ -85,7 +85,7 @@ public class Background {
 				e.printStackTrace();
 			}
 		}
-		event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.linked_only)).complete();
+		event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.LINKED_OLNY)).complete();
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class Background {
 			String[]entries = index.list();
 			
 			if (msg.length < 2) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!removebackground player")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!removebackground player")).complete();
 				return;
 			}
 			
@@ -114,17 +114,17 @@ public class Background {
 					File bg = new File(f+"/background.png");
 					if (bg.exists()) {
 						bg.delete();
-						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.background_remove).replace("%user%", msg[1])).complete();
+						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BACKGROUND_REMOVE).replace("%user%", msg[1])).complete();
 						return;
 					} else {
-						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.background_stock2).replace("%user%", msg[1])).complete();
+						event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BACKGROUND_STOCK2).replace("%user%", msg[1])).complete();
 						return;
 					}
 				}
 			}
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.not_linked)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.NOT_LINKED)).complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }

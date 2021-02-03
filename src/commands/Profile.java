@@ -44,23 +44,23 @@ public class Profile {
 				}
 			}
 			if (uuid.equals("")) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!profile player")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!profile player")).complete();
 				return;
 			}
 		}
 		if (uuid == null) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.UNKNOW_PLAYER)).complete();
 			return;
 		}
 		
 		level = Request.getPlanckeLevel(uuid);
 		if (level == null) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.UNKNOW_PLAYER)).complete();
 			return;
 		}
 		ap = Request.getPlanckeAP(uuid);
 		if (ap == null) {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.UNKNOW_PLAYER)).complete();
 			return;
 		}
 		

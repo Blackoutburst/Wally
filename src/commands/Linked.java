@@ -22,7 +22,7 @@ public class Linked {
 	 */
 	public static void display(MessageReceivedEvent event) {
 		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || Utils.isStaff(event.getMember())) {
-			event.getChannel().sendMessage(Reader.read(Lines.linked_list)).complete();
+			event.getChannel().sendMessage(Reader.read(Lines.LINKED_LIST)).complete();
 			String str = "UUID DISCORD_ID\n";
 			
 			File index = new File("linked player");
@@ -45,7 +45,7 @@ public class Linked {
 				e.printStackTrace();
 			}
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }

@@ -27,7 +27,7 @@ public class Unlink {
 			String discord = "";
 	
 			if (str.length < 2) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!unlink IGN")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!unlink IGN")).complete();
 				return;
 			}
 			ign = str[1];
@@ -35,7 +35,7 @@ public class Unlink {
 			uuid = Request.getPlayerUUID(ign);
 			
 			if (!new File("linked player/"+uuid).exists()) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.not_linked)).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.NOT_LINKED)).complete();
 				return;
 			}
 			
@@ -48,12 +48,12 @@ public class Unlink {
 				    currentFile.delete();
 				}
 				index.delete();
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unlink).replace("%ign%", ign).replace("%discord%", "<@"+discord+">")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.UNLINK).replace("%ign%", ign).replace("%discord%", "<@"+discord+">")).complete();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }

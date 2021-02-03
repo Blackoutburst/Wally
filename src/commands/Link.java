@@ -20,7 +20,7 @@ public class Link {
 	public static void link(MessageReceivedEvent event) {
 		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || Utils.isStaff(event.getMember())) {
 			if (!new File("tracker").exists()) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.tracker_undefined)).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.TRACKER_UNDEFINED)).complete();
 				return;
 			}
 			
@@ -30,7 +30,7 @@ public class Link {
 			String uuid = "";
 			
 			if (str.length < 3) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!link discordID IGN")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!link discordID IGN")).complete();
 				return;
 			}
 			discord = str[1];
@@ -38,14 +38,14 @@ public class Link {
 			uuid = Request.getPlayerUUID(ign);
 			
 			if (uuid == null) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.UNKNOW_PLAYER)).complete();
 				return;
 			}
 			
 			File f = new File("linked player/"+uuid);
 			
 			if (f.exists()) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.linked)).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.LINKED)).complete();
 				return;
 			}
 			try {
@@ -92,14 +92,14 @@ public class Link {
 				writer.close();		
 				
 				setRole(Integer.valueOf(qualification), Integer.valueOf(finals), event, discord);
-				event.getChannel().sendMessage(Reader.read(Lines.link).replace("%discord%", "<@"+discord+">").replace("%ign%", ign).replace("%q%", qualification).replace("%f%", finals)).complete();
+				event.getChannel().sendMessage(Reader.read(Lines.LINK).replace("%discord%", "<@"+discord+">").replace("%ign%", ign).replace("%q%", qualification).replace("%f%", finals)).complete();
 				addToLeaderboard(event, uuid, ign, qualification, finals, wins, rounds);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 	
@@ -118,7 +118,7 @@ public class Link {
 		File f = new File("leaderboard/"+uuid);
 		
 		if (f.exists()) {
-			event.getChannel().sendMessage(Reader.read(Lines.in_lead)).complete();
+			event.getChannel().sendMessage(Reader.read(Lines.IN_LEAD)).complete();
 			return;
 		}
 		try {
@@ -138,7 +138,7 @@ public class Link {
 			writer = new PrintWriter("leaderboard/"+uuid+"/name");
 			writer.write(ign);
 			writer.close();		
-			event.getChannel().sendMessage(Reader.read(Lines.add_lead)).complete();
+			event.getChannel().sendMessage(Reader.read(Lines.ADD_LEAD)).complete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -20,7 +20,7 @@ public class Config {
 		if (event.getMember().hasPermission(Permission.ADMINISTRATOR) || Utils.isStaff(event.getMember())) {
 			event.getChannel().sendFile(new File("msg_file.yml")).complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 	
@@ -36,17 +36,17 @@ public class Config {
 				if (f.getFileName().contains(".yml")) {
 					f.downloadToFile(new File("msg_file.yml"));
 				} else {
-					event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.wrong_file)).complete();
+					event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.WRONG_FILE)).complete();
 					return;
 				}
 			} catch (Exception e) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.missing_file)).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_FILE)).complete();
 				return;
 			}
 			
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.config_update)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.CONFIG_UPDATE)).complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }

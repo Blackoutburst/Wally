@@ -35,14 +35,14 @@ public class PBTester {
 			String uuid = null;
 			
 			if (msg.length < 2) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.bad_usage).replace("%command%", "!forcepb [ING]")).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!forcepb [ING]")).complete();
 				return;
 			}
 			ign = msg[1];
 			uuid = Request.getPlayerUUID(ign);
 			
 			if (uuid == null) {
-				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.unknow_player)).complete();
+				event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.UNKNOW_PLAYER)).complete();
 				return;
 			}
 			
@@ -124,13 +124,13 @@ public class PBTester {
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
-					event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.force_pb).replace("%ign%", ign)).complete();
+					event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.FORCE_PB).replace("%ign%", ign)).complete();
 					return;
 				}
 			}
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.not_linked)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.NOT_LINKED)).complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 	

@@ -19,7 +19,7 @@ public class ToggleLeaderboardInformation {
 			Main.leaderboardInformation = (Main.leaderboardInformation) ? false : true;
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Main.leaderboardInformation).complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }

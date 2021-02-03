@@ -19,7 +19,7 @@ public class Say {
 			event.getChannel().sendMessage(event.getMessage().getContentDisplay().replace("!say ", "")).complete();
 			event.getMessage().delete().complete();
 		} else {
-			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.misssing_perms)).complete();
+			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.MISSING_PERMS)).complete();
 		}
 	}
 }
