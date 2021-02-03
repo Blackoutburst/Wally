@@ -8,18 +8,22 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import core.Request;
 import core.Lines;
 import core.Reader;
-import core.Request;
-import core.Tracker;
 import core.Utils;
 import main.Main;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import static core.Tracker.server;
+
+
 public class PBTester {
-	
+
+	private static EmbedBuilder embed = new EmbedBuilder();
 	/**
 	 * Force specific user personnal best for debug purpose
 	 * @param event
@@ -95,7 +99,7 @@ public class PBTester {
 					currentQualification = readValue(f+"/Q");
 					currentFinals = readValue(f+"/F");
 					
-					onHighscore(currentQualification, qualification, currentFinals, finals, role_level, channelID, discord, f, user, lbf);
+					onHighscore(currentQualification, qualification, currentFinals, finals, channelID, discord, f, user, lbf, uuid);
 					
 					try {
 						PrintWriter writer = new PrintWriter(f+"/W");
@@ -137,40 +141,62 @@ public class PBTester {
 	 * @param qualification
 	 * @param currentFinals
 	 * @param finals
-	 * @param role_level
 	 * @param channelID
 	 * @param discord
 	 * @param f
 	 * @param user
 	 * @author Blackoutburst
 	 */
-	private static void onHighscore(String currentQualification, String qualification, String currentFinals, String finals,
-			int role_level, String channelID, String discord, File f, String user, File lbf) {
-		
+	private static void onHighscore(String currentQualification, String qualification, String currentFinals, String finals, String channelID, String discord, File f, String user, File lbf, String uuid) {
+		/**
+		 * @author Heartbreaker
+		 * @author Fuby
+		 */
 		String gender = "their";
-		
-		if (Utils.isHe(Tracker.server.getMemberById(discord))) {
+		if (Utils.isHe(server.getMemberById(discord))) {
 			gender = "his";
 		}
-		if (Utils.isShe(Tracker.server.getMemberById(discord))) {
+		if (Utils.isShe(server.getMemberById(discord))) {
 			gender = "her";
 		}
-		if (Utils.isBoth(Tracker.server.getMemberById(discord))) {
+		if (Utils.isBoth(server.getMemberById(discord))) {
 			gender = "their";
 		}
-			
-		if (Integer.valueOf(currentQualification) < Integer.valueOf(qualification)) {
-			Tracker.server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.qualifiers_score).replace("%player%", user.replace("_", "\\_")).replace("%gender%", gender).replace("%score%", qualification).replace("%up%", String.valueOf(Integer.valueOf(qualification) - Integer.valueOf(currentQualification)))).complete();
-			writeHighScore(Integer.valueOf(qualification), f, "Q");
-			writeHighScore(Integer.valueOf(qualification), lbf, "Q");
-			setRole(discord, Integer.valueOf(qualification), role_level);
+		int qual_int = Integer.parseInt(qualification);
+		int cur_qual_int = Integer.parseInt(currentQualification);
+		int final_int = Integer.parseInt(finals);
+		int cur_final_int = Integer.parseInt(currentFinals);
+		int x = 3;
+		if (x > 0) {
+			String url = "https://www.mc-heads.net/body/" + uuid;
+			String avatarUrl = server.getMemberById(discord).getUser().getAvatarUrl();
+			String name = server.getMemberById(discord).getEffectiveName();
+			embed.setAuthor(name + " | " + user,url,avatarUrl);
+			embed.setThumbnail(url);
+			embed.setFooter("Discord ID: " + discord + "\nUUID: " + uuid);
 		}
-		if (Integer.valueOf(currentFinals) < Integer.valueOf(finals)) {
-			Tracker.server.getTextChannelById(channelID).sendMessage(Reader.read(Lines.finals_score).replace("%player%", user.replace("_", "\\_")).replace("%gender%", gender).replace("%score%", finals).replace("%up%", String.valueOf(Integer.valueOf(finals) - Integer.valueOf(currentFinals)))).complete();
-			writeHighScore(Integer.valueOf(finals), f, "F");
-			writeHighScore(Integer.valueOf(finals), lbf, "F");
-			setRole(discord, Integer.valueOf(finals), role_level);
+		if (x > 1) {
+			int score = cur_qual_int;
+			int pb = qual_int;
+			embed.setTitle(user+" Improved "+gender+" **Qualifiers** Personal Best!");
+			pb_embed("Q", f, lbf, score, pb, channelID);
 		}
+		if ((x % 2)==1) {
+			int score = cur_final_int;
+			int pb = final_int;
+			embed.setTitle(user+" Improved "+gender+" **Finals** Personal Best!");
+			pb_embed("F",f, lbf, score, pb, channelID);
+		}
+	}
+	private static void pb_embed(String pb_type, File f, File lbf, int score, int pb, String channelID) {
+		net.dv8tion.jda.api.entities.TextChannel channel = server.getTextChannelById(channelID);
+		embed.addField("Old PB", "**" + score + "**",true);
+		embed.addField("New PB", "**" + pb + "**",true);
+		embed.addField("Increase","**" + (pb - score) + "**",true);
+		writeHighScore(pb, f, pb_type);
+		writeHighScore(pb, lbf, pb_type);
+		channel.sendMessage(embed.build()).queue();
+		embed.clearFields();
 	}
 	
 	/**
@@ -218,7 +244,7 @@ public class PBTester {
 		int role_level = 0;
 		List<Role> roles = null;
 		try {
-			roles = Tracker.server.getMemberById(discord).getRoles();
+			roles = server.getMemberById(discord).getRoles();
 		} catch(Exception e) {
 			return -1;
 		}
@@ -273,13 +299,13 @@ public class PBTester {
 	 * @author Blackoutburst
 	 */
 	private static void manageUserRole(String discord, String roleName) {
-		List<Role> roles = Tracker.server.getMemberById(discord).getRoles();
+		List<Role> roles = server.getMemberById(discord).getRoles();
 		
 		for (Role r : roles) {
 			if (r.getName().contains("Club")) {
-				Tracker.server.removeRoleFromMember(Tracker.server.getMemberById(discord), r).complete();
+				server.removeRoleFromMember(server.getMemberById(discord), r).complete();
 			}
 		}	
-		Tracker.server.addRoleToMember(Tracker.server.getMemberById(discord), Tracker.server.getRolesByName(roleName, false).get(0)).complete();
+		server.addRoleToMember(server.getMemberById(discord), server.getRolesByName(roleName, false).get(0)).complete();
 	}
 }
