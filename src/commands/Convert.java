@@ -50,7 +50,7 @@ public class Convert {
 				}
 				F--;
 			}
-			event.getChannel().sendMessage(+Math.round(F)+"F compares to **"+Q+"**Q").complete();
+			event.getChannel().sendMessage(args[2]+"F compares to **"+Q+"**Q").complete();
 			
 		}
 		else if (args[1].toLowerCase().equals("q")) {
