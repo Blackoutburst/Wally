@@ -1,6 +1,5 @@
 package core;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -78,8 +77,9 @@ public class Utils {
 		String str = "0";
 		try {
 			str = Files.readAllLines(Paths.get(file)).get(0);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			if (!file.equals("tracker")) {
+				System.out.println("Fucked File : "+file);
 				e.printStackTrace();
 			}
 		}

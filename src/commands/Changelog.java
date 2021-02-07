@@ -10,26 +10,27 @@ public class Changelog {
 	 * @author Blackoutburst
 	 */
 	public static void display(MessageReceivedEvent event) {
-		event.getChannel().sendMessage("Latest **Wally** update : "+"17 January 2021\n\n"+
+		event.getChannel().sendMessage("Latest **Wally** update : "+"3 February 2021\n\n"+
 				"```diff\n"+
-				"+ Convert F is now a thing\n"+
+				"* New improved personal best message (Fuby)\n"+
+				"* New fresh Wally account due to unfortunate event\n"+
+				"* Database go restored back to 26 october 2020 due to some issue\n"+
+				"* Fixed small role glitch on link\n"+
+				"* !convert F display now the correct value\n"+
+				"* !stats, !compare and !profile use your own IGN if no arguments are provided\n"+
+				"* Minor code upgrade\n"+
 				"\n"+
-				"- Removed some console output\n"+
-				"\n"+
-				"* Changelog now display practice server changelogs\n"+
-				"* Stats commands now display global leaderboard position next to every stats\n"+
-				"* Discord leaderboard now update properly when user leave the discord\n"+
-				"* Changed Hypixel API request form (JS -> Java) increasing a bit the speed of command such as stats and compare\n"+
-				"* Tracker speed increased might need some modification\n"+
 				"```\n"+
-				"Latest **Server** update : "+"17 January 2021\n\n"+
+				"Latest **Server** update : "+"7 February 2021\n\n"+
 				"```diff\n"+
-				"+ Server support now 1.8 to 1.16\n"+
+				"+ 'Old' flags, bring back old walls animation\n"+
+				"+ 'Easy' flags, generate the easiest wall possible\n"+
 				"\n"+
-				"* Classic mode in co op is now working properly again\n"+
-				"* Tournament in co op is now working properly\n"+
+				"* Finals walls are no longer right sided\n"+
+				"* Memtime now works with classic mode\n"+
+				"* It's now possible to combine every play flags at the same time (you should not)\n"+
 				"```\n"+
-				"If you find any issue with this update please repport them in <#711603045905072148> or here\n"+
+				"If you find any issue with this update please report them in <#711603045905072148> or here\n"+
 				"Wally GitHub : ||https://github.com/Blackoutburst/Wally/issues||\n"+
 				"Server Plugin GitHub : ||https://github.com/Blackoutburst/HitW-plugin/issues||\n"+
 				"feel free to dm Blackoutburst as well").complete();
