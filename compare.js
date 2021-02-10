@@ -46,7 +46,7 @@ async function create() {
     }
     if (args[22] === "16d455475ddf42d48e9ffdb45cd69fa5") {
         context.font = 'regular 20pt ';
-        context.fillText("The Champion himself", 10, 70);
+        context.fillText("Former Champion", 10, 70);
     }
     if (args[22] === "983b1593a9a443ab8f2a15e0a65f720f") {
         context.font = 'regular 20pt ';
@@ -64,6 +64,10 @@ async function create() {
         context.font = 'regular 20pt ';
         context.fillText("Simon's Cube Slave", 10, 70);
     }
+    if (args[22] === "2f066b0e58fd4db6a24bfbce5ab5bdb4") {
+        context.font = 'regular 20pt ';
+        context.fillText("The real one", 10, 70);
+    }
     context.font = 'regular 26pt ';
     context.textAlign = 'right';
     context.fillText(args[6], 590, 40);
@@ -75,7 +79,7 @@ async function create() {
     }
     if (args[23] === "16d455475ddf42d48e9ffdb45cd69fa5") {
         context.font = 'regular 20pt ';
-        context.fillText("The Champion himself", 590, 70);
+        context.fillText("Former Champion", 590, 70);
     }
     if (args[23] === "983b1593a9a443ab8f2a15e0a65f720f") {
         context.font = 'regular 20pt ';
@@ -92,6 +96,10 @@ async function create() {
     if (args[23] === "bedb53e2dd754786a2ac1ec80023aabe") {
         context.font = 'regular 20pt ';
         context.fillText("Simon's Cube Slave", 590, 70);
+    }
+    if (args[23] === "2f066b0e58fd4db6a24bfbce5ab5bdb4") {
+        context.font = 'regular 20pt ';
+        context.fillText("The real one", 590, 70);
     }
     context.font = 'regular 18pt '
     context.textAlign = 'left'

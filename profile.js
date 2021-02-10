@@ -42,11 +42,11 @@ async function create() {
     context.fillText(args[0], 300, 40);
     if (args[2] === "75203801f5a54ba6baa691523aa15848") {
         context.font = 'regular 20pt ';
-        context.fillText("eeeeee", 300, 70);
+        context.fillText("hhhhhhhhhh", 300, 70);
     }
     if (args[2] === "16d455475ddf42d48e9ffdb45cd69fa5") {
         context.font = 'regular 20pt ';
-        context.fillText("The Champion himself", 300, 70);
+        context.fillText("Former Champion", 300, 70);
     }
     if (args[2] === "983b1593a9a443ab8f2a15e0a65f720f") {
         context.font = 'regular 20pt ';
@@ -63,6 +63,10 @@ async function create() {
     if (args[2] === "bedb53e2dd754786a2ac1ec80023aabe") {
         context.font = 'regular 20pt ';
         context.fillText("Simon's Cube Slave", 300, 70);
+    }
+    if (args[2] === "2f066b0e58fd4db6a24bfbce5ab5bdb4") {
+        context.font = 'regular 20pt ';
+        context.fillText("The real one", 300, 70);
     }
     const buffer = canvas.toBuffer('image/png');
     fs.writeFileSync('./profile.png', buffer);
