@@ -82,8 +82,8 @@ public class LeaderboardUpdate {
 							e.printStackTrace();
 						}
 						delay(60000);
-						getLead();
 					}
+					getLead();
 				}
 			}
 		});
