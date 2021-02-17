@@ -19,6 +19,7 @@ import commands.Linked;
 import commands.PBTester;
 import commands.Pack;
 import commands.Ping;
+import commands.Poll;
 import commands.Profile;
 import commands.Register;
 import commands.Say;
@@ -168,5 +169,7 @@ public class Bot extends ListenerAdapter {
 			Changelog.display(event);
 		if (event.getMessage().getContentDisplay().split(" ")[0].equals("!convert"))
 			Convert.convert(event);
+		if (event.getMessage().getContentDisplay().split(" ")[0].equals("!poll"))
+			Poll.poll(event);
     }
 }

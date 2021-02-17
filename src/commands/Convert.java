@@ -20,10 +20,8 @@ public class Convert {
 			return;
 		}
 		if (args[1].toLowerCase().equals("f")) {
-			double a = -0.0000036008d;
-			double b = 0.00483095d;
-			double c = -0.239935d;
-			double d = 80.817d;
+			double a = 0.00166673145332d;
+			double b = 0.751487776094d;
 			double F = 0;
 			double RF = 0;
 			int Q = 0;
@@ -35,14 +33,14 @@ public class Convert {
 				event.getChannel().sendMessage("Values must be a valid number!").complete();
 				return;
 			}
-			if (F < 108 || F > 527) {
-				event.getChannel().sendMessage("Value must be between 108 and 527").complete();
+			if (F < 0 || F > 500) {
+				event.getChannel().sendMessage("Value must be between 0 and 500").complete();
 				return;
 			}
 			
 			while (searching) {
-				for (Q = 110; Q < 401; Q++) {
-					RF = a * Math.pow(Q, 3) + b * Math.pow(Q, 2) + c * Q + d;
+				for (Q = 0; Q < 401; Q++) {
+					RF = b*((a*Math.pow(Q, 2))+(1-a)*Q);
 					if (Math.round(RF) == Math.round(F)) {
 						searching = false;
 						break;
@@ -54,10 +52,8 @@ public class Convert {
 			
 		}
 		else if (args[1].toLowerCase().equals("q")) {
-			double a = -0.0000036008d;
-			double b = 0.00483095d;
-			double c = -0.239935d;
-			double d = 80.817d;
+			double a = 0.00166673145332d;
+			double b = 0.751487776094d;
 			int Q = 0;
 			double F = 0;
 			
@@ -67,12 +63,12 @@ public class Convert {
 				event.getChannel().sendMessage("Values must be a valid number!").complete();
 				return;
 			}
-			if (Q < 110 || Q > 400) {
-				event.getChannel().sendMessage("Value must be between 110 and 400").complete();
+			if (Q < 0 || Q > 400) {
+				event.getChannel().sendMessage("Value must be between 0 and 400").complete();
 				return;
 			}
 			
-			F = a * Math.pow(Q, 3) + b * Math.pow(Q, 2) + c * Q + d;
+			F = b*((a*Math.pow(Q, 2))+(1-a)*Q);
 			event.getChannel().sendMessage(+Q+"Q compares to **"+Math.round(F)+"**F").complete();
 		} else {
 			event.getChannel().sendMessage(event.getAuthor().getAsMention()+", "+Reader.read(Lines.BAD_USAGE).replace("%command%", "!convert q/f [value]")).complete();

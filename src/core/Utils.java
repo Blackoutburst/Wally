@@ -78,10 +78,6 @@ public class Utils {
 		try {
 			str = Files.readAllLines(Paths.get(file)).get(0);
 		} catch (Exception e) {
-			if (!file.equals("tracker")) {
-				System.out.println("Fucked File : "+file);
-				e.printStackTrace();
-			}
 		}
 		return str;
 	}
