@@ -6,9 +6,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.json.JSONObject;
 
+import comparators.PlayerComparatorF;
+import comparators.PlayerComparatorQ;
+import comparators.PlayerComparatorRounds;
+import comparators.PlayerComparatorTotal;
+import comparators.PlayerComparatorWins;
 import core.Bot;
 import core.Command;
 import core.Request;
@@ -329,5 +337,103 @@ public class Utils {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Sort leader board
+	 * @param user
+	 * @return
+	 */
+	public static List<LeaderboardPlayer> sortLB(List<LeaderboardPlayer> lead, char type) {
+		switch (type) {
+			case 'w': Collections.sort(lead, new PlayerComparatorWins());break;
+			case 'r': Collections.sort(lead, new PlayerComparatorRounds());break;
+			case 'q': Collections.sort(lead, new PlayerComparatorQ());break;
+			case 'f': Collections.sort(lead, new PlayerComparatorF());break;
+			case 't': Collections.sort(lead, new PlayerComparatorTotal());break;
+		}
+		return (lead);
+	}
+	
+	/**
+	 * Get player position in the leader board
+	 * @param user
+	 * @return
+	 */
+	public static String getLBPos(String user, char type) {
+		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
+		
+		switch (type) {
+			case 'w': Collections.sort(lead, new PlayerComparatorWins());break;
+			case 'r': Collections.sort(lead, new PlayerComparatorRounds());break;
+			case 'q': Collections.sort(lead, new PlayerComparatorQ());break;
+			case 'f': Collections.sort(lead, new PlayerComparatorF());break;
+			case 't': Collections.sort(lead, new PlayerComparatorTotal());break;
+		}
+		int i = 0;
+		for (LeaderboardPlayer p : lead) {
+			i++; 
+			if (p.name.equals(user)) {
+				return (" (#"+String.valueOf(i)+")");
+			}
+		}
+		return ("");
+	}
+	
+	/**
+	 * Get player position in the leader board
+	 * @param user
+	 * @return
+	 */
+	public static int getLBPosToInt(String user, char type) {
+		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
+		
+		switch (type) {
+			case 'w': Collections.sort(lead, new PlayerComparatorWins());break;
+			case 'r': Collections.sort(lead, new PlayerComparatorRounds());break;
+			case 'q': Collections.sort(lead, new PlayerComparatorQ());break;
+			case 'f': Collections.sort(lead, new PlayerComparatorF());break;
+			case 't': Collections.sort(lead, new PlayerComparatorTotal());break;
+		}
+		int i = 0;
+		for (LeaderboardPlayer p : lead) {
+			i++; 
+			if (p.name.equals(user)) {
+				return (i);
+			}
+		}
+		return (10000);
+	}
+	
+	/**
+	 * Generate list of player from specified data folder
+	 * @param index
+	 * @return
+	 */
+	public static List<LeaderboardPlayer> generatePlayerList(File index) {
+		List<LeaderboardPlayer> lead = new ArrayList<LeaderboardPlayer>();
+		String name = "";
+		String discord = "";
+		int wins = 0;
+		int rounds = 0;
+		int qualification = 0;
+		int finals = 0;
+		int total = 0;
+		
+		String[]entries = index.list();
+		for(String s: entries) {
+			File playerFolder = new File(index.getPath(),s);
+			String data = Utils.readJsonToString(playerFolder + "/data.json");
+			
+			name = Stats.getName(data);
+			wins = Stats.getWinsToInt(data);
+			rounds = Stats.getWallsToInt(data);
+			qualification = Stats.getQualificationToInt(data);
+			finals = Stats.getFinalsToInt(data);
+			total = Stats.getTotalToInt(data);
+			try {discord = Stats.getDiscordId(data);} catch(Exception e) {}
+			lead.add(new LeaderboardPlayer(wins, rounds, qualification, finals, total, name, discord));
+		}
+		return (lead);
 	}
 }

@@ -72,6 +72,27 @@ public class RolesManager {
 	}
 	
 	/**
+	 * Set club roles from score
+	 */
+	
+	public void addLifeTimeRole(Member member, String roleName) {
+		Bot.server.addRoleToMember(member, Bot.server.getRoleById(Config.getRoleId(roleName))).complete();
+	}
+	
+	/**
+	 * Remove every roles club
+	 * @param guild
+	 * @param member
+	 */
+	public void cleanLifeTimeRole(Member member) {
+		for (Role r : member.getRoles()) {
+			if (r.getName().contains("LifeTime")) {
+				Bot.server.removeRoleFromMember(member, r).complete();
+			}
+		}
+	}
+	
+	/**
 	 * Return role color
 	 * @param discord
 	 * @return

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -19,7 +18,6 @@ import core.CommandExecutable;
 import utils.Canvas;
 import utils.LeaderboardPlayer;
 import utils.MessageSender;
-import utils.Stats;
 import utils.Utils;
 
 public class CommandLeaderboard extends CommandExecutable {
@@ -44,7 +42,7 @@ public class CommandLeaderboard extends CommandExecutable {
 		String fileName = discord ? "linked player" : "leaderboard";
 		File index = new File(fileName);
 		Canvas image = new Canvas(600, 400);
-		List<LeaderboardPlayer> lead = generatePlayerList(index);
+		List<LeaderboardPlayer> lead = Utils.generatePlayerList(index);
 		
 		lead = sort(type, lead);
 		generateCanvas(image, type, page, lead);
@@ -114,36 +112,6 @@ public class CommandLeaderboard extends CommandExecutable {
 			case Q: Collections.sort(lead, new PlayerComparatorQ());break;
 			case F: Collections.sort(lead, new PlayerComparatorF());break;
 			case T: Collections.sort(lead, new PlayerComparatorTotal());break;
-		}
-		return (lead);
-	}
-	
-	/**
-	 * Generate list of player from specified data folder
-	 * @param index
-	 * @return
-	 */
-	private List<LeaderboardPlayer> generatePlayerList(File index) {
-		List<LeaderboardPlayer> lead = new ArrayList<LeaderboardPlayer>();
-		String name = "";
-		int wins = 0;
-		int rounds = 0;
-		int qualification = 0;
-		int finals = 0;
-		int total = 0;
-		
-		String[]entries = index.list();
-		for(String s: entries) {
-			File playerFolder = new File(index.getPath(),s);
-			String data = Utils.readJsonToString(playerFolder+"/data.json");
-			
-			name = Stats.getName(data);
-			wins = Stats.getWinsToInt(data);
-			rounds = Stats.getWallsToInt(data);
-			qualification = Stats.getQualificationToInt(data);
-			finals = Stats.getFinalsToInt(data);
-			total = Stats.getTotalToInt(data);
-			lead.add(new LeaderboardPlayer(wins, rounds, qualification, finals, total, name));
 		}
 		return (lead);
 	}

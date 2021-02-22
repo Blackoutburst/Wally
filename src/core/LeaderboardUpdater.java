@@ -1,8 +1,11 @@
 package core;
 
 import java.io.File;
+import java.util.List;
 
+import net.dv8tion.jda.api.entities.Member;
 import utils.API;
+import utils.LeaderboardPlayer;
 import utils.Utils;
 
 public class LeaderboardUpdater {
@@ -14,13 +17,28 @@ public class LeaderboardUpdater {
 			public void run(){
 				while (true) {
 					checkUsers();
-					delay(60000);
+					updateLifeTimeRoles();
 				}
 			}
 		});
 		lbupdaterThread.setDaemon(true);
 		lbupdaterThread.setName("Leaderboard updater");
 		lbupdaterThread.start();
+	}
+	
+	private void updateLifeTimeRoles() {
+		List<LeaderboardPlayer> lead = Utils.generatePlayerList(new File("leaderboard"));
+	
+		for (LeaderboardPlayer player : lead) {
+			if(Utils.isLinkedIGN(player.name)) {
+				Member member = Bot.server.getMemberById(player.discord);
+				
+				new RolesManager().cleanLifeTimeRole(member);
+				if (Utils.getLBPosToInt(player.name, 'w') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
+				if (Utils.getLBPosToInt(player.name, 'q') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
+				if (Utils.getLBPosToInt(player.name, 'f') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
+			}
+		}
 	}
 	
 	/**
@@ -40,6 +58,7 @@ public class LeaderboardUpdater {
 			if (API.getPlayer(data).equals(null)) continue;
 			
 			Utils.updateFile(data, localData, uuid, "leaderboard");
+			delay(60000);
 		}
 	}
 	

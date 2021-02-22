@@ -85,12 +85,20 @@ public class CommandCompare extends CommandExecutable {
 	 * @param image
 	 */
 	private void setBackground(Canvas image) {
+		Canvas half = new Canvas(300, 400);
+		
 		if (command.getArgs().length == 1) {
-			image.drawCustomBackground(Utils.getCustomBackground(Utils.getIGNfromDiscord(command.getSender().getId())), -300, 0, 600, 400);
-			image.drawCustomBackground(Utils.getCustomBackground(command.getArgs()[0]), 300, 0, 600, 400);
+			half.drawImage(Utils.getCustomBackground(Utils.getIGNfromDiscord(command.getSender().getId())), 0, 0, 600, 400);
+			half.save("half.png");
+			
+			image.drawCustomBackground(Utils.getCustomBackground(command.getArgs()[0]), 0, 0, 600, 400);
+			image.drawCustomBackground("half.png", 0, 0, 300, 400);
 		} else {
-			image.drawCustomBackground(Utils.getCustomBackground(command.getArgs()[0]), -300, 0, 600, 400);
-			image.drawCustomBackground(Utils.getCustomBackground(command.getArgs()[1]), 300, 0, 600, 400);
+			half.drawImage(Utils.getCustomBackground(command.getArgs()[0]), 0, 0, 600, 400);
+			half.save("half.png");
+			
+			image.drawCustomBackground(Utils.getCustomBackground(command.getArgs()[1]), 0, 0, 600, 400);
+			image.drawCustomBackground("half.png", 0, 0, 300, 400);
 		}
 	}
 	

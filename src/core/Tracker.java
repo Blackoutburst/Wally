@@ -16,7 +16,6 @@ public class Tracker {
 			public void run(){
 				while (true) {
 					checkUsers();
-					delay(750);
 				}
 			}
 		});
@@ -49,6 +48,9 @@ public class Tracker {
 			if(!Utils.isOnline(discordid) && !forced) continue;
 			
 			data = Request.getPlayerStatsUUID(uuid);
+			if (data == null) continue;
+			if (API.getPlayer(data).equals(null)) continue;
+			
 			oldQ = Stats.getQualificationToInt(localData);
 			newQ = API.getQualificationToInt(data);
 			oldF = Stats.getFinalsToInt(localData);
@@ -58,6 +60,7 @@ public class Tracker {
 			if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
 			Utils.updateFile(data, localData, uuid, "linked player");
 			Utils.updateFile(data, localData, uuid, "leaderboard");
+			delay(750);
 		}
 	}
 	

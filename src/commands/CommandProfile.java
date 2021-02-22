@@ -19,6 +19,11 @@ public class CommandProfile extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
+		MessageSender.messageMention(command, "This command is disabled for now sorry"); 
+		
+		return (true);
+		
+		/*
 		String data = null;
 		
 		if (command.getArgs().length == 0) {
@@ -51,6 +56,7 @@ public class CommandProfile extends CommandExecutable {
 		createImage(image, data);
 		MessageSender.sendFile(command, "profile.png");
 		return (true);
+		*/
 	}
 	
 	/**

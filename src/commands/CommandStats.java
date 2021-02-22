@@ -1,22 +1,12 @@
 package commands;
 
 import java.awt.Color;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-import comparators.PlayerComparatorF;
-import comparators.PlayerComparatorQ;
-import comparators.PlayerComparatorRounds;
-import comparators.PlayerComparatorTotal;
-import comparators.PlayerComparatorWins;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
 import utils.API;
 import utils.Canvas;
-import utils.LeaderboardPlayer;
 import utils.MessageSender;
 import utils.Stats;
 import utils.Utils;
@@ -77,66 +67,11 @@ public class CommandStats extends CommandExecutable {
 		
 		image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
 		
-		image.drawStringLeft("Wins: " + API.getWins(data) + getLBPos(API.getName(data), 'w'), 150, 125, 24, Color.white);
-		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + getLBPos(API.getName(data), 'r'), 150, 175, 24, Color.white);
-		image.drawStringLeft("Best qualification score: " + API.getQualification(data) + getLBPos(API.getName(data), 'q'), 150, 225, 24, Color.white);
-		image.drawStringLeft("Best final score: " + API.getFinals(data) + getLBPos(API.getName(data), 'f'), 150, 275, 24, Color.white);
-		image.drawStringLeft("Q/F total: " + API.getTotal(data) + getLBPos(API.getName(data), 't'), 150, 325, 24, Color.white);
+		image.drawStringLeft("Wins: " + API.getWins(data) + Utils.getLBPos(API.getName(data), 'w'), 150, 125, 24, Color.white);
+		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + Utils.getLBPos(API.getName(data), 'r'), 150, 175, 24, Color.white);
+		image.drawStringLeft("Best qualification score: " + API.getQualification(data) + Utils.getLBPos(API.getName(data), 'q'), 150, 225, 24, Color.white);
+		image.drawStringLeft("Best final score: " + API.getFinals(data) + Utils.getLBPos(API.getName(data), 'f'), 150, 275, 24, Color.white);
+		image.drawStringLeft("Q/F total: " + API.getTotal(data) + Utils.getLBPos(API.getName(data), 't'), 150, 325, 24, Color.white);
 		image.save("stats.png");
-	}
-	
-	/**
-	 * Get player position in the leader board
-	 * @param user
-	 * @return
-	 */
-	private String getLBPos(String user, char type) {
-		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
-		
-		switch (type) {
-			case 'w': Collections.sort(lead, new PlayerComparatorWins());break;
-			case 'r': Collections.sort(lead, new PlayerComparatorRounds());break;
-			case 'q': Collections.sort(lead, new PlayerComparatorQ());break;
-			case 'f': Collections.sort(lead, new PlayerComparatorF());break;
-			case 't': Collections.sort(lead, new PlayerComparatorTotal());break;
-		}
-		int i = 0;
-		for (LeaderboardPlayer p : lead) {
-			i++; 
-			if (p.name.equals(user)) {
-				return (" (#"+String.valueOf(i)+")");
-			}
-		}
-		return ("");
-	}
-	
-	/**
-	 * Generate list of player from specified data folder
-	 * @param index
-	 * @return
-	 */
-	private List<LeaderboardPlayer> generatePlayerList(File index) {
-		List<LeaderboardPlayer> lead = new ArrayList<LeaderboardPlayer>();
-		String name = "";
-		int wins = 0;
-		int rounds = 0;
-		int qualification = 0;
-		int finals = 0;
-		int total = 0;
-		
-		String[]entries = index.list();
-		for(String s: entries) {
-			File playerFolder = new File(index.getPath(),s);
-			String data = Utils.readJsonToString(playerFolder + "/data.json");
-			
-			name = Stats.getName(data);
-			wins = Stats.getWinsToInt(data);
-			rounds = Stats.getWallsToInt(data);
-			qualification = Stats.getQualificationToInt(data);
-			finals = Stats.getFinalsToInt(data);
-			total = Stats.getTotalToInt(data);
-			lead.add(new LeaderboardPlayer(wins, rounds, qualification, finals, total, name));
-		}
-		return (lead);
 	}
 }
