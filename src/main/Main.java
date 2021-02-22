@@ -1,47 +1,23 @@
 package main;
 
-import java.io.File;
+import java.io.IOException;
+
 import javax.security.auth.login.LoginException;
 
 import core.Bot;
+import utils.Config;
 
 public class Main {
+
 	private static final String TOKEN = "X";
 	private static final String ACTIVITY = "Hole in the Wall";
+	
 	public static final String API = "X";
-	public static final String serverID = "X";
-	public static boolean trackerInformation = false;
-	public static boolean leaderboardInformation = false;
-	public static boolean forceTracker  = false;
+	public static final String PREFIX = "!";
 	
-	/**
-	 * Main
-	 * @param args
-	 * @author Blackoutburst
-	 */
-	public static void main(String[] args) {
-		Bot bot = new Bot();
+	public static void main(String[] args) throws LoginException, IOException {
+		new Config("config.json");
+		new Bot(TOKEN, ACTIVITY);
+	}
 
-		setup();
-		
-		try {
-			bot.login(TOKEN, ACTIVITY);
-		} catch (LoginException | InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Generate useful folder on start
-	 * @author Blackoutburst
-	 */
-	private static void setup() {
-		File f = new File("linked player");
-		
-		if (!f.exists())
-			f.mkdir();
-		f = new File("leaderboard");
-		if (!f.exists())
-			f.mkdir();
-	}
 }
