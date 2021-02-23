@@ -26,6 +26,9 @@ public class LeaderboardUpdater {
 		lbupdaterThread.start();
 	}
 	
+	/**
+	 * User player leaderboard role
+	 */
 	private void updateLifeTimeRoles() {
 		List<LeaderboardPlayer> lead = Utils.generatePlayerList(new File("leaderboard"));
 	
@@ -51,7 +54,7 @@ public class LeaderboardUpdater {
 		for(String s: entries) {
 			File playerFolder = new File(index.getPath(), s);
 			String uuid = playerFolder.getName();
-			String data = Request.getPlayerUUID(playerFolder.getName());
+			String data = Request.getPlayerStatsUUID(playerFolder.getName());
 			String localData = Utils.readJsonToString(playerFolder + "/data.json");
 			
 			if (data == null) continue;
