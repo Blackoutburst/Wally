@@ -121,8 +121,12 @@ public class CommandCompare extends CommandExecutable {
 		image.drawImage("res/f.png", 10, 255, 24, 24);
 		image.drawImage("res/total.png", 10, 305, 24, 24);
 		
-		image.drawStringLeft(API.getName(p1), 10, 40, 32, Color.white);
 		
+		if (API.getName(p1).equals("Blackoutburst")) {
+			image.drawImage("res/blackout.png", 10, 10, 200, 53);
+		} else {
+			image.drawStringLeft(API.getName(p1), 10, 40, 32, Color.white);
+		}
 		image.drawStringLeft(wins, 50, 125, 24, stringColor(p1, p2, Type.WINS));
 		image.drawStringLeft(walls, 50, 175, 24, stringColor(p1, p2, Type.WALLS));
 		image.drawStringLeft(qualification, 50, 225, 24, stringColor(p1, p2, Type.Q));
@@ -149,8 +153,11 @@ public class CommandCompare extends CommandExecutable {
 		image.drawImage("res/f.png", 566, 255, 24, 24);
 		image.drawImage("res/total.png", 566, 305, 24, 24);
 		
-		image.drawStringRight(API.getName(p1), 590, 40, 32, Color.white);
-		
+		if (API.getName(p1).equals("Blackoutburst")) {
+			image.drawImage("res/blackout.png", 390, 10, 200, 53);
+		} else {
+			image.drawStringRight(API.getName(p1), 590, 40, 32, Color.white);
+		}
 		image.drawStringRight(wins, 550, 125, 24, stringColor(p1, p2, Type.WINS));
 		image.drawStringRight(walls, 550, 175, 24, stringColor(p1, p2, Type.WALLS));
 		image.drawStringRight(qualification, 550, 225, 24, stringColor(p1, p2, Type.Q));

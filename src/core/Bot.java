@@ -42,6 +42,7 @@ public class Bot extends ListenerAdapter {
 		if (event instanceof ReadyEvent) {
 			new Generic().run(event);
 			new Tracker();
+			new LeaderboardUpdater();
 		}
 	}
 	

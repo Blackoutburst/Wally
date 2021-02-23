@@ -65,7 +65,12 @@ public class CommandStats extends CommandExecutable {
 		image.drawImage("res/f.png", 100, 255, 24, 24);
 		image.drawImage("res/total.png", 100, 305, 24, 24);
 		
-		image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
+		
+		if (API.getName(data).equals("Blackoutburst")) {
+			image.drawImage("res/blackout.png", 200, 10, 200, 53);
+		} else {
+			image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
+		}
 		
 		image.drawStringLeft("Wins: " + API.getWins(data) + Utils.getLBPos(API.getName(data), 'w'), 150, 125, 24, Color.white);
 		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + Utils.getLBPos(API.getName(data), 'r'), 150, 175, 24, Color.white);

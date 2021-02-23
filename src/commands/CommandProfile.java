@@ -68,7 +68,11 @@ public class CommandProfile extends CommandExecutable {
 		image.drawImage("level.png", 20, 80, 560, 25);
 		image.drawImage("ap.png", 20, 140, 560, 25);
 		
-		image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
+		if (API.getName(data).equals("Blackoutburst")) {
+			image.drawImage("res/blackout.png", 200, 10, 200, 53);
+		} else {
+			image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
+		}
 		image.save("profile.png");
 	}
 }
