@@ -127,7 +127,7 @@ public class CommandCompare extends CommandExecutable {
 		image.drawStringLeft(walls, 50, 175, 24, stringColor(p1, p2, Type.WALLS));
 		image.drawStringLeft(qualification, 50, 225, 24, stringColor(p1, p2, Type.Q));
 		image.drawStringLeft(finals, 50, 275, 24, stringColor(p1, p2, Type.F));
-		image.drawStringLeft(total, 50, 325, 24, stringColor(p1, p2, Type.F));
+		image.drawStringLeft(total, 50, 325, 24, stringColor(p1, p2, Type.T));
 	}
 	
 	/**
