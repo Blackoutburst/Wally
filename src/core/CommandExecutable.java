@@ -46,10 +46,7 @@ public abstract class CommandExecutable {
 	 * @return
 	 */
 	protected boolean senderIsStaff() {
-		if (Utils.isStaff(command.getSender())) {
-			return (true);
-		}
-		return (false);
+		return (Utils.isStaff(command.getSender()));
 	}
 	
 	/**

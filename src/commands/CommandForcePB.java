@@ -28,13 +28,13 @@ public class CommandForcePB extends CommandExecutable {
 		
 		String data = Request.getPlayerStats(ign);
 		if (data == null) return (unknownPlayer(ign));
-		if (API.getPlayer(data).equals(null)) return (unknownPlayer(ign));
+		if (API.getPlayer(data) == null) return (unknownPlayer(ign));
 		if (!Utils.isLinkedIGN(ign)) return (notInDatabase());
 		
 		switch(type) {
-		case Q: MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');break;
-		case F: MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');break;
-		case BOTH:
+		case Q : MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');break;
+		case F : MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');break;
+		default :
 			MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');
 			MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');
 		}
@@ -64,6 +64,7 @@ public class CommandForcePB extends CommandExecutable {
 				switch(arg.toLowerCase().charAt(0)) {
 					case 'q' : return (Type.Q);
 					case 'f' : return (Type.F);
+					default : return (Type.BOTH);
 				}
 			}
 		}

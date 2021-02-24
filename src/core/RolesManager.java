@@ -19,6 +19,7 @@ public class RolesManager {
 		switch (action) {
 			case ADD: guild.addRoleToMember(member, guild.getRoleById(Config.getRoleId("Tournament Player"))).complete(); break;
 			case REMOVE: guild.removeRoleFromMember(member, guild.getRoleById(Config.getRoleId("Tournament Player"))).complete(); break;
+			default : return;
 		}
 	}
 	
@@ -33,6 +34,7 @@ public class RolesManager {
 		switch (action) {
 			case ADD: guild.addRoleToMember(member, guild.getRoleById(Config.getRoleId(roleName))).complete(); break;
 			case REMOVE: guild.removeRoleFromMember(member, guild.getRoleById(Config.getRoleId(roleName))).complete(); break;
+			default : return;
 		}
 	}
 	
@@ -98,7 +100,7 @@ public class RolesManager {
 	 * @return
 	 */
 	public static Color getRoleColor(int score) {
-		Color color = Bot.server.getRolesByName("Members", false).get(0).getColor();
+		Color color = Bot.server.getRoleById(Config.getRoleId("Members")).getColor();
 		
 		if (score >= 50) {color = Bot.server.getRoleById(Config.getRoleId("50+ Club")).getColor();}
 		if (score >= 100) {color = Bot.server.getRoleById(Config.getRoleId("100+ Club")).getColor();}

@@ -26,12 +26,11 @@ public class CommandRemoveBackground extends CommandExecutable {
 			File playerFolder = new File(index.getPath(),s);
 			JSONObject obj = Utils.readJson(playerFolder + "/data.json");
 			
-			if (obj.getString("name").equalsIgnoreCase(command.getArgs()[0])) {
-				if (new File(playerFolder + "/background.png").exists()) {
-					new File(playerFolder + "/background.png").delete();
-					MessageSender.messageJSON(command, "background remove");
-					return (true);
-				}
+			if (obj.getString("name").equalsIgnoreCase(command.getArgs()[0]) &&
+				new File(playerFolder + "/background.png").exists()) {
+				new File(playerFolder + "/background.png").delete();
+				MessageSender.messageJSON(command, "background remove");
+				return (true);
 			}
 		}
 		MessageSender.messageJSONMention(command, "not linked");

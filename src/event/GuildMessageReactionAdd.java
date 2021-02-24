@@ -23,6 +23,7 @@ public class GuildMessageReactionAdd {
 				case "RE:U+1f1ed" : roleName = "He/Him"; break;
 				case "RE:U+1f1f8" : roleName = "She/Her"; break;
 				case "RE:U+1f1f9" : roleName = "They/Them"; break;
+				default : return;
 			}
 			new RolesManager().setGender(RoleAction.ADD, event.getGuild(), event.getMember(), roleName);
 		}

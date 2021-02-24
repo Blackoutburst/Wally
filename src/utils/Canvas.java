@@ -13,10 +13,10 @@ import javax.imageio.ImageIO;
 
 public class Canvas {
 	
-	BufferedImage background = null;
-	BufferedImage bufferedImage = null;
-	Graphics2D g = null;
-	Font font = null;
+	private BufferedImage background = null;
+	private BufferedImage bufferedImage = null;
+	private Graphics2D g = null;
+	private Font font = null;
 	
 	public Canvas(int width, int height) {
 		try {
@@ -89,9 +89,8 @@ public class Canvas {
 	public void drawStringCenter(String string, int x, int y, float size, Color color) {
 		font = font.deriveFont(size);
 		g.setFont(font);
-		x -= g.getFontMetrics().stringWidth(string)/2;
 		g.setColor(color);
-		g.drawString(string, x, y);
+		g.drawString(string, x - g.getFontMetrics().stringWidth(string)/2, y);
 	}
 	
 	/**
@@ -105,9 +104,8 @@ public class Canvas {
 	public void drawStringRight(String string, int x, int y, float size, Color color) {
 		font = font.deriveFont(size);
 		g.setFont(font);
-		x -= g.getFontMetrics().stringWidth(string);
 		g.setColor(color);
-		g.drawString(string, x, y);
+		g.drawString(string, x - g.getFontMetrics().stringWidth(string), y);
 	}
 	
 	/**

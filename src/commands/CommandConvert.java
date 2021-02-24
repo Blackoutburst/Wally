@@ -27,9 +27,9 @@ public class CommandConvert extends CommandExecutable {
 		
 		if (typeArg == -1) return (badUsage());
 		switch(command.getArgs()[typeArg].toLowerCase()) {
-			case "q": type = Type.Q; break;
-			case "f": type = Type.F; break;
-			default: return (badUsage());
+			case "q" : type = Type.Q; break;
+			case "f" : type = Type.F; break;
+			default : return (badUsage());
 		}
 		try {
 			value = Integer.valueOf(command.getArgs()[Math.abs(typeArg-1)]);
@@ -38,8 +38,9 @@ public class CommandConvert extends CommandExecutable {
 		}
 		
 		switch(type) {
-			case Q: displayQualificationValue(value); break;
-			case F: displayFinalValue(value); break;
+			case Q : displayQualificationValue(value); break;
+			case F : displayFinalValue(value); break;
+			default : return (badUsage());
 		}
 		
 		return (true);

@@ -49,7 +49,7 @@ public class Tracker {
 			
 			data = Request.getPlayerStatsUUID(uuid);
 			if (data == null) continue;
-			if (API.getPlayer(data).equals(null)) continue;
+			if (API.getPlayer(data) == null) continue;
 			
 			oldQ = Stats.getQualificationToInt(localData);
 			newQ = API.getQualificationToInt(data);

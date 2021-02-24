@@ -33,7 +33,7 @@ public class CommandStats extends CommandExecutable {
 		} else {
 			data = Request.getPlayerStats(command.getArgs()[0]);
 			if (data == null) return (unknownPlayer(command.getArgs()[0]));
-			if (API.getPlayer(data).equals(null)) return (unknownPlayer(command.getArgs()[0]));
+			if (API.getPlayer(data) == null) return (unknownPlayer(command.getArgs()[0]));
 			uuid = API.getUUID(data);
 		}
 		

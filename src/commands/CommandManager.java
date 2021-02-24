@@ -30,6 +30,7 @@ public class CommandManager {
 			case "getchangelog": new CommandGetChangelog(command, true, "!getchangelog").run(); break;
 			case "convert": new CommandConvert(command, false, "!convert [Q/F] [score]").run(); break;
 			case "poll": new CommandPoll(command, true, "!poll [message]").run(); break;
+			default : return;
 		}
 	}
 }

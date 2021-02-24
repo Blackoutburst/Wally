@@ -62,7 +62,6 @@ public class CommandLeaderboard extends CommandExecutable {
 		DecimalFormat formatter = (DecimalFormat) nf;
 		int y = 0;
 		
-		page--;
 		image.drawBackground();
 		image.drawStringCenter(getCanvasName(type), 300, 40, 32, Color.white);
 
@@ -107,11 +106,12 @@ public class CommandLeaderboard extends CommandExecutable {
 	 */
 	private List<LeaderboardPlayer> sort(Type type, List<LeaderboardPlayer> lead) {
 		switch (type) {
-			case W: Collections.sort(lead, new PlayerComparatorWins());break;
-			case R: Collections.sort(lead, new PlayerComparatorRounds());break;
-			case Q: Collections.sort(lead, new PlayerComparatorQ());break;
-			case F: Collections.sort(lead, new PlayerComparatorF());break;
-			case T: Collections.sort(lead, new PlayerComparatorTotal());break;
+			case W : Collections.sort(lead, new PlayerComparatorWins());break;
+			case R : Collections.sort(lead, new PlayerComparatorRounds());break;
+			case Q : Collections.sort(lead, new PlayerComparatorQ());break;
+			case F : Collections.sort(lead, new PlayerComparatorF());break;
+			case T : Collections.sort(lead, new PlayerComparatorTotal());break;
+			default : Collections.sort(lead, new PlayerComparatorWins());
 		}
 		return (lead);
 	}
@@ -142,6 +142,7 @@ public class CommandLeaderboard extends CommandExecutable {
 					case 'q' : return (Type.Q);
 					case 'f' : return (Type.F);
 					case 't' : return (Type.T);
+					default : return (Type.W);
 				}
 			}
 		}
@@ -162,6 +163,7 @@ public class CommandLeaderboard extends CommandExecutable {
 			} catch(Exception e) {}
 		}
 		if (page <= 0) page = 1;
+		page--;
 		return (page);
 	}
 }

@@ -1,15 +1,8 @@
 package commands;
 
-import java.awt.Color;
-
 import core.Command;
 import core.CommandExecutable;
-import core.Request;
-import utils.API;
-import utils.Canvas;
 import utils.MessageSender;
-import utils.Stats;
-import utils.Utils;
 
 public class CommandProfile extends CommandExecutable {
 
@@ -59,11 +52,11 @@ public class CommandProfile extends CommandExecutable {
 		*/
 	}
 	
-	/**
+	/*
 	 * Create profile image
 	 * @param image
 	 * @param data
-	 */
+	
 	private void createImage(Canvas image, String data) {
 		image.drawImage("level.png", 20, 80, 560, 25);
 		image.drawImage("ap.png", 20, 140, 560, 25);
@@ -74,5 +67,5 @@ public class CommandProfile extends CommandExecutable {
 			image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
 		}
 		image.save("profile.png");
-	}
+	}*/
 }

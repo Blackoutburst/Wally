@@ -41,18 +41,18 @@ public class CommandCompare extends CommandExecutable {
 				
 				player2 = Request.getPlayerStats(command.getArgs()[0]);
 				if (player2 == null) return (unknownPlayer(command.getArgs()[0]));
-				if (API.getPlayer(player2).equals(null)) return (unknownPlayer(command.getArgs()[0]));
+				if (API.getPlayer(player2) == null) return (unknownPlayer(command.getArgs()[0]));
 			} else {
 				return (badUsage());
 			}
 		} else {
 			player1 = Request.getPlayerStats(command.getArgs()[0]);
 			if (player1 == null) return (unknownPlayer(command.getArgs()[0]));
-			if (API.getPlayer(player1).equals(null)) return (unknownPlayer(command.getArgs()[0]));
+			if (API.getPlayer(player1) == null) return (unknownPlayer(command.getArgs()[0]));
 			
 			player2 = Request.getPlayerStats(command.getArgs()[1]);
 			if (player2 == null) return (unknownPlayer(command.getArgs()[1]));
-			if (API.getPlayer(player2).equals(null)) return (unknownPlayer(command.getArgs()[1]));
+			if (API.getPlayer(player2) == null) return (unknownPlayer(command.getArgs()[1]));
 		}
 		
 		Canvas image = new Canvas(600, 400);
@@ -212,6 +212,9 @@ public class CommandCompare extends CommandExecutable {
 				d1 = Integer.valueOf(API.getTotalToInt(p1));
 				d2 = Integer.valueOf(API.getTotalToInt(p2));
 			break;
+			default: 
+				d1 = Integer.valueOf(API.getWinsToInt(p1));
+				d2 = Integer.valueOf(API.getWinsToInt(p2));
 		}
 		return (formatter.format(d1 - d2));
 	}

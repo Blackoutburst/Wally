@@ -38,10 +38,7 @@ public class Utils {
 				return (true);
 			}
 		}
-		if (member.hasPermission(Permission.ADMINISTRATOR)) {
-			return (true);
-		}
-		return (false);
+		return (member.hasPermission(Permission.ADMINISTRATOR));
 	}
 	
 	/**
@@ -50,10 +47,12 @@ public class Utils {
 	 * @return
 	 */
 	public static String removeDuplicateSpace(String str) {
-		while(str.contains("  ")) {
-			str = str.replace("  ", " ");
+		String value = str;
+		
+		while(value.contains("  ")) {
+			value = value.replace("  ", " ");
 		}
-		return (str);
+		return (value);
 	}
 	
 	/**
@@ -170,10 +169,9 @@ public class Utils {
 		for (String s : entries) {
 			File playerFolder = new File(index.getPath(), s);
 			
-			if (playerFolder.getName().equals(uuid)) {
-				if (new File(playerFolder + "/background.png").exists()) {
-					return (playerFolder + "/background.png");
-				}
+			if (playerFolder.getName().equals(uuid) &&
+				new File(playerFolder + "/background.png").exists()) {
+				return (playerFolder + "/background.png");
 			}
 		}
 		return ("res/background.png");
@@ -283,8 +281,7 @@ public class Utils {
 	public static boolean isInsideTheServer(String discordid) {
 		Member member = Bot.server.getMemberById(discordid);
 		
-		if (member == null) return (false);
-		return (true);
+		return (member == null);
 	}
 	
 	/**
@@ -352,6 +349,7 @@ public class Utils {
 			case 'q': Collections.sort(lead, new PlayerComparatorQ());break;
 			case 'f': Collections.sort(lead, new PlayerComparatorF());break;
 			case 't': Collections.sort(lead, new PlayerComparatorTotal());break;
+			default : Collections.sort(lead, new PlayerComparatorWins());
 		}
 		return (lead);
 	}
