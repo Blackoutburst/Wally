@@ -295,6 +295,7 @@ public class Utils {
 	public static boolean isOnline(String discordid) {
 		Member member = Bot.server.getMemberById(discordid);
 		
+		if (member == null) return (false);
 		if (member.getOnlineStatus() == OnlineStatus.OFFLINE || member.getOnlineStatus() == OnlineStatus.IDLE) return (false);
 		return (true);
 	}
