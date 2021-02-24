@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -20,24 +21,12 @@ public class Request {
 	 * @return
 	 */
 	public static String getPlayerStats(String user) {
-		String uuid = getPlayerUUID(user);
-		
 		try {
+			String uuid = getPlayerUUID(user);
 			URL url = new URL("https://api.hypixel.net/player?uuid=" + uuid + "&key=" + Main.API);
-			URLConnection con = url.openConnection();
-			InputStream is = con.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			StringBuilder builder = new StringBuilder();
-			String line = null;
 			
-			while ( (line = br.readLine()) != null) {
-				builder.append(line);
-				builder.append(System.getProperty("line.separator"));
-			}
-			is.close();
-			br.close();
-			return (builder.toString());
-		} catch (Exception e) {
+			return (getStats(url));
+		} catch (MalformedURLException e) {
 			return (null);
 		}
 	}
@@ -48,8 +37,22 @@ public class Request {
 	 * @return
 	 */
 	public static String getPlayerStatsUUID(String uuid) {
+			try {
+				URL url = new URL("https://api.hypixel.net/player?uuid=" + uuid + "&key=" + Main.API);
+				
+				return (getStats(url));
+			} catch (MalformedURLException e) {
+				return (null);
+			}
+	}
+	
+	/**
+	 * Get player stats from Hypixel API
+	 * @param url
+	 * @return
+	 */
+	private static String getStats(URL url) {
 		try {
-			URL url = new URL("https://api.hypixel.net/player?uuid=" + uuid + "&key=" + Main.API);
 			URLConnection con = url.openConnection();
 			InputStream is = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -102,27 +105,11 @@ public class Request {
 	public static String getAPBar(String name) {
 		try {
 			URL url = new URL("https://gen.plancke.io/achievementPoints/" + name + ".png");
-			URLConnection con = url.openConnection();
-			InputStream is = con.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			
-			if (br.readLine().contains("ensure"))return (null);
-				
-			InputStream in = new BufferedInputStream(url.openStream());
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			byte[] buf = new byte[1024];
-			int n = 0;
-			while (-1 != (n = in.read(buf))) {
-				out.write(buf, 0, n);
-			}
-			out.close();
-			in.close();
-			
-			byte[] response = out.toByteArray();
 			FileOutputStream fos = new FileOutputStream("ap.png");
+			
+			byte[] response = getPicture(url);
 			fos.write(response);
 			fos.close();
-			br.close();
 			return ("ok");
 		} catch (Exception e) {
 			return (null);
@@ -137,6 +124,24 @@ public class Request {
 	public static String getLevelBar(String name) {
 		try {
 			URL url = new URL("https://gen.plancke.io/exp/" + name + ".png");
+			FileOutputStream fos = new FileOutputStream("level.png");
+			
+			byte[] response = getPicture(url);
+			fos.write(response);
+			fos.close();
+			return ("ok");
+		} catch (Exception e) {
+			return (null);
+		}
+	}
+	
+	/**
+	 * Get picture from plancke generator
+	 * @param url
+	 * @return
+	 */
+	private static byte[] getPicture(URL url) {
+		try {
 			URLConnection con = url.openConnection();
 			InputStream is = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -152,13 +157,8 @@ public class Request {
 			}
 			out.close();
 			in.close();
-			
-			byte[] response = out.toByteArray();
-			FileOutputStream fos = new FileOutputStream("level.png");
-			fos.write(response);
-			fos.close();
 			br.close();
-			return ("ok");
+			return (out.toByteArray());
 		} catch (Exception e) {
 			return (null);
 		}
