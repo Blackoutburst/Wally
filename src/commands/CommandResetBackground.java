@@ -24,12 +24,11 @@ public class CommandResetBackground extends CommandExecutable {
 			File playerFolder = new File(index.getPath(),s);
 			JSONObject obj = Utils.readJson(playerFolder + "/data.json");
 			
-			if (obj.getString("discordid").equals(command.getSender().getId())) {
-				if (new File(playerFolder + "/background.png").exists()) {
-					new File(playerFolder + "/background.png").delete();
-					MessageSender.messageJSON(command, "background update");
-					return (true);
-				}
+			if (obj.getString("discordid").equals(command.getSender().getId()) &&
+				new File(playerFolder + "/background.png").exists()) {
+				new File(playerFolder + "/background.png").delete();
+				MessageSender.messageJSON(command, "background update");
+				return (true);
 			}
 		}
 		MessageSender.messageJSONMention(command, "not linked");

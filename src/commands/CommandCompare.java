@@ -215,6 +215,7 @@ public class CommandCompare extends CommandExecutable {
 			default: 
 				d1 = Integer.valueOf(API.getWinsToInt(p1));
 				d2 = Integer.valueOf(API.getWinsToInt(p2));
+			break;
 		}
 		return (formatter.format(d1 - d2));
 	}

@@ -70,11 +70,12 @@ public class CommandLeaderboard extends CommandExecutable {
 			LeaderboardPlayer player = lead.get(i);
 			String str = "";
 			switch (type) {
-				case W: str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.wins); break;
-				case R: str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.walls); break;
-				case Q: str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.qualification); break;
-				case F: str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.finals); break;
-				case T: str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.total); break;
+				case W : str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.wins); break;
+				case R : str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.walls); break;
+				case Q : str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.qualification); break;
+				case F : str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.finals); break;
+				case T : str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.total); break;
+				default : str = "#" + (i+1) + " "+player.name + " - " + formatter.format(player.wins); break;
 			}
 			image.drawStringCenter(str, 300, 75+(35*y), 26, Color.white);
 			y++;
@@ -106,12 +107,12 @@ public class CommandLeaderboard extends CommandExecutable {
 	 */
 	private List<LeaderboardPlayer> sort(Type type, List<LeaderboardPlayer> lead) {
 		switch (type) {
-			case W : Collections.sort(lead, new PlayerComparatorWins());break;
-			case R : Collections.sort(lead, new PlayerComparatorRounds());break;
-			case Q : Collections.sort(lead, new PlayerComparatorQ());break;
-			case F : Collections.sort(lead, new PlayerComparatorF());break;
-			case T : Collections.sort(lead, new PlayerComparatorTotal());break;
-			default : Collections.sort(lead, new PlayerComparatorWins());
+			case W : Collections.sort(lead, new PlayerComparatorWins()); break;
+			case R : Collections.sort(lead, new PlayerComparatorRounds()); break;
+			case Q : Collections.sort(lead, new PlayerComparatorQ()); break;
+			case F : Collections.sort(lead, new PlayerComparatorF()); break;
+			case T : Collections.sort(lead, new PlayerComparatorTotal()); break;
+			default : Collections.sort(lead, new PlayerComparatorWins()); break;
 		}
 		return (lead);
 	}

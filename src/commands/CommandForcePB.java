@@ -32,11 +32,12 @@ public class CommandForcePB extends CommandExecutable {
 		if (!Utils.isLinkedIGN(ign)) return (notInDatabase());
 		
 		switch(type) {
-		case Q : MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');break;
-		case F : MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');break;
-		default :
-			MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');
-			MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');
+			case Q : MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');break;
+			case F : MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');break;
+			default :
+				MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');
+				MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');
+			break;
 		}
 		return (true);
 	}

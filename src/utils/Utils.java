@@ -344,12 +344,12 @@ public class Utils {
 	 */
 	public static List<LeaderboardPlayer> sortLB(List<LeaderboardPlayer> lead, char type) {
 		switch (type) {
-			case 'w': Collections.sort(lead, new PlayerComparatorWins());break;
-			case 'r': Collections.sort(lead, new PlayerComparatorRounds());break;
-			case 'q': Collections.sort(lead, new PlayerComparatorQ());break;
-			case 'f': Collections.sort(lead, new PlayerComparatorF());break;
-			case 't': Collections.sort(lead, new PlayerComparatorTotal());break;
-			default : Collections.sort(lead, new PlayerComparatorWins());
+			case 'w' : Collections.sort(lead, new PlayerComparatorWins()); break;
+			case 'r' : Collections.sort(lead, new PlayerComparatorRounds()); break;
+			case 'q' : Collections.sort(lead, new PlayerComparatorQ()); break;
+			case 'f' : Collections.sort(lead, new PlayerComparatorF()); break;
+			case 't' : Collections.sort(lead, new PlayerComparatorTotal()); break;
+			default : Collections.sort(lead, new PlayerComparatorWins()); break;
 		}
 		return (lead);
 	}
@@ -363,11 +363,12 @@ public class Utils {
 		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
 		
 		switch (type) {
-			case 'w': Collections.sort(lead, new PlayerComparatorWins());break;
-			case 'r': Collections.sort(lead, new PlayerComparatorRounds());break;
-			case 'q': Collections.sort(lead, new PlayerComparatorQ());break;
-			case 'f': Collections.sort(lead, new PlayerComparatorF());break;
-			case 't': Collections.sort(lead, new PlayerComparatorTotal());break;
+			case 'w' : Collections.sort(lead, new PlayerComparatorWins()); break;
+			case 'r' : Collections.sort(lead, new PlayerComparatorRounds()); break;
+			case 'q' : Collections.sort(lead, new PlayerComparatorQ()); break;
+			case 'f' : Collections.sort(lead, new PlayerComparatorF()); break;
+			case 't' : Collections.sort(lead, new PlayerComparatorTotal()); break;
+			default : Collections.sort(lead, new PlayerComparatorWins()); break;
 		}
 		int i = 0;
 		for (LeaderboardPlayer p : lead) {

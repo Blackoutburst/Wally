@@ -58,7 +58,7 @@ public class LeaderboardUpdater {
 			String localData = Utils.readJsonToString(playerFolder + "/data.json");
 			
 			if (data == null) continue;
-			if (API.getPlayer(data).equals(null)) continue;
+			if (API.getPlayer(data) == null) continue;
 			
 			Utils.updateFile(data, localData, uuid, "leaderboard");
 			delay(60000);
