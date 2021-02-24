@@ -28,6 +28,7 @@
         "link": "User linked successfully",
         "background reset": "Your stats background was set back to the default one",
         "unknown player": "Unknown player %player%",
+        "never joined": "%player% never joined Hypixel",
         "leaderboard add": "User added to the leaderboard",
         "config update": "Configuration file updated successfully",
         "changelog update": "Changelog file updated successfully",

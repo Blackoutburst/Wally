@@ -45,7 +45,7 @@ public class CommandLink extends CommandExecutable {
 		if (command.getEvent().getGuild().getMemberById(command.getArgs()[discord]) == null) return (unknownMember(command.getArgs()[discord]));
 		String data = Request.getPlayerStats(command.getArgs()[ign]);
 		if (data == null) return (unknownPlayer(command.getArgs()[ign]));
-		if (API.getPlayer(data) == null) return (unknownPlayer(command.getArgs()[ign]));
+		if (API.getPlayer(data) == null) return (neverJoined(command.getArgs()[ign]));
 		
 		generateFiles(data, ign);
 		setRole(data, discord);

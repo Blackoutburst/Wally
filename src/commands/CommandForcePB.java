@@ -28,7 +28,7 @@ public class CommandForcePB extends CommandExecutable {
 		
 		String data = Request.getPlayerStats(ign);
 		if (data == null) return (unknownPlayer(ign));
-		if (API.getPlayer(data) == null) return (unknownPlayer(ign));
+		if (API.getPlayer(data) == null) return (neverJoined(ign));
 		if (!Utils.isLinkedIGN(ign)) return (notInDatabase());
 		
 		switch(type) {

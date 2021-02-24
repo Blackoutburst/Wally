@@ -16,6 +16,9 @@ public class API {
 	public static Object getPlayer(String json) {
 		JSONObject obj = new JSONObject(json);
 		
+		if (obj.get("player").equals(null)) {
+			return (null);
+		}
 		return (obj.get("player"));
 	}
 	

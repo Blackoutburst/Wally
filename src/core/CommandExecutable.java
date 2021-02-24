@@ -78,6 +78,16 @@ public abstract class CommandExecutable {
 	}
 	
 	/**
+	 * Custom error for never joined
+	 * @param playerName
+	 * @return
+	 */
+	protected boolean neverJoined(String playerName) {
+		MessageSender.neverJoined(command, playerName);
+		return (false);
+	}
+	
+	/**
 	 * Custom error for missing file
 	 * @return
 	 */

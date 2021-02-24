@@ -28,7 +28,7 @@ public class CommandProfile extends CommandExecutable {
 		} else {
 			data = Request.getPlayerStats(command.getArgs()[0]);
 			if (data == null) return (unknownPlayer(command.getArgs()[0]));
-			if (API.getPlayer(data).equals(null)) return (unknownPlayer(command.getArgs()[0]));
+			if (API.getPlayer(data).equals(null)) return (neverJoined(command.getArgs()[0]));
 		}
 		
 		Canvas image = new Canvas(600, 200);

@@ -84,6 +84,17 @@ public class MessageSender {
 		command.getEvent().getChannel().sendMessage(str).complete();
 	}
 	
+	/**
+	 * Send never joined message
+	 * @param channel
+	 * @param message
+	 */
+	public static void neverJoined(Command command, String player) {
+		String str = command.getSender().getAsMention() + ",\n";
+		
+		str += Config.getMessage("never joined").replace("%player%", player);
+		command.getEvent().getChannel().sendMessage(str).complete();
+	}
 	
 	/**
 	 * Send unknown player message
