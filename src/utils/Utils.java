@@ -281,7 +281,7 @@ public class Utils {
 	public static boolean isInsideTheServer(String discordid) {
 		Member member = Bot.server.getMemberById(discordid);
 		
-		return (member == null);
+		return (member != null);
 	}
 	
 	/**
