@@ -11,7 +11,8 @@ public class Main {
 
 	private static final String TOKEN = "X";
 	private static final String ACTIVITY = "Hole in the Wall";
-	
+
+	public static final String BOT_ID = "X";
 	public static final String API = "X";
 	public static final String PREFIX = "!";
 	

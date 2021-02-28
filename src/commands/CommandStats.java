@@ -19,8 +19,8 @@ public class CommandStats extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		String data = null;
 		
+		String data = null;
 		String uuid = null;
 		
 		if (command.getArgs().length == 0) {

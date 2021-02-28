@@ -29,6 +29,7 @@
         "background reset": "Your stats background was set back to the default one",
         "unknown player": "Unknown player %player%",
         "never joined": "%player% never joined Hypixel",
+		"not pb": "Nothing to show, sorry try to pb",
         "leaderboard add": "User added to the leaderboard",
         "config update": "Configuration file updated successfully",
         "changelog update": "Changelog file updated successfully",

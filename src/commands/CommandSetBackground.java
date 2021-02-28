@@ -24,7 +24,6 @@ public class CommandSetBackground extends CommandExecutable {
 		
 		if (file.getFileExtension().equals("png") || file.getFileExtension().equals("jpg") || file.getFileExtension().equals("jpeg")) {
 			updateBackground(command.getSender().getId(), file);
-			MessageSender.messageJSON(command, "background update");
 		} else {
 			return (wrongFileFormat(".png/.jpg/.jpeg"));
 		}
@@ -46,6 +45,7 @@ public class CommandSetBackground extends CommandExecutable {
 			
 			if (obj.getString("discordid").equals(discordid)) {
 				file.downloadToFile(new File(playerFolder + "/background.png"));
+				MessageSender.messageJSON(command, "background update");
 				return;
 			}
 		}
