@@ -227,6 +227,7 @@ public class Utils {
 	 * @param data
 	 */
 	public static void addToLeaderBoard(String uuid, String data, Command command) {
+		if (uuid.equals("9c05f51a1d644dc4b2ad3f4cff85a64b")) return;
 		if (!new File("leaderboard/" + uuid).exists()) {
 			new File("leaderboard/" + uuid).mkdir();
 			JSONObject obj = new JSONObject();
