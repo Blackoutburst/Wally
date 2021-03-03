@@ -34,6 +34,7 @@ public class CommandStats extends CommandExecutable {
 			data = Request.getPlayerStats(command.getArgs()[0]);
 			if (data == null) return (unknownPlayer(command.getArgs()[0]));
 			if (API.getPlayer(data) == null) return (neverJoined(command.getArgs()[0]));
+			if (API.getUUID(data).equals("9293868b414c42b2bd8e3bcb791247b9")) return (unknownPlayer(command.getArgs()[0]));
 			uuid = API.getUUID(data);
 		}
 		
