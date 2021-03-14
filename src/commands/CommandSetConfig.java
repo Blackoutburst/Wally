@@ -17,7 +17,7 @@ public class CommandSetConfig extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getEvent().getMessage().getAttachments().size() == 0) return (missingFile());
+		if (command.getEvent().getMessage().getAttachments().size() == 0) return (missingFile(this));
 		
 		Attachment file = command.getEvent().getMessage().getAttachments().get(0);
 		
@@ -31,7 +31,7 @@ public class CommandSetConfig extends CommandExecutable {
 				e.printStackTrace();
 			}
 		} else {
-			return (wrongFileFormat(".json"));
+			return (wrongFileFormat(this, ".json"));
 		}
 		return (true);
 	}

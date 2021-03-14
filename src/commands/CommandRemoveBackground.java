@@ -17,7 +17,7 @@ public class CommandRemoveBackground extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getArgs().length == 0) return (badUsage());
+		if (command.getArgs().length == 0) return (badUsage(this));
 		
 		File index = new File("linked player");
 		String[]entries = index.list();

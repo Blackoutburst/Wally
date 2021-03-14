@@ -18,14 +18,14 @@ public class CommandSetBackground extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getEvent().getMessage().getAttachments().size() == 0) return (missingFile());
+		if (command.getEvent().getMessage().getAttachments().size() == 0) return (missingFile(this));
 		
 		Attachment file = command.getEvent().getMessage().getAttachments().get(0);
 		
 		if (file.getFileExtension().equals("png") || file.getFileExtension().equals("jpg") || file.getFileExtension().equals("jpeg")) {
 			updateBackground(command.getSender().getId(), file);
 		} else {
-			return (wrongFileFormat(".png/.jpg/.jpeg"));
+			return (wrongFileFormat(this, ".png/.jpg/.jpeg"));
 		}
 		return (true);
 	}

@@ -21,15 +21,15 @@ public class CommandForcePB extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getArgs().length == 0) return (badUsage());
+		if (command.getArgs().length == 0) return (badUsage(this));
 		
 		Type type = getPBType();
 		String ign = getIGN();
 		
 		String data = Request.getPlayerStats(ign);
-		if (data == null) return (unknownPlayer(ign));
-		if (API.getPlayer(data) == null) return (neverJoined(ign));
-		if (!Utils.isLinkedIGN(ign)) return (notInDatabase());
+		if (data == null) return (unknownPlayer(this, ign));
+		if (API.getPlayer(data) == null) return (neverJoined(this, ign));
+		if (!Utils.isLinkedIGN(ign)) return (notInDatabase(this));
 		
 		switch(type) {
 			case Q : MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');break;

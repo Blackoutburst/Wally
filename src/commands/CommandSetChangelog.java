@@ -15,7 +15,7 @@ public class CommandSetChangelog extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getEvent().getMessage().getAttachments().size() == 0) return (missingFile());
+		if (command.getEvent().getMessage().getAttachments().size() == 0) return (missingFile(this));
 		
 		Attachment file = command.getEvent().getMessage().getAttachments().get(0);
 		
@@ -23,7 +23,7 @@ public class CommandSetChangelog extends CommandExecutable {
 			file.downloadToFile(new File("changelog.txt"));
 			MessageSender.messageJSON(command, "changelog update");
 		} else {
-			return (wrongFileFormat(".txt"));
+			return (wrongFileFormat(this, ".txt"));
 		}
 		return (true);
 	}

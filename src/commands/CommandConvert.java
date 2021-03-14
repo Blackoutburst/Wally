@@ -18,29 +18,29 @@ public class CommandConvert extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getArgs().length == 0) return (badUsage());
+		if (command.getArgs().length == 0) return (badUsage(this));
 		if (command.getArgs().length == 1) splitArg();
 		
 		Type type;
 		int typeArg = getTypeArgIndex();
 		double value = 0;
 		
-		if (typeArg == -1) return (badUsage());
+		if (typeArg == -1) return (badUsage(this));
 		switch(command.getArgs()[typeArg].toLowerCase()) {
 			case "q" : type = Type.Q; break;
 			case "f" : type = Type.F; break;
-			default : return (badUsage());
+			default : return (badUsage(this));
 		}
 		try {
 			value = Integer.valueOf(command.getArgs()[Math.abs(typeArg-1)]);
 		} catch(Exception e) {
-			return (badUsage());
+			return (badUsage(this));
 		}
 		
 		switch(type) {
 			case Q : displayQualificationValue(value); break;
 			case F : displayFinalValue(value); break;
-			default : return (badUsage());
+			default : return (badUsage(this));
 		}
 		
 		return (true);

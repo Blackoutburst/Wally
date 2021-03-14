@@ -14,11 +14,11 @@ public class CommandUnlink extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getArgs().length == 0) return (badUsage());
+		if (command.getArgs().length == 0) return (badUsage(this));
 		
 		String uuid = Utils.getUUIDfromDiscord(command.getArgs()[0]);
 		if (uuid == null) uuid = Request.getPlayerUUID(command.getArgs()[0]);
-		if (uuid == null) return (unlinkError());
+		if (uuid == null) return (unlinkError(this));
 		
 		Utils.unlinkMember(uuid);
 		

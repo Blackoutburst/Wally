@@ -11,7 +11,7 @@ public class CommandPoll extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getArgs().length == 0) return (badUsage());
+		if (command.getArgs().length == 0) return (badUsage(this));
 		
 		String msg = "";
 		
