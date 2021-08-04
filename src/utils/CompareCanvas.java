@@ -57,6 +57,9 @@ public class CompareCanvas {
 		else
 			image.drawStringLeft(API.getName(player1), 130, 140, 44, Color.white);
 		
+		if (API.getUUID(player1).equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			image.drawImage("res/heart.png", 220, 156, 32, 28);
+		
 		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, Color.white);
 		
 		GeneralUtils.getPlayerHead(uuid);
@@ -106,6 +109,9 @@ public class CompareCanvas {
 			image.drawImage("res/venom.png", 570, 110, 300, 85);
 		else
 			image.drawStringRight(API.getName(player1), 870, 140, 44, Color.white);
+		
+		if (API.getUUID(player1).equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			image.drawImage("res/heart.png", 845, 156, 32, 28);
 		
 		image.drawStringRight(Stats.getSubTitle(uuid), 870, 180, 36, Color.white);
 		

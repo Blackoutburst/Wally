@@ -34,6 +34,9 @@ public class StatsCanvas {
 		else
 			image.drawStringLeft(API.getName(data), 130, 140, 44, Color.white);
 		
+		if (API.getUUID(data).equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			image.drawImage("res/heart.png", 220, 156, 32, 28);
+		
 		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, Color.white);
 		
 		int lvl = (int) (1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data)));

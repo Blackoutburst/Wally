@@ -9,7 +9,7 @@ import utils.GeneralUtils;
 
 public class Tracker {
 	
-	public static boolean forced = false;
+	public static boolean forced = true;
 	public static Thread trackerThread = null;
 	
 	public void start() {
@@ -53,13 +53,12 @@ public class Tracker {
 				GeneralUtils.unlinkMember(uuid);
 				continue;
 			}
-			if(!GeneralUtils.isOnline(discordid) && !forced) continue;
+			if(!forced && !GeneralUtils.isOnline(discordid)) continue;
 
 			data = Request.getPlayerStatsUUID(uuid);
 			if (data == null) continue;
 			if (API.getPlayer(data) == null) continue;
 
-			
 			oldQ = Stats.getQualificationToInt(localData);
 			newQ = API.getQualificationToInt(data);
 			oldF = Stats.getFinalsToInt(localData);
