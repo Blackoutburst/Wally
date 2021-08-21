@@ -17,7 +17,8 @@ public class CommandSay extends CommandExecutable {
 		String fullString = String.join(" ", command.getArgs());
 		
 		MessageSender.message(command, fullString);
-		command.getEvent().getMessage().delete().complete();
+		if (command.getMessage() != null)
+			command.getMessage().delete().complete();
 		return (true);
 	}
 }

@@ -13,8 +13,8 @@ public class CommandSetTracker extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		ConfigManager.setString("trackerChannel", command.getEvent().getChannel().getId());
-		MessageSender.message(command, "Tracker set to <#" + command.getEvent().getChannel().getId() + ">");
+		ConfigManager.setString("trackerChannel", command.getChannel().getId());
+		MessageSender.message(command, "Tracker set to <#" + command.getChannel().getId() + ">");
 		return (true);
 	}
 }

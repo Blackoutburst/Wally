@@ -62,21 +62,30 @@ public class CommandConvert extends CommandExecutable {
 	 * @param value
 	 */
 	private void displayFinalValue(double value) {
-		double a = 0.00166673145332d;
-		double b = 0.751487776094d;
+		double a = 0.00285258d;
+		double b = 0.382482d;
 		double RF = 0;
 		double F = value;
 		int Q = 0;
 		boolean searching = true;
 		
-		if (F < 0 || F > 500) {
-			MessageSender.messageMention(command, "Value must be between 0 and 500");
+		if (F < 0 || F > 550) {
+			MessageSender.messageMention(command, "Value must be between 0 and 550");
 			return;
 		}
-		
+		if (F == 0) {
+			MessageSender.messageMention(command, "0F compares to 0 to 45Q");
+			return;
+		}
 		while (searching) {
 			for (Q = 0; Q < 401; Q++) {
-				RF = b*((a*Math.pow(Q, 2))+(1-a)*Q);
+				a = 0.00285258d;
+				b = 0.382482d;
+				if (Q < 100) {
+					a = -0.0209171241809d;
+					b = 2.75945240632d;
+				}
+				RF = (Q - 100) * (a * Q + b) + 100;
 				if (Math.round(RF) == Math.round(F)) {
 					searching = false;
 					break;
@@ -92,8 +101,6 @@ public class CommandConvert extends CommandExecutable {
 	 * @param value
 	 */
 	private void displayQualificationValue(double value) {
-		double a = 0.00166673145332d;
-		double b = 0.751487776094d;
 		double Q = value;
 		double F = 0;
 		
@@ -101,8 +108,17 @@ public class CommandConvert extends CommandExecutable {
 			MessageSender.messageMention(command, "Value must be between 0 and 400");
 			return;
 		}
-		
-		F = b*((a*Math.pow(Q, 2))+(1-a)*Q);
+		if (Q < 45) {
+			MessageSender.message(command, Math.round(Q) + "Q compares to **0**F as they probably won't qualify");
+			return;
+		}
+		double a = 0.00285258d;
+		double b = 0.382482d;
+		if (Q < 100) {
+			a = -0.0209171241809d;
+			b = 2.75945240632d;
+		}
+		F = (Q - 100) * (a * Q + b) + 100;
 		MessageSender.message(command, Math.round(Q) + "Q compares to **" + Math.round(F) + "**F");
 	}
 	

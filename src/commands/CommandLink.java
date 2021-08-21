@@ -37,12 +37,12 @@ public class CommandLink extends CommandExecutable {
 		}
 		
 		try {
-			command.getEvent().getGuild().getMemberById(command.getArgs()[discord]);
+			command.getMessage().getGuild().getMemberById(command.getArgs()[discord]);
 		} catch(Exception e) {
 			return (badUsage(this));
 		}
 		
-		if (command.getEvent().getGuild().getMemberById(command.getArgs()[discord]) == null) return (unknownMember(this, command.getArgs()[discord]));
+		if (command.getMessage().getGuild().getMemberById(command.getArgs()[discord]) == null) return (unknownMember(this, command.getArgs()[discord]));
 		String data = Request.getPlayerStats(command.getArgs()[ign]);
 		if (data == null) return (unknownPlayer(this, command.getArgs()[ign]));
 		if (API.getPlayer(data) == null) return (neverJoined(this, command.getArgs()[ign]));
@@ -58,8 +58,8 @@ public class CommandLink extends CommandExecutable {
 	 * @param data
 	 */
 	private void setRole(String data, int discord) {
-		Guild guild = command.getEvent().getGuild();
-		Member member = command.getEvent().getGuild().getMemberById(command.getArgs()[discord]);
+		Guild guild = command.getMessage().getGuild();
+		Member member = command.getMessage().getGuild().getMemberById(command.getArgs()[discord]);
 		int Q = API.getQualificationToInt(data);
 		int F = API.getFinalsToInt(data);
 		

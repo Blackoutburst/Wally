@@ -16,9 +16,9 @@ public class CommandSetConfig extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getEvent().getMessage().getAttachments().size() == 0) return (missingFile(this));
+		if (command.getMessage().getAttachments().size() == 0) return (missingFile(this));
 		
-		Attachment file = command.getEvent().getMessage().getAttachments().get(0);
+		Attachment file = command.getMessage().getAttachments().get(0);
 		
 		if (file.getFileExtension().equals("json")) {
 			file.downloadToFile(new File("config.json"));

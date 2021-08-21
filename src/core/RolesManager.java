@@ -62,7 +62,7 @@ public class RolesManager {
 		if (best >= 450) roleName = "450+ Club";
 		if (best >= 500) roleName = "500+ Club";
 		
-		cleanClubRole(guild, member);
+		cleanClubRole(guild, member, best);
 		
 		Role role = guild.getRoleById(ConfigManager.getRoleId(roleName));
 		
@@ -80,11 +80,17 @@ public class RolesManager {
 	 * @param guild
 	 * @param member
 	 */
-	private void cleanClubRole(Guild guild, Member member) {
+	private void cleanClubRole(Guild guild, Member member, int best) {
 		for (Role r : member.getRoles()) {
-			if (r.getName().contains("Club")) {
-				guild.removeRoleFromMember(member, r).complete();
-			}
+			if (r.getName().contains("50+ Club") && best >= 100) {guild.removeRoleFromMember(member, r).complete();}
+			if (r.getName().contains("100+ Club") && best >= 150) {guild.removeRoleFromMember(member, r).complete();}
+			if (r.getName().contains("150+ Club") && best >= 200) {guild.removeRoleFromMember(member, r).complete();}
+			if (r.getName().contains("200+ Club") && best >= 250) {guild.removeRoleFromMember(member, r).complete();}
+			if (r.getName().contains("250+ Club") && best >= 300) {guild.removeRoleFromMember(member, r).complete();}
+			if (r.getName().contains("300+ Club") && best >= 350) {guild.removeRoleFromMember(member, r).complete();}
+			if (r.getName().contains("350+ Club") && best >= 400) {guild.removeRoleFromMember(member, r).complete();}
+			if (r.getName().contains("400+ Club") && best >= 450) {guild.removeRoleFromMember(member, r).complete();}
+			if (r.getName().contains("450+ Club") && best >= 500) {guild.removeRoleFromMember(member, r).complete();}
 		}
 	}
 	
@@ -93,7 +99,10 @@ public class RolesManager {
 	 */
 	
 	public void addLifeTimeRole(Member member, String roleName) {
-		Bot.server.addRoleToMember(member, Bot.server.getRoleById(ConfigManager.getRoleId(roleName))).complete();
+		Role r = Bot.server.getRoleById(ConfigManager.getRoleId(roleName));
+		
+		if (member == null || r == null) return;
+		Bot.server.addRoleToMember(member, r).complete();
 	}
 	
 	/**

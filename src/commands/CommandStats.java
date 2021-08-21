@@ -1,6 +1,5 @@
 package commands;
 
-import java.awt.Color;
 
 import core.AltExcluder;
 import core.Command;
@@ -9,7 +8,7 @@ import core.Request;
 import utils.API;
 import utils.Canvas;
 import utils.MessageSender;
-import utils.Stats;
+import utils.StatsCanvas;
 import utils.GeneralUtils;
 
 public class CommandStats extends CommandExecutable {
@@ -40,17 +39,9 @@ public class CommandStats extends CommandExecutable {
 			uuid = API.getUUID(data);
 		}
 		
-		Canvas image = new Canvas(600, 400);
+		Canvas image = new Canvas(1000, 400);
 		
-		if (command.getArgs().length == 0) {
-			image.drawCustomBackground(GeneralUtils.getCustomBackground(uuid), 0, 0, 600, 400);
-			image.drawStringCenter(Stats.getSubTitle(uuid), 300, 70, 26, Color.white);
-		} else {
-			image.drawCustomBackground(GeneralUtils.getCustomBackground(uuid), 0, 0, 600, 400);
-			image.drawStringCenter(Stats.getSubTitle(uuid), 300, 70, 26, Color.white);
-		}
-		
-		GeneralUtils.createImage(image, data);
+		StatsCanvas.createStatsImage(image, data, uuid);
 		MessageSender.sendFile(command, "stats.png");
 		
 		String fileLocation = "leaderboard/" + uuid + "/data.json";

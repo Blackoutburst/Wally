@@ -231,4 +231,17 @@ public class API {
 
 		return ap;
 	}
+	
+	public static String getAP(String json) {
+		JSONObject obj = new JSONObject(json);
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		DecimalFormat formatter = (DecimalFormat) nf;
+		int ap = 0;
+
+		try {
+			ap = obj.getJSONObject("player").getInt("achievementPoints");
+		} catch (Exception e) {}
+
+		return formatter.format(ap);
+	}
 }

@@ -19,11 +19,11 @@ public class CommandPoll extends CommandExecutable {
 			msg += arg+" ";
 		}
 		
-		command.getEvent().getChannel().sendMessage(msg).queue((message) -> {
+		command.getChannel().sendMessage(msg).queue((message) -> {
 			message.addReaction("U+1F44D").queue();
 			message.addReaction("U+1F44E").queue();
 		});
-		command.getEvent().getMessage().delete().complete();
+		command.getMessage().delete().complete();
 		return (true);
 	}
 }

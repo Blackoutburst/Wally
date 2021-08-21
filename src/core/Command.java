@@ -1,20 +1,23 @@
 package core;
 
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 public class Command {
 	
 	protected Member sender;
 	protected String name;
 	protected String[] args;
-	protected MessageReceivedEvent event;
+	protected MessageChannel channel;
+	protected Message message;
 	
-	public Command(Member sender, String name, String[] args, MessageReceivedEvent event) {
+	public Command(Member sender, String name, String[] args, MessageChannel channel, Message message) {
 		this.sender = sender;
 		this.name = name;
 		this.args = args;
-		this.event = event;
+		this.channel = channel;
+		this.message = message;
 	}
 
 	public Member getSender() {
@@ -29,12 +32,16 @@ public class Command {
 		return args;
 	}
 	
-	public MessageReceivedEvent getEvent() {
-		return event;
+	public MessageChannel getChannel() {
+		return channel;
 	}
 
 	public void setArgs(String[] args) {
 		this.args = args;
+	}
+
+	public Message getMessage() {
+		return message;
 	}
 	
 }

@@ -2,10 +2,12 @@ package utils;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -19,7 +21,7 @@ public class Canvas {
 	public Canvas(int width, int height) {
 		try {
 			background = ImageIO.read(new File("res/background.png"));
-			bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+			bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			g = bufferedImage.createGraphics();
 			font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font.ttf"));
 			
@@ -145,5 +147,59 @@ public class Canvas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Load custom font file
+	 * @param file
+	 */
+	public void loadFont(String file) {
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, new File(file));
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Return header color
+	 * @param score
+	 * @return
+	 */
+	public static String getHeader(int score) {
+		String file = "res/member.png";
+		
+		if (score >= 50) file = "res/50.png";
+		if (score >= 100) file = "res/100.png";
+		if (score >= 150) file = "res/150.png";
+		if (score >= 200) file = "res/200.png";
+		if (score >= 250) file = "res/250.png";
+		if (score >= 300) file = "res/300.png";
+		if (score >= 350) file = "res/350.png";
+		if (score >= 400) file = "res/400.png";
+		if (score >= 450) file = "res/450.png";
+		if (score >= 500) file = "res/500.png";
+		return file;
+	}
+	
+	/**
+	 * Return header color
+	 * @param score
+	 * @return
+	 */
+	public static String getHeaderRight(int score) {
+		String file = "res/memberR.png";
+		
+		if (score >= 50) file = "res/50R.png";
+		if (score >= 100) file = "res/100R.png";
+		if (score >= 150) file = "res/150R.png";
+		if (score >= 200) file = "res/200R.png";
+		if (score >= 250) file = "res/250R.png";
+		if (score >= 300) file = "res/300R.png";
+		if (score >= 350) file = "res/350R.png";
+		if (score >= 400) file = "res/400R.png";
+		if (score >= 450) file = "res/450R.png";
+		if (score >= 500) file = "res/500R.png";
+		return file;
 	}
 }

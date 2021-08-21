@@ -1,6 +1,5 @@
 package commands;
 
-import java.awt.Color;
 import java.io.File;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import core.Request;
 import utils.Canvas;
 import utils.LeaderboardPlayer;
 import utils.MessageSender;
-import utils.Stats;
+import utils.StatsCanvas;
 import utils.GeneralUtils;
 import utils.Leaderboard;
 
@@ -36,13 +35,9 @@ public class CommandSearch extends CommandExecutable {
 		LeaderboardPlayer player = lb.getPlayers().get(pos);
 		String data = Request.getPlayerStatsUUID(player.uuid);
 		
-		Canvas image = new Canvas(600, 400);
+		Canvas image = new Canvas(1000, 400);
 
-		
-		image.drawCustomBackground(GeneralUtils.getCustomBackground(player.uuid), 0, 0, 600, 400);
-		image.drawStringCenter(Stats.getSubTitle(player.uuid), 300, 70, 26, Color.white);
-	
-		GeneralUtils.createImage(image, data);
+		StatsCanvas.createStatsImage(image, data, player.uuid);
 		MessageSender.sendFile(command, "stats.png");
 		return (true);
 	}

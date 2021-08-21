@@ -1,6 +1,14 @@
 package utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -9,9 +17,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONObject;
-import org.json.JSONException;
-
-import java.awt.Color;
 
 import comparators.PlayerComparatorF;
 import comparators.PlayerComparatorQ;
@@ -25,8 +30,8 @@ import core.RolesManager;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class GeneralUtils {
 
@@ -39,6 +44,7 @@ public class GeneralUtils {
 	
 		for (LeaderboardPlayer player : lead) {
 			Member member = Bot.server.getMemberById(player.discord);
+			if (member == null) continue;
 			
 			new RolesManager().cleanLifeTimeRole(member, lb, player);
 
@@ -53,9 +59,9 @@ public class GeneralUtils {
 	 * Send a typing event
 	 * @param event
 	 */
-	public static void startTyping(MessageReceivedEvent event) {
+	public static void startTyping(MessageChannel chan) {
 		try {
-			event.getMessage().getChannel().sendTyping().complete();
+			chan.sendTyping().complete();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -133,10 +139,10 @@ public class GeneralUtils {
 	 */
 	public static boolean isValidJSON(String json) {
 		try {
-			JSONObject obj = new JSONObject(json);
-			return true;
+			new JSONObject(json);
+			return (true);
 		} catch (Exception e) {
-			return false;
+			return (false);
 		}
 	}
 
@@ -201,21 +207,6 @@ public class GeneralUtils {
 	}
 
 	/**
-	 * Get player background path
-	 * @param player
-	 * @return
-	 */
-	public static String getCustomBackground(String uuid) {
-		String playerFolder = "linked player/" + uuid;
-
-		if(new File(playerFolder + "/background.png").exists()) {
-			return (playerFolder + "/background.png");
-		}
-
-		return ("res/background.png");
-	}
-
-	/**
 	 * Create an new JSON object from a json file
 	 * @param file
 	 * @return
@@ -231,7 +222,8 @@ public class GeneralUtils {
 	 */
 	public static String readJsonToString(String file) {
 		try {
-			return new String(Files.readAllBytes(Paths.get(file)));
+			if (new File(file).exists())
+				return new String(Files.readAllBytes(Paths.get(file)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -304,7 +296,7 @@ public class GeneralUtils {
 	public static boolean isOnline(String discordid) {
 		Member member = Bot.server.getMemberById(discordid);
 
-		return (member != null && (member.getOnlineStatus() != OnlineStatus.OFFLINE || member.getOnlineStatus() != OnlineStatus.IDLE));
+		return (member != null && (member.getOnlineStatus() != OnlineStatus.OFFLINE && member.getOnlineStatus() != OnlineStatus.IDLE));
 	}
 
 	/**
@@ -330,6 +322,8 @@ public class GeneralUtils {
 	 * @param folder
 	 */
 	public static void updateFile(String data, String localData, String uuid, String folder) {
+		if (localData == null) return;
+		
 		JSONObject obj = new JSONObject(localData)
 			.put("wins", API.getWinsToInt(data))
 			.put("walls", API.getWallsToInt(data))
@@ -411,31 +405,36 @@ public class GeneralUtils {
 		}
 		return (lead);
 	}
-
+	
 	/**
-	 * Create stats image
-	 * @param image
-	 * @param data
+	 * Get player head
+	 * @param uuid
 	 */
-	public static void createImage(Canvas image, String data) {
-		image.drawImage("res/win.png", 100, 105, 24, 24);
-		image.drawImage("res/wall.png", 100, 155, 24, 24);
-		image.drawImage("res/q.png", 100, 205, 24, 24);
-		image.drawImage("res/f.png", 100, 255, 24, 24);
-		image.drawImage("res/total.png", 100, 305, 24, 24);
-		
-		
-		if (API.getName(data).equals("Blackoutburst")) {
-			image.drawImage("res/blackout.png", 200, 10, 200, 53);
-		} else {
-			image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
+	public static void getPlayerHead(String uuid) {
+		try {
+			URL url = new URL("https://crafatar.com/avatars/" + uuid + "?overlay");
+			FileOutputStream fos = new FileOutputStream("res/head.png");
+			
+			URLConnection con = url.openConnection();
+			InputStream is = con.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			
+			InputStream in = new BufferedInputStream(url.openStream());
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			byte[] buf = new byte[1024];
+			int n = 0;
+			while (-1 != (n = in.read(buf))) {
+				out.write(buf, 0, n);
+			}
+			out.close();
+			in.close();
+			br.close();
+			
+			byte[] response = out.toByteArray();
+			fos.write(response);
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		image.drawStringLeft("Wins: " + API.getWins(data) + GeneralUtils.getLBPos(API.getUUID(data), 'w'), 150, 125, 24, Color.white);
-		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + GeneralUtils.getLBPos(API.getUUID(data), 'r'), 150, 175, 24, Color.white);
-		image.drawStringLeft("Best qualification score: " + API.getQualification(data) + GeneralUtils.getLBPos(API.getUUID(data), 'q'), 150, 225, 24, Color.white);
-		image.drawStringLeft("Best final score: " + API.getFinals(data) + GeneralUtils.getLBPos(API.getUUID(data), 'f'), 150, 275, 24, Color.white);
-		image.drawStringLeft("Q/F total: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getUUID(data), 't'), 150, 325, 24, Color.white);
-		image.save("stats.png");
 	}
 }

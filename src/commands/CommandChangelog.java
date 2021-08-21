@@ -28,7 +28,8 @@ public class CommandChangelog extends CommandExecutable {
 			}
 			reader.close();
 			MessageSender.message(command, changelog);
-			command.getEvent().getMessage().delete().complete();
+			if (command.getMessage() != null)
+				command.getMessage().delete().complete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -36,7 +36,6 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!say [message]", "Talk through wally", false)
 			.addField("!link [discord ID] [IGN]", "Link a player Discord and Minecraft account", false)
 			.addField("!unlink [discordID/IGN]", "Unlink a player Discord and Minecraft account", false)
-			.addField("!removebackground [IGN]", "Remove a user stats background", false)
 			.addField("!forcePB [IGN] [Q/F]", "Display a player personal best (no arguments mean both pb)", false)
 			.addField("!forcetracker", "Force the tracker to check everyone (should not be activated all time)", false)
 			.addField("!setchangelog (file required)", "Change Wally changelog", false)
@@ -58,9 +57,7 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!stats/!stat/!s [player]", "Show player Hole in the Wall stats", false)
 			.addField("!ping", "Show how much Wally is dying", false)
 			.addField("!compare/!c [player1] [player2]", "Compare two players Hole in the Wall stats", false)
-			.addField("!setbackground/!setbg (file required)", "Change your stats background", false)
-			.addField("!resetbackground/!rbg", "Reset your stats background", false)
-			.addField("!leaderboard/!lead/!lb [W/R/Q/F/T] [page] [id]", "Show Hole in the Wall leaderboard", false)
+			.addField("!leaderboard/!lead/!lb [W/R/Q/F/T] [page] \"discord\"", "Show Hole in the Wall leaderboard", false)
 			.addField("!convert [Q/F] [score]", "Convert a finals score to a qualification score and the other way around", false)
 			.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", false)
 			.addField("!whois/!who [IGN]", "Tell information about a player", false);

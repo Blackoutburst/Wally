@@ -16,7 +16,7 @@ public class MessageSender {
 	 * @param message
 	 */
 	public static void messageJSONMention(Command command, String message) {
-		command.getEvent().getChannel().sendMessage(command.getSender().getAsMention() + ",\n" + ConfigManager.getMessage(message)).complete();
+		command.getChannel().sendMessage(command.getSender().getAsMention() + ",\n" + ConfigManager.getMessage(message)).complete();
 	}
 	
 	/**
@@ -25,7 +25,7 @@ public class MessageSender {
 	 * @param message
 	 */
 	public static void messageJSON(Command command, String message) {
-		command.getEvent().getChannel().sendMessage(ConfigManager.getMessage(message)).complete();
+		command.getChannel().sendMessage(ConfigManager.getMessage(message)).complete();
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class MessageSender {
 	 * @param message
 	 */
 	public static void altAccountOwner(Command command, String owner) {
-		command.getEvent().getChannel().sendMessage("This account is the alt account of `"+owner+"`").complete();
+		command.getChannel().sendMessage("This account is the alt account of `"+owner+"`").complete();
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class MessageSender {
 	 * @param message
 	 */
 	public static void altAccount(Command command) {
-		command.getEvent().getChannel().sendMessage("This account is an alt account, the owner is `unknown` for now").complete();
+		command.getChannel().sendMessage("This account is an alt account, the owner is `unknown` for now").complete();
 	}
 	
 	/**
@@ -53,7 +53,7 @@ public class MessageSender {
 	 */
 	public static void message(Command command, String message) {
 		if (command == null) return;
-		command.getEvent().getChannel().sendMessage(message).complete();
+		command.getChannel().sendMessage(message).complete();
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class MessageSender {
 	public static void messageMention(Command command, String message) {
 		String str = command.getSender().getAsMention() + ",\n";
 		
-		command.getEvent().getChannel().sendMessage(str+message).complete();
+		command.getChannel().sendMessage(str+message).complete();
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class MessageSender {
 		String str = command.getSender().getAsMention() + ",\n";
 		
 		str += ConfigManager.getMessage("bad usage").replace("%command%", message);
-		command.getEvent().getChannel().sendMessage(str).complete();
+		command.getChannel().sendMessage(str).complete();
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class MessageSender {
 		String str = command.getSender().getAsMention() + ",\n";
 		
 		str += ConfigManager.getMessage("wrong file type").replace("%format%", message);
-		command.getEvent().getChannel().sendMessage(str).complete();
+		command.getChannel().sendMessage(str).complete();
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class MessageSender {
 		String str = command.getSender().getAsMention() + ",\n";
 		
 		str += ConfigManager.getMessage("large image").replace("%size%", message);
-		command.getEvent().getChannel().sendMessage(str).complete();
+		command.getChannel().sendMessage(str).complete();
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class MessageSender {
 		String str = command.getSender().getAsMention() + ",\n";
 		
 		str += ConfigManager.getMessage("unknown player").replace("%player%", player);
-		command.getEvent().getChannel().sendMessage(str).complete();
+		command.getChannel().sendMessage(str).complete();
 	}
 	
 	/**
@@ -124,7 +124,7 @@ public class MessageSender {
 		String str = command.getSender().getAsMention() + ",\n";
 		
 		str += ConfigManager.getMessage("never joined").replace("%player%", player);
-		command.getEvent().getChannel().sendMessage(str).complete();
+		command.getChannel().sendMessage(str).complete();
 	}
 	
 	/**
@@ -136,7 +136,7 @@ public class MessageSender {
 		String str = command.getSender().getAsMention() + ",\n";
 		
 		str += ConfigManager.getMessage("unknown member").replace("%id%", id);
-		command.getEvent().getChannel().sendMessage(str).complete();
+		command.getChannel().sendMessage(str).complete();
 	}
 	
 	/**
@@ -145,7 +145,7 @@ public class MessageSender {
 	 * @param message
 	 */
 	public static void sendFile(Command command, String file) {
-		command.getEvent().getChannel().sendFile(new File(file)).complete();
+		command.getChannel().sendFile(new File(file)).complete();
 	}
 	
 	/**
@@ -154,7 +154,7 @@ public class MessageSender {
 	 * @param message
 	 */
 	public static void sendEmbeded(Command command, EmbedBuilder embed) {
-		command.getEvent().getChannel().sendMessage(embed.build()).complete();
+		command.getChannel().sendMessage(embed.build()).complete();
 	}
 	
 	/**
@@ -196,6 +196,5 @@ public class MessageSender {
 		}
 		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF, null);
 		Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel")).sendMessage(embed.build()).complete();
-		GeneralUtils.updateLifeTimeRoles();
 	}
 }

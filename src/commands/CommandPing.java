@@ -30,10 +30,16 @@ public class CommandPing extends CommandExecutable {
 		String mainThread = Thread.currentThread().isAlive() ? "alive" : "down";
 		String trackerThread = Tracker.trackerThread.isAlive() ? "alive" : "down";
 		String lbThread = LeaderboardUpdater.lbupdaterThread.isAlive() ? "alive" : "down";
+		String trackerForced = Tracker.forced ? "true" : "false"; 
 		
-		String formatString = "Ping: **%d** ms\nMemory: **%.2f / %d / %d** MiB\nUptime: **%d** minutes\nThreads: Main **"+mainThread+"** / Tracker **"+trackerThread+"** / LBUpdater **"+lbThread+"**";
+		String formatString = "Ping: **%d** ms\nMemory: **%.2f / %d / %d** MiB\nUptime: **%d** minutes\nThreads: Main **"+mainThread+
+				"** / Tracker **"+
+				trackerThread+
+				"** / LBUpdater **"+
+				lbThread+"**\nTracker forced: "+
+				"**"+trackerForced+"**";
 		
-		command.getEvent().getChannel().sendMessage("Pong!").queue(response -> {
+		command.getChannel().sendMessage("Pong!").queue(response -> {
 			response.editMessageFormat(formatString, System.currentTimeMillis() - time, mbUsed, mbTotal, mbMax, uptime).queue();
 		});
 		return (true);
