@@ -33,7 +33,7 @@ public class MessageSender {
 	 * @param channel
 	 * @param message
 	 */
-	public static void altAccountOwner(Command command, String owner) {
+	public static void altAccount(Command command, String owner) {
 		command.getChannel().sendMessage("This account is the alt account of `"+owner+"`").complete();
 	}
 	
@@ -42,8 +42,26 @@ public class MessageSender {
 	 * @param channel
 	 * @param message
 	 */
-	public static void altAccount(Command command) {
-		command.getChannel().sendMessage("This account is an alt account, the owner is `unknown` for now").complete();
+	public static void boostedAccount(Command command, String owner) {
+		command.getChannel().sendMessage("This account was boosted by `"+owner+"`").complete();
+	}
+	
+	/**
+	 * Send message in the command channel
+	 * @param channel
+	 * @param message
+	 */
+	public static void susAccount(Command command) {
+		command.getChannel().sendMessage("This account stat are off, it's most likely a boosted account or an alt account").complete();
+	}
+	
+	/**
+	 * Send message in the command channel
+	 * @param channel
+	 * @param message
+	 */
+	public static void notOnLBAccount(Command command) {
+		command.getChannel().sendMessage("For this reason this account will not appear on the leaderboard").complete();
 	}
 	
 	/**

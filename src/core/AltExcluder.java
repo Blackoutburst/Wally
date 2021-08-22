@@ -17,23 +17,30 @@ public class AltExcluder {
 	 */
 	public static boolean isAnAlt(String uuid, Command command) {
 		List<String> altUuid = readList();
+
+		boolean alt = false;
 		
 		for (String str : altUuid) {
 			String[] split = str.split(",");
 			
 			if (uuid.equals(split[0])) {
-				if (split.length == 1) {
-					MessageSender.altAccount(command);
-				} else {
+				if (split[2].equals("s")) {
+					MessageSender.susAccount(command);
+				} else if (split[2].equals("a")) {
 					String data = Request.getPlayerStatsUUID(split[1]);
-					MessageSender.altAccountOwner(command, API.getName(data));
+					MessageSender.altAccount(command, API.getName(data));
+				} else if (split[2].equals("b")) {
+					String data = Request.getPlayerStatsUUID(split[1]);
+					MessageSender.boostedAccount(command, API.getName(data));
 				}
-				
-				return (true);
+				alt = true;
 			}
 		}
 		
-		return(false);
+		if (alt)
+			MessageSender.notOnLBAccount(command);
+		
+		return(alt);
 	}
 	
 	/**
