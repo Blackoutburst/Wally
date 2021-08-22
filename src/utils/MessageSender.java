@@ -167,7 +167,12 @@ public class MessageSender {
 	public static void pbMessage(String data, String discordid, String uuid, char type) {
 		EmbedBuilder embed = new EmbedBuilder();
 		String localData = GeneralUtils.readJsonToString("linked player/" + uuid + "/data.json");
-		String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512";
+
+		// Add a unique part to the request url so discord cannot cache it and the skin stays up to date.
+		// By: EatMyVenom
+		long time = System.currentTimeMillis();
+
+		String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
 		String avatarUrl = Bot.server.getMemberById(discordid).getUser().getAvatarUrl();
 		String name = Bot.server.getMemberById(discordid).getEffectiveName();
 		int oldQ = Stats.getQualificationToInt(localData);
