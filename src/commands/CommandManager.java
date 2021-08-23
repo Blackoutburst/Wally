@@ -17,6 +17,7 @@ public class CommandManager {
 			case "help": case "h": new CommandHelp(command, EVERYONE, "!help").run(); break;
 			case "pack": new CommandPack(command, EVERYONE, "!pack").run(); break;
 			case "stats": case "stat": case "s": new CommandStats(command, EVERYONE, "!stats [player]").run(); break;
+			case "pstats": case "pstat": case "ps": new CommandPStats(command, EVERYONE, "!pstats [player]").run(); break;
 			case "ping": new CommandPing(command, EVERYONE, "!ping").run(); break;
 			case "compare": case "c": new CommandCompare(command, EVERYONE, "!compare [player] [player]").run(); break;
 			case "getconfig": new CommandGetConfig(command, ADMIN, "!getconfig").run(); break;
@@ -64,6 +65,11 @@ public class CommandManager {
 		commands.addCommands(new CommandData("stats", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
 		commands.addCommands(new CommandData("stat", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
 		commands.addCommands(new CommandData("s", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
+
+		commands.addCommands(new CommandData("pstats", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
+		commands.addCommands(new CommandData("pstat", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
+		commands.addCommands(new CommandData("ps", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
+		
 		commands.addCommands(new CommandData("ping", "Show how much Wally is dying"));
 		commands.addCommands(new CommandData("compare", "Compare two players Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player1", "The first player").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "player2", "The second player")));
 		commands.addCommands(new CommandData("c", "Compare two players Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player1", "The first player").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "player2", "The second player")));

@@ -73,4 +73,71 @@ public class StatsCanvas {
 		image.drawStringLeft("Q/F score: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getUUID(data), 't'), 560, 370, 30, Color.white);
 		image.save("stats.png");
 	}
+	
+	/**
+	 * Create practice stats image
+	 * @param image
+	 * @param data
+	 */
+	public static void createPStatsImage(Canvas image, String uuid, String name, String data) {
+		int q = Integer.valueOf(data.split(":")[0]);
+		int f = Integer.valueOf(data.split(":")[1]);
+		int wq = Integer.valueOf(data.split(":")[2]);
+		int l = Integer.valueOf(data.split(":")[3]);
+		int score = 0;
+		
+		if (q >= f && q >= wq && q >= l) score = q;
+		if (f >= q && f >= wq && f >= l) score = f;
+		if (wq >= f && wq >= q && wq >= l) score = wq;
+		if (l >= f && l >= q && l >= wq) score = l;
+		
+		image.drawImage("res/background.png", 0, 0, 1000, 400);
+		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		
+		image.drawImage("res/q.png", 520, 105, 30, 30);
+		image.drawImage("res/f.png", 520, 165, 30, 30);
+		image.drawImage("res/l.png", 520, 225, 30, 30);
+		image.drawImage("res/wq.png", 520, 285, 30, 30);
+		image.drawImage("res/qf.png", 520, 345, 30, 30);
+		
+		
+		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
+			image.drawImage("res/blackout.png", 130, 110, 320, 80);
+		else if (uuid.equals("92a5199614ac4bd181d1f3c951fb719f"))
+			image.drawImage("res/venom.png", 130, 110, 300, 85);
+		else
+			image.drawStringLeft(name, 130, 140, 44, Color.white);
+		
+		if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			image.drawImage("res/heart.png", 220, 156, 32, 28);
+		
+		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, Color.white);
+		
+		String discordId = GeneralUtils.getDiscordfromIGN(name);
+		String discordNick = "N/A";
+		if (discordId != null && GeneralUtils.isInsideTheServer(discordId)) {
+			Member member = Bot.server.getMemberById(discordId);
+			
+			if (member.getEffectiveName().length() > 16) {
+				discordNick = member.getEffectiveName().substring(0, 16)+"[...]" + "#" + member.getUser().getDiscriminator(); 
+			} else {
+				discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator(); 
+			}
+			discordNick = discordNick.replaceAll("@", "@ ");
+		}
+		
+		if (!discordNick.equals("N/A")) {
+			image.drawStringLeft(discordNick, 20, 250, 36, Color.white);
+		}
+		
+		GeneralUtils.getPlayerHead(uuid);
+		image.drawImage("res/head.png", 20, 100, 100, 100);
+		
+		image.drawStringLeft("Qualification score: " + q, 560, 130, 30, Color.white);
+		image.drawStringLeft("Finals Score: " + f, 560, 190, 30, Color.white);
+		image.drawStringLeft("Lobby score: " + l, 560, 310, 30, Color.white);
+		image.drawStringLeft("Wide Qual score: " + wq, 560, 250, 30, Color.white);
+		image.drawStringLeft("L/Q/F score: " + (l+q+f), 560, 370, 30, Color.white);
+		image.save("pstats.png");
+	}
 }

@@ -55,6 +55,7 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!help/!h", "Show this message", false)
 			.addField("!pack","Redirect you to the #resource-packs channel" ,false)
 			.addField("!stats/!stat/!s [player]", "Show player Hole in the Wall stats", false)
+			.addField("!pstats/!pstat/!ps [player]", "Show player Hole in the Wall practice server stats", false)
 			.addField("!ping", "Show how much Wally is dying", false)
 			.addField("!compare/!c [player1] [player2]", "Compare two players Hole in the Wall stats", false)
 			.addField("!leaderboard/!lead/!lb [W/R/Q/F/T] [page] \"discord\"", "Show Hole in the Wall leaderboard", false)
