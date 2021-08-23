@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import core.AltExcluder;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
@@ -62,7 +63,7 @@ public class CommandPStats extends CommandExecutable {
 		
 		StatsCanvas.createPStatsImage(image, uuid.replace("\n", ""), playerName, data.replace("\n", ""));
 		MessageSender.sendFile(command, "pstats.png");
-		
+		AltExcluder.isAnAlt(uuid.replace("\n", ""), this.command);
 		return (true);
 	}
 }
