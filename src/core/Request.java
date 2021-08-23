@@ -6,6 +6,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -13,6 +15,28 @@ import main.Main;
 import utils.Stats;
 
 public class Request {
+	
+	/**
+	 * Get a player stats from the practice server API
+	 * @param uuid
+	 * @return
+	 */
+	public static String getPracticeServerScore(String uuid) {
+		Socket socket;
+		try {
+			socket = new Socket(Main.PRACTICE_API_IP, Main.PRACTICE_API_PORT);
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+			OutputStream out = socket.getOutputStream();
+			uuid += '\n';
+			out.write(uuid.getBytes("UTF-8"));
+			String data = in.readLine();
+			socket.close();
+			in.close();
+			out.close();
+			return (data);
+		} catch (Exception e) {}
+		return (null);
+	}
 	
 	/**
 	 * Get player stats from Hypixel API (slower)

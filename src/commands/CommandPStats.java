@@ -1,16 +1,10 @@
 package commands;
 
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.Socket;
-
 import core.AltExcluder;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
-import main.Main;
 import utils.Canvas;
 import utils.GeneralUtils;
 import utils.MessageSender;
@@ -41,29 +35,16 @@ public class CommandPStats extends CommandExecutable {
 			playerName = command.getArgs()[0];
 		}
 		
-		Socket socket;
-		try {
-			socket = new Socket(Main.PRACTICE_API_IP, Main.PRACTICE_API_PORT);
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-			OutputStream out = socket.getOutputStream();
-			uuid += '\n';
-			out.write(uuid.getBytes("UTF-8"));
-			data = in.readLine();
-			socket.close();
-			in.close();
-			out.close();
-			
-		} catch (Exception e) {}
-		
+		data = Request.getPracticeServerScore(uuid);
 		if (data.contains("Unknown player")) {
 			return unknownPlayer(this, playerName);
 		}
 		
 		Canvas image = new Canvas(1000, 400);
 		
-		StatsCanvas.createPStatsImage(image, uuid.replace("\n", ""), playerName, data.replace("\n", ""));
+		StatsCanvas.createPStatsImage(image, uuid, playerName, data.replace("\n", ""));
 		MessageSender.sendFile(command, "pstats.png");
-		AltExcluder.isAnAlt(uuid.replace("\n", ""), this.command);
+		AltExcluder.isAnAlt(uuid, this.command);
 		return (true);
 	}
 }

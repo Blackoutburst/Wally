@@ -20,6 +20,7 @@ public class CommandManager {
 			case "pstats": case "pstat": case "ps": new CommandPStats(command, EVERYONE, "!pstats [player]").run(); break;
 			case "ping": new CommandPing(command, EVERYONE, "!ping").run(); break;
 			case "compare": case "c": new CommandCompare(command, EVERYONE, "!compare [player] [player]").run(); break;
+			case "pcompare": case "pc": new CommandPCompare(command, EVERYONE, "!pcompare [player] [player]").run(); break;
 			case "getconfig": new CommandGetConfig(command, ADMIN, "!getconfig").run(); break;
 			case "setconfig": new CommandSetConfig(command, ADMIN,"!setconfig (file required)").run(); break;
 			case "settracker": new CommandSetTracker(command, ADMIN, "!settracker").run(); break;
@@ -73,6 +74,10 @@ public class CommandManager {
 		commands.addCommands(new CommandData("ping", "Show how much Wally is dying"));
 		commands.addCommands(new CommandData("compare", "Compare two players Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player1", "The first player").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "player2", "The second player")));
 		commands.addCommands(new CommandData("c", "Compare two players Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player1", "The first player").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "player2", "The second player")));
+		
+		commands.addCommands(new CommandData("pcompare", "Compare two players Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player1", "The first player").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "player2", "The second player")));
+		commands.addCommands(new CommandData("pc", "Compare two players Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player1", "The first player").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "player2", "The second player")));
+		
 		commands.addCommands(new CommandData("leaderboard", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
 		commands.addCommands(new CommandData("lead", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
 		commands.addCommands(new CommandData("lb", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
