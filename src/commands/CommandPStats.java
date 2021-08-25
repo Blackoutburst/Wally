@@ -42,7 +42,7 @@ public class CommandPStats extends CommandExecutable {
 		
 		Canvas image = new Canvas(1000, 400);
 		
-		StatsCanvas.createPStatsImage(image, uuid, playerName, data.replace("\n", ""));
+		StatsCanvas.createPStatsImage(image, uuid, playerName, data);
 		MessageSender.sendFile(command, "pstats.png");
 		AltExcluder.isAnAlt(uuid, this.command);
 		return (true);

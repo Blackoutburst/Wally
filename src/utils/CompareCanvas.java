@@ -214,10 +214,10 @@ public class CompareCanvas {
 	 * @return
 	 */
 	private static Canvas drawPLeftSide(Canvas image, String player1, String player2, String uuid, String name) {
-		int q = Integer.valueOf(player1.split(":")[0]);
-		int f = Integer.valueOf(player1.split(":")[1]);
-		int wq = Integer.valueOf(player1.split(":")[2]);
-		int l = Integer.valueOf(player1.split(":")[3]);
+		int q = PracticeAPI.getQualificationToInt(player1);
+		int f = PracticeAPI.getFinalsToInt(player1);
+		int wq = PracticeAPI.getWideQualificationToInt(player1);
+		int l = PracticeAPI.getLobbyToInt(player1);
 		int lqf = l+q+f;
 		int score = 0;
 		
@@ -275,10 +275,10 @@ public class CompareCanvas {
 	 * @return
 	 */
 	private static Canvas drawPRightSide(Canvas image, String player1, String player2, String uuid, String name) {
-		int q = Integer.valueOf(player1.split(":")[0]);
-		int f = Integer.valueOf(player1.split(":")[1]);
-		int wq = Integer.valueOf(player1.split(":")[2]);
-		int l = Integer.valueOf(player1.split(":")[3]);
+		int q = PracticeAPI.getQualificationToInt(player1);
+		int f = PracticeAPI.getFinalsToInt(player1);
+		int wq = PracticeAPI.getWideQualificationToInt(player1);
+		int l = PracticeAPI.getLobbyToInt(player1);
 		int lqf = l+q+f;
 		int score = 0;
 		
@@ -357,28 +357,28 @@ public class CompareCanvas {
 		
 		switch(type) {
 			case Q: 
-				d1 = Integer.valueOf(p1.split(":")[0]);
-				d2 = Integer.valueOf(p2.split(":")[0]);
+				d1 = PracticeAPI.getQualificationToInt(p1);
+				d2 = PracticeAPI.getQualificationToInt(p2);
 			break;
 			case F:
-				d1 = Integer.valueOf(p1.split(":")[1]);
-				d2 = Integer.valueOf(p2.split(":")[1]);
+				d1 = PracticeAPI.getFinalsToInt(p1);
+				d2 = PracticeAPI.getFinalsToInt(p2);
 			break;
 			case WQ: 
-				d1 = Integer.valueOf(p1.split(":")[2]);
-				d2 = Integer.valueOf(p2.split(":")[2]);
+				d1 = PracticeAPI.getWideQualificationToInt(p1);
+				d2 = PracticeAPI.getWideQualificationToInt(p2);
 			break;
 			case L: 
-				d1 = Integer.valueOf(p1.split(":")[3]);
-				d2 = Integer.valueOf(p2.split(":")[3]);
+				d1 = PracticeAPI.getLobbyToInt(p1);
+				d2 = PracticeAPI.getLobbyToInt(p2);
 			break;
 			case LQF: 
-				d1 = Integer.valueOf(p1.split(":")[0]) + Integer.valueOf(p1.split(":")[1]) + Integer.valueOf(p1.split(":")[3]);
-				d2 = Integer.valueOf(p2.split(":")[0]) + Integer.valueOf(p2.split(":")[1]) + Integer.valueOf(p2.split(":")[3]);
+				d1 = PracticeAPI.getQualificationToInt(p1) + PracticeAPI.getFinalsToInt(p1) + PracticeAPI.getLobbyToInt(p1);
+				d2 = PracticeAPI.getQualificationToInt(p2) + PracticeAPI.getFinalsToInt(p2) + PracticeAPI.getLobbyToInt(p2);
 			break;
 			default: 
-				d1 = Integer.valueOf(p1.split(":")[0]);
-				d2 = Integer.valueOf(p2.split(":")[0]);
+				d1 = 0;
+				d2 = 0;
 			break;
 		}
 		return (formatter.format(d1 - d2));

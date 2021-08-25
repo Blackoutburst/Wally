@@ -80,10 +80,10 @@ public class StatsCanvas {
 	 * @param data
 	 */
 	public static void createPStatsImage(Canvas image, String uuid, String name, String data) {
-		int q = Integer.valueOf(data.split(":")[0]);
-		int f = Integer.valueOf(data.split(":")[1]);
-		int wq = Integer.valueOf(data.split(":")[2]);
-		int l = Integer.valueOf(data.split(":")[3]);
+		int q = PracticeAPI.getQualificationToInt(data);
+		int f = PracticeAPI.getFinalsToInt(data);
+		int wq = PracticeAPI.getWideQualificationToInt(data);
+		int l = PracticeAPI.getLobbyToInt(data);
 		int score = 0;
 		
 		if (q >= f && q >= wq && q >= l) score = q;
