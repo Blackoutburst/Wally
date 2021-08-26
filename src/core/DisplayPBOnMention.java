@@ -50,7 +50,7 @@ public class DisplayPBOnMention {
 		if (newQ > oldQ) MessageSender.pbMessage(data, sender.getId(), GeneralUtils.getUUIDfromDiscord(sender.getId()), 'q');
 		if (newF > oldF) MessageSender.pbMessage(data, sender.getId(), GeneralUtils.getUUIDfromDiscord(sender.getId()), 'f');
 		
-		GeneralUtils.updateFile(data, localData, GeneralUtils.getUUIDfromDiscord(sender.getId()), "linked player");
-		GeneralUtils.updateFile(data, localData, GeneralUtils.getUUIDfromDiscord(sender.getId()), "leaderboard");
+		GeneralUtils.updateFile(data, localData, GeneralUtils.getUUIDfromDiscord(sender.getId()), "linked player", false);
+		GeneralUtils.updateFile(data, localData, GeneralUtils.getUUIDfromDiscord(sender.getId()), "leaderboard", false);
 	}
 }

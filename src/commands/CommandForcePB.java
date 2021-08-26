@@ -43,8 +43,8 @@ public class CommandForcePB extends CommandExecutable {
 				MessageSender.pbMessage(data, discordId, uuid, 'f');
 			break;
 		}
-		GeneralUtils.updateFile(data, localData, uuid, "linked player");
-		GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
+		GeneralUtils.updateFile(data, localData, uuid, "linked player", false);
+		GeneralUtils.updateFile(data, localData, uuid, "leaderboard", false);
 		MessageSender.message(command, ign+" PB displayed");
 		return (true);
 	}

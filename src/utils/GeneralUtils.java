@@ -351,16 +351,23 @@ public class GeneralUtils {
 	 * @param uuid
 	 * @param folder
 	 */
-	public static void updateFile(String data, String localData, String uuid, String folder) {
+	public static void updateFile(String data, String localData, String uuid, String folder, boolean practiceServer) {
 		if (localData == null) return;
 		
-		JSONObject obj = new JSONObject(localData)
-			.put("wins", API.getWinsToInt(data))
-			.put("walls", API.getWallsToInt(data))
-			.put("qualification", API.getQualificationToInt(data))
-			.put("finals", API.getFinalsToInt(data))
-			.put("name", API.getName(data));
-
+		JSONObject obj = new JSONObject(localData);
+		if (practiceServer) {
+			obj.put("qualification", PracticeAPI.getQualificationToInt(data));
+			obj.put("finals", PracticeAPI.getFinalsToInt(data));
+			obj.put("wide_qualification", PracticeAPI.getWideQualificationToInt(data));
+			obj.put("lobby", PracticeAPI.getLobbyToInt(data));
+			obj.put("name", PracticeAPI.getName(data));
+		} else {
+			obj.put("wins", API.getWinsToInt(data));
+			obj.put("walls", API.getWallsToInt(data));
+			obj.put("qualification", API.getQualificationToInt(data));
+			obj.put("finals", API.getFinalsToInt(data));
+			obj.put("name", API.getName(data));
+		}
 		try {
 			Files.write(Paths.get(folder + "/" + uuid + "/data.json"), obj.toString(4).getBytes(), StandardOpenOption.WRITE);
 		} catch (Exception e) {

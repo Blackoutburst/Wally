@@ -93,6 +93,7 @@ public class StatsCanvas {
 		
 		image.drawImage("res/background.png", 0, 0, 1000, 400);
 		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImage("res/practiceHeader.png", 0, 0, 1000, 400);
 		
 		image.drawImage("res/q.png", 520, 105, 30, 30);
 		image.drawImage("res/f.png", 520, 165, 30, 30);

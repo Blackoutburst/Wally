@@ -46,7 +46,7 @@ public class CommandStats extends CommandExecutable {
 		
 		String fileLocation = "leaderboard/" + uuid + "/data.json";
 		String localData = GeneralUtils.readJsonToString(fileLocation);
-		GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
+		GeneralUtils.updateFile(data, localData, uuid, "leaderboard", false);
 
 		if(!AltExcluder.isAnAlt(uuid, this.command) && API.getWinsToInt(data) >= 25) {
 			GeneralUtils.addToLeaderBoard(uuid, data, command);

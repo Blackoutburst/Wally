@@ -67,8 +67,8 @@ public class Tracker {
 			if (newQ > oldQ) MessageSender.pbMessage(data, discordid, uuid, 'q');
 			if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
 			
-			GeneralUtils.updateFile(data, localData, uuid, "linked player");
-			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
+			GeneralUtils.updateFile(data, localData, uuid, "linked player", false);
+			GeneralUtils.updateFile(data, localData, uuid, "leaderboard", false);
 			GeneralUtils.updateLifeTimeRoles();
 			
 			delay(450);

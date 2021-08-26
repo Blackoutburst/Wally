@@ -288,7 +288,7 @@ public class CompareCanvas {
 		if (l >= f && l >= q && l >= wq) score = l;
 		
 		image.drawImage(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
-		
+		image.drawImage("res/practiceHeader.png", 0, 0, 1000, 400);
 		
 		image.drawImage("res/win.png", 950, 220, 30, 30);
 		image.drawImage("res/wall.png", 950, 280, 30, 30);
