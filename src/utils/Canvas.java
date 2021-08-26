@@ -75,10 +75,10 @@ public class Canvas {
 		g.setStroke(new BasicStroke(4.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		
 		for (int i = 0; i < 99; i++) {
-			Line2D line = new Line2D.Float(1000 - (i * 10), 520 - (data[i] * 0.84f), 1000 - ((i+1) * 10), 520 - (data[i+1] * 0.84f));
+			Line2D line = new Line2D.Float(1000 - (i * 10), 520 - (data[i] * 0.86f + 2), 1000 - ((i+1) * 10), 520 - (data[i+1] * 0.86f + 2));
 			
-			GradientPaint gradient = new GradientPaint(1000 - (i * 10), 520 - (data[i] * 0.84f), getLineColor(data[i]), 
-			1000 - ((i+1) * 10), 520 - (data[i+1] * 0.84f), getLineColor(data[i+1]));
+			GradientPaint gradient = new GradientPaint(1000 - (i * 10), 520 - (data[i] * 0.86f  + 2), getLineColor(data[i]), 
+			1000 - ((i+1) * 10), 520 - (data[i+1] * 0.86f + 2), getLineColor(data[i+1]));
 			
 			g.setPaint(gradient);
 			g.fill(line);

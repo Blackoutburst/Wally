@@ -14,7 +14,14 @@ public class GraphCanvas {
 		int average = 0;
 		
 		for (int i = 0; i < 100; i++) {
-			average += PracticeAPI.getQualificationHistory(data)[i];
+			if (type.equals("Qualification"))
+				average += PracticeAPI.getQualificationHistory(data)[i];
+			if (type.equals("Finals"))
+				average += PracticeAPI.getFinalsHistory(data)[i];
+			if (type.equals("Wide Qualification"))
+				average += PracticeAPI.getWideQualificationHistory(data)[i];
+			if (type.equals("Lobby"))
+				average += PracticeAPI.getLobbyHistory(data)[i];
 		}
 		average = average / 100;
 		
