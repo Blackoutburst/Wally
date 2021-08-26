@@ -44,7 +44,9 @@ public class CommandPStats extends CommandExecutable {
 		
 		StatsCanvas.createPStatsImage(image, uuid, playerName, data);
 		MessageSender.sendFile(command, "pstats.png");
-		AltExcluder.isAnAlt(uuid, this.command);
+		if(!AltExcluder.isAnAlt(uuid, this.command)) {
+			GeneralUtils.addToPracticeLeaderBoard(uuid, data, command);
+		}
 		return (true);
 	}
 }

@@ -19,9 +19,14 @@ import java.util.List;
 import org.json.JSONObject;
 
 import comparators.PlayerComparatorF;
+import comparators.PlayerComparatorL;
+import comparators.PlayerComparatorLQF;
+import comparators.PlayerComparatorPF;
+import comparators.PlayerComparatorPQ;
 import comparators.PlayerComparatorQ;
 import comparators.PlayerComparatorRounds;
 import comparators.PlayerComparatorTotal;
+import comparators.PlayerComparatorWQ;
 import comparators.PlayerComparatorWins;
 import core.Bot;
 import core.Command;
@@ -255,6 +260,31 @@ public class GeneralUtils {
 			}
 		}
 	}
+	
+	/**
+	 * Add a player to the practice leader board
+	 * @param uuid
+	 * @param data
+	 */
+	public static void addToPracticeLeaderBoard(String uuid, String data, Command command) {
+		if (!new File("pleaderboard/" + uuid).exists()) {
+			new File("pleaderboard/" + uuid).mkdir();
+			JSONObject obj = new JSONObject()
+				.put("name", PracticeAPI.getName(data))
+				.put("qualification", PracticeAPI.getQualificationToInt(data))
+				.put("finals", PracticeAPI.getFinalsToInt(data))
+				.put("wide_qualification", PracticeAPI.getWideQualificationToInt(data))
+				.put("lobby", PracticeAPI.getLobbyToInt(data))
+				.put("uuid", uuid);
+
+			try {
+				Files.write(Paths.get("pleaderboard/" + uuid + "/data.json"), obj.toString(4).getBytes());
+				MessageSender.messageJSON(command, "leaderboard add");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * Get gender prefix from roles
@@ -354,6 +384,23 @@ public class GeneralUtils {
 		}
 		return (lead);
 	}
+	
+	/**
+	 * Sort leader board
+	 * @param user
+	 * @return
+	 */
+	public static List<PracticeLeaderboardPlayer> sortPLB(List<PracticeLeaderboardPlayer> lead, String type) {
+		switch (type) {
+			case "q" : Collections.sort(lead, new PlayerComparatorPQ()); break;
+			case "f" : Collections.sort(lead, new PlayerComparatorPF()); break;
+			case "wq" : Collections.sort(lead, new PlayerComparatorWQ()); break;
+			case "l" : Collections.sort(lead, new PlayerComparatorL()); break;
+			case "t" : Collections.sort(lead, new PlayerComparatorLQF()); break;
+			default : Collections.sort(lead, new PlayerComparatorPQ()); break;
+		}
+		return (lead);
+	}
 
 	/**
 	 * Get player position in the leader board
@@ -366,6 +413,18 @@ public class GeneralUtils {
 		int pos = getLBPosToInt(user, type, lead) + 1;
 		return (pos != 10001) ? " (#"+ pos + ")" : "";
 	}
+	
+	/**
+	 * Get player position in the leader board
+	 * @param user
+	 * @return
+	 */
+	public static String getPLBPos(String user, String type) {
+		List<PracticeLeaderboardPlayer> lead = generatePracticePlayerList(new File("pleaderboard"));
+		
+		int pos = getPLBPosToInt(user, type, lead) + 1;
+		return (pos != 10001) ? " (#"+ pos + ")" : "";
+	}
 
 	/**
 	 * Get player position in the leader board
@@ -374,6 +433,27 @@ public class GeneralUtils {
 	 */
 	public static int getLBPosToInt(String user, char type, List<LeaderboardPlayer> lead) {
 		lead = sortLB(lead, type);
+
+		if(user.length() > 31) {
+			for(int i = 0; i < lead.size(); i++) {
+				if(lead.get(i).uuid.equals(user)) return i;
+			}
+			return (10000);
+		} else {
+			for(int i = 0; i < lead.size(); i++) {
+				if(lead.get(i).name.equals(user)) return i;
+			}
+			return (10000);
+		}
+	}
+	
+	/**
+	 * Get player position in the leader board
+	 * @param user
+	 * @return
+	 */
+	public static int getPLBPosToInt(String user, String type, List<PracticeLeaderboardPlayer> lead) {
+		lead = sortPLB(lead, type);
 
 		if(user.length() > 31) {
 			for(int i = 0; i < lead.size(); i++) {
@@ -402,6 +482,24 @@ public class GeneralUtils {
 			String data = GeneralUtils.readJsonToString(playerFolder + "/data.json");
 
 			lead.add(new LeaderboardPlayer(data));
+		}
+		return (lead);
+	}
+	
+	/**
+	 * Generate list of player from specified data folder
+	 * @param index
+	 * @return
+	 */
+	public static List<PracticeLeaderboardPlayer> generatePracticePlayerList(File index) {
+		List<PracticeLeaderboardPlayer> lead = new ArrayList<PracticeLeaderboardPlayer>();
+
+		String[]entries = index.list();
+		for(String s: entries) {
+			File playerFolder = new File(index.getPath(),s);
+			String data = GeneralUtils.readJsonToString(playerFolder + "/data.json");
+
+			lead.add(new PracticeLeaderboardPlayer(data));
 		}
 		return (lead);
 	}

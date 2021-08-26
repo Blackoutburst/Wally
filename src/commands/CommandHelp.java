@@ -23,7 +23,7 @@ public class CommandHelp extends CommandExecutable {
 	}
 
 	private void sendStaffHelp() {
-		String iconURL = "https://cdn.discordapp.com/avatars/806086240427966484/974db65f600f6641f6fa5411e8df2acc.png";
+		String iconURL = "https://cdn.discordapp.com/avatars/806086240427966484/be847f76d33f6c671ed758150eb691cb.webp?size=128";
 		String wallyURL = "https://github.com/Blackoutburst/Wally";
 		EmbedBuilder embed = new EmbedBuilder()
 			.setAuthor("Wally help", wallyURL, iconURL)
@@ -46,7 +46,7 @@ public class CommandHelp extends CommandExecutable {
 	}
 
 	private void sendHelp() {
-		String iconURL = "https://cdn.discordapp.com/avatars/806086240427966484/974db65f600f6641f6fa5411e8df2acc.png";
+		String iconURL = "https://cdn.discordapp.com/avatars/806086240427966484/be847f76d33f6c671ed758150eb691cb.webp?size=128";
 		String wallyURL = "https://github.com/Blackoutburst/Wally";
 		EmbedBuilder embed = new EmbedBuilder()
 			.setAuthor("Wally help", wallyURL, iconURL)
@@ -60,6 +60,7 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!compare/!c [player1] [player2]", "Compare two players Hole in the Wall stats", false)
 			.addField("!pcompare/!pc [player1] [player2]", "Compare two players Hole in the Wall practice server stats", false)
 			.addField("!leaderboard/!lead/!lb [W/R/Q/F/T] [page] \"discord\"", "Show Hole in the Wall leaderboard", false)
+			.addField("!pleaderboard/!plead/!plb [Q/F/WQ/L/T] [page]", "Show Hole in the Wall practice server leaderboard", false)
 			.addField("!convert [Q/F] [score]", "Convert a finals score to a qualification score and the other way around", false)
 			.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", false)
 			.addField("!whois/!who [IGN]", "Tell information about a player", false);

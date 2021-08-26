@@ -29,6 +29,7 @@ public class CommandManager {
 			case "link": new CommandLink(command, ADMIN, "!link [discord ID] [IGN]").run(); break;
 			case "unlink": new CommandUnlink(command, ADMIN, "!unlink [discordID/IGN]").run(); break;
 			case "leaderboard": case "lead": case "lb": new CommandLeaderboard(command, EVERYONE, "!leaderboard [W/R/Q/F/T] [page] [\"discord\"]").run(); break;
+			case "pleaderboard": case "plead": case "plb": new CommandPLeaderboard(command, EVERYONE, "!leaderboard [Q/F/WQ/L/T] [page]").run(); break;
 			case "forcepb": new CommandForcePB(command, ADMIN, "!forcePB [IGN] [Q/F]").run(); break;
 			case "forcetracker": new CommandForceTracker(command, ADMIN, "!forcetracker").run(); break;
 			case "changelog": new CommandChangelog(command, ADMIN, "!changelog").run(); break;
@@ -81,6 +82,11 @@ public class CommandManager {
 		commands.addCommands(new CommandData("leaderboard", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
 		commands.addCommands(new CommandData("lead", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
 		commands.addCommands(new CommandData("lb", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
+		
+		commands.addCommands(new CommandData("pleaderboard", "Show Hole in the Wall practice server leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (Q/F/WQ/L/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")));
+		commands.addCommands(new CommandData("plead", "Show Hole in the Wall practice server leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (Q/F/WQ/L/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")));
+		commands.addCommands(new CommandData("plb", "Show Hole in the Wall practice server leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (Q/F/WQ/L/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")));
+		
 		commands.addCommands(new CommandData("convert", "Convert a finals score to a qualification score and the other way around").addOptions(new OptionData(OptionType.STRING, "score", "Score").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "type", "Score type (Q/F)").setRequired(true)));
 		commands.addCommands(new CommandData("search", "Search a player stats from their leaderboard position").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "position", "Leaderboard position").setRequired(true)));
 		commands.addCommands(new CommandData("whois", "Tell information about a player").addOptions(new OptionData(OptionType.STRING, "ign", "The Minecraft name of player you want to check").setRequired(true)));

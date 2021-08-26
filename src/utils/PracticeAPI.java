@@ -8,6 +8,22 @@ import org.json.JSONObject;
 
 public class PracticeAPI {
 
+	
+	/**
+	 * Return player name
+	 * @param json
+	 * @return
+	 */
+	public static String getName(String json) {
+		JSONObject obj = new JSONObject(json);
+		String name = "";
+		
+		try {
+			name =  obj.getString("name");
+		} catch (Exception e) {}
+		return (name);
+	}
+	
 	/**
 	 * Return player qualification score
 	 * @param json

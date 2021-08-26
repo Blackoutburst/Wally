@@ -133,11 +133,11 @@ public class StatsCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
-		image.drawStringLeft("Qualification score: " + q, 560, 130, 30, Color.white);
-		image.drawStringLeft("Finals score: " + f, 560, 190, 30, Color.white);
-		image.drawStringLeft("Lobby score: " + l, 560, 310, 30, Color.white);
-		image.drawStringLeft("Wide Qual score: " + wq, 560, 250, 30, Color.white);
-		image.drawStringLeft("L/Q/F score: " + (l+q+f), 560, 370, 30, Color.white);
+		image.drawStringLeft("Qualification score: " + q + GeneralUtils.getPLBPos(uuid, "q"), 560, 130, 30, Color.white);
+		image.drawStringLeft("Finals score: " + f + GeneralUtils.getPLBPos(uuid, "f"), 560, 190, 30, Color.white);
+		image.drawStringLeft("Lobby score: " + l + GeneralUtils.getPLBPos(uuid, "l"), 560, 310, 30, Color.white);
+		image.drawStringLeft("Wide Qual score: " + wq + GeneralUtils.getPLBPos(uuid, "wq"), 560, 250, 30, Color.white);
+		image.drawStringLeft("L/Q/F score: " + (l+q+f) + GeneralUtils.getPLBPos(uuid, "t"), 560, 370, 30, Color.white);
 		image.save("pstats.png");
 	}
 }
