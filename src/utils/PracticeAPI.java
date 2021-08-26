@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class PracticeAPI {
@@ -150,5 +151,56 @@ public class PracticeAPI {
 			value =  obj.getJSONObject("scores").getInt("lobby");
 		} catch (Exception e) {}
 		return (value);
+	}
+	
+	public static int[] getQualificationHistory(String json) {
+		JSONObject obj = new JSONObject(json);
+		JSONArray array = obj.optJSONArray("qualification_history");
+		if (array == null) return (null);
+		
+		int[] values = new int[array.length()];
+		for (int i = 0; i < array.length(); ++i) {
+			values[i] = array.getInt(i);
+		}
+		return (values);
+	}
+	
+	public static int[] getFinalsHistory(String json) {
+		JSONObject obj = new JSONObject(json);
+		JSONArray array = obj.optJSONArray("finals_history");
+
+		if (array == null) return (null);
+
+		int[] values = new int[array.length()];
+		for (int i = 0; i < array.length(); ++i) {
+			values[i] = array.getInt(i);
+		}
+		return (values);
+	}
+	
+	public static int[] getWideQualificationHistory(String json) {
+		JSONObject obj = new JSONObject(json);
+		JSONArray array = obj.optJSONArray("wide_qualification_history");
+
+		if (array == null) return (null);
+
+		int[] values = new int[array.length()];
+		for (int i = 0; i < array.length(); ++i) {
+			values[i] = array.getInt(i);
+		}
+		return (values);
+	}
+	
+	public static int[] getLobbyHistory(String json) {
+		JSONObject obj = new JSONObject(json);
+		JSONArray array = obj.optJSONArray("lobby_history");
+
+		if (array == null) return (null);
+
+		int[] values = new int[array.length()];
+		for (int i = 0; i < array.length(); ++i) {
+			values[i] = array.getInt(i);
+		}
+		return (values);
 	}
 }

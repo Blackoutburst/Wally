@@ -18,6 +18,7 @@ public class CommandManager {
 			case "pack": new CommandPack(command, EVERYONE, "!pack").run(); break;
 			case "stats": case "stat": case "s": new CommandStats(command, EVERYONE, "!stats [player]").run(); break;
 			case "pstats": case "pstat": case "ps": new CommandPStats(command, EVERYONE, "!pstats [player]").run(); break;
+			case "pgraph": new CommandPGraph(command, EVERYONE, "!pgraph [player] [Q/F/WQ/L]").run(); break;
 			case "ping": new CommandPing(command, EVERYONE, "!ping").run(); break;
 			case "compare": case "c": new CommandCompare(command, EVERYONE, "!compare [player] [player]").run(); break;
 			case "pcompare": case "pc": new CommandPCompare(command, EVERYONE, "!pcompare [player] [player]").run(); break;
@@ -71,6 +72,8 @@ public class CommandManager {
 		commands.addCommands(new CommandData("pstats", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
 		commands.addCommands(new CommandData("pstat", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
 		commands.addCommands(new CommandData("ps", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
+		
+		commands.addCommands(new CommandData("pgraph", "Show player practice server score graph").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")).addOptions(new OptionData(OptionType.STRING, "type", "Graph type (Q/F/WQ/L)")));
 		
 		commands.addCommands(new CommandData("ping", "Show how much Wally is dying"));
 		commands.addCommands(new CommandData("compare", "Compare two players Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player1", "The first player").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "player2", "The second player")));

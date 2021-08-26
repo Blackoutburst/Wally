@@ -1,10 +1,13 @@
 package utils;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +28,7 @@ public class Canvas {
 			g = bufferedImage.createGraphics();
 			font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font.ttf"));
 			
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,6 +64,25 @@ public class Canvas {
 			g.drawImage(image, x, y, width, height, null);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Draw graph line
+	 * @param data
+	 */
+	public void drawGraphLine(int data[]) {
+		g.setStroke(new BasicStroke(4.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		
+		for (int i = 0; i < 99; i++) {
+			Line2D line = new Line2D.Float(1000 - (i * 10), 520 - (data[i] * 0.84f), 1000 - ((i+1) * 10), 520 - (data[i+1] * 0.84f));
+			
+			GradientPaint gradient = new GradientPaint(1000 - (i * 10), 520 - (data[i] * 0.84f), getLineColor(data[i]), 
+			1000 - ((i+1) * 10), 520 - (data[i+1] * 0.84f), getLineColor(data[i+1]));
+			
+			g.setPaint(gradient);
+			g.fill(line);
+			g.draw(line);
 		}
 	}
 	
@@ -201,5 +224,26 @@ public class Canvas {
 		if (score >= 450) file = "res/450R.png";
 		if (score >= 500) file = "res/500R.png";
 		return file;
+	}
+	
+	/**
+	 * Return line color
+	 * @param score
+	 * @return
+	 */
+	public static Color getLineColor(int score) {
+		Color color = new Color(170, 170, 170);
+		
+		if (score >= 50) color = new Color(204, 222, 25);
+		if (score >= 100) color = new Color(214, 147, 35);
+		if (score >= 150) color = new Color(230, 110, 41);
+		if (score >= 200) color = new Color(224, 17, 85);
+		if (score >= 250) color = new Color(187, 0, 221);
+		if (score >= 300) color = new Color(140, 84, 254);
+		if (score >= 350) color = new Color(0, 102, 204);
+		if (score >= 400) color = new Color(0, 176, 176);
+		if (score >= 450) color = new Color(0, 212, 146);
+		if (score >= 500) color = new Color(0, 200, 85);
+		return color;
 	}
 }
