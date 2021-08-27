@@ -290,10 +290,10 @@ public class CompareCanvas {
 		image.drawImage(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
 		image.drawImage("res/practiceHeader.png", 0, 0, 1000, 400);
 		
-		image.drawImage("res/win.png", 950, 220, 30, 30);
-		image.drawImage("res/wall.png", 950, 280, 30, 30);
-		image.drawImage("res/q.png", 950, 340, 30, 30);
-		image.drawImage("res/f.png", 950, 400, 30, 30);
+		image.drawImage("res/q.png", 950, 220, 30, 30);
+		image.drawImage("res/f.png", 950, 280, 30, 30);
+		image.drawImage("res/l.png", 950, 340, 30, 30);
+		image.drawImage("res/wq.png", 950, 400, 30, 30);
 		image.drawImage("res/qf.png", 950, 460, 30, 30);
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))

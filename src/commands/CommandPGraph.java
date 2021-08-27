@@ -22,7 +22,7 @@ public class CommandPGraph extends CommandExecutable {
 		String data = null;
 		String playerName = null;
 		
-		if (command.getArgs().length == 0) {
+		if (command.getArgs().length == 0 || (command.getArgs().length == 1 && command.getArgs()[0].length() <= 2)) {
 			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {
 				uuid = GeneralUtils.getUUIDfromDiscord(command.getSender().getId());
 				playerName = GeneralUtils.getIGNfromDiscord(command.getSender().getId());
