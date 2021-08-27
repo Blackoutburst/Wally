@@ -57,7 +57,7 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!stats/!stat/!s [player]", "Show player Hole in the Wall stats", false)
 			.addField("!pstats/!pstat/!ps [player]", "Show player Hole in the Wall practice server stats", false)
 			.addField("!ping", "Show how much Wally is dying", false)
-			.addField("!pgraph [player] [Q/F/L/WQ]", "Show player practice server score graph", false)
+			.addField("!pgraph [player] [Q/F/L/WQ] [games]", "Show player practice server score graph", false)
 			.addField("!compare/!c [player1] [player2]", "Compare two players Hole in the Wall stats", false)
 			.addField("!pcompare/!pc [player1] [player2]", "Compare two players Hole in the Wall practice server stats", false)
 			.addField("!leaderboard/!lead/!lb [W/R/Q/F/T] [page] \"discord\"", "Show Hole in the Wall leaderboard", false)

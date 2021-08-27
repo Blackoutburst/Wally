@@ -21,8 +21,9 @@ public class CommandPGraph extends CommandExecutable {
 		String uuid = null;
 		String data = null;
 		String playerName = null;
+		int games = 100;
 		
-		if (command.getArgs().length == 0 || (command.getArgs().length == 1 && command.getArgs()[0].length() <= 2)) {
+		if (command.getArgs().length == 0 || (command.getArgs().length == 1 && command.getArgs()[0].length() <= 2) || (command.getArgs().length == 2 && command.getArgs()[0].length() <= 2)) {
 			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {
 				uuid = GeneralUtils.getUUIDfromDiscord(command.getSender().getId());
 				playerName = GeneralUtils.getIGNfromDiscord(command.getSender().getId());
@@ -39,9 +40,27 @@ public class CommandPGraph extends CommandExecutable {
 			return unknownPlayer(this, playerName);
 		}
 		
+		if (command.getArgs().length >= 2) {
+			try {
+				games = Integer.valueOf(command.getArgs()[1]);
+			} catch(Exception e) {
+				MessageSender.message(command, command.getArgs()[1]+" is not a valid amount of game");
+			}
+		}
+		
+		if (games <= 1) {
+			games = 2;
+			MessageSender.message(command, "At least two games are required for this to work");
+		}
+		
+		if (games > 100) {
+			games = 100;
+			MessageSender.message(command, "Only the last 100 games are saved impossible to display more");
+		}
+		
 		Canvas image = new Canvas(1000, 520);
 		
-		GraphCanvas.createPGraphImage(image, playerName, data, getType());
+		GraphCanvas.createPGraphImage(image, playerName, data, getType(), games);
 		MessageSender.sendFile(command, "pgraph.png");
 
 		return (true);

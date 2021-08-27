@@ -8,12 +8,20 @@ public class GraphCanvas {
 	 * @param image
 	 * @param data
 	 */
-	public static void createPGraphImage(Canvas image, String name, String data, String type) {
+	public static void createPGraphImage(Canvas image, String name, String data, String type, int games) {
 		image.drawImage("res/graphBackground.png", 0, 0, 1000, 520);
 
+		for (int i = 0; i < 10; i ++) {
+			if (i != 9) {
+				image.drawImage("res/graphLine.png", ((i+1) * 100) - 1, 0, 2, 506);
+				image.drawImage("res/graphTick.png", ((i+1) * 100) - 2, 512, 4, 8);
+			}
+			image.drawStringLeft(String.valueOf(((i) * games) / 10), 1000 - ((i) * 100)+5, 510, 16, Color.white);
+		}		
+		
 		int average = 0;
 		
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < games; i++) {
 			if (type.equals("Qualification"))
 				average += PracticeAPI.getQualificationHistory(data)[i];
 			if (type.equals("Finals"))
@@ -23,19 +31,19 @@ public class GraphCanvas {
 			if (type.equals("Lobby"))
 				average += PracticeAPI.getLobbyHistory(data)[i];
 		}
-		average = average / 100;
+		average = average / games;
 		
 		
 		if (type.equals("Qualification"))
-			image.drawGraphLine(PracticeAPI.getQualificationHistory(data));
+			image.drawGraphLine(PracticeAPI.getQualificationHistory(data), games);
 		if (type.equals("Finals"))
-			image.drawGraphLine(PracticeAPI.getFinalsHistory(data));
+			image.drawGraphLine(PracticeAPI.getFinalsHistory(data), games);
 		if (type.equals("Wide Qualification"))
-			image.drawGraphLine(PracticeAPI.getWideQualificationHistory(data));
+			image.drawGraphLine(PracticeAPI.getWideQualificationHistory(data), games);
 		if (type.equals("Lobby"))
-			image.drawGraphLine(PracticeAPI.getLobbyHistory(data));
+			image.drawGraphLine(PracticeAPI.getLobbyHistory(data), games);
 		
-		image.drawStringCenter(name + " | "+ type+" - latest 100 games", 500, 30, 24, Color.white);
+		image.drawStringCenter(name + " | "+ type+" - latest " + games + " games", 500, 30, 24, Color.white);
 		image.drawStringCenter("Average Score: " + average, 500, 64, 24, Canvas.getLineColor(average));
 		
 		image.save("pgraph.png");
