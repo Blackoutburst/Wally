@@ -40,13 +40,7 @@ public class CommandPGraph extends CommandExecutable {
 			return unknownPlayer(this, playerName);
 		}
 		
-		if (command.getArgs().length >= 2) {
-			try {
-				games = Integer.valueOf(command.getArgs()[1]);
-			} catch(Exception e) {
-				MessageSender.message(command, command.getArgs()[1]+" is not a valid amount of game");
-			}
-		}
+		games = getGames();
 		
 		if (games <= 1) {
 			games = 2;
@@ -64,6 +58,16 @@ public class CommandPGraph extends CommandExecutable {
 		MessageSender.sendFile(command, "pgraph.png");
 
 		return (true);
+	}
+	
+	private int getGames() {
+		for (int i = 1; i < command.getArgs().length; i++) {
+			try {
+				int games = Integer.valueOf(command.getArgs()[i]);
+				return (games);
+			} catch(Exception e) {}
+		}
+		return (100);
 	}
 	
 	private String getType() {
