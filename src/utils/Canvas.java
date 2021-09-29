@@ -20,6 +20,7 @@ public class Canvas {
 	private BufferedImage bufferedImage = null;
 	private Graphics2D g = null;
 	private Font font = null;
+	private Font fontuni = null;
 	
 	public Canvas(int width, int height) {
 		try {
@@ -27,6 +28,7 @@ public class Canvas {
 			bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			g = bufferedImage.createGraphics();
 			font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font.ttf"));
+			fontuni = Font.createFont(Font.TRUETYPE_FONT, new File("res/fontuni.ttf"));
 			
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -105,8 +107,20 @@ public class Canvas {
 	 * @param color
 	 */
 	public void drawStringLeft(String string, int x, int y, float size, Color color) {
-		font = font.deriveFont(size);
-		g.setFont(font);
+		boolean unicode = false;
+		for (int i = 0; i < string.length(); i++) {
+			if (!font.canDisplay(string.charAt(i))) {
+				unicode = true;
+				break;
+			}
+		}
+		if (unicode) {
+			fontuni = fontuni.deriveFont(size);
+			g.setFont(fontuni);
+		} else {
+			font = font.deriveFont(size);
+			g.setFont(font);
+		}
 		g.setColor(color);
 		g.drawString(string, x, y);
 	}
@@ -120,8 +134,20 @@ public class Canvas {
 	 * @param color
 	 */
 	public void drawStringCenter(String string, int x, int y, float size, Color color) {
-		font = font.deriveFont(size);
-		g.setFont(font);
+		boolean unicode = false;
+		for (int i = 0; i < string.length(); i++) {
+			if (!font.canDisplay(string.charAt(i))) {
+				unicode = true;
+				break;
+			}
+		}
+		if (unicode) {
+			fontuni = fontuni.deriveFont(size);
+			g.setFont(fontuni);
+		} else {
+			font = font.deriveFont(size);
+			g.setFont(font);
+		}
 		g.setColor(color);
 		g.drawString(string, x - g.getFontMetrics().stringWidth(string)/2, y);
 	}
@@ -135,8 +161,20 @@ public class Canvas {
 	 * @param color
 	 */
 	public void drawStringRight(String string, int x, int y, float size, Color color) {
-		font = font.deriveFont(size);
-		g.setFont(font);
+		boolean unicode = false;
+		for (int i = 0; i < string.length(); i++) {
+			if (!font.canDisplay(string.charAt(i))) {
+				unicode = true;
+				break;
+			}
+		}
+		if (unicode) {
+			fontuni = fontuni.deriveFont(size);
+			g.setFont(fontuni);
+		} else {
+			font = font.deriveFont(size);
+			g.setFont(font);
+		}
 		g.setColor(color);
 		g.drawString(string, x - g.getFontMetrics().stringWidth(string), y);
 	}
