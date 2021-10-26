@@ -1,15 +1,7 @@
-26/06/2021
+26/08/2021
 
 ```diff
-+ !stats commands now update your leaderboard data no need to wait hours before having the correct position in the leaderboard (note this will not update your tracker file so your PB can still be displayed)
-
-* Tracker will no longer display +0 pb
-* !forcepb will no longer display +0
-* !forcepb confirmation message will now appaer as it was supposed to
-* !changelog now removed the command send like !say
-* !link should now work even when arguments are swaped
-* !help embed now show Wally image as it was supposed to
-* !help embed color now use Wally role color
++ !pgraph | a cool looking commands using the last 100 score you made on the practice server and create a gaph with it obviously for that you need to play a few games on the practice server first
+  Usage of !pgraph is !pgraph [player] [Q/F/WQ/L] to get the last 100 games on a wall type from any player 
+  You can look a preview with a full graph with !pgraph Yakusuna Q
 ```
-Remember you can make suggestions in <#711603045905072148>
-And contribute here https://github.com/Blackoutburst/Wally

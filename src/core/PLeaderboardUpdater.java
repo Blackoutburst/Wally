@@ -13,7 +13,11 @@ public class PLeaderboardUpdater {
 		plbupdaterThread = new Thread(new Runnable(){
 			public void run(){
 				while (true) {
-					checkUsers();
+					try {
+						checkUsers();
+					} catch (Exception e) {
+						e.printStackTrace();
+					};
 				}
 			}
 		});

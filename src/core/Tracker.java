@@ -16,7 +16,11 @@ public class Tracker {
 		trackerThread = new Thread(new Runnable(){
 			public void run(){
 				while (true) {
-					checkUsers();
+					try {
+						checkUsers();
+					} catch (Exception e) {
+						e.printStackTrace();
+					};
 				}
 			}
 		});
