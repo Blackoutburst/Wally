@@ -1,7 +1,20 @@
-26/08/2021
+26/10/2021
+
+**Profile customisation is BACK!!!**
 
 ```diff
-+ !pgraph | a cool looking commands using the last 100 score you made on the practice server and create a gaph with it obviously for that you need to play a few games on the practice server first
-  Usage of !pgraph is !pgraph [player] [Q/F/WQ/L] to get the last 100 games on a wall type from any player 
-  You can look a preview with a full graph with !pgraph Yakusuna Q
++ !sfc/!setfontcolor [color code (HEX)] | so you can now change the color of the text on your stats
++ !rfc/!resetfontcolor | put back the text color to white
++ !sf/!setfont (file required format .TTF/.OTF) | change your stats font
++ !rf/!resetfont | reset the text font
++ !setbg/!setbackground (file required format .JPG/.JPEG/.PNG Recommended size 1000x440) | change your stats background
++ !rbg/!resetbackground | remove your background
++ !stats and !pstats display the overall rank
+
+* Light text shadow on every canvas
+* Improved sub thread stability
+* Practice stats and practice compare stats were not in the same order
+* Stats canvas are now the same size of the compare one (for custom background compatibility)
 ```
+
+Any unreadable color / font or background will be removed, abuse will be sanctioned and NSFW / NSFL background will result in a ban

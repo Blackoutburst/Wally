@@ -40,7 +40,7 @@ public class CommandPStats extends CommandExecutable {
 			return unknownPlayer(this, playerName);
 		}
 		
-		Canvas image = new Canvas(1000, 400);
+		Canvas image = new Canvas(1000, 520);
 		
 		
 		StatsCanvas.createPStatsImage(image, uuid, playerName, data);

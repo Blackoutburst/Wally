@@ -39,7 +39,7 @@ public class CommandStats extends CommandExecutable {
 			uuid = API.getUUID(data);
 		}
 		
-		Canvas image = new Canvas(1000, 400);
+		Canvas image = new Canvas(1000, 520);
 		
 		StatsCanvas.createStatsImage(image, data, uuid);
 		MessageSender.sendFile(command, "stats.png");

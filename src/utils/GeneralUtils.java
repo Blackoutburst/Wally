@@ -1,5 +1,6 @@
 package utils;
 
+import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -40,6 +41,46 @@ import net.dv8tion.jda.api.entities.Role;
 
 public class GeneralUtils {
 
+	public static boolean hasCustomBackground(String uuid) {
+		String playerFolder = "linked player/" + uuid;
+
+		return(new File(playerFolder + "/background.png").exists());
+	}
+
+	public static String getCustomFont(String uuid) {
+		String playerFolder = "linked player/" + uuid;
+
+		if(new File(playerFolder + "/font.ttf").exists()) {
+			return (playerFolder + "/font.ttf");
+		}
+
+		return ("res/font.ttf");
+	}
+	
+	public static String getCustomBackground(String uuid) {
+		String playerFolder = "linked player/" + uuid;
+
+		if(new File(playerFolder + "/background.png").exists()) {
+			return (playerFolder + "/background.png");
+		}
+
+		return ("res/backgroundLarge.png");
+	}
+	
+	public static Color getFontColor(String uuid) {
+		String playerFolder = "linked player/" + uuid;
+
+		if(new File(playerFolder + "/fontColor").exists()) {
+			try {
+				String hex = Files.readAllLines(Paths.get(playerFolder + "/fontColor")).get(0);
+				return (Color.decode(hex));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return (Color.white);
+	}
+	
 	/**
 	 * Update lifetime leaderboard roles
 	 */

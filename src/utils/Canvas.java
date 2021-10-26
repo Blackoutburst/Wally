@@ -201,8 +201,8 @@ public class Canvas {
 			BufferedImage image = ImageIO.read(new File(file));
 			
 			g.drawImage(image, x, y, width, height, null);
-			g.setColor(new Color(0, 0, 0, 0.4f));
-			g.fillRect(x, y, width, height);
+			//g.setColor(new Color(0, 0, 0, 0.4f));
+			//g.fillRect(x, y, width, height);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

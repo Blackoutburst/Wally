@@ -40,6 +40,12 @@ public class CommandManager {
 			case "poll": new CommandPoll(command, ADMIN, "!poll [message]").run(); break;
 			case "search": new CommandSearch(command, EVERYONE, "!search [W/R/Q/F/T] [position]").run(); break;
 			case "whois": case "who": new CommandWhois(command, EVERYONE, "!whois [IGN]").run(); break;
+			case "setfontcolor": case "sfc": new CommandSetFontColor(command, EVERYONE, "!setfontcolor [color code (HEX)]").run(); break;
+			case "resetfontcolor": case "rfc": new CommandResetFontColor(command, EVERYONE, "!resetfontcolor").run(); break;
+			case "setbackground": case "setbg": new CommandSetBackground(command, EVERYONE, "!setbackground (file required format .JPG/.JPEG/.PNG Recommended size 1000x600)").run(); break;
+			case "resetbackground": case "rbg": new CommandResetBackground(command, EVERYONE, "!resetbackground").run(); break;
+			case "setfont": case "sf": new CommandSetFont(command, EVERYONE, "!setfont (file required format .TTF/.OTF)").run(); break;
+			case "resetfont": case "rf": new CommandResetFont(command, EVERYONE, "!resetfont").run(); break;
 			default : return;
 		}
 	}
@@ -95,6 +101,23 @@ public class CommandManager {
 		commands.addCommands(new CommandData("whois", "Tell information about a player").addOptions(new OptionData(OptionType.STRING, "ign", "The Minecraft name of player you want to check").setRequired(true)));
 		commands.addCommands(new CommandData("who", "Tell information about a player").addOptions(new OptionData(OptionType.STRING, "ign", "The Minecraft name of player you want to check").setRequired(true)));
 		
+		commands.addCommands(new CommandData("setfontcolor", "Change your stats font color").addOptions(new OptionData(OptionType.STRING, "color", "The color code in hexadecimal").setRequired(true)));
+		commands.addCommands(new CommandData("resetfontcolor", "Reset your stats font color"));
+		
+		commands.addCommands(new CommandData("sfc", "Change your stats font color").addOptions(new OptionData(OptionType.STRING, "color", "The color code in hexadecimal").setRequired(true)));
+		commands.addCommands(new CommandData("rfc", "Reset your stats font color"));
+		
+		commands.addCommands(new CommandData("setbackground", "Set your stats background (file required format .JPG/.JPEG/.PNG Recommended size 1000x600)"));
+		commands.addCommands(new CommandData("resetbackground", "Reset your stats background"));
+		
+		commands.addCommands(new CommandData("setbg", "Set your stats background (file required format .JPG/.JPEG/.PNG Recommended size 1000x600)"));
+		commands.addCommands(new CommandData("rbg", "Reset your stats background"));
+		
+		commands.addCommands(new CommandData("setfont", "Set your stats font (file required format .TTF/.OTF)"));
+		commands.addCommands(new CommandData("resetfont", "Reset your stats font"));
+		
+		commands.addCommands(new CommandData("sf", "Set your stats font (file required format .TTF/.OTF)"));
+		commands.addCommands(new CommandData("rs", "Reset your stats font"));
 		commands.queue();
 	}
 }
