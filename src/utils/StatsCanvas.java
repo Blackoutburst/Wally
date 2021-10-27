@@ -2,6 +2,7 @@ package utils;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import core.Bot;
@@ -90,18 +91,19 @@ public class StatsCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"), false);
-		final int wlb = GeneralUtils.getLBPosToInt(uuid, 'w', lead) + 1;
-		final int rlb = GeneralUtils.getLBPosToInt(uuid, 'r', lead) + 1;
-		final int qlb = GeneralUtils.getLBPosToInt(uuid, 'q', lead) + 1;
-		final int flb = GeneralUtils.getLBPosToInt(uuid, 'f', lead) + 1;
-		final int tlb = GeneralUtils.getLBPosToInt(uuid, 't', lead) + 1;
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"), true);
+		final int wlb = GeneralUtils.getLBPosToInt(uuid, 'w', new ArrayList<LeaderboardPlayer>(lead));
+		final int rlb = GeneralUtils.getLBPosToInt(uuid, 'r', new ArrayList<LeaderboardPlayer>(lead));
+		final int qlb = GeneralUtils.getLBPosToInt(uuid, 'q', new ArrayList<LeaderboardPlayer>(lead));
+		final int flb = GeneralUtils.getLBPosToInt(uuid, 'f', new ArrayList<LeaderboardPlayer>(lead));
+		final int tlb = GeneralUtils.getLBPosToInt(uuid, 't', new ArrayList<LeaderboardPlayer>(lead));
+		final int olb = GeneralUtils.getLBPosToInt(uuid, 'o', new ArrayList<LeaderboardPlayer>(lead));
 		
-		final String wins = "Wins: " + API.getWins(data) + ((wlb != 10001) ? " (#"+ wlb + ")" : "");
-		final String walls = "Walls: " + API.getWalls(data) + ((rlb != 10001) ? " (#"+ rlb + ")" : "");
-		final String qualification = "Qualification: " + ((qlb != 10001) ? " (#"+ qlb + ")" : "");
-		final String finals = "Finals: " + API.getFinals(data) + ((flb != 10001) ? " (#"+ flb + ")" : "");
-		final String tot = "Q/F: " + API.getTotal(data) + ((tlb != 10001) ? " (#"+ tlb + ")" : "");
+		final String wins = "Wins: " + API.getWins(data) + ((wlb != 10000) ? " (#"+ (wlb+1) + ")" : "");
+		final String walls = "Walls: " + API.getWalls(data) + ((rlb != 10000) ? " (#"+ (rlb+1) + ")" : "");
+		final String qualification = "Qualification: " + ((qlb != 10000) ? " (#"+ (qlb+1) + ")" : "");
+		final String finals = "Finals: " + API.getFinals(data) + ((flb != 10000) ? " (#"+ (flb+1) + ")" : "");
+		final String tot = "Q/F: " + API.getTotal(data) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
 		
 		image.drawStringLeft(wins, 562, 152, 30, shadow);
 		image.drawStringLeft(walls, 562, 212, 30, shadow);
@@ -115,17 +117,16 @@ public class StatsCanvas {
 		image.drawStringLeft(finals, 560, 330, 30, color);
 		image.drawStringLeft(tot, 560, 390, 30, color);
 		
-		GeneralUtils.getLBPosToInt(uuid, 'w', lead);
-		GeneralUtils.getLBPosToInt(uuid, 'r', lead);
-		GeneralUtils.getLBPosToInt(uuid, 'q', lead);
-		GeneralUtils.getLBPosToInt(uuid, 'f', lead);
-		GeneralUtils.getLBPosToInt(uuid, 't', lead);
-		
 		float rank = wlb + rlb + qlb + flb + tlb;
 		rank = (rank / 5) + 1;
 		
-		image.drawStringLeft("Overall rank: #"+rank, 562, 452, 30, shadow);
-		image.drawStringLeft("Overall rank: #"+rank, 560, 450, 30, color);
+		if ((int)(rank) == 10001) {
+			image.drawStringLeft("Overall rank: N/A", 562, 452, 30, shadow);
+			image.drawStringLeft("Overall rank: N/A", 560, 450, 30, color);
+		} else {
+			image.drawStringLeft("Overall rank: #"+rank + ((olb != 10000) ? " (#"+ (olb+1) + ")" : ""), 562, 452, 30, shadow);
+			image.drawStringLeft("Overall rank: #"+rank + ((olb != 10000) ? " (#"+ (olb+1) + ")" : ""), 560, 450, 30, color);
+		}
 		
 		image.save("stats.png");
 	}
@@ -205,18 +206,19 @@ public class StatsCanvas {
 		
 		
 		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
-		final int qlb = GeneralUtils.getPLBPosToInt(uuid, "q", lead) + 1;
-		final int flb = GeneralUtils.getPLBPosToInt(uuid, "f", lead) + 1;
-		final int llb = GeneralUtils.getPLBPosToInt(uuid, "l", lead) + 1;
-		final int wlb = GeneralUtils.getPLBPosToInt(uuid, "wq", lead) + 1;
-		final int tlb = GeneralUtils.getPLBPosToInt(uuid, "t", lead) + 1;
+		final int qlb = GeneralUtils.getPLBPosToInt(uuid, "q", new ArrayList<PracticeLeaderboardPlayer>(lead));
+		final int flb = GeneralUtils.getPLBPosToInt(uuid, "f", new ArrayList<PracticeLeaderboardPlayer>(lead));
+		final int llb = GeneralUtils.getPLBPosToInt(uuid, "l", new ArrayList<PracticeLeaderboardPlayer>(lead));
+		final int wlb = GeneralUtils.getPLBPosToInt(uuid, "wq", new ArrayList<PracticeLeaderboardPlayer>(lead));
+		final int tlb = GeneralUtils.getPLBPosToInt(uuid, "t", new ArrayList<PracticeLeaderboardPlayer>(lead));
+		final int olb = GeneralUtils.getPLBPosToInt(uuid, "o", new ArrayList<PracticeLeaderboardPlayer>(lead));
 		
 		
-		final String qual = "Qualification: " + q + ((qlb != 10001) ? " (#"+ qlb + ")" : "");
-		final String finals = "Finals: " + f + ((flb != 10001) ? " (#"+ flb + ")" : "");
-		final String lobby = "Lobby: " + l + ((llb != 10001) ? " (#"+ llb + ")" : "");
-		final String wide = "Wide Qual: " + wq + ((wlb != 10001) ? " (#"+ wlb + ")" : "");
-		final String tot = "L/Q/F: " + (l+q+f) + ((tlb != 10001) ? " (#"+ tlb + ")" : "");
+		final String qual = "Qualification: " + q + ((qlb != 10000) ? " (#"+ (qlb+1) + ")" : "");
+		final String finals = "Finals: " + f + ((flb != 10000) ? " (#"+ (flb+1) + ")" : "");
+		final String lobby = "Lobby: " + l + ((llb != 10000) ? " (#"+ (llb+1) + ")" : "");
+		final String wide = "Wide Qual: " + wq + ((wlb != 10000) ? " (#"+ (wlb+1) + ")" : "");
+		final String tot = "L/Q/F: " + (l+q+f) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
 		
 		image.drawStringLeft(qual, 562, 152, 30, shadow);
 		image.drawStringLeft(finals, 562, 212, 30, shadow);
@@ -233,8 +235,13 @@ public class StatsCanvas {
 		float rank = qlb + flb + llb + wlb + tlb;
 		rank = (rank / 5) + 1;
 		
-		image.drawStringLeft("Overall rank: #"+rank, 562, 452, 30, shadow);
-		image.drawStringLeft("Overall rank: #"+rank, 560, 450, 30, color);
+		if ((int)(rank) == 10001) {
+			image.drawStringLeft("Overall rank: N/A", 562, 452, 30, shadow);
+			image.drawStringLeft("Overall rank: N/A", 560, 450, 30, color);
+		} else {
+			image.drawStringLeft("Overall rank: #"+rank + ((olb != 10000) ? " (#"+ (olb+1) + ")" : ""), 562, 452, 30, shadow);
+			image.drawStringLeft("Overall rank: #"+rank + ((olb != 10000) ? " (#"+ (olb+1) + ")" : ""), 560, 450, 30, color);
+		}
 		
 		image.save("pstats.png");
 	}

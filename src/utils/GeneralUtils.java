@@ -22,7 +22,9 @@ import org.json.JSONObject;
 import comparators.PlayerComparatorF;
 import comparators.PlayerComparatorL;
 import comparators.PlayerComparatorLQF;
+import comparators.PlayerComparatorOverall;
 import comparators.PlayerComparatorPF;
+import comparators.PlayerComparatorPOverall;
 import comparators.PlayerComparatorPQ;
 import comparators.PlayerComparatorQ;
 import comparators.PlayerComparatorRounds;
@@ -428,6 +430,7 @@ public class GeneralUtils {
 			case 'q' : Collections.sort(lead, new PlayerComparatorQ()); break;
 			case 'f' : Collections.sort(lead, new PlayerComparatorF()); break;
 			case 't' : Collections.sort(lead, new PlayerComparatorTotal()); break;
+			case 'o' : Collections.sort(lead, new PlayerComparatorOverall()); break;
 			default : Collections.sort(lead, new PlayerComparatorWins()); break;
 		}
 		return (lead);
@@ -445,6 +448,7 @@ public class GeneralUtils {
 			case "wq" : Collections.sort(lead, new PlayerComparatorWQ()); break;
 			case "l" : Collections.sort(lead, new PlayerComparatorL()); break;
 			case "t" : Collections.sort(lead, new PlayerComparatorLQF()); break;
+			case "o" : Collections.sort(lead, new PlayerComparatorPOverall()); break;
 			default : Collections.sort(lead, new PlayerComparatorPQ()); break;
 		}
 		return (lead);
