@@ -26,7 +26,7 @@ public class CommandSearch extends CommandExecutable {
 		char type = getType();
 		int pos = getPosition();
 		
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"));
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"), true);
 		Leaderboard lb = new Leaderboard(lead, type);
 		lb.sort();
 		

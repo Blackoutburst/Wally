@@ -7,16 +7,18 @@ public class LeaderboardPlayer {
 	public int qualification;
 	public int finals;
 	public int total;
+	public float overall;
 	public String name;
 	public String discord;
 	public String uuid;
 	
-	public LeaderboardPlayer(int wins, int walls, int qualification, int finals, int total, String name, String discord, String uuid) {
+	public LeaderboardPlayer(int wins, int walls, int qualification, int finals, int total, float overall, String name, String discord, String uuid) {
 		this.wins = wins;
 		this.walls = walls;
 		this.qualification = qualification;
 		this.finals = finals;
 		this.total = total;
+		this.overall = overall;
 		this.name = name;
 		this.discord = discord;
 		this.uuid = uuid;

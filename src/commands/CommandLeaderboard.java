@@ -25,7 +25,7 @@ public class CommandLeaderboard extends CommandExecutable {
 		boolean discord = isDiscord();
 		String fileName = discord ? "linked player" : "leaderboard";
 		File index = new File(fileName);
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(index);
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(index, true);
 		Leaderboard lb = new Leaderboard(lead, type);
 		lb.sort();
 		

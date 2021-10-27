@@ -85,8 +85,8 @@ public class GeneralUtils {
 	 * Update lifetime leaderboard roles
 	 */
 	public static void updateLifeTimeRoles() {
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("linked player"));
-		List<LeaderboardPlayer> lb = generatePlayerList(new File("leaderboard"));
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("linked player"), false);
+		List<LeaderboardPlayer> lb = generatePlayerList(new File("leaderboard"), false);
 	
 		for (LeaderboardPlayer player : lead) {
 			Member member = Bot.server.getMemberById(player.discord);
@@ -456,7 +456,7 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static String getLBPos(String user, char type) {
-		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
+		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"), false);
 		
 		int pos = getLBPosToInt(user, type, lead) + 1;
 		return (pos != 10001) ? " (#"+ pos + ")" : "";
@@ -468,7 +468,7 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static String getPLBPos(String user, String type) {
-		List<PracticeLeaderboardPlayer> lead = generatePracticePlayerList(new File("pleaderboard"));
+		List<PracticeLeaderboardPlayer> lead = generatePracticePlayerList(new File("pleaderboard"), false);
 		
 		int pos = getPLBPosToInt(user, type, lead) + 1;
 		return (pos != 10001) ? " (#"+ pos + ")" : "";
@@ -521,7 +521,7 @@ public class GeneralUtils {
 	 * @param index
 	 * @return
 	 */
-	public static List<LeaderboardPlayer> generatePlayerList(File index) {
+	public static List<LeaderboardPlayer> generatePlayerList(File index, boolean overall) {
 		List<LeaderboardPlayer> lead = new ArrayList<LeaderboardPlayer>();
 
 		String[]entries = index.list();
@@ -531,6 +531,19 @@ public class GeneralUtils {
 
 			lead.add(new LeaderboardPlayer(data));
 		}
+		
+		if (overall) {
+			for (LeaderboardPlayer p : lead) {
+				float rank = GeneralUtils.getLBPosToInt(p.uuid, 'w', new ArrayList<LeaderboardPlayer>(lead));
+				rank += GeneralUtils.getLBPosToInt(p.uuid, 'r', new ArrayList<LeaderboardPlayer>(lead));
+				rank += GeneralUtils.getLBPosToInt(p.uuid, 'q', new ArrayList<LeaderboardPlayer>(lead));
+				rank += GeneralUtils.getLBPosToInt(p.uuid, 'f', new ArrayList<LeaderboardPlayer>(lead));
+				rank += GeneralUtils.getLBPosToInt(p.uuid, 't', new ArrayList<LeaderboardPlayer>(lead));
+				rank = (rank / 5) + 1;
+				p.overall = rank;
+			}
+		}
+		
 		return (lead);
 	}
 	
@@ -539,7 +552,7 @@ public class GeneralUtils {
 	 * @param index
 	 * @return
 	 */
-	public static List<PracticeLeaderboardPlayer> generatePracticePlayerList(File index) {
+	public static List<PracticeLeaderboardPlayer> generatePracticePlayerList(File index, boolean overall) {
 		List<PracticeLeaderboardPlayer> lead = new ArrayList<PracticeLeaderboardPlayer>();
 
 		String[]entries = index.list();
@@ -549,6 +562,19 @@ public class GeneralUtils {
 
 			lead.add(new PracticeLeaderboardPlayer(data));
 		}
+		
+		if (overall) {
+			for (PracticeLeaderboardPlayer p : lead) {
+				float rank = GeneralUtils.getPLBPosToInt(p.uuid, "q", new ArrayList<PracticeLeaderboardPlayer>(lead));
+				rank += GeneralUtils.getPLBPosToInt(p.uuid, "f", new ArrayList<PracticeLeaderboardPlayer>(lead));
+				rank += GeneralUtils.getPLBPosToInt(p.uuid, "l", new ArrayList<PracticeLeaderboardPlayer>(lead));
+				rank += GeneralUtils.getPLBPosToInt(p.uuid, "wq", new ArrayList<PracticeLeaderboardPlayer>(lead));
+				rank += GeneralUtils.getPLBPosToInt(p.uuid, "t", new ArrayList<PracticeLeaderboardPlayer>(lead));
+				rank = (rank / 5) + 1;
+				p.overall = rank;
+			}
+		}
+		
 		return (lead);
 	}
 	

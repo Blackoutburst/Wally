@@ -42,7 +42,7 @@ public class CommandManager {
 			case "whois": case "who": new CommandWhois(command, EVERYONE, "!whois [IGN]").run(); break;
 			case "setfontcolor": case "sfc": new CommandSetFontColor(command, EVERYONE, "!setfontcolor [color code (HEX)]").run(); break;
 			case "resetfontcolor": case "rfc": new CommandResetFontColor(command, EVERYONE, "!resetfontcolor").run(); break;
-			case "setbackground": case "setbg": new CommandSetBackground(command, EVERYONE, "!setbackground (file required format .JPG/.JPEG/.PNG Recommended size 1000x600)").run(); break;
+			case "setbackground": case "sbg": case "setbg": new CommandSetBackground(command, EVERYONE, "!setbackground (file required format .JPG/.JPEG/.PNG Recommended size 1000x600)").run(); break;
 			case "resetbackground": case "rbg": new CommandResetBackground(command, EVERYONE, "!resetbackground").run(); break;
 			case "setfont": case "sf": new CommandSetFont(command, EVERYONE, "!setfont (file required format .TTF/.OTF)").run(); break;
 			case "resetfont": case "rf": new CommandResetFont(command, EVERYONE, "!resetfont").run(); break;
@@ -88,13 +88,13 @@ public class CommandManager {
 		commands.addCommands(new CommandData("pcompare", "Compare two players Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player1", "The first player").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "player2", "The second player")));
 		commands.addCommands(new CommandData("pc", "Compare two players Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player1", "The first player").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "player2", "The second player")));
 		
-		commands.addCommands(new CommandData("leaderboard", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
-		commands.addCommands(new CommandData("lead", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
-		commands.addCommands(new CommandData("lb", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
+		commands.addCommands(new CommandData("leaderboard", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T/O)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
+		commands.addCommands(new CommandData("lead", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T/O)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
+		commands.addCommands(new CommandData("lb", "Show Hole in the Wall leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T/O)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")).addOptions(new OptionData(OptionType.STRING, "discord", "Show only discord members leaderboard")));
 		
-		commands.addCommands(new CommandData("pleaderboard", "Show Hole in the Wall practice server leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (Q/F/WQ/L/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")));
-		commands.addCommands(new CommandData("plead", "Show Hole in the Wall practice server leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (Q/F/WQ/L/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")));
-		commands.addCommands(new CommandData("plb", "Show Hole in the Wall practice server leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (Q/F/WQ/L/T)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")));
+		commands.addCommands(new CommandData("pleaderboard", "Show Hole in the Wall practice server leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (Q/F/WQ/L/T/O)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")));
+		commands.addCommands(new CommandData("plead", "Show Hole in the Wall practice server leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (Q/F/WQ/L/T/O)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")));
+		commands.addCommands(new CommandData("plb", "Show Hole in the Wall practice server leaderboard").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (Q/F/WQ/L/T/O)")).addOptions(new OptionData(OptionType.STRING, "page", "Leaderboard page")));
 		
 		commands.addCommands(new CommandData("convert", "Convert a finals score to a qualification score and the other way around").addOptions(new OptionData(OptionType.STRING, "score", "Score").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "type", "Score type (Q/F)").setRequired(true)));
 		commands.addCommands(new CommandData("search", "Search a player stats from their leaderboard position").addOptions(new OptionData(OptionType.STRING, "type", "Leaderboard type (W/R/Q/F/T)").setRequired(true)).addOptions(new OptionData(OptionType.STRING, "position", "Leaderboard position").setRequired(true)));
@@ -110,6 +110,7 @@ public class CommandManager {
 		commands.addCommands(new CommandData("setbackground", "Set your stats background (file required format .JPG/.JPEG/.PNG Recommended size 1000x600)"));
 		commands.addCommands(new CommandData("resetbackground", "Reset your stats background"));
 		
+		commands.addCommands(new CommandData("sbg", "Set your stats background (file required format .JPG/.JPEG/.PNG Recommended size 1000x600)"));
 		commands.addCommands(new CommandData("setbg", "Set your stats background (file required format .JPG/.JPEG/.PNG Recommended size 1000x600)"));
 		commands.addCommands(new CommandData("rbg", "Reset your stats background"));
 		

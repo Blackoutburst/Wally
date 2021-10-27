@@ -24,7 +24,7 @@ public class CommandPLeaderboard extends CommandExecutable {
 		int page = getPage();
 		String fileName = "pleaderboard";
 		File index = new File(fileName);
-		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(index);
+		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(index, true);
 		PracticeLeaderboard lb = new PracticeLeaderboard(lead, type);
 		lb.sort();
 		

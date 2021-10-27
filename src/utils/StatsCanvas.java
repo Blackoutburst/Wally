@@ -65,36 +65,36 @@ public class StatsCanvas {
 		
 		if (!discordNick.equals("N/A")) {
 			image.drawStringLeft(discordNick, 22, 252, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-			image.drawStringLeft("Hypixel level: " + lvl, 22, 312, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-			image.drawStringLeft("Achievement points: " + API.getAP(data), 22, 372, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+			image.drawStringLeft("Level: " + lvl, 22, 312, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+			image.drawStringLeft("AP: " + API.getAP(data), 22, 372, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 			
 			image.drawStringLeft(discordNick, 20, 250, 36, GeneralUtils.getFontColor(uuid));
-			image.drawStringLeft("Hypixel level: " + lvl, 20, 310, 36, GeneralUtils.getFontColor(uuid));
-			image.drawStringLeft("Achievement points: " + API.getAP(data), 20, 370, 36, GeneralUtils.getFontColor(uuid));
+			image.drawStringLeft("Level: " + lvl, 20, 310, 36, GeneralUtils.getFontColor(uuid));
+			image.drawStringLeft("AP: " + API.getAP(data), 20, 370, 36, GeneralUtils.getFontColor(uuid));
 		} else {
-			image.drawStringLeft("Hypixel level: " + lvl, 22, 252, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-			image.drawStringLeft("Achievement points: " + API.getAP(data), 22, 312, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+			image.drawStringLeft("Level: " + lvl, 22, 252, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+			image.drawStringLeft("AP: " + API.getAP(data), 22, 312, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 			
-			image.drawStringLeft("Hypixel level: " + lvl, 20, 250, 36, GeneralUtils.getFontColor(uuid));
-			image.drawStringLeft("Achievement points: " + API.getAP(data), 20, 310, 36, GeneralUtils.getFontColor(uuid));
+			image.drawStringLeft("Level: " + lvl, 20, 250, 36, GeneralUtils.getFontColor(uuid));
+			image.drawStringLeft("AP: " + API.getAP(data), 20, 310, 36, GeneralUtils.getFontColor(uuid));
 		}
 		
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
 		image.drawStringLeft("Wins: " + API.getWins(data) + GeneralUtils.getLBPos(API.getUUID(data), 'w'), 562, 152, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + GeneralUtils.getLBPos(API.getUUID(data), 'r'), 562, 212, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft("Qualification score: " + API.getQualification(data) + GeneralUtils.getLBPos(API.getUUID(data), 'q'), 562, 272, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft("Finals score: " + API.getFinals(data) + GeneralUtils.getLBPos(API.getUUID(data), 'f'), 562, 332, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft("Q/F score: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getUUID(data), 't'), 562, 392, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+		image.drawStringLeft("Walls: " + API.getWalls(data) + GeneralUtils.getLBPos(API.getUUID(data), 'r'), 562, 212, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+		image.drawStringLeft("Qualification: " + API.getQualification(data) + GeneralUtils.getLBPos(API.getUUID(data), 'q'), 562, 272, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+		image.drawStringLeft("Finals: " + API.getFinals(data) + GeneralUtils.getLBPos(API.getUUID(data), 'f'), 562, 332, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+		image.drawStringLeft("Q/F: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getUUID(data), 't'), 562, 392, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 		
 		image.drawStringLeft("Wins: " + API.getWins(data) + GeneralUtils.getLBPos(API.getUUID(data), 'w'), 560, 150, 30, GeneralUtils.getFontColor(uuid));
-		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + GeneralUtils.getLBPos(API.getUUID(data), 'r'), 560, 210, 30, GeneralUtils.getFontColor(uuid));
-		image.drawStringLeft("Qualification score: " + API.getQualification(data) + GeneralUtils.getLBPos(API.getUUID(data), 'q'), 560, 270, 30, GeneralUtils.getFontColor(uuid));
-		image.drawStringLeft("Finals score: " + API.getFinals(data) + GeneralUtils.getLBPos(API.getUUID(data), 'f'), 560, 330, 30, GeneralUtils.getFontColor(uuid));
-		image.drawStringLeft("Q/F score: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getUUID(data), 't'), 560, 390, 30, GeneralUtils.getFontColor(uuid));
+		image.drawStringLeft("Walls: " + API.getWalls(data) + GeneralUtils.getLBPos(API.getUUID(data), 'r'), 560, 210, 30, GeneralUtils.getFontColor(uuid));
+		image.drawStringLeft("Qualification: " + API.getQualification(data) + GeneralUtils.getLBPos(API.getUUID(data), 'q'), 560, 270, 30, GeneralUtils.getFontColor(uuid));
+		image.drawStringLeft("Finals: " + API.getFinals(data) + GeneralUtils.getLBPos(API.getUUID(data), 'f'), 560, 330, 30, GeneralUtils.getFontColor(uuid));
+		image.drawStringLeft("Q/F: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getUUID(data), 't'), 560, 390, 30, GeneralUtils.getFontColor(uuid));
 		
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"));
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"), false);
 		float rank = GeneralUtils.getLBPosToInt(API.getUUID(data), 'w', lead);
 		rank += GeneralUtils.getLBPosToInt(API.getUUID(data), 'r', lead);
 		rank += GeneralUtils.getLBPosToInt(API.getUUID(data), 'q', lead);
@@ -141,7 +141,6 @@ public class StatsCanvas {
 		image.drawImage("res/qf.png", 520, 365, 30, 30);
 		image.drawImage("res/rank.png", 520, 425, 30, 30);
 		
-		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImage("res/blackout.png", 130, 110, 320, 80);
 		else if (uuid.equals("92a5199614ac4bd181d1f3c951fb719f"))
@@ -178,19 +177,19 @@ public class StatsCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
-		image.drawStringLeft("Qualification score: " + q + GeneralUtils.getPLBPos(uuid, "q"), 562, 152, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft("Finals score: " + f + GeneralUtils.getPLBPos(uuid, "f"), 562, 212, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft("Lobby score: " + l + GeneralUtils.getPLBPos(uuid, "l"), 562, 272, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft("Wide Qual score: " + wq + GeneralUtils.getPLBPos(uuid, "wq"), 562, 332, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft("L/Q/F score: " + (l+q+f) + GeneralUtils.getPLBPos(uuid, "t"), 562, 392, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+		image.drawStringLeft("Qualification: " + q + GeneralUtils.getPLBPos(uuid, "q"), 562, 152, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+		image.drawStringLeft("Finals: " + f + GeneralUtils.getPLBPos(uuid, "f"), 562, 212, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+		image.drawStringLeft("Lobby: " + l + GeneralUtils.getPLBPos(uuid, "l"), 562, 272, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+		image.drawStringLeft("Wide Qual: " + wq + GeneralUtils.getPLBPos(uuid, "wq"), 562, 332, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
+		image.drawStringLeft("L/Q/F: " + (l+q+f) + GeneralUtils.getPLBPos(uuid, "t"), 562, 392, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 		
-		image.drawStringLeft("Qualification score: " + q + GeneralUtils.getPLBPos(uuid, "q"), 560, 150, 30, GeneralUtils.getFontColor(uuid));
-		image.drawStringLeft("Finals score: " + f + GeneralUtils.getPLBPos(uuid, "f"), 560, 210, 30, GeneralUtils.getFontColor(uuid));
-		image.drawStringLeft("Lobby score: " + l + GeneralUtils.getPLBPos(uuid, "l"), 560, 270, 30, GeneralUtils.getFontColor(uuid));
-		image.drawStringLeft("Wide Qual score: " + wq + GeneralUtils.getPLBPos(uuid, "wq"), 560, 330, 30, GeneralUtils.getFontColor(uuid));
-		image.drawStringLeft("L/Q/F score: " + (l+q+f) + GeneralUtils.getPLBPos(uuid, "t"), 560, 390, 30, GeneralUtils.getFontColor(uuid));
+		image.drawStringLeft("Qualification: " + q + GeneralUtils.getPLBPos(uuid, "q"), 560, 150, 30, GeneralUtils.getFontColor(uuid));
+		image.drawStringLeft("Finals: " + f + GeneralUtils.getPLBPos(uuid, "f"), 560, 210, 30, GeneralUtils.getFontColor(uuid));
+		image.drawStringLeft("Lobby: " + l + GeneralUtils.getPLBPos(uuid, "l"), 560, 270, 30, GeneralUtils.getFontColor(uuid));
+		image.drawStringLeft("Wide Qual: " + wq + GeneralUtils.getPLBPos(uuid, "wq"), 560, 330, 30, GeneralUtils.getFontColor(uuid));
+		image.drawStringLeft("L/Q/F: " + (l+q+f) + GeneralUtils.getPLBPos(uuid, "t"), 560, 390, 30, GeneralUtils.getFontColor(uuid));
 	
-		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"));
+		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
 		float rank = GeneralUtils.getPLBPosToInt(uuid, "q", lead);
 		rank += GeneralUtils.getPLBPosToInt(uuid, "f", lead);
 		rank += GeneralUtils.getPLBPosToInt(uuid, "l", lead);
@@ -200,7 +199,6 @@ public class StatsCanvas {
 		
 		image.drawStringLeft("Overall rank: #"+rank, 562, 452, 30, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 		image.drawStringLeft("Overall rank: #"+rank, 560, 450, 30, GeneralUtils.getFontColor(uuid));
-		
 		
 		image.save("pstats.png");
 	}

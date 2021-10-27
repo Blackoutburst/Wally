@@ -7,16 +7,18 @@ public class PracticeLeaderboardPlayer {
 	public int wideQualification;
 	public int lobby;
 	public int total;
+	public float overall;
 	public String name;
 	public String discord;
 	public String uuid;
 	
-	public PracticeLeaderboardPlayer(int qualification, int finals, int wideQualification, int lobby, int total, String name, String discord, String uuid) {
+	public PracticeLeaderboardPlayer(int qualification, int finals, int wideQualification, int lobby, int total, float overall, String name, String discord, String uuid) {
 		this.qualification = qualification;
 		this.finals = finals;
 		this.wideQualification = wideQualification;
 		this.lobby = lobby;
 		this.total = total;
+		this.overall = overall;
 		this.name = name;
 		this.discord = discord;
 		this.uuid = uuid;

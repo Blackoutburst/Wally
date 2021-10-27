@@ -16,5 +16,8 @@
 * Practice stats and practice compare stats were not in the same order
 * Stats canvas are now the same size of the compare one (for custom background compatibility)
 ```
+(Note if you had a background in the previous version of Wally they might still exist)
 
 Any unreadable color / font or background will be removed, abuse will be sanctioned and NSFW / NSFL background will result in a ban
+
+Except some issue and as always feel free to give idea in <#711603045905072148> and contribute here https://github.com/Blackoutburst/Wally
