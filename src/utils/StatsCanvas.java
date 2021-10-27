@@ -101,7 +101,7 @@ public class StatsCanvas {
 		
 		final String wins = "Wins: " + API.getWins(data) + ((wlb != 10000) ? " (#"+ (wlb+1) + ")" : "");
 		final String walls = "Walls: " + API.getWalls(data) + ((rlb != 10000) ? " (#"+ (rlb+1) + ")" : "");
-		final String qualification = "Qualification: " + ((qlb != 10000) ? " (#"+ (qlb+1) + ")" : "");
+		final String qualification = "Qualification: " + API.getQualification(data) + ((qlb != 10000) ? " (#"+ (qlb+1) + ")" : "");
 		final String finals = "Finals: " + API.getFinals(data) + ((flb != 10000) ? " (#"+ (flb+1) + ")" : "");
 		final String tot = "Q/F: " + API.getTotal(data) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
 		
