@@ -90,11 +90,18 @@ public class StatsCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
-		final String wins = "Wins: " + API.getWins(data) + GeneralUtils.getLBPos(uuid, 'w');
-		final String walls = "Walls: " + API.getWalls(data) + GeneralUtils.getLBPos(uuid, 'r');
-		final String qualification = "Qualification: " + API.getQualification(data) + GeneralUtils.getLBPos(uuid, 'q');
-		final String finals = "Finals: " + API.getFinals(data) + GeneralUtils.getLBPos(uuid, 'f');
-		final String tot = "Q/F: " + API.getTotal(data) + GeneralUtils.getLBPos(uuid, 't');
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"), false);
+		final int wlb = GeneralUtils.getLBPosToInt(uuid, 'w', lead);
+		final int rlb = GeneralUtils.getLBPosToInt(uuid, 'r', lead);
+		final int qlb = GeneralUtils.getLBPosToInt(uuid, 'q', lead);
+		final int flb = GeneralUtils.getLBPosToInt(uuid, 'f', lead);
+		final int tlb = GeneralUtils.getLBPosToInt(uuid, 't', lead);
+		
+		final String wins = "Wins: " + API.getWins(data) + ((wlb != 10001) ? " (#"+ wlb + ")" : "");
+		final String walls = "Walls: " + API.getWalls(data) + ((rlb != 10001) ? " (#"+ rlb + ")" : "");
+		final String qualification = "Qualification: " + ((qlb != 10001) ? " (#"+ qlb + ")" : "");
+		final String finals = "Finals: " + API.getFinals(data) + ((flb != 10001) ? " (#"+ flb + ")" : "");
+		final String tot = "Q/F: " + API.getTotal(data) + ((tlb != 10001) ? " (#"+ tlb + ")" : "");
 		
 		image.drawStringLeft(wins, 562, 152, 30, shadow);
 		image.drawStringLeft(walls, 562, 212, 30, shadow);
@@ -108,12 +115,13 @@ public class StatsCanvas {
 		image.drawStringLeft(finals, 560, 330, 30, color);
 		image.drawStringLeft(tot, 560, 390, 30, color);
 		
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"), false);
-		float rank = GeneralUtils.getLBPosToInt(uuid, 'w', lead);
-		rank += GeneralUtils.getLBPosToInt(uuid, 'r', lead);
-		rank += GeneralUtils.getLBPosToInt(uuid, 'q', lead);
-		rank += GeneralUtils.getLBPosToInt(uuid, 'f', lead);
-		rank += GeneralUtils.getLBPosToInt(uuid, 't', lead);
+		GeneralUtils.getLBPosToInt(uuid, 'w', lead);
+		GeneralUtils.getLBPosToInt(uuid, 'r', lead);
+		GeneralUtils.getLBPosToInt(uuid, 'q', lead);
+		GeneralUtils.getLBPosToInt(uuid, 'f', lead);
+		GeneralUtils.getLBPosToInt(uuid, 't', lead);
+		
+		float rank = wlb + rlb + qlb + flb + tlb;
 		rank = (rank / 5) + 1;
 		
 		image.drawStringLeft("Overall rank: #"+rank, 562, 452, 30, shadow);
@@ -195,11 +203,20 @@ public class StatsCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
-		final String qual = "Qualification: " + q + GeneralUtils.getPLBPos(uuid, "q");
-		final String finals = "Finals: " + f + GeneralUtils.getPLBPos(uuid, "f");
-		final String lobby = "Lobby: " + l + GeneralUtils.getPLBPos(uuid, "l");
-		final String wide = "Wide Qual: " + wq + GeneralUtils.getPLBPos(uuid, "wq");
-		final String tot = "L/Q/F: " + (l+q+f) + GeneralUtils.getPLBPos(uuid, "t");
+		
+		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
+		final int qlb = GeneralUtils.getPLBPosToInt(uuid, "q", lead);
+		final int flb = GeneralUtils.getPLBPosToInt(uuid, "f", lead);
+		final int llb = GeneralUtils.getPLBPosToInt(uuid, "l", lead);
+		final int wlb = GeneralUtils.getPLBPosToInt(uuid, "wq", lead);
+		final int tlb = GeneralUtils.getPLBPosToInt(uuid, "t", lead);
+		
+		
+		final String qual = "Qualification: " + q + ((qlb != 10001) ? " (#"+ qlb + ")" : "");
+		final String finals = "Finals: " + f + ((flb != 10001) ? " (#"+ flb + ")" : "");
+		final String lobby = "Lobby: " + l + ((llb != 10001) ? " (#"+ llb + ")" : "");
+		final String wide = "Wide Qual: " + wq + ((wlb != 10001) ? " (#"+ wlb + ")" : "");
+		final String tot = "L/Q/F: " + (l+q+f) + ((tlb != 10001) ? " (#"+ tlb + ")" : "");
 		
 		image.drawStringLeft(qual, 562, 152, 30, shadow);
 		image.drawStringLeft(finals, 562, 212, 30, shadow);
@@ -213,12 +230,7 @@ public class StatsCanvas {
 		image.drawStringLeft(wide, 560, 330, 30, color);
 		image.drawStringLeft(tot, 560, 390, 30, color);
 	
-		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
-		float rank = GeneralUtils.getPLBPosToInt(uuid, "q", lead);
-		rank += GeneralUtils.getPLBPosToInt(uuid, "f", lead);
-		rank += GeneralUtils.getPLBPosToInt(uuid, "l", lead);
-		rank += GeneralUtils.getPLBPosToInt(uuid, "wq", lead);
-		rank += GeneralUtils.getPLBPosToInt(uuid, "t", lead);
+		float rank = qlb + flb + llb + wlb + tlb;
 		rank = (rank / 5) + 1;
 		
 		image.drawStringLeft("Overall rank: #"+rank, 562, 452, 30, shadow);
