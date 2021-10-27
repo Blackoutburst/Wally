@@ -91,11 +91,11 @@ public class StatsCanvas {
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
 		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"), false);
-		final int wlb = GeneralUtils.getLBPosToInt(uuid, 'w', lead);
-		final int rlb = GeneralUtils.getLBPosToInt(uuid, 'r', lead);
-		final int qlb = GeneralUtils.getLBPosToInt(uuid, 'q', lead);
-		final int flb = GeneralUtils.getLBPosToInt(uuid, 'f', lead);
-		final int tlb = GeneralUtils.getLBPosToInt(uuid, 't', lead);
+		final int wlb = GeneralUtils.getLBPosToInt(uuid, 'w', lead) + 1;
+		final int rlb = GeneralUtils.getLBPosToInt(uuid, 'r', lead) + 1;
+		final int qlb = GeneralUtils.getLBPosToInt(uuid, 'q', lead) + 1;
+		final int flb = GeneralUtils.getLBPosToInt(uuid, 'f', lead) + 1;
+		final int tlb = GeneralUtils.getLBPosToInt(uuid, 't', lead) + 1;
 		
 		final String wins = "Wins: " + API.getWins(data) + ((wlb != 10001) ? " (#"+ wlb + ")" : "");
 		final String walls = "Walls: " + API.getWalls(data) + ((rlb != 10001) ? " (#"+ rlb + ")" : "");
@@ -205,11 +205,11 @@ public class StatsCanvas {
 		
 		
 		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
-		final int qlb = GeneralUtils.getPLBPosToInt(uuid, "q", lead);
-		final int flb = GeneralUtils.getPLBPosToInt(uuid, "f", lead);
-		final int llb = GeneralUtils.getPLBPosToInt(uuid, "l", lead);
-		final int wlb = GeneralUtils.getPLBPosToInt(uuid, "wq", lead);
-		final int tlb = GeneralUtils.getPLBPosToInt(uuid, "t", lead);
+		final int qlb = GeneralUtils.getPLBPosToInt(uuid, "q", lead) + 1;
+		final int flb = GeneralUtils.getPLBPosToInt(uuid, "f", lead) + 1;
+		final int llb = GeneralUtils.getPLBPosToInt(uuid, "l", lead) + 1;
+		final int wlb = GeneralUtils.getPLBPosToInt(uuid, "wq", lead) + 1;
+		final int tlb = GeneralUtils.getPLBPosToInt(uuid, "t", lead) + 1;
 		
 		
 		final String qual = "Qualification: " + q + ((qlb != 10001) ? " (#"+ qlb + ")" : "");
