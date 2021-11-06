@@ -169,6 +169,8 @@ public class CompareCanvas {
 		940, 365, 30, stringColor(player1, player2, Type.Q));
 		
 		image.drawStringRight("(" + diff(player1, player2, Type.F) + ") " + API.getFinals(player1) + " :Finals",
+		942, 427, 30, stringColor(player1, player2, Type.F).darker().darker().darker());
+		image.drawStringRight("(" + diff(player1, player2, Type.F) + ") " + API.getFinals(player1) + " :Finals",
 		940, 425, 30, stringColor(player1, player2, Type.F));
 
 		image.drawStringRight("(" + diff(player1, player2, Type.T) + ") " + API.getTotal(player1) + " :Q/F",
