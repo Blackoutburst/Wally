@@ -48,8 +48,6 @@ public class PTracker {
 			
 			String discordId = Stats.getDiscordId(GeneralUtils.readJsonToString("linked player/" + uuid + "/data.json"));
 			
-			System.out.println(PracticeAPI.getName(data));
-			
 			int oldQ = PracticeStats.getQualificationToInt(localData);
 			int newQ = PracticeAPI.getQualificationToInt(data);
 			int oldF = PracticeStats.getFinalsToInt(localData);
@@ -65,7 +63,7 @@ public class PTracker {
 			if (newWQ > oldWQ) MessageSender.practicePbMessage(data, discordId, uuid, "wq");
 			
 			GeneralUtils.updateFile(data, localData, uuid, "pleaderboard", true);
-			delay(2000);
+			delay(1000);
 		}
 	}
 	
