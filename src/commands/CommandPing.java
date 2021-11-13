@@ -6,7 +6,7 @@ import java.lang.management.RuntimeMXBean;
 import core.Command;
 import core.CommandExecutable;
 import core.LeaderboardUpdater;
-import core.PLeaderboardUpdater;
+import core.PTracker;
 import core.Tracker;
 
 public class CommandPing extends CommandExecutable {
@@ -31,7 +31,7 @@ public class CommandPing extends CommandExecutable {
 		String mainThread = Thread.currentThread().isAlive() ? "alive" : "down";
 		String trackerThread = Tracker.trackerThread.isAlive() ? "alive" : "down";
 		String lbThread = LeaderboardUpdater.lbupdaterThread.isAlive() ? "alive" : "down";
-		String plbThread = PLeaderboardUpdater.plbupdaterThread.isAlive() ? "alive" : "down";
+		String plbThread = PTracker.ptrackerThread.isAlive() ? "alive" : "down";
 		String trackerForced = Tracker.forced ? "true" : "false"; 
 		
 		String formatString = "Ping: **%d** ms\nMemory: **%.2f / %d / %d** MiB\nUptime: **%d** minutes\nThreads: Main **"+mainThread+
@@ -39,7 +39,7 @@ public class CommandPing extends CommandExecutable {
 				trackerThread+
 				"** / LBUpdater **"+
 				lbThread+
-				"** / PLBUpdater **"+
+				"** / PTracker **"+
 				plbThread+"**\nTracker forced: "+
 				"**"+trackerForced+"**";
 		

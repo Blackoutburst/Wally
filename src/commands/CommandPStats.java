@@ -46,9 +46,6 @@ public class CommandPStats extends CommandExecutable {
 		StatsCanvas.createPStatsImage(image, uuid, playerName, data);
 		MessageSender.sendFile(command, "pstats.png");
 
-		String fileLocation = "pleaderboard/" + uuid + "/data.json";
-		String localData = GeneralUtils.readJsonToString(fileLocation);
-		GeneralUtils.updateFile(data, localData, uuid, "pleaderboard", true);
 		if(!AltExcluder.isAnAlt(uuid, this.command)) {
 			GeneralUtils.addToPracticeLeaderBoard(uuid, data, command);
 		}

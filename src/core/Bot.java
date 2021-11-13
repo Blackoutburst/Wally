@@ -50,7 +50,7 @@ public class Bot extends ListenerAdapter {
 			new Generic().run(event);
 			new Tracker().start();
 			new LeaderboardUpdater().start();
-			new PLeaderboardUpdater().start();
+			new PTracker().start();
 		}
 	}
 	

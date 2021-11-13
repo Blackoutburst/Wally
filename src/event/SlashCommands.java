@@ -27,7 +27,7 @@ public class SlashCommands {
 		for (OptionMapping opt : event.getOptions()) {
 			args[i++] = opt.getAsString();
 		}
-		event.reply("⠀").complete();
+		event.reply("...").complete();
 		new CommandManager(new Command(sender, name, args, event.getChannel(), null));
 	}
 }

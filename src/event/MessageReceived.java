@@ -6,6 +6,7 @@ import java.util.List;
 import commands.CommandManager;
 import core.Command;
 import core.DisplayPBOnMention;
+import core.DisplayPracticePBOnMention;
 import main.Main;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
@@ -47,6 +48,15 @@ public class MessageReceived {
 				if (m.getId().equals(Main.BOT_ID)) {
 					GeneralUtils.startTyping(event.getChannel());
 					new DisplayPBOnMention(event.getMember(), event);
+					return (true);
+				}
+			}
+		} else if (event.getChannel().getId().equals(ConfigManager.getString("practiceTrackerChannel"))) {
+			List<Member> members = event.getMessage().getMentionedMembers();
+			for (Member m : members) {
+				if (m.getId().equals(Main.BOT_ID)) {
+					GeneralUtils.startTyping(event.getChannel());
+					new DisplayPracticePBOnMention(event.getMember(), event);
 					return (true);
 				}
 			}

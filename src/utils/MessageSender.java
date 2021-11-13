@@ -220,4 +220,67 @@ public class MessageSender {
 		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF, null);
 		Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel")).sendMessage(embed.build()).complete();
 	}
+	
+	/**
+	 * Display personal best message
+	 * @param data
+	 * @param discordid
+	 * @param uuid
+	 * @param type
+	 */
+	public static void practicePbMessage(String data, String discordid, String uuid, String type) {
+		EmbedBuilder embed = new EmbedBuilder();
+		String localData = GeneralUtils.readJsonToString("pleaderboard/" + uuid + "/data.json");
+
+		// Add a unique part to the request url so discord cannot cache it and the skin stays up to date.
+		// By: EatMyVenom
+		long time = System.currentTimeMillis();
+
+		String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
+		String avatarUrl = Bot.server.getMemberById(discordid).getUser().getAvatarUrl();
+		String name = Bot.server.getMemberById(discordid).getEffectiveName();
+		int oldQ = PracticeStats.getQualificationToInt(localData);
+		int newQ = PracticeAPI.getQualificationToInt(data);
+		int oldF = PracticeStats.getFinalsToInt(localData);
+		int newF = PracticeAPI.getFinalsToInt(data);
+		int oldL = PracticeStats.getLobbyToInt(localData);
+		int newL = PracticeAPI.getLobbyToInt(data);
+		int oldWQ = PracticeStats.getWideQualificationToInt(localData);
+		int newWQ = PracticeAPI.getWideQualificationToInt(data);
+		
+		embed.setAuthor(name + " | " + PracticeAPI.getName(data), url, avatarUrl);
+		embed.setThumbnail(url);
+		embed.setFooter("Discord ID: " + discordid + "\nUUID: " + uuid);
+		
+		if (type == "q") {
+			if (newQ - oldQ <= 0) return;
+			embed.setTitle(PracticeAPI.getName(data)+" Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Qualifiers** Personal Best!");
+			embed.setColor(RolesManager.getRoleColor(newQ));
+			embed.addField("Old PB", "**" + oldQ + "**",true);
+			embed.addField("New PB", "**" + newQ + "**",true);
+			embed.addField("Increase","**" + (newQ - oldQ) + "**",true);
+		} else if (type == "f") {
+			if (newF - oldF <= 0) return;
+			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Finals** Personal Best!");
+			embed.setColor(RolesManager.getRoleColor(newF));
+			embed.addField("Old PB", "**" + oldF + "**",true);
+			embed.addField("New PB", "**" + newF + "**",true);
+			embed.addField("Increase","**" + (newF - oldF) + "**",true);
+		} else if (type == "l") {
+			if (newL - oldL <= 0) return;
+			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Lobby** Personal Best!");
+			embed.setColor(RolesManager.getRoleColor(newL));
+			embed.addField("Old PB", "**" + oldL + "**",true);
+			embed.addField("New PB", "**" + newL + "**",true);
+			embed.addField("Increase","**" + (newL - oldL) + "**",true);
+		}  else if (type == "wq") {
+			if (newWQ - oldWQ <= 0) return;
+			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Wide Qualifiers** Personal Best!");
+			embed.setColor(RolesManager.getRoleColor(newWQ));
+			embed.addField("Old PB", "**" + oldWQ + "**",true);
+			embed.addField("New PB", "**" + newWQ + "**",true);
+			embed.addField("Increase","**" + (newWQ - oldWQ) + "**",true);
+		}
+		Bot.server.getTextChannelById(ConfigManager.getString("practiceTrackerChannel")).sendMessage(embed.build()).complete();
+	}
 }
