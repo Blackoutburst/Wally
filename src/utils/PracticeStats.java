@@ -190,14 +190,16 @@ public class PracticeStats {
 		int l = 0;
 		int q = 0;
 		int f = 0;
+		int wq = 0;
 		
 		try {
 			l = obj.getInt("lobby");
 			q = obj.getInt("qualification");
 			f = obj.getInt("finals");
+			wq = obj.getInt("wide_qualification");
 		} catch (Exception e) {}
 		
-		return (l + q + f);
+		return (l + q + f + wq);
 	}
 	
 }

@@ -77,9 +77,6 @@ public class CompareCanvas {
 			image.drawStringLeft(API.getName(player1), 130, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
 		
-		if (API.getUUID(player1).equals("640459a7a5c8417bbb06f6e6d28614a1"))
-			image.drawImage("res/heart.png", 220, 156, 32, 28);
-		
 		image.drawStringLeft(Stats.getSubTitle(uuid), 132, 182, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
 		
@@ -143,9 +140,6 @@ public class CompareCanvas {
 			image.drawStringRight(API.getName(player1), 872, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 			image.drawStringRight(API.getName(player1), 870, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
-		
-		if (API.getUUID(player1).equals("640459a7a5c8417bbb06f6e6d28614a1"))
-			image.drawImage("res/heart.png", 845, 156, 32, 28);
 		
 		image.drawStringRight(Stats.getSubTitle(uuid), 872, 182, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 		image.drawStringRight(Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
@@ -275,7 +269,7 @@ public class CompareCanvas {
 		int f = PracticeAPI.getFinalsToInt(player1);
 		int wq = PracticeAPI.getWideQualificationToInt(player1);
 		int l = PracticeAPI.getLobbyToInt(player1);
-		int lqf = l+q+f;
+		int lqf = l+q+f+wq;
 		int score = 0;
 		
 		if (q >= f && q >= wq && q >= l) score = q;
@@ -302,9 +296,6 @@ public class CompareCanvas {
 			image.drawStringLeft(name, 130, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
 		
-		if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
-			image.drawImage("res/heart.png", 220, 156, 32, 28);
-	
 		image.drawStringLeft(Stats.getSubTitle(uuid), 132, 182, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
 		
@@ -331,9 +322,9 @@ public class CompareCanvas {
 		image.drawStringLeft("Wide Qual: " + wq + " (" + pdiff(player1, player2, Type.WQ) + ")",
 		60, 425, 30, pstringColor(player1, player2, Type.WQ));
 		
-		image.drawStringLeft("L/Q/F: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
+		image.drawStringLeft("L/Q/F/WQ: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
 		62, 487, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());		
-		image.drawStringLeft("L/Q/F: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
+		image.drawStringLeft("L/Q/F/WQ: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
 		60, 485, 30, pstringColor(player1, player2, Type.LQF));
 		
 		return (image);
@@ -349,7 +340,7 @@ public class CompareCanvas {
 		int f = PracticeAPI.getFinalsToInt(player1);
 		int wq = PracticeAPI.getWideQualificationToInt(player1);
 		int l = PracticeAPI.getLobbyToInt(player1);
-		int lqf = l+q+f;
+		int lqf = l+q+f+wq;
 		int score = 0;
 		
 		if (q >= f && q >= wq && q >= l) score = q;
@@ -375,9 +366,6 @@ public class CompareCanvas {
 			image.drawStringRight(name, 872, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 			image.drawStringRight(name, 870, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
-		
-		if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
-			image.drawImage("res/heart.png", 845, 156, 32, 28);
 		
 		image.drawStringRight(Stats.getSubTitle(uuid), 872, 182, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 		image.drawStringRight(Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
@@ -405,9 +393,9 @@ public class CompareCanvas {
 		image.drawStringRight("(" + pdiff(player1, player2, Type.WQ) + ") " + wq + " :Wide Qual",
 		940, 425, 30, pstringColor(player1, player2, Type.WQ));
 		
-		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :L/Q/F",
+		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :L/Q/F/WQ",
 		942, 487, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());		
-		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :L/Q/F",
+		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :L/Q/F/WQ",
 		940, 485, 30, pstringColor(player1, player2, Type.LQF));
 		
 		return (image);

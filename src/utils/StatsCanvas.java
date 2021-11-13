@@ -49,9 +49,6 @@ public class StatsCanvas {
 			image.drawStringLeft(name, 130, 140, 40, color);
 		}
 		
-		if (API.getUUID(data).equals("640459a7a5c8417bbb06f6e6d28614a1"))
-			image.drawImage("res/heart.png", 220, 156, 32, 28);
-		
 		final String sub = Stats.getSubTitle(uuid);
 		
 		image.drawStringLeft(sub, 132, 182, 36, shadow);
@@ -175,9 +172,6 @@ public class StatsCanvas {
 			image.drawStringLeft(name, 130, 140, 40, color);
 		}
 		
-		if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
-			image.drawImage("res/heart.png", 220, 156, 32, 28);
-		
 		final String sub = Stats.getSubTitle(uuid);
 		
 		image.drawStringLeft(sub, 132, 182, 36, shadow);
@@ -205,7 +199,7 @@ public class StatsCanvas {
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
 		
-		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
+		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), true);
 		final int qlb = GeneralUtils.getPLBPosToInt(uuid, "q", new ArrayList<PracticeLeaderboardPlayer>(lead));
 		final int flb = GeneralUtils.getPLBPosToInt(uuid, "f", new ArrayList<PracticeLeaderboardPlayer>(lead));
 		final int llb = GeneralUtils.getPLBPosToInt(uuid, "l", new ArrayList<PracticeLeaderboardPlayer>(lead));
@@ -218,7 +212,7 @@ public class StatsCanvas {
 		final String finals = "Finals: " + f + ((flb != 10000) ? " (#"+ (flb+1) + ")" : "");
 		final String lobby = "Lobby: " + l + ((llb != 10000) ? " (#"+ (llb+1) + ")" : "");
 		final String wide = "Wide Qual: " + wq + ((wlb != 10000) ? " (#"+ (wlb+1) + ")" : "");
-		final String tot = "L/Q/F: " + (l+q+f) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
+		final String tot = "L/Q/F/WQ: " + (l+q+f+wq) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
 		
 		image.drawStringLeft(qual, 562, 152, 30, shadow);
 		image.drawStringLeft(finals, 562, 212, 30, shadow);

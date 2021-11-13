@@ -65,7 +65,7 @@ public class PracticeLeaderboard {
 			case F: return ("Finals Leaderboard");
 			case WQ: return ("Wide Quali Leaderboard");
 			case L: return ("Lobby Leaderboard");
-			case T: return ("L/Q/F Leaderboard");
+			case T: return ("L/Q/F/WQ Leaderboard");
 			case O: return ("Overall Rank Leaderboard");
 			default: return ("Qualification Leaderboard");
 		}
