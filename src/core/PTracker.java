@@ -46,9 +46,9 @@ public class PTracker {
 			if (data.contains("Unknown player")) continue;
 			if (!GeneralUtils.isLinkedUUID(uuid)) continue;
 			
-			
 			String discordId = Stats.getDiscordId(GeneralUtils.readJsonToString("linked player/" + uuid + "/data.json"));
-			if(!forced && !GeneralUtils.isOnline(discordId)) continue;
+			
+			System.out.println(PracticeAPI.getName(data));
 			
 			int oldQ = PracticeStats.getQualificationToInt(localData);
 			int newQ = PracticeAPI.getQualificationToInt(data);
@@ -65,7 +65,7 @@ public class PTracker {
 			if (newWQ > oldWQ) MessageSender.practicePbMessage(data, discordId, uuid, "wq");
 			
 			GeneralUtils.updateFile(data, localData, uuid, "pleaderboard", true);
-			delay(500);
+			delay(2000);
 		}
 	}
 	
