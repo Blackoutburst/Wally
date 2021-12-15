@@ -1,5 +1,9 @@
 package utils;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class LeaderboardPlayer {
 	
 	public int wins;
@@ -24,14 +28,72 @@ public class LeaderboardPlayer {
 		this.uuid = uuid;
 	}
 
-	public LeaderboardPlayer(String data) {
-		this.uuid = Stats.getUUID(data);
-		this.name = Stats.getName(data);
-		this.wins = Stats.getWinsToInt(data);
-		this.walls = Stats.getWallsToInt(data);
-		this.qualification = Stats.getQualificationToInt(data);
-		this.finals = Stats.getFinalsToInt(data);
-		this.total = Stats.getTotalToInt(data);
+	public LeaderboardPlayer(String data, boolean fromAPI) {
+		this.uuid = fromAPI ? API.getUUID(data) : Stats.getUUID(data);
+		this.name = fromAPI ? API.getName(data) : Stats.getName(data);
+		this.wins = fromAPI ? API.getWinsToInt(data) : Stats.getWinsToInt(data);
+		this.walls = fromAPI ? API.getWallsToInt(data) : Stats.getWallsToInt(data);
+		this.qualification = fromAPI ? API.getQualificationToInt(data) : Stats.getQualificationToInt(data);
+		this.finals = fromAPI ? API.getFinalsToInt(data) : Stats.getFinalsToInt(data);
+		this.total = fromAPI ? API.getTotalToInt(data) : Stats.getTotalToInt(data);
 		try {this.discord = Stats.getDiscordId(data);} catch(Exception e) {}
 	}
+	
+	
+	/**
+	 * Return player wins
+	 * @return
+	 */
+	public String getWins() {
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		DecimalFormat formatter = (DecimalFormat) nf;
+		int value = wins;
+		return (formatter.format(value));
+	}
+	
+	/**
+	 * Return player walls cleared
+	 * @return
+	 */
+	public String getWalls() {
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		DecimalFormat formatter = (DecimalFormat) nf;
+		int value = walls;
+		return (formatter.format(value));
+	}
+	
+	/**
+	 * Return player qualification score
+	 * @return
+	 */
+	public String getQualification() {
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		DecimalFormat formatter = (DecimalFormat) nf;
+		int	value = qualification;
+		return (formatter.format(value));
+	}
+	
+	/**
+	 * Return player final score
+	 * @return
+	 */
+	public String getFinals() {
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		DecimalFormat formatter = (DecimalFormat) nf;
+		int value = finals;
+		return (formatter.format(value));
+	}
+	
+	/**
+	 * Return player total score
+	 * @return
+	 */
+	public String getTotal() {
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		DecimalFormat formatter = (DecimalFormat) nf;
+		int q = qualification;
+		int f = finals;
+		return (formatter.format(q + f));
+	}
+	
 }

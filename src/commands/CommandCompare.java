@@ -41,7 +41,7 @@ public class CommandCompare extends CommandExecutable {
 			} else {
 				return (badUsage(this));
 			}
-		} else {
+		} else if (command.getArgs().length == 2) {
 			player1 = Request.getPlayerStats(command.getArgs()[0]);
 			if (player1 == null) return (unknownPlayer(this, command.getArgs()[0]));
 			if (API.getPlayer(player1) == null) return (neverJoined(this, command.getArgs()[0]));
@@ -51,6 +51,22 @@ public class CommandCompare extends CommandExecutable {
 			if (player2 == null) return (unknownPlayer(this, command.getArgs()[1]));
 			if (API.getPlayer(player2) == null) return (neverJoined(this, command.getArgs()[1]));
 			if(!GeneralUtils.isValidJSON(player2)) return (apiDead(this));
+		} else {
+			String[] players = new String[command.getArgs().length];
+			
+			for (int i = 0; i < command.getArgs().length; i++) {
+				players[i] = Request.getPlayerStats(command.getArgs()[i]);
+				if (players[i] == null) return (unknownPlayer(this, command.getArgs()[i]));
+				if (API.getPlayer(players[i]) == null) return (neverJoined(this, command.getArgs()[i]));
+				if(!GeneralUtils.isValidJSON(players[i])) return (apiDead(this));
+			}
+			Canvas image = new Canvas(1000, 200 + (180 * players.length));
+			
+			CompareCanvas.createMultiCompareImage(image, players);
+
+			MessageSender.sendFile(command, "compare.png");
+			
+			return (true);
 		}
 		
 		Canvas image = new Canvas(1000, 520);

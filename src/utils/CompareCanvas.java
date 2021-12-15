@@ -3,7 +3,16 @@ package utils;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+
+import comparators.PlayerComparatorF;
+import comparators.PlayerComparatorQ;
+import comparators.PlayerComparatorRounds;
+import comparators.PlayerComparatorTotal;
+import comparators.PlayerComparatorWins;
+import core.RolesManager;
 
 public class CompareCanvas {
 
@@ -16,6 +25,215 @@ public class CompareCanvas {
 		LQF,
 		WQ,
 		L
+	}
+	
+	/**
+	 * Create compare image
+	 * @param image
+	 * @param data
+	 */
+	public static void createMultiCompareImage(Canvas image, String[] players) {
+		List<LeaderboardPlayer> pls = new ArrayList<>();
+		
+		for (String data : players)
+			pls.add(new LeaderboardPlayer(data, true));
+		pls.sort(new PlayerComparatorF());
+		int f = pls.get(0).finals;
+		pls.sort(new PlayerComparatorQ());
+		int q = pls.get(0).qualification;
+		int score = q > f ? q : f;
+		
+		image.drawImage("res/backgroundEndL.png", 0, 80, 1000, image.height);
+		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		
+		drawWins(image, pls);
+		drawWalls(image, pls);
+		drawQ(image, pls);
+		drawF(image, pls);
+		drawQF(image, pls);
+		
+		image.save("compare.png");
+	}
+	
+	/**
+	 * Return difference between two value
+	 * @param stat1
+	 * @param stat2
+	 * @return
+	 */
+	private static String localDiff(int p1, int p2) {
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		DecimalFormat formatter = (DecimalFormat) nf;
+		return (formatter.format(p1 - p2));
+	}
+	
+	private static void drawWins(Canvas image, List<LeaderboardPlayer> players) {
+		players.sort(new PlayerComparatorWins());
+		
+		image.drawStringCenter("Wins", 100, 152, 60, Color.white.darker().darker().darker());
+		image.drawStringCenter("Wins", 100, 150, 60, Color.white);
+		
+		int i = 0;
+		for (LeaderboardPlayer p : players) {
+			i++;
+			int f = p.finals;
+			int q = p.qualification;
+			int score = q > f ? q : f;
+			
+			Color c = RolesManager.getRoleColor(score);
+			
+			if (p.name.length() > 8)
+				p.name = p.name.substring(0, 8);
+			
+			image.drawStringCenter(p.name, 100, 52 + (180 * i), 40, c.darker().darker().darker());
+			image.drawStringCenter(p.name, 100, 50 + (180 * i), 40, c);
+			
+			
+			String diff;
+			if ((i) >= players.size()) {
+				diff = "("+localDiff(p.wins, players.get(i-2).wins)+")";
+			} else {
+				diff = "("+localDiff(p.wins, players.get(i).wins)+")";
+			}
+			
+			image.drawStringCenter(p.getWins(), 100, 52 + (180 * i) + 60, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(p.getWins(), 100, 50 + (180 * i) + 60, 40, Color.white);
+			
+			image.drawStringCenter(diff, 100, 52 + (180 * i) + 120, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(diff, 100, 50 + (180 * i) + 120, 40, Color.white);
+		}
+	}
+	
+	private static void drawWalls(Canvas image, List<LeaderboardPlayer> players) {
+		players.sort(new PlayerComparatorRounds());
+		
+		image.drawStringCenter("Walls", 300, 152, 60, Color.white.darker().darker().darker());
+		image.drawStringCenter("Walls", 300, 150, 60, Color.white);
+		
+		int i = 0;
+		for (LeaderboardPlayer p : players) {
+			i++;
+			int f = p.finals;
+			int q = p.qualification;
+			int score = q > f ? q : f;
+			
+			Color c = RolesManager.getRoleColor(score);
+			image.drawStringCenter(p.name, 300, 52 + (180 * i), 40, c.darker().darker().darker());
+			image.drawStringCenter(p.name, 300, 50 + (180 * i), 40, c);
+			
+			
+			String diff;
+			if ((i) >= players.size()) {
+				diff = "("+localDiff(p.walls, players.get(i-2).walls)+")";
+			} else {
+				diff = "("+localDiff(p.walls, players.get(i).walls)+")";
+			}
+			
+			image.drawStringCenter(p.getWalls(), 300, 52 + (180 * i) + 60, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(p.getWalls(), 300, 50 + (180 * i) + 60, 40, Color.white);
+			
+			image.drawStringCenter(diff, 300, 52 + (180 * i) + 120, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(diff, 300, 50 + (180 * i) + 120, 40, Color.white);
+		}
+	}
+	
+	private static void drawQ(Canvas image, List<LeaderboardPlayer> players) {
+		players.sort(new PlayerComparatorQ());
+		
+		image.drawStringCenter("Q", 500, 152, 60, Color.white.darker().darker().darker());
+		image.drawStringCenter("Q", 500, 150, 60, Color.white);
+		
+		int i = 0;
+		for (LeaderboardPlayer p : players) {
+			i++;
+			int f = p.finals;
+			int q = p.qualification;
+			int score = q > f ? q : f;
+			
+			Color c = RolesManager.getRoleColor(score);
+			image.drawStringCenter(p.name, 500, 52 + (180 * i), 40, c.darker().darker().darker());
+			image.drawStringCenter(p.name, 500, 50 + (180 * i), 40, c);
+			
+			
+			String diff;
+			if ((i) >= players.size()) {
+				diff = "("+localDiff(p.qualification, players.get(i-2).qualification)+")";
+			} else {
+				diff = "("+localDiff(p.qualification, players.get(i).qualification)+")";
+			}
+			
+			image.drawStringCenter(p.getQualification(), 500, 52 + (180 * i) + 60, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(p.getQualification(), 500, 50 + (180 * i) + 60, 40, Color.white);
+			
+			image.drawStringCenter(diff, 500, 52 + (180 * i) + 120, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(diff, 500, 50 + (180 * i) + 120, 40, Color.white);
+		}
+	}
+	
+	private static void drawF(Canvas image, List<LeaderboardPlayer> players) {
+		players.sort(new PlayerComparatorF());
+		
+		image.drawStringCenter("F", 700, 152, 60, Color.white.darker().darker().darker());
+		image.drawStringCenter("F", 700, 150, 60, Color.white);
+		
+		int i = 0;
+		for (LeaderboardPlayer p : players) {
+			i++;
+			int f = p.finals;
+			int q = p.qualification;
+			int score = q > f ? q : f;
+			
+			Color c = RolesManager.getRoleColor(score);
+			image.drawStringCenter(p.name, 700, 52 + (180 * i), 40, c.darker().darker().darker());
+			image.drawStringCenter(p.name, 700, 50 + (180 * i), 40, c);
+			
+			
+			String diff;
+			if ((i) >= players.size()) {
+				diff = "("+localDiff(p.finals, players.get(i-2).finals)+")";
+			} else {
+				diff = "("+localDiff(p.finals, players.get(i).finals)+")";
+			}
+			
+			image.drawStringCenter(p.getFinals(), 700, 52 + (180 * i) + 60, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(p.getFinals(), 700, 50 + (180 * i) + 60, 40, Color.white);
+			
+			image.drawStringCenter(diff, 700, 52 + (180 * i) + 120, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(diff, 700, 50 + (180 * i) + 120, 40, Color.white);
+		}
+	}
+	
+	private static void drawQF(Canvas image, List<LeaderboardPlayer> players) {
+		players.sort(new PlayerComparatorTotal());
+		
+		image.drawStringCenter("QF", 900, 152, 60, Color.white.darker().darker().darker());
+		image.drawStringCenter("QF", 900, 150, 60, Color.white);
+		
+		int i = 0;
+		for (LeaderboardPlayer p : players) {
+			i++;
+			int f = p.finals;
+			int q = p.qualification;
+			int score = q > f ? q : f;
+			
+			Color c = RolesManager.getRoleColor(score);
+			image.drawStringCenter(p.name, 900, 52 + (180 * i), 40, c.darker().darker().darker());
+			image.drawStringCenter(p.name, 900, 50 + (180 * i), 40, c);
+			
+			
+			String diff;
+			if ((i) >= players.size()) {
+				diff = "("+localDiff(p.total, players.get(i-2).total)+")";
+			} else {
+				diff = "("+localDiff(p.total, players.get(i).total)+")";
+			}
+			
+			image.drawStringCenter(p.getTotal(), 900, 52 + (180 * i) + 60, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(p.getTotal(), 900, 50 + (180 * i) + 60, 40, Color.white);
+			
+			image.drawStringCenter(diff, 900, 52 + (180 * i) + 120, 40, Color.white.darker().darker().darker());
+			image.drawStringCenter(diff, 900, 50 + (180 * i) + 120, 40, Color.white);
+		}
 	}
 	
 	/**

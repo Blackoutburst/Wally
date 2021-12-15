@@ -22,8 +22,13 @@ public class Canvas {
 	private Font font = null;
 	private Font fontuni = null;
 	
+	public int width;
+	public int height;
+	
 	public Canvas(int width, int height) {
 		try {
+			this.width = width;
+			this.height = height;
 			background = ImageIO.read(new File("res/background.png"));
 			bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			g = bufferedImage.createGraphics();

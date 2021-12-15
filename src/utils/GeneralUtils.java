@@ -533,7 +533,7 @@ public class GeneralUtils {
 			File playerFolder = new File(index.getPath(),s);
 			String data = GeneralUtils.readJsonToString(playerFolder + "/data.json");
 
-			lead.add(new LeaderboardPlayer(data));
+			lead.add(new LeaderboardPlayer(data, false));
 		}
 		
 		if (overall) {
