@@ -1,6 +1,5 @@
 package commands;
 
-import java.io.File;
 import java.util.List;
 
 import core.Command;
@@ -8,9 +7,9 @@ import core.CommandExecutable;
 import utils.Canvas;
 import utils.LeaderboardPlayer;
 import utils.MessageSender;
-import utils.GeneralUtils;
 import utils.Leaderboard;
 import utils.LeaderboardCanvas;
+import utils.LeaderboardList;
 
 public class CommandLeaderboard extends CommandExecutable {
 
@@ -22,12 +21,19 @@ public class CommandLeaderboard extends CommandExecutable {
 	protected boolean execute() {
 		char type = getType();
 		int page = getPage();
-		boolean discord = isDiscord();
-		String fileName = discord ? "linked player" : "leaderboard";
-		File index = new File(fileName);
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(index, true);
+		
+		List<LeaderboardPlayer> lead = null;
+		
+		switch(type) {
+			case 'w': lead = LeaderboardList.WINS; break;
+			case 'r': lead = LeaderboardList.WALLS; break;
+			case 'q': lead = LeaderboardList.Q; break;
+			case 'f': lead = LeaderboardList.F; break;
+			case 't': lead = LeaderboardList.QF; break;
+			case 'o': lead = LeaderboardList.OVERALL; break;
+		}
+		
 		Leaderboard lb = new Leaderboard(lead, type);
-		lb.sort();
 		
 		int pass = 0;
 		for (int i = (10 * page); i < (10 * page) + 10; i++) {
@@ -40,19 +46,6 @@ public class CommandLeaderboard extends CommandExecutable {
 		LeaderboardCanvas.createLeaderboardImage(image, page, lb);
 		MessageSender.sendFile(command, "lead.png");
 		return (true);
-	}
-
-	/**
-	 * Check is the leader board is discord only
-	 * @return
-	 */
-	private boolean isDiscord() {
-		for (String arg : command.getArgs()) {
-			if (arg.equalsIgnoreCase("discord")) {
-				return (true);
-			}
-		}
-		return (false);
 	}
 
 	/**

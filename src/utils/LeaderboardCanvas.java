@@ -20,8 +20,8 @@ public class LeaderboardCanvas {
 		int q = lb.getPlayers().get((10 * page)).qualification;
 		int score = q > f ? q : f;
 		
-		
-		image.drawImage("res/backgroundXL.png", 0, 0, 1000, 770);
+		image.loadFont("res/font.ttf");
+		image.drawImageFromMemory(LoadedRessources.BACKGROUND_XL, 0, 0, 1000, 770);
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
@@ -63,9 +63,9 @@ public class LeaderboardCanvas {
 		if (l >= f && l >= q && l >= wq) score = l;
 		
 		
-		image.drawImage("res/backgroundXL.png", 0, 0, 1000, 770);
+		image.drawImageFromMemory(LoadedRessources.BACKGROUND_XL, 0, 0, 1000, 770);
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
-		image.drawImage("res/practiceHeader.png", 0, 0, 1000, 400);
+		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
 		
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat formatter = (DecimalFormat) nf;
