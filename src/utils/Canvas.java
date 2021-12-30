@@ -16,30 +16,31 @@ import javax.imageio.ImageIO;
 
 public class Canvas {
 	
-	private BufferedImage background = null;
+	private static BufferedImage background = null;
 	private BufferedImage bufferedImage = null;
 	private Graphics2D g = null;
-	private Font font = null;
-	private Font fontuni = null;
+	private static Font font = null;
 	
 	public int width;
 	public int height;
 	
-	public Canvas(int width, int height) {
+	public static void init() {
 		try {
-			this.width = width;
-			this.height = height;
 			background = ImageIO.read(new File("res/background.png"));
-			bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-			g = bufferedImage.createGraphics();
 			font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font.ttf"));
-			fontuni = Font.createFont(Font.TRUETYPE_FONT, new File("res/fontuni.ttf"));
-			
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Canvas(int width, int height) {
+			this.width = width;
+			this.height = height;
+			bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			g = bufferedImage.createGraphics();
+			
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 	}
 	
 	/**
@@ -54,6 +55,18 @@ public class Canvas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Draw image
+	 * @param file
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
+	public void drawImageFromMemory(BufferedImage image, int x, int y, int width, int height) {
+		g.drawImage(image, x, y, width, height, null);
 	}
 	
 	/**
@@ -112,20 +125,8 @@ public class Canvas {
 	 * @param color
 	 */
 	public void drawStringLeft(String string, int x, int y, float size, Color color) {
-		boolean unicode = false;
-		for (int i = 0; i < string.length(); i++) {
-			if (!font.canDisplay(string.charAt(i))) {
-				unicode = true;
-				break;
-			}
-		}
-		if (unicode) {
-			fontuni = fontuni.deriveFont(size);
-			g.setFont(fontuni);
-		} else {
-			font = font.deriveFont(size);
-			g.setFont(font);
-		}
+		font = font.deriveFont(size);
+		g.setFont(font);
 		g.setColor(color);
 		g.drawString(string, x, y);
 	}
@@ -139,20 +140,8 @@ public class Canvas {
 	 * @param color
 	 */
 	public void drawStringCenter(String string, int x, int y, float size, Color color) {
-		boolean unicode = false;
-		for (int i = 0; i < string.length(); i++) {
-			if (!font.canDisplay(string.charAt(i))) {
-				unicode = true;
-				break;
-			}
-		}
-		if (unicode) {
-			fontuni = fontuni.deriveFont(size);
-			g.setFont(fontuni);
-		} else {
-			font = font.deriveFont(size);
-			g.setFont(font);
-		}
+		font = font.deriveFont(size);
+		g.setFont(font);
 		g.setColor(color);
 		g.drawString(string, x - g.getFontMetrics().stringWidth(string)/2, y);
 	}
@@ -166,20 +155,8 @@ public class Canvas {
 	 * @param color
 	 */
 	public void drawStringRight(String string, int x, int y, float size, Color color) {
-		boolean unicode = false;
-		for (int i = 0; i < string.length(); i++) {
-			if (!font.canDisplay(string.charAt(i))) {
-				unicode = true;
-				break;
-			}
-		}
-		if (unicode) {
-			fontuni = fontuni.deriveFont(size);
-			g.setFont(fontuni);
-		} else {
-			font = font.deriveFont(size);
-			g.setFont(font);
-		}
+		font = font.deriveFont(size);
+		g.setFont(font);
 		g.setColor(color);
 		g.drawString(string, x - g.getFontMetrics().stringWidth(string), y);
 	}
@@ -242,19 +219,19 @@ public class Canvas {
 	 * @param score
 	 * @return
 	 */
-	public static String getHeader(int score) {
-		String file = "res/member.png";
+	public static BufferedImage getHeader(int score) {
+		BufferedImage file = LoadedRessources.HMEMBER;
 		
-		if (score >= 50) file = "res/50.png";
-		if (score >= 100) file = "res/100.png";
-		if (score >= 150) file = "res/150.png";
-		if (score >= 200) file = "res/200.png";
-		if (score >= 250) file = "res/250.png";
-		if (score >= 300) file = "res/300.png";
-		if (score >= 350) file = "res/350.png";
-		if (score >= 400) file = "res/400.png";
-		if (score >= 450) file = "res/450.png";
-		if (score >= 500) file = "res/500.png";
+		if (score >= 50) file = LoadedRessources.H50;
+		if (score >= 100) file = LoadedRessources.H100;
+		if (score >= 150) file = LoadedRessources.H150;
+		if (score >= 200) file = LoadedRessources.H200;
+		if (score >= 250) file = LoadedRessources.H250;
+		if (score >= 300) file = LoadedRessources.H300;
+		if (score >= 350) file = LoadedRessources.H350;
+		if (score >= 400) file = LoadedRessources.H400;
+		if (score >= 450) file = LoadedRessources.H450;
+		if (score >= 500) file = LoadedRessources.H500;
 		return file;
 	}
 	
@@ -263,19 +240,19 @@ public class Canvas {
 	 * @param score
 	 * @return
 	 */
-	public static String getHeaderRight(int score) {
-		String file = "res/memberR.png";
+	public static BufferedImage getHeaderRight(int score) {
+		BufferedImage file = LoadedRessources.HMEMBERR;
 		
-		if (score >= 50) file = "res/50R.png";
-		if (score >= 100) file = "res/100R.png";
-		if (score >= 150) file = "res/150R.png";
-		if (score >= 200) file = "res/200R.png";
-		if (score >= 250) file = "res/250R.png";
-		if (score >= 300) file = "res/300R.png";
-		if (score >= 350) file = "res/350R.png";
-		if (score >= 400) file = "res/400R.png";
-		if (score >= 450) file = "res/450R.png";
-		if (score >= 500) file = "res/500R.png";
+		if (score >= 50) file = LoadedRessources.H50R;
+		if (score >= 100) file = LoadedRessources.H100R;
+		if (score >= 150) file = LoadedRessources.H150R;
+		if (score >= 200) file = LoadedRessources.H200R;
+		if (score >= 250) file = LoadedRessources.H250R;
+		if (score >= 300) file = LoadedRessources.H300R;
+		if (score >= 350) file = LoadedRessources.H350R;
+		if (score >= 400) file = LoadedRessources.H400R;
+		if (score >= 450) file = LoadedRessources.H450R;
+		if (score >= 500) file = LoadedRessources.H500R;
 		return file;
 	}
 	

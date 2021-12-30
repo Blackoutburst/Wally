@@ -22,7 +22,7 @@ public class LeaderboardCanvas {
 		
 		
 		image.drawImage("res/backgroundXL.png", 0, 0, 1000, 770);
-		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat formatter = (DecimalFormat) nf;
@@ -64,7 +64,7 @@ public class LeaderboardCanvas {
 		
 		
 		image.drawImage("res/backgroundXL.png", 0, 0, 1000, 770);
-		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.drawImage("res/practiceHeader.png", 0, 0, 1000, 400);
 		
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);

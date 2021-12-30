@@ -43,8 +43,8 @@ public class CompareCanvas {
 		int q = pls.get(0).qualification;
 		int score = q > f ? q : f;
 		
-		image.drawImage("res/backgroundEndL.png", 0, 80, 1000, image.height);
-		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(LoadedRessources.BACKGROUND_ENDL, 0, 80, 1000, image.height);
+		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		
 		drawWins(image, pls);
 		drawWalls(image, pls);
@@ -276,20 +276,20 @@ public class CompareCanvas {
 		int q = API.getQualificationToInt(player1);
 		int score = q > f ? q : f;
 		
-		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
-		image.drawImage("res/win.png", 20, 220, 30, 30);
-		image.drawImage("res/wall.png", 20, 280, 30, 30);
-		image.drawImage("res/q.png", 20, 340, 30, 30);
-		image.drawImage("res/f.png", 20, 400, 30, 30);
-		image.drawImage("res/qf.png", 20, 460, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WINS, 20, 220, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WALLS, 20, 280, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 20, 340, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 20, 400, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 20, 460, 30, 30);
 		
 		
 		if (API.getUUID(player1).equals("b8ef1c7615e04b958d474ca133561f5a"))
-			image.drawImage("res/blackout.png", 130, 110, 320, 80);
+			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 130, 110, 320, 80);
 		else if (API.getUUID(player1).equals("92a5199614ac4bd181d1f3c951fb719f"))
-			image.drawImage("res/venom.png", 130, 110, 300, 85);
+			image.drawImageFromMemory(LoadedRessources.VENOM, 130, 110, 300, 85);
 		else {
 			image.drawStringLeft(API.getName(player1), 132, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 			image.drawStringLeft(API.getName(player1), 130, 140, 40, GeneralUtils.getFontColor(uuid));
@@ -340,20 +340,20 @@ public class CompareCanvas {
 		int q = API.getQualificationToInt(player1);
 		int score = q > f ? q : f;
 		
-		image.drawImage(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
 		
-		image.drawImage("res/win.png", 950, 220, 30, 30);
-		image.drawImage("res/wall.png", 950, 280, 30, 30);
-		image.drawImage("res/q.png", 950, 340, 30, 30);
-		image.drawImage("res/f.png", 950, 400, 30, 30);
-		image.drawImage("res/qf.png", 950, 460, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WINS, 950, 220, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WALLS, 950, 280, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 950, 340, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 950, 400, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 950, 460, 30, 30);
 		
 		if (API.getUUID(player1).equals("b8ef1c7615e04b958d474ca133561f5a"))
-			image.drawImage("res/blackout.png", 550, 110, 320, 80);
+			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 550, 110, 320, 80);
 		else if (API.getUUID(player1).equals("92a5199614ac4bd181d1f3c951fb719f"))
-			image.drawImage("res/venom.png", 570, 110, 300, 85);
+			image.drawImageFromMemory(LoadedRessources.VENOM, 570, 110, 300, 85);
 		else {
 			image.drawStringRight(API.getName(player1), 872, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 			image.drawStringRight(API.getName(player1), 870, 140, 40, GeneralUtils.getFontColor(uuid));
@@ -495,7 +495,7 @@ public class CompareCanvas {
 		if (wq >= f && wq >= q && wq >= l) score = wq;
 		if (l >= f && l >= q && l >= wq) score = l;
 		
-		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
 		image.drawImage("res/q.png", 20, 220, 30, 30);
@@ -566,7 +566,7 @@ public class CompareCanvas {
 		if (wq >= f && wq >= q && wq >= l) score = wq;
 		if (l >= f && l >= q && l >= wq) score = l;
 		
-		image.drawImage(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
 		image.drawImage("res/practiceHeader.png", 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		

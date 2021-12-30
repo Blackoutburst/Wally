@@ -1,5 +1,6 @@
 package core;
 
+import java.io.IOException;
 import java.util.EnumSet;
 
 import javax.security.auth.login.LoginException;
@@ -26,12 +27,24 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import utils.Canvas;
+import utils.LeaderboardList;
+import utils.LoadedRessources;
 
 public class Bot extends ListenerAdapter {
 	
 	public static Guild server;
 	
 	public Bot(String token, String activity) throws LoginException {
+		try {
+			LoadedRessources.loadRessources();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		LeaderboardList.init();
+		Canvas.init();
+		
 		JDA jda = JDABuilder.createLight(token, EnumSet.allOf(GatewayIntent.class))
 			.setActivity(Activity.playing(activity))
 			.addEventListeners(this)

@@ -28,22 +28,22 @@ public class StatsCanvas {
 		if (GeneralUtils.hasCustomBackground(uuid)) {
 			image.drawImage(GeneralUtils.getCustomBackground(uuid), 0, 80, 1000, 440);
 		} else {
-			image.drawImage(GeneralUtils.getCustomBackground(uuid), 0, 0, 1000, 520);
+			image.drawImageFromMemory(LoadedRessources.BACKGROUND_LARGE, 0, 0, 1000, 520);
 		}
-		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
-		image.drawImage("res/win.png", 520, 125, 30, 30);
-		image.drawImage("res/wall.png", 520, 185, 30, 30);
-		image.drawImage("res/q.png", 520, 245, 30, 30);
-		image.drawImage("res/f.png", 520, 305, 30, 30);
-		image.drawImage("res/qf.png", 520, 365, 30, 30);
-		image.drawImage("res/rank.png", 520, 425, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WINS, 520, 125, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WALLS, 520, 185, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 520, 245, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 520, 305, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 520, 365, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 520, 425, 30, 30);
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
-			image.drawImage("res/blackout.png", 130, 110, 320, 80);
+			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 130, 110, 320, 80);
 		else if (uuid.equals("92a5199614ac4bd181d1f3c951fb719f"))
-			image.drawImage("res/venom.png", 130, 110, 300, 85);
+			image.drawImageFromMemory(LoadedRessources.VENOM, 130, 110, 300, 85);
 		else {
 			image.drawStringLeft(name, 132, 142, 40, shadow);
 			image.drawStringLeft(name, 130, 140, 40, color);
@@ -54,7 +54,7 @@ public class StatsCanvas {
 		image.drawStringLeft(sub, 132, 182, 36, shadow);
 		image.drawStringLeft(sub, 130, 180, 36, color);
 		
-		int lvl = (int) (1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data)));
+		final int lvl = (int) (1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data)));
 		
 		final String discordId = GeneralUtils.getDiscordfromIGN(name);
 		String discordNick = "N/A";
@@ -88,13 +88,12 @@ public class StatsCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"), true);
-		final int wlb = GeneralUtils.getLBPosToInt(uuid, 'w', new ArrayList<LeaderboardPlayer>(lead));
-		final int rlb = GeneralUtils.getLBPosToInt(uuid, 'r', new ArrayList<LeaderboardPlayer>(lead));
-		final int qlb = GeneralUtils.getLBPosToInt(uuid, 'q', new ArrayList<LeaderboardPlayer>(lead));
-		final int flb = GeneralUtils.getLBPosToInt(uuid, 'f', new ArrayList<LeaderboardPlayer>(lead));
-		final int tlb = GeneralUtils.getLBPosToInt(uuid, 't', new ArrayList<LeaderboardPlayer>(lead));
-		final int olb = GeneralUtils.getLBPosToInt(uuid, 'o', new ArrayList<LeaderboardPlayer>(lead));
+		final int wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
+		final int rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
+		final int qlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.Q);
+		final int flb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.F);
+		final int tlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.QF);
+		final int olb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.OVERALL);
 		
 		final String wins = "Wins: " + API.getWins(data) + ((wlb != 10000) ? " (#"+ (wlb+1) + ")" : "");
 		final String walls = "Walls: " + API.getWalls(data) + ((rlb != 10000) ? " (#"+ (rlb+1) + ")" : "");
@@ -152,7 +151,7 @@ public class StatsCanvas {
 		} else {
 			image.drawImage(GeneralUtils.getCustomBackground(uuid), 0, 0, 1000, 520);
 		}
-		image.drawImage(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.drawImage("res/practiceHeader.png", 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		

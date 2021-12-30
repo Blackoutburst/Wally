@@ -504,6 +504,25 @@ public class GeneralUtils {
 	 * @param user
 	 * @return
 	 */
+	public static int getLBPosToIntFast(String user, List<LeaderboardPlayer> lead) {
+		if(user.length() > 31) {
+			for(int i = 0; i < lead.size(); i++) {
+				if(lead.get(i).uuid.equals(user)) return i;
+			}
+			return (10000);
+		} else {
+			for(int i = 0; i < lead.size(); i++) {
+				if(lead.get(i).name.equals(user)) return i;
+			}
+			return (10000);
+		}
+	}
+	
+	/**
+	 * Get player position in the leader board
+	 * @param user
+	 * @return
+	 */
 	public static int getPLBPosToInt(String user, String type, List<PracticeLeaderboardPlayer> lead) {
 		lead = sortPLB(lead, type);
 

@@ -10,6 +10,7 @@ import utils.Canvas;
 import utils.MessageSender;
 import utils.StatsCanvas;
 import utils.GeneralUtils;
+import utils.LeaderboardList;
 
 public class CommandStats extends CommandExecutable {
 
@@ -39,6 +40,7 @@ public class CommandStats extends CommandExecutable {
 			uuid = API.getUUID(data);
 		}
 		
+		LeaderboardList.sort();
 		Canvas image = new Canvas(1000, 520);
 		
 		StatsCanvas.createStatsImage(image, data, uuid);
@@ -51,6 +53,7 @@ public class CommandStats extends CommandExecutable {
 		if(!AltExcluder.isAnAlt(uuid, this.command) && API.getWinsToInt(data) >= 25) {
 			GeneralUtils.addToLeaderBoard(uuid, data, command);
 		}
+		LeaderboardList.init();
 		return (true);
 	}
 }
