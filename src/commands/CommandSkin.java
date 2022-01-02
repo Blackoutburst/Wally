@@ -25,6 +25,7 @@ public class CommandSkin extends CommandExecutable implements CommandError {
 		String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
 
 		MessageSender.message(command, url);
+		MessageSender.message(command, "NameMC link: <https://fr.namemc.com/profile/"+uuid+">");
 		return (true);
 	}
 }
