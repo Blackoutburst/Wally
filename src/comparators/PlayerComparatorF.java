@@ -7,7 +7,7 @@ import utils.LeaderboardPlayer;
 public class PlayerComparatorF implements Comparator<LeaderboardPlayer> {
 	
 	public int compare(LeaderboardPlayer b, LeaderboardPlayer a) {
-		int winsComparator = Integer.valueOf(a.finals).compareTo(b.finals);
-		return winsComparator == 0 ? Integer.valueOf(a.finals).compareTo(b.finals) : winsComparator;
+		int comparator = Integer.compare(a.finals, b.finals);
+		return comparator == 0 ? Integer.compare(a.finals, b.finals) : comparator;
 	}
 }

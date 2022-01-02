@@ -55,7 +55,6 @@ public class CommandLink extends CommandExecutable {
 	
 	/**
 	 * Set user role from his score
-	 * @param data
 	 */
 	private void setRole(String data, int discord) {
 		Guild guild = command.getMessage().getGuild();
@@ -68,7 +67,6 @@ public class CommandLink extends CommandExecutable {
 	
 	/**
 	 * Generate new user files
-	 * @param data
 	 */
 	private void generateFiles(String data, int ign, int discord) {
 		String uuid = Request.getPlayerUUID(command.getArgs()[ign]);

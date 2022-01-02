@@ -10,15 +10,7 @@ import utils.MessageSender;
 import utils.GeneralUtils;
 
 public class CommandCompare extends CommandExecutable {
-	
-	enum Type {
-		WINS,
-		WALLS,
-		Q,
-		F,
-		T
-	}
-	
+
 	public CommandCompare(Command command, boolean admin, String errorMessage) {
 		super(command, admin, errorMessage);
 	}
@@ -27,8 +19,8 @@ public class CommandCompare extends CommandExecutable {
 	protected boolean execute() {
 		if (command.getArgs().length < 1) return (badUsage(this));
 		
-		String player1 = null;
-		String player2 = null;
+		String player1;
+		String player2;
 		
 		if (command.getArgs().length == 1) {
 			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {

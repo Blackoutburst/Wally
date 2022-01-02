@@ -18,10 +18,10 @@ public class CommandPGraph extends CommandExecutable {
 	@Override
 	protected boolean execute() {
 		
-		String uuid = null;
-		String data = null;
-		String playerName = null;
-		int games = 100;
+		String uuid;
+		String data;
+		String playerName;
+		int games;
 		
 		if (command.getArgs().length == 0 || (command.getArgs().length == 1 && command.getArgs()[0].length() <= 2) || (command.getArgs().length == 2 && command.getArgs()[0].length() <= 2)) {
 			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {
@@ -36,7 +36,7 @@ public class CommandPGraph extends CommandExecutable {
 		}
 		
 		data = Request.getPracticeServerScore(uuid);
-		if (data.contains("Unknown player")) {
+		if (data != null && data.contains("Unknown player")) {
 			return unknownPlayer(this, playerName);
 		}
 		
@@ -63,9 +63,8 @@ public class CommandPGraph extends CommandExecutable {
 	private int getGames() {
 		for (int i = 1; i < command.getArgs().length; i++) {
 			try {
-				int games = Integer.valueOf(command.getArgs()[i]);
-				return (games);
-			} catch(Exception e) {}
+				return Integer.parseInt(command.getArgs()[i]);
+			} catch(Exception ignored) {}
 		}
 		return (100);
 	}

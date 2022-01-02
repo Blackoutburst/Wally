@@ -8,7 +8,6 @@ public class Generic {
 	
 	/**
 	 * Execute the event
-	 * @param event
 	 */
 	public void run(GenericEvent event) {
 		Bot.server = event.getJDA().getGuildById(ConfigManager.getString("serverID"));

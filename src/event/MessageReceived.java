@@ -2,6 +2,7 @@ package event;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import commands.CommandManager;
 import core.Command;
@@ -18,10 +19,9 @@ public class MessageReceived {
 	
 	/**
 	 * Execute the event
-	 * @param event
 	 */
 	public void run(MessageReceivedEvent event) {
-		if (event.getMember().getUser().isBot() && event.getMessage().getContentDisplay().equals("⠀")) event.getMessage().delete().complete();
+		if (Objects.requireNonNull(event.getMember()).getUser().isBot() && event.getMessage().getContentDisplay().equals("⠀")) event.getMessage().delete().complete();
 		if (event.isFromType(ChannelType.PRIVATE)) return;
 		if (event.getMember().getUser().isBot()) return;
 		if (event.getMessage().getContentRaw().length() == 0) return;
@@ -33,13 +33,11 @@ public class MessageReceived {
 		String name = getCommandName(message);
 		String[] args = getArgs(message);
 		
-		new CommandManager(new Command(sender, name, args, event.getChannel(), event.getMessage()));
+		CommandManager.run(new Command(sender, name, args, event.getChannel(), event.getMessage()));
 	}
 	
 	/**
 	 * Check if Wally is mentioned inside the tracker channel
-	 * @param event
-	 * @return
 	 */
 	private boolean wallyMention(MessageReceivedEvent event) {
 		if (event.getChannel().getId().equals(ConfigManager.getString("trackerChannel"))) {
@@ -47,7 +45,7 @@ public class MessageReceived {
 			for (Member m : members) {
 				if (m.getId().equals(Main.BOT_ID)) {
 					GeneralUtils.startTyping(event.getChannel());
-					new DisplayPBOnMention(event.getMember(), event);
+					new DisplayPBOnMention(Objects.requireNonNull(event.getMember()), event);
 					return (true);
 				}
 			}
@@ -56,7 +54,7 @@ public class MessageReceived {
 			for (Member m : members) {
 				if (m.getId().equals(Main.BOT_ID)) {
 					GeneralUtils.startTyping(event.getChannel());
-					new DisplayPracticePBOnMention(event.getMember(), event);
+					new DisplayPracticePBOnMention(Objects.requireNonNull(event.getMember()), event);
 					return (true);
 				}
 			}
@@ -66,8 +64,6 @@ public class MessageReceived {
 	
 	/**
 	 * Get command name
-	 * @param message
-	 * @return
 	 */
 	private String getCommandName(String message) {
 		String str = GeneralUtils.removeDuplicateSpace(message);
@@ -78,8 +74,6 @@ public class MessageReceived {
 
 	/**
 	 * Get commands arguments
-	 * @param message
-	 * @return
 	 */
 	private String[] getArgs(String message) {
 		String str = GeneralUtils.removeDuplicateSpace(message);

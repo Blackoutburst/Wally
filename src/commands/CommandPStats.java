@@ -5,10 +5,7 @@ import core.AltExcluder;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
-import utils.Canvas;
-import utils.GeneralUtils;
-import utils.MessageSender;
-import utils.StatsCanvas;
+import utils.*;
 
 public class CommandPStats extends CommandExecutable {
 
@@ -19,9 +16,9 @@ public class CommandPStats extends CommandExecutable {
 	@Override
 	protected boolean execute() {
 		
-		String uuid = null;
-		String data = null;
-		String playerName = null;
+		String uuid;
+		String data;
+		String playerName;
 		
 		if (command.getArgs().length == 0) {
 			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {
@@ -36,10 +33,11 @@ public class CommandPStats extends CommandExecutable {
 		}
 		
 		data = Request.getPracticeServerScore(uuid);
-		if (data.contains("Unknown player")) {
+		if (data != null && data.contains("Unknown player")) {
 			return unknownPlayer(this, playerName);
 		}
-		
+
+		LeaderboardList.pSort();
 		Canvas image = new Canvas(1000, 520);
 		
 		
@@ -49,6 +47,7 @@ public class CommandPStats extends CommandExecutable {
 		if(!AltExcluder.isAnAlt(uuid, this.command)) {
 			GeneralUtils.addToPracticeLeaderBoard(uuid, data, command);
 		}
+		LeaderboardList.pInit();
 		return (true);
 	}
 }

@@ -21,8 +21,8 @@ public class CommandStats extends CommandExecutable {
 	@Override
 	protected boolean execute() {
 		
-		String data = null;
-		String uuid = null;
+		String data;
+		String uuid;
 		
 		if (command.getArgs().length == 0) {
 			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {

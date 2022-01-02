@@ -13,13 +13,13 @@ public class CommandPoll extends CommandExecutable {
 	protected boolean execute() {
 		if (command.getArgs().length == 0) return (badUsage(this));
 		
-		String msg = "";
+		StringBuilder msg = new StringBuilder();
 		
 		for (String arg : command.getArgs()) {
-			msg += arg+" ";
+			msg.append(arg).append(" ");
 		}
 		
-		command.getChannel().sendMessage(msg).queue((message) -> {
+		command.getChannel().sendMessage(msg.toString()).queue((message) -> {
 			message.addReaction("U+1F44D").queue();
 			message.addReaction("U+1F44E").queue();
 		});

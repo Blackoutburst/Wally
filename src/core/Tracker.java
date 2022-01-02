@@ -13,14 +13,12 @@ public class Tracker {
 	public static Thread trackerThread = null;
 	
 	public void start() {
-		trackerThread = new Thread(new Runnable(){
-			public void run(){
-				while (true) {
-					try {
-						checkUsers();
-					} catch (Exception e) {
-						e.printStackTrace();
-					};
+		trackerThread = new Thread(() -> {
+			while (true) {
+				try {
+					checkUsers();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		});
@@ -35,10 +33,12 @@ public class Tracker {
 	private void checkUsers() {
 		File index = new File("linked player");
 		String[] entries = index.list();
-		
+
+		if (entries == null) return;
+
 		for(String s: entries) {
 			File playerFolder = new File(index.getPath(), s);
-			String data = "";
+			String data;
 			String fileLocation = playerFolder + "/data.json";
 
 			File tmpFile = new File(fileLocation);
@@ -48,10 +48,10 @@ public class Tracker {
 			String discordid = Stats.getDiscordId(localData);
 
 			String uuid = Stats.getUUID(localData);
-			int oldQ = 0;
-			int newQ = 0;
-			int oldF = 0;
-			int newF = 0;
+			int oldQ;
+			int newQ;
+			int oldF;
+			int newF;
 			
 			if(!GeneralUtils.isInsideTheServer(discordid)) {
 				GeneralUtils.unlinkMember(uuid);
@@ -75,17 +75,16 @@ public class Tracker {
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard", false);
 			GeneralUtils.updateLifeTimeRoles();
 			
-			delay(450);
+			delay();
 		}
 	}
 	
 	/**
 	 * Stop the current thread for a defined amount of time
-	 * @param ms
 	 */
-	private void delay(int ms) {
+	private void delay() {
 		try {
-			Thread.sleep(ms);
+			Thread.sleep(450);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

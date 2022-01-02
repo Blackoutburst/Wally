@@ -27,11 +27,6 @@ public class CompareCanvas {
 		L
 	}
 	
-	/**
-	 * Create compare image
-	 * @param image
-	 * @param data
-	 */
 	public static void createMultiCompareImage(Canvas image, String[] players) {
 		List<LeaderboardPlayer> pls = new ArrayList<>();
 		
@@ -41,7 +36,7 @@ public class CompareCanvas {
 		int f = pls.get(0).finals;
 		pls.sort(new PlayerComparatorQ());
 		int q = pls.get(0).qualification;
-		int score = q > f ? q : f;
+		int score = Math.max(q, f);
 		
 		image.drawImageFromMemory(LoadedRessources.BACKGROUND_ENDL, 0, 80, 1000, image.height);
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
@@ -55,12 +50,6 @@ public class CompareCanvas {
 		image.save("compare.png");
 	}
 	
-	/**
-	 * Return difference between two value
-	 * @param stat1
-	 * @param stat2
-	 * @return
-	 */
 	private static String localDiff(int p1, int p2) {
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat formatter = (DecimalFormat) nf;
@@ -78,7 +67,7 @@ public class CompareCanvas {
 			i++;
 			int f = p.finals;
 			int q = p.qualification;
-			int score = q > f ? q : f;
+			int score = Math.max(q, f);
 			
 			Color c = RolesManager.getRoleColor(score);
 			
@@ -115,7 +104,7 @@ public class CompareCanvas {
 			i++;
 			int f = p.finals;
 			int q = p.qualification;
-			int score = q > f ? q : f;
+			int score = Math.max(q, f);
 			
 			Color c = RolesManager.getRoleColor(score);
 			image.drawStringCenter(p.name, 300, 52 + (180 * i), 40, c.darker().darker().darker());
@@ -148,7 +137,7 @@ public class CompareCanvas {
 			i++;
 			int f = p.finals;
 			int q = p.qualification;
-			int score = q > f ? q : f;
+			int score = Math.max(q, f);
 			
 			Color c = RolesManager.getRoleColor(score);
 			image.drawStringCenter(p.name, 500, 52 + (180 * i), 40, c.darker().darker().darker());
@@ -181,7 +170,7 @@ public class CompareCanvas {
 			i++;
 			int f = p.finals;
 			int q = p.qualification;
-			int score = q > f ? q : f;
+			int score = Math.max(q, f);
 			
 			Color c = RolesManager.getRoleColor(score);
 			image.drawStringCenter(p.name, 700, 52 + (180 * i), 40, c.darker().darker().darker());
@@ -214,7 +203,7 @@ public class CompareCanvas {
 			i++;
 			int f = p.finals;
 			int q = p.qualification;
-			int score = q > f ? q : f;
+			int score = Math.max(q, f);
 			
 			Color c = RolesManager.getRoleColor(score);
 			image.drawStringCenter(p.name, 900, 52 + (180 * i), 40, c.darker().darker().darker());
@@ -236,17 +225,12 @@ public class CompareCanvas {
 		}
 	}
 	
-	/**
-	 * Create compare image
-	 * @param image
-	 * @param data
-	 */
 	public static void createCompareImage(Canvas image, String player1, String player2) {
 		setBackground(image, player1, player2);
-		
-		image = drawLeftSide(image, player1, player2);
-		image = drawRightSide(image, player2, player1);
-		
+
+		drawLeftSide(image, player1, player2);
+		drawRightSide(image, player2, player1);
+
 		image.save("compare.png");
 	}
 	
@@ -267,14 +251,12 @@ public class CompareCanvas {
 	
 	/**
 	 * Draw the left side of the compare canvas
-	 * @param image
-	 * @return
 	 */
-	private static Canvas drawLeftSide(Canvas image, String player1, String player2) {
+	private static void drawLeftSide(Canvas image, String player1, String player2) {
 		String uuid = API.getUUID(player1);
 		int f = API.getFinalsToInt(player1);
 		int q = API.getQualificationToInt(player1);
-		int score = q > f ? q : f;
+		int score = Math.max(q, f);
 		
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
@@ -325,20 +307,17 @@ public class CompareCanvas {
 		62, 487, 30, stringColor(player1, player2, Type.T).darker().darker().darker());
 		image.drawStringLeft("Q/F: " + API.getTotal(player1) + " (" + diff(player1, player2, Type.T) + ")",
 		60, 485, 30, stringColor(player1, player2, Type.T));
-		
-		return (image);
+
 	}
 	
 	/**
 	 * Draw the left side of the compare canvas
-	 * @param image
-	 * @return
 	 */
-	private static Canvas drawRightSide(Canvas image, String player1, String player2) {
+	private static void drawRightSide(Canvas image, String player1, String player2) {
 		String uuid = API.getUUID(player1);
 		int f = API.getFinalsToInt(player1);
 		int q = API.getQualificationToInt(player1);
-		int score = q > f ? q : f;
+		int score = Math.max(q, f);
 		
 		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
@@ -389,76 +368,57 @@ public class CompareCanvas {
 		942, 487, 30, stringColor(player1, player2, Type.T).darker().darker().darker());
 		image.drawStringRight("(" + diff(player1, player2, Type.T) + ") " + API.getTotal(player1) + " :Q/F",
 		940, 485, 30, stringColor(player1, player2, Type.T));
-		
-		return (image);
+
 	}
 	
 	/**
 	 * Get string color if value is positive negative or null
-	 * @param p1
-	 * @param p2
-	 * @return
 	 */
 	private static Color stringColor(String p1, String p2, Type t) {
-		Color color = Color.white;
+		Color color;
 		
 		color = diff(p1, p2, t).charAt(0) == '-' ? new Color(255, 80, 80): new Color(80, 255, 80);
 		if (diff(p1, p2, t).charAt(0) == '0') color = Color.white;
 		return (color);
 	}
 	
-	/**
-	 * Return difference between two value
-	 * @param stat1
-	 * @param stat2
-	 * @return
-	 */
 	private static String diff(String p1, String p2, Type type) {
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat formatter = (DecimalFormat) nf;
-		int d1 = 0;
-		int d2 = 0;
+		int d1;
+		int d2;
 		
 		switch(type) {
-			case WINS: 
-				d1 = Integer.valueOf(API.getWinsToInt(p1));
-				d2 = Integer.valueOf(API.getWinsToInt(p2));
-			break;
 			case WALLS:
-				d1 = Integer.valueOf(API.getWallsToInt(p1));
-				d2 = Integer.valueOf(API.getWallsToInt(p2));
+				d1 = API.getWallsToInt(p1);
+				d2 = API.getWallsToInt(p2);
 			break;
 			case Q: 
-				d1 = Integer.valueOf(API.getQualificationToInt(p1));
-				d2 = Integer.valueOf(API.getQualificationToInt(p2));
+				d1 = API.getQualificationToInt(p1);
+				d2 = API.getQualificationToInt(p2);
 			break;
 			case F: 
-				d1 = Integer.valueOf(API.getFinalsToInt(p1));
-				d2 = Integer.valueOf(API.getFinalsToInt(p2));
+				d1 = API.getFinalsToInt(p1);
+				d2 = API.getFinalsToInt(p2);
 			break;
 			case T: 
-				d1 = Integer.valueOf(API.getTotalToInt(p1));
-				d2 = Integer.valueOf(API.getTotalToInt(p2));
+				d1 = API.getTotalToInt(p1);
+				d2 = API.getTotalToInt(p2);
 			break;
 			default: 
-				d1 = Integer.valueOf(API.getWinsToInt(p1));
-				d2 = Integer.valueOf(API.getWinsToInt(p2));
+				d1 = API.getWinsToInt(p1);
+				d2 = API.getWinsToInt(p2);
 			break;
 		}
 		return (formatter.format(d1 - d2));
 	}
 	
-	/**
-	 * Create compare image
-	 * @param image
-	 * @param data
-	 */
 	public static void createPCompareImage(Canvas image, String player1Uuid, String player2Uuid, String player1Stats, String player2Stats, String player1Name, String player2Name) {
 		setPracticeBackground(image, player1Uuid, player2Uuid);
-		
-		image = drawPLeftSide(image, player1Stats, player2Stats, player1Uuid, player1Name);
-		image = drawPRightSide(image, player2Stats, player1Stats, player2Uuid, player2Name);
-		
+
+		drawPLeftSide(image, player1Stats, player2Stats, player1Uuid, player1Name);
+		drawPRightSide(image, player2Stats, player1Stats, player2Uuid, player2Name);
+
 		image.save("pcompare.png");
 	}
 	
@@ -479,15 +439,13 @@ public class CompareCanvas {
 	
 	/**
 	 * Draw the left side of the compare canvas
-	 * @param image
-	 * @return
 	 */
-	private static Canvas drawPLeftSide(Canvas image, String player1, String player2, String uuid, String name) {
-		int q = PracticeAPI.getQualificationToInt(player1);
-		int f = PracticeAPI.getFinalsToInt(player1);
-		int wq = PracticeAPI.getWideQualificationToInt(player1);
-		int l = PracticeAPI.getLobbyToInt(player1);
-		int lqf = l+q+f+wq;
+	private static void drawPLeftSide(Canvas image, String player1, String player2, String uuid, String name) {
+		final int q = PracticeAPI.getQualificationToInt(player1);
+		final int f = PracticeAPI.getFinalsToInt(player1);
+		final int wq = PracticeAPI.getWideQualificationToInt(player1);
+		final int l = PracticeAPI.getLobbyToInt(player1);
+		final int lqf = l+q+f+wq;
 		int score = 0;
 		
 		if (q >= f && q >= wq && q >= l) score = q;
@@ -498,17 +456,17 @@ public class CompareCanvas {
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
-		image.drawImage("res/q.png", 20, 220, 30, 30);
-		image.drawImage("res/f.png", 20, 280, 30, 30);
-		image.drawImage("res/l.png", 20, 340, 30, 30);
-		image.drawImage("res/wq.png", 20, 400, 30, 30);
-		image.drawImage("res/qf.png", 20, 460, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 20, 220, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 20, 280, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.L, 20, 340, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WQ, 20, 400, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 20, 460, 30, 30);
 		
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
-			image.drawImage("res/blackout.png", 130, 110, 320, 80);
+			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 130, 110, 320, 80);
 		else if (uuid.equals("92a5199614ac4bd181d1f3c951fb719f"))
-			image.drawImage("res/venom.png", 130, 110, 300, 85);
+			image.drawImageFromMemory(LoadedRessources.VENOM, 130, 110, 300, 85);
 		else {
 			image.drawStringLeft(name, 132, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 			image.drawStringLeft(name, 130, 140, 40, GeneralUtils.getFontColor(uuid));
@@ -544,21 +502,18 @@ public class CompareCanvas {
 		62, 487, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());		
 		image.drawStringLeft("L/Q/F/WQ: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
 		60, 485, 30, pstringColor(player1, player2, Type.LQF));
-		
-		return (image);
+
 	}
 	
 	/**
 	 * Draw the left side of the compare canvas
-	 * @param image
-	 * @return
 	 */
-	private static Canvas drawPRightSide(Canvas image, String player1, String player2, String uuid, String name) {
-		int q = PracticeAPI.getQualificationToInt(player1);
-		int f = PracticeAPI.getFinalsToInt(player1);
-		int wq = PracticeAPI.getWideQualificationToInt(player1);
-		int l = PracticeAPI.getLobbyToInt(player1);
-		int lqf = l+q+f+wq;
+	private static void drawPRightSide(Canvas image, String player1, String player2, String uuid, String name) {
+		final int q = PracticeAPI.getQualificationToInt(player1);
+		final int f = PracticeAPI.getFinalsToInt(player1);
+		final int wq = PracticeAPI.getWideQualificationToInt(player1);
+		final int l = PracticeAPI.getLobbyToInt(player1);
+		final int lqf = l+q+f+wq;
 		int score = 0;
 		
 		if (q >= f && q >= wq && q >= l) score = q;
@@ -567,19 +522,19 @@ public class CompareCanvas {
 		if (l >= f && l >= q && l >= wq) score = l;
 		
 		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
-		image.drawImage("res/practiceHeader.png", 0, 0, 1000, 400);
+		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
-		image.drawImage("res/q.png", 950, 220, 30, 30);
-		image.drawImage("res/f.png", 950, 280, 30, 30);
-		image.drawImage("res/l.png", 950, 340, 30, 30);
-		image.drawImage("res/wq.png", 950, 400, 30, 30);
-		image.drawImage("res/qf.png", 950, 460, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 950, 220, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 950, 280, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.L, 950, 340, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WQ, 950, 400, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 950, 460, 30, 30);
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
-			image.drawImage("res/blackout.png", 550, 110, 320, 80);
+			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 550, 110, 320, 80);
 		else if (uuid.equals("92a5199614ac4bd181d1f3c951fb719f"))
-			image.drawImage("res/venom.png", 570, 110, 300, 85);
+			image.drawImageFromMemory(LoadedRessources.VENOM, 570, 110, 300, 85);
 		else {
 			image.drawStringRight(name, 872, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
 			image.drawStringRight(name, 870, 140, 40, GeneralUtils.getFontColor(uuid));
@@ -615,35 +570,25 @@ public class CompareCanvas {
 		942, 487, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());		
 		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :L/Q/F/WQ",
 		940, 485, 30, pstringColor(player1, player2, Type.LQF));
-		
-		return (image);
+
 	}
 	
 	/**
 	 * Get string color if value is positive negative or null
-	 * @param p1
-	 * @param p2
-	 * @return
 	 */
 	private static Color pstringColor(String p1, String p2, Type t) {
-		Color color = Color.white;
+		Color color;
 		
 		color = pdiff(p1, p2, t).charAt(0) == '-' ? new Color(255, 80, 80): new Color(80, 255, 80);
 		if (pdiff(p1, p2, t).charAt(0) == '0') color = Color.white;
 		return (color);
 	}
 	
-	/**
-	 * Return difference between two value
-	 * @param stat1
-	 * @param stat2
-	 * @return
-	 */
 	private static String pdiff(String p1, String p2, Type type) {
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat formatter = (DecimalFormat) nf;
-		int d1 = 0;
-		int d2 = 0;
+		int d1;
+		int d2;
 		
 		switch(type) {
 			case Q: 

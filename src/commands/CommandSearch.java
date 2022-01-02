@@ -44,7 +44,6 @@ public class CommandSearch extends CommandExecutable {
 	
 	/**
 	 * Get leader board type
-	 * @return
 	 */
 	private char getType() {
 		for (String arg : command.getArgs()) {
@@ -57,7 +56,6 @@ public class CommandSearch extends CommandExecutable {
 	
 	/**
 	 * Get leader board page
-	 * @return
 	 */
 	private int getPosition() {
 		int pos = 1;
@@ -66,7 +64,7 @@ public class CommandSearch extends CommandExecutable {
 			try {
 				pos = Integer.parseInt(arg);
 				break;
-			} catch(Exception e) {}
+			} catch(Exception ignored) {}
 		}
 		if (pos <= 0) pos = 1;
 		pos--;

@@ -23,7 +23,7 @@ public class CommandConvert extends CommandExecutable {
 		
 		Type type;
 		int typeArg = getTypeArgIndex();
-		double value = 0;
+		double value;
 		
 		if (typeArg == -1) return (badUsage(this));
 		switch(command.getArgs()[typeArg].toLowerCase()) {
@@ -59,12 +59,11 @@ public class CommandConvert extends CommandExecutable {
 	
 	/**
 	 * Show final score conversion
-	 * @param value
 	 */
 	private void displayFinalValue(double value) {
-		double a = 0.00285258d;
-		double b = 0.382482d;
-		double RF = 0;
+		double a;
+		double b;
+		double RF;
 		double F = value;
 		int Q = 0;
 		boolean searching = true;
@@ -98,33 +97,30 @@ public class CommandConvert extends CommandExecutable {
 	
 	/**
 	 * Show qualification score conversion
-	 * @param value
 	 */
 	private void displayQualificationValue(double value) {
-		double Q = value;
-		double F = 0;
+		double F;
 		
-		if (Q < 0 || Q > 400) {
+		if (value < 0 || value > 400) {
 			MessageSender.messageMention(command, "Value must be between 0 and 400");
 			return;
 		}
-		if (Q < 45) {
-			MessageSender.message(command, Math.round(Q) + "Q compares to **0**F as they probably won't qualify");
+		if (value < 45) {
+			MessageSender.message(command, Math.round(value) + "Q compares to **0**F as they probably won't qualify");
 			return;
 		}
 		double a = 0.00285258d;
 		double b = 0.382482d;
-		if (Q < 100) {
+		if (value < 100) {
 			a = -0.0209171241809d;
 			b = 2.75945240632d;
 		}
-		F = (Q - 100) * (a * Q + b) + 100;
-		MessageSender.message(command, Math.round(Q) + "Q compares to **" + Math.round(F) + "**F");
+		F = (value - 100) * (a * value + b) + 100;
+		MessageSender.message(command, Math.round(value) + "Q compares to **" + Math.round(F) + "**F");
 	}
 	
 	/**
 	 * Get which argument is the type argument
-	 * @return
 	 */
 	private int getTypeArgIndex() {
 		int index = 0;

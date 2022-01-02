@@ -10,12 +10,10 @@ public class API {
 
 	/**
 	 * Return player name
-	 * @param json
-	 * @return
 	 */
 	public static Object getPlayer(String json) {
 		JSONObject obj = new JSONObject(json);
-		
+
 		if (obj.get("player").equals(null)) {
 			return (null);
 		}
@@ -24,8 +22,6 @@ public class API {
 	
 	/**
 	 * Return player name
-	 * @param json
-	 * @return
 	 */
 	public static String getName(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -35,8 +31,6 @@ public class API {
 	
 	/**
 	 * Return player UUID
-	 * @param json
-	 * @return
 	 */
 	public static String getUUID(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -46,8 +40,6 @@ public class API {
 	
 	/**
 	 * Return player wins
-	 * @param json
-	 * @return
 	 */
 	public static String getWins(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -57,14 +49,12 @@ public class API {
 		
 		try {
 			value =  obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("wins_hole_in_the_wall");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		return (formatter.format(value));
 	}
 	
 	/**
 	 * Return player walls cleared
-	 * @param json
-	 * @return
 	 */
 	public static String getWalls(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -74,14 +64,12 @@ public class API {
 		
 		try {
 			value = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("rounds_hole_in_the_wall");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		return (formatter.format(value));
 	}
 	
 	/**
 	 * Return player qualification score
-	 * @param json
-	 * @return
 	 */
 	public static String getQualification(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -91,14 +79,12 @@ public class API {
 		
 		try {
 			value = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("hitw_record_q");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		return (formatter.format(value));
 	}
 	
 	/**
 	 * Return player final score
-	 * @param json
-	 * @return
 	 */
 	public static String getFinals(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -108,14 +94,12 @@ public class API {
 		
 		try {
 			value = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("hitw_record_f");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		return (formatter.format(value));
 	}
 	
 	/**
 	 * Return player total score
-	 * @param json
-	 * @return
 	 */
 	public static String getTotal(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -127,15 +111,13 @@ public class API {
 		try {
 			q = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("hitw_record_q");
 			f = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("hitw_record_f");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		
 		return (formatter.format(q + f));
 	}
 	
 	/**
 	 * Return player wins
-	 * @param json
-	 * @return
 	 */
 	public static int getWinsToInt(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -143,14 +125,12 @@ public class API {
 		
 		try {
 			value =  obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("wins_hole_in_the_wall");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		return (value);
 	}
 	
 	/**
 	 * Return player walls cleared
-	 * @param json
-	 * @return
 	 */
 	public static int getWallsToInt(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -158,14 +138,12 @@ public class API {
 		
 		try {
 			value = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("rounds_hole_in_the_wall");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		return (value);
 	}
 	
 	/**
 	 * Return player qualification score
-	 * @param json
-	 * @return
 	 */
 	public static int getQualificationToInt(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -173,14 +151,12 @@ public class API {
 		
 		try {
 			value = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("hitw_record_q");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		return (value);
 	}
 	
 	/**
 	 * Return player final score
-	 * @param json
-	 * @return
 	 */
 	public static int getFinalsToInt(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -188,14 +164,12 @@ public class API {
 		
 		try {
 			value = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("hitw_record_f");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		return (value);
 	}
 	
 	/**
 	 * Return player total score
-	 * @param json
-	 * @return
 	 */
 	public static int getTotalToInt(String json) {
 		JSONObject obj = new JSONObject(json);
@@ -205,7 +179,7 @@ public class API {
 		try {
 			q = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("hitw_record_q");
 			f = obj.getJSONObject("player").getJSONObject("stats").getJSONObject("Arcade").getInt("hitw_record_f");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		
 		return (q + f);
 	}
@@ -216,7 +190,7 @@ public class API {
 
 		try {
 			lvl = obj.getJSONObject("player").getInt("networkExp");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 
 		return lvl;
 	}
@@ -227,7 +201,7 @@ public class API {
 
 		try {
 			ap = obj.getJSONObject("player").getInt("achievementPoints");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 
 		return ap;
 	}
@@ -240,7 +214,7 @@ public class API {
 
 		try {
 			ap = obj.getJSONObject("player").getInt("achievementPoints");
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 
 		return formatter.format(ap);
 	}

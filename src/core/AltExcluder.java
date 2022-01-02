@@ -12,8 +12,6 @@ public class AltExcluder {
 	
 	/**
 	 * Check is this account is an alt using their uuid
-	 * @param uuid
-	 * @return
 	 */
 	public static boolean isAnAlt(String uuid, Command command) {
 		List<String> altUuid = readList();
@@ -24,14 +22,20 @@ public class AltExcluder {
 			String[] split = str.split(",");
 			
 			if (uuid.equals(split[0])) {
-				if (split[2].equals("s")) {
-					MessageSender.susAccount(command);
-				} else if (split[2].equals("a")) {
-					String data = Request.getPlayerStatsUUID(split[1]);
-					MessageSender.altAccount(command, API.getName(data));
-				} else if (split[2].equals("b")) {
-					String data = Request.getPlayerStatsUUID(split[1]);
-					MessageSender.boostedAccount(command, API.getName(data));
+				switch (split[2]) {
+					case "s":
+						MessageSender.susAccount(command);
+						break;
+					case "a": {
+						String data = Request.getPlayerStatsUUID(split[1]);
+						MessageSender.altAccount(command, API.getName(data));
+						break;
+					}
+					case "b": {
+						String data = Request.getPlayerStatsUUID(split[1]);
+						MessageSender.boostedAccount(command, API.getName(data));
+						break;
+					}
 				}
 				alt = true;
 			}
@@ -45,15 +49,14 @@ public class AltExcluder {
 	
 	/**
 	 * Read alt account list
-	 * @return
 	 */
 	private static List<String> readList() {
-		List<String> uuids = new ArrayList<String>();
+		List<String> uuids = new ArrayList<>();
 		
 		try {
 			FileReader in = new FileReader("./alts.txt");
 			BufferedReader br = new BufferedReader(in);
-			String line = null;
+			String line;
 			
 			while ((line = br.readLine()) != null) {
 				uuids.add(line);

@@ -2,6 +2,7 @@ package core;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Objects;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -15,30 +16,23 @@ public class RolesManager {
 	
 	/**
 	 * Set member tournament player role
-	 * @param action
-	 * @param guild
-	 * @param member
 	 */
 	public void setTournamentPlayer(RoleAction action, Guild guild, Member member) {
 		switch (action) {
-			case ADD: guild.addRoleToMember(member, guild.getRoleById(ConfigManager.getRoleId("Tournament Player"))).complete(); break;
-			case REMOVE: guild.removeRoleFromMember(member, guild.getRoleById(ConfigManager.getRoleId("Tournament Player"))).complete(); break;
-			default : return;
+			case ADD: guild.addRoleToMember(member, Objects.requireNonNull(guild.getRoleById(ConfigManager.getRoleId("Tournament Player")))).complete(); break;
+			case REMOVE: guild.removeRoleFromMember(member, Objects.requireNonNull(guild.getRoleById(ConfigManager.getRoleId("Tournament Player")))).complete(); break;
+			default :
 		}
 	}
 	
 	/**
 	 * Set member gender role
-	 * @param action
-	 * @param guild
-	 * @param member
-	 * @param roleName
 	 */
 	public void setGender(RoleAction action, Guild guild, Member member, String roleName) {
 		switch (action) {
-			case ADD: guild.addRoleToMember(member, guild.getRoleById(ConfigManager.getRoleId(roleName))).complete(); break;
-			case REMOVE: guild.removeRoleFromMember(member, guild.getRoleById(ConfigManager.getRoleId(roleName))).complete(); break;
-			default : return;
+			case ADD: guild.addRoleToMember(member, Objects.requireNonNull(guild.getRoleById(ConfigManager.getRoleId(roleName)))).complete(); break;
+			case REMOVE: guild.removeRoleFromMember(member, Objects.requireNonNull(guild.getRoleById(ConfigManager.getRoleId(roleName)))).complete(); break;
+			default :
 		}
 	}
 	
@@ -47,11 +41,11 @@ public class RolesManager {
 	 */
 	
 	public void addClubRole(Guild guild, Member member, int qualification, int finals, Command command) {
-		int best = (finals > qualification) ? finals : qualification;
-		String roleName = "";
+		int best = Math.max(finals, qualification);
+		String roleName;
 		
 		if (best < 50) return;
-		if (best >= 50) roleName = "50+ Club";
+		roleName = "50+ Club";
 		if (best >= 100) roleName = "100+ Club";
 		if (best >= 150) roleName = "150+ Club";
 		if (best >= 200) roleName = "200+ Club";
@@ -76,9 +70,7 @@ public class RolesManager {
 	}
 	
 	/**
-	 * Remove every roles club
-	 * @param guild
-	 * @param member
+	 * Remove every role club
 	 */
 	private void cleanClubRole(Guild guild, Member member, int best) {
 		for (Role r : member.getRoles()) {
@@ -106,9 +98,7 @@ public class RolesManager {
 	}
 	
 	/**
-	 * Remove every roles club
-	 * @param guild
-	 * @param member
+	 * Remove every role club
 	 */
 	public void cleanLifeTimeRole(Member member, List<LeaderboardPlayer> lb, LeaderboardPlayer player) {
 		for (Role r : member.getRoles()) {
@@ -129,22 +119,20 @@ public class RolesManager {
 	
 	/**
 	 * Return role color
-	 * @param discord
-	 * @return
 	 */
 	public static Color getRoleColor(int score) {
-		Color color = Bot.server.getRoleById(ConfigManager.getRoleId("Members")).getColor();
+		Color color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("Members"))).getColor();
 		
-		if (score >= 50) {color = Bot.server.getRoleById(ConfigManager.getRoleId("50+ Club")).getColor();}
-		if (score >= 100) {color = Bot.server.getRoleById(ConfigManager.getRoleId("100+ Club")).getColor();}
-		if (score >= 150) {color = Bot.server.getRoleById(ConfigManager.getRoleId("150+ Club")).getColor();}
-		if (score >= 200) {color = Bot.server.getRoleById(ConfigManager.getRoleId("200+ Club")).getColor();}
-		if (score >= 250) {color = Bot.server.getRoleById(ConfigManager.getRoleId("250+ Club")).getColor();}
-		if (score >= 300) {color = Bot.server.getRoleById(ConfigManager.getRoleId("300+ Club")).getColor();}
-		if (score >= 350) {color = Bot.server.getRoleById(ConfigManager.getRoleId("350+ Club")).getColor();}
-		if (score >= 400) {color = Bot.server.getRoleById(ConfigManager.getRoleId("400+ Club")).getColor();}
-		if (score >= 450) {color = Bot.server.getRoleById(ConfigManager.getRoleId("450+ Club")).getColor();}
-		if (score >= 500) {color = Bot.server.getRoleById(ConfigManager.getRoleId("500+ Club")).getColor();}
+		if (score >= 50) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("50+ Club"))).getColor();}
+		if (score >= 100) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("100+ Club"))).getColor();}
+		if (score >= 150) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("150+ Club"))).getColor();}
+		if (score >= 200) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("200+ Club"))).getColor();}
+		if (score >= 250) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("250+ Club"))).getColor();}
+		if (score >= 300) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("300+ Club"))).getColor();}
+		if (score >= 350) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("350+ Club"))).getColor();}
+		if (score >= 400) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("400+ Club"))).getColor();}
+		if (score >= 450) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("450+ Club"))).getColor();}
+		if (score >= 500) {color = Objects.requireNonNull(Bot.server.getRoleById(ConfigManager.getRoleId("500+ Club"))).getColor();}
 		return color;
 	}
 }

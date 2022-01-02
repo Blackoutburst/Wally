@@ -1,6 +1,7 @@
 package commands;
 
 import java.io.File;
+import java.util.Objects;
 
 import core.Command;
 import core.CommandExecutable;
@@ -19,7 +20,7 @@ public class CommandSetChangelog extends CommandExecutable {
 		
 		Attachment file = command.getMessage().getAttachments().get(0);
 		
-		if (file.getFileExtension().equals("txt")) {
+		if (Objects.equals(file.getFileExtension(), "txt")) {
 			file.downloadToFile(new File("changelog.txt"));
 			MessageSender.messageJSON(command, "changelog update");
 		} else {

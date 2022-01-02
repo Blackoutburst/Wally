@@ -27,6 +27,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import org.jetbrains.annotations.NotNull;
 import utils.Canvas;
 import utils.LeaderboardList;
 import utils.LoadedRessources;
@@ -43,6 +44,7 @@ public class Bot extends ListenerAdapter {
 		}
 		
 		LeaderboardList.init();
+		LeaderboardList.pInit();
 		Canvas.init();
 		
 		JDA jda = JDABuilder.createLight(token, EnumSet.allOf(GatewayIntent.class))
@@ -58,7 +60,7 @@ public class Bot extends ListenerAdapter {
 	}
 	
 	@Override
-	public void onGenericEvent(GenericEvent event) {
+	public void onGenericEvent(@NotNull GenericEvent event) {
 		if (event instanceof ReadyEvent) {
 			new Generic().run(event);
 			new Tracker().start();
@@ -68,27 +70,27 @@ public class Bot extends ListenerAdapter {
 	}
 	
 	@Override
-	public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+	public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
 		new GuildMemberJoin().run(event);
 	}
 	
 	@Override
-	public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
+	public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
 		new GuildMessageReactionAdd().run(event);
 	}
 	
 	@Override
-	public void onGuildMessageReactionRemove(GuildMessageReactionRemoveEvent event) {
+	public void onGuildMessageReactionRemove(@NotNull GuildMessageReactionRemoveEvent event) {
 		new GuildMessageReactionRemove().run(event);
 	}
 	
 	@Override
-	public void onMessageReceived(MessageReceivedEvent event) {
+	public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 		new MessageReceived().run(event);
 	}
 	
 	@Override
-	public void onSlashCommand(SlashCommandEvent event) {
+	public void onSlashCommand(@NotNull SlashCommandEvent event) {
 		new SlashCommands().run(event);
 	}
 }

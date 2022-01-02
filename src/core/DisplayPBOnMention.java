@@ -12,12 +12,10 @@ public class DisplayPBOnMention {
 	
 	/**
 	 * Get user data from mention inside tracker channel
-	 * @param sender
-	 * @param event
 	 */
 	public DisplayPBOnMention(Member sender, MessageReceivedEvent event) {
-		String data = null;
-		String localData = null;
+		String data;
+		String localData;
 		
 		if (GeneralUtils.isLinkedDiscord(sender.getId())) {
 			data = Request.getPlayerStatsUUID(GeneralUtils.getUUIDfromDiscord(sender.getId()));
@@ -32,10 +30,6 @@ public class DisplayPBOnMention {
 	
 	/**
 	 * Check for pb and display them
-	 * @param data
-	 * @param localData
-	 * @param sender
-	 * @param event
 	 */
 	private void execute(String data, String localData, Member sender, MessageReceivedEvent event) {
 		int oldQ = Stats.getQualificationToInt(localData);

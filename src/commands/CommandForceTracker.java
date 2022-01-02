@@ -13,8 +13,8 @@ public class CommandForceTracker extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		Tracker.forced = Tracker.forced ? false : true;
-		MessageSender.message(command, "Tracker forced: **" + String.valueOf(Tracker.forced) + "**");
+		Tracker.forced = !Tracker.forced;
+		MessageSender.message(command, "Tracker forced: **" + Tracker.forced + "**");
 		return (true);
 	}
 }

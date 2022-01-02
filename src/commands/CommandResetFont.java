@@ -19,11 +19,13 @@ public class CommandResetFont extends CommandExecutable {
 	protected boolean execute() {
 		File index = new File("linked player");
 		String[]entries = index.list();
-		
+
+		if (entries == null) return (false);
+
 		for (String s: entries) {
 			File playerFolder = new File(index.getPath(),s);
 			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");
-			
+
 			if (obj.getString("discordid").equals(command.getSender().getId()) &&
 				new File(playerFolder + "/font.ttf").exists()) {
 				new File(playerFolder + "/font.ttf").delete();

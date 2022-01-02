@@ -9,15 +9,7 @@ import utils.MessageSender;
 import utils.GeneralUtils;
 
 public class CommandPCompare extends CommandExecutable {
-	
-	enum Type {
-		WINS,
-		WALLS,
-		Q,
-		F,
-		T
-	}
-	
+
 	public CommandPCompare(Command command, boolean admin, String errorMessage) {
 		super(command, admin, errorMessage);
 	}
@@ -26,12 +18,12 @@ public class CommandPCompare extends CommandExecutable {
 	protected boolean execute() {
 		if (command.getArgs().length < 1) return (badUsage(this));
 		
-		String player1 = null;
-		String player2 = null;
-		String player1Uuid = null;
-		String player2Uuid = null;
-		String player1Name = null;
-		String player2Name = null;
+		String player1;
+		String player2;
+		String player1Uuid;
+		String player2Uuid;
+		String player1Name;
+		String player2Name;
 		
 		if (command.getArgs().length == 1) {
 			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {
@@ -52,12 +44,12 @@ public class CommandPCompare extends CommandExecutable {
 		}
 		
 		player1 = Request.getPracticeServerScore(player1Uuid);
-		if (player1.contains("Unknown player")) {
+		if (player1 != null && player1.contains("Unknown player")) {
 			return unknownPlayer(this, player1Name);
 		}
 		
 		player2 = Request.getPracticeServerScore(player2Uuid);
-		if (player2.contains("Unknown player")) {
+		if (player2 != null && player2.contains("Unknown player")) {
 			return unknownPlayer(this, player2Name);
 		}
 		

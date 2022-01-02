@@ -1,6 +1,7 @@
 package commands;
 
 import java.io.File;
+import java.util.Objects;
 
 import core.Command;
 import core.CommandExecutable;
@@ -20,7 +21,7 @@ public class CommandSetConfig extends CommandExecutable {
 		
 		Attachment file = command.getMessage().getAttachments().get(0);
 		
-		if (file.getFileExtension().equals("json")) {
+		if (Objects.equals(file.getFileExtension(), "json")) {
 			file.downloadToFile(new File("config.json"));
 			try {
 				new ConfigManager().init("config.json");

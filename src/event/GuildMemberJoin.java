@@ -8,7 +8,6 @@ public class GuildMemberJoin {
 	
 	/**
 	 * Execute the event
-	 * @param event
 	 */
 	public void run(GuildMemberJoinEvent event) {
 		if (event.getMember().getUser().isBot()) return;

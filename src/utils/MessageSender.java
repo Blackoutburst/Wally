@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.File;
+import java.util.Objects;
 
 import core.Bot;
 import core.Command;
@@ -11,9 +12,6 @@ public class MessageSender {
 	
 	/**
 	 * Send message with user mention in the command channel
-	 * @param member
-	 * @param channel
-	 * @param message
 	 */
 	public static void messageJSONMention(Command command, String message) {
 		command.getChannel().sendMessage(command.getSender().getAsMention() + ",\n" + ConfigManager.getMessage(message)).complete();
@@ -21,8 +19,6 @@ public class MessageSender {
 	
 	/**
 	 * Send message in the command channel
-	 * @param channel
-	 * @param message
 	 */
 	public static void messageJSON(Command command, String message) {
 		command.getChannel().sendMessage(ConfigManager.getMessage(message)).complete();
@@ -30,8 +26,6 @@ public class MessageSender {
 	
 	/**
 	 * Send message in the command channel
-	 * @param channel
-	 * @param message
 	 */
 	public static void altAccount(Command command, String owner) {
 		command.getChannel().sendMessage("This account is the alt account of `"+owner+"`").complete();
@@ -39,8 +33,6 @@ public class MessageSender {
 	
 	/**
 	 * Send message in the command channel
-	 * @param channel
-	 * @param message
 	 */
 	public static void boostedAccount(Command command, String owner) {
 		command.getChannel().sendMessage("This account was boosted by `"+owner+"`").complete();
@@ -48,8 +40,6 @@ public class MessageSender {
 	
 	/**
 	 * Send message in the command channel
-	 * @param channel
-	 * @param message
 	 */
 	public static void susAccount(Command command) {
 		command.getChannel().sendMessage("This account stat are off, it's most likely a boosted account or an alt account").complete();
@@ -57,8 +47,6 @@ public class MessageSender {
 	
 	/**
 	 * Send message in the command channel
-	 * @param channel
-	 * @param message
 	 */
 	public static void notOnLBAccount(Command command) {
 		command.getChannel().sendMessage("For this reason this account will not appear on the leaderboard").complete();
@@ -66,8 +54,6 @@ public class MessageSender {
 	
 	/**
 	 * Send custom message in the command channel
-	 * @param channel
-	 * @param message
 	 */
 	public static void message(Command command, String message) {
 		if (command == null) return;
@@ -76,8 +62,6 @@ public class MessageSender {
 	
 	/**
 	 * Send custom message in the command channel and mention the user
-	 * @param channel
-	 * @param message
 	 */
 	public static void messageMention(Command command, String message) {
 		String str = command.getSender().getAsMention() + ",\n";
@@ -87,8 +71,6 @@ public class MessageSender {
 	
 	/**
 	 * Send bad usage message
-	 * @param channel
-	 * @param message
 	 */
 	public static void badUsage(Command command, String message) {
 		String str = command.getSender().getAsMention() + ",\n";
@@ -99,8 +81,6 @@ public class MessageSender {
 	
 	/**
 	 * Send wrong file format message
-	 * @param channel
-	 * @param message
 	 */
 	public static void wrongFileFormat(Command command, String message) {
 		String str = command.getSender().getAsMention() + ",\n";
@@ -111,8 +91,6 @@ public class MessageSender {
 
 	/**
 	 * Send wrong file size error message
-	 * @param channel
-	 * @param message
 	 */
 	public static void fileSizeOverLimit(Command command, String message) {
 		String str = command.getSender().getAsMention() + ",\n";
@@ -123,8 +101,6 @@ public class MessageSender {
 	
 	/**
 	 * Send unknown player message
-	 * @param channel
-	 * @param message
 	 */
 	public static void unknownPlayer(Command command, String player) {
 		String str = command.getSender().getAsMention() + ",\n";
@@ -135,8 +111,6 @@ public class MessageSender {
 	
 	/**
 	 * Send never joined message
-	 * @param channel
-	 * @param message
 	 */
 	public static void neverJoined(Command command, String player) {
 		String str = command.getSender().getAsMention() + ",\n";
@@ -147,8 +121,6 @@ public class MessageSender {
 	
 	/**
 	 * Send unknown player message
-	 * @param channel
-	 * @param message
 	 */
 	public static void unknownMember(Command command, String id) {
 		String str = command.getSender().getAsMention() + ",\n";
@@ -159,8 +131,6 @@ public class MessageSender {
 	
 	/**
 	 * Send file
-	 * @param channel
-	 * @param message
 	 */
 	public static void sendFile(Command command, String file) {
 		command.getChannel().sendFile(new File(file)).complete();
@@ -168,8 +138,6 @@ public class MessageSender {
 	
 	/**
 	 * Send embeded message
-	 * @param channel
-	 * @param message
 	 */
 	public static void sendEmbeded(Command command, EmbedBuilder embed) {
 		command.getChannel().sendMessage(embed.build()).complete();
@@ -177,26 +145,22 @@ public class MessageSender {
 	
 	/**
 	 * Display personal best message
-	 * @param data
-	 * @param discordid
-	 * @param uuid
-	 * @param type
 	 */
 	public static void pbMessage(String data, String discordid, String uuid, char type) {
-		EmbedBuilder embed = new EmbedBuilder();
-		String localData = GeneralUtils.readJsonToString("linked player/" + uuid + "/data.json");
+		final EmbedBuilder embed = new EmbedBuilder();
+		final String localData = GeneralUtils.readJsonToString("linked player/" + uuid + "/data.json");
 
 		// Add a unique part to the request url so discord cannot cache it and the skin stays up to date.
 		// By: EatMyVenom
 		long time = System.currentTimeMillis();
 
-		String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
-		String avatarUrl = Bot.server.getMemberById(discordid).getUser().getAvatarUrl();
-		String name = Bot.server.getMemberById(discordid).getEffectiveName();
-		int oldQ = Stats.getQualificationToInt(localData);
-		int newQ = API.getQualificationToInt(data);
-		int oldF = Stats.getFinalsToInt(localData);
-		int newF = API.getFinalsToInt(data);
+		final String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
+		final String avatarUrl = Objects.requireNonNull(Bot.server.getMemberById(discordid)).getUser().getAvatarUrl();
+		final String name = Objects.requireNonNull(Bot.server.getMemberById(discordid)).getEffectiveName();
+		final int oldQ = Stats.getQualificationToInt(localData);
+		final int newQ = API.getQualificationToInt(data);
+		final int oldF = Stats.getFinalsToInt(localData);
+		final int newF = API.getFinalsToInt(data);
 		
 		embed.setAuthor(name + " | " + API.getName(data), url, avatarUrl);
 		embed.setThumbnail(url);
@@ -218,15 +182,11 @@ public class MessageSender {
 			embed.addField("Increase","**" + (newF - oldF) + "**",true);
 		}
 		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF, null);
-		Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel")).sendMessage(embed.build()).complete();
+		Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel"))).sendMessage(embed.build()).complete();
 	}
 	
 	/**
 	 * Display personal best message
-	 * @param data
-	 * @param discordid
-	 * @param uuid
-	 * @param type
 	 */
 	public static void practicePbMessage(String data, String discordid, String uuid, String type) {
 		EmbedBuilder embed = new EmbedBuilder();
@@ -237,8 +197,8 @@ public class MessageSender {
 		long time = System.currentTimeMillis();
 
 		String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
-		String avatarUrl = Bot.server.getMemberById(discordid).getUser().getAvatarUrl();
-		String name = Bot.server.getMemberById(discordid).getEffectiveName();
+		String avatarUrl = Objects.requireNonNull(Bot.server.getMemberById(discordid)).getUser().getAvatarUrl();
+		String name = Objects.requireNonNull(Bot.server.getMemberById(discordid)).getEffectiveName();
 		int oldQ = PracticeStats.getQualificationToInt(localData);
 		int newQ = PracticeAPI.getQualificationToInt(data);
 		int oldF = PracticeStats.getFinalsToInt(localData);
@@ -252,28 +212,28 @@ public class MessageSender {
 		embed.setThumbnail(url);
 		embed.setFooter("Discord ID: " + discordid + "\nUUID: " + uuid);
 		
-		if (type == "q") {
+		if (Objects.equals(type, "q")) {
 			if (newQ - oldQ <= 0) return;
 			embed.setTitle(PracticeAPI.getName(data)+" Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Qualifiers** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newQ));
 			embed.addField("Old PB", "**" + oldQ + "**",true);
 			embed.addField("New PB", "**" + newQ + "**",true);
 			embed.addField("Increase","**" + (newQ - oldQ) + "**",true);
-		} else if (type == "f") {
+		} else if (Objects.equals(type, "f")) {
 			if (newF - oldF <= 0) return;
 			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Finals** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newF));
 			embed.addField("Old PB", "**" + oldF + "**",true);
 			embed.addField("New PB", "**" + newF + "**",true);
 			embed.addField("Increase","**" + (newF - oldF) + "**",true);
-		} else if (type == "l") {
+		} else if (Objects.equals(type, "l")) {
 			if (newL - oldL <= 0) return;
 			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Lobby** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newL));
 			embed.addField("Old PB", "**" + oldL + "**",true);
 			embed.addField("New PB", "**" + newL + "**",true);
 			embed.addField("Increase","**" + (newL - oldL) + "**",true);
-		}  else if (type == "wq") {
+		}  else if (Objects.equals(type, "wq")) {
 			if (newWQ - oldWQ <= 0) return;
 			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Wide Qualifiers** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newWQ));
@@ -281,6 +241,6 @@ public class MessageSender {
 			embed.addField("New PB", "**" + newWQ + "**",true);
 			embed.addField("Increase","**" + (newWQ - oldWQ) + "**",true);
 		}
-		Bot.server.getTextChannelById(ConfigManager.getString("practiceTrackerChannel")).sendMessage(embed.build()).complete();
+		Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("practiceTrackerChannel"))).sendMessage(embed.build()).complete();
 	}
 }

@@ -51,7 +51,6 @@ public class CommandForcePB extends CommandExecutable {
 	
 	/**
 	 * Get player ign
-	 * @return
 	 */
 	private String getIGN() {
 		for (String arg : command.getArgs()) {
@@ -64,7 +63,6 @@ public class CommandForcePB extends CommandExecutable {
 	
 	/**
 	 * Get personal best type
-	 * @return
 	 */
 	private Type getPBType() {
 		for (String arg : command.getArgs()) {

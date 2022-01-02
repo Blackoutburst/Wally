@@ -20,14 +20,14 @@ public class CommandChangelog extends CommandExecutable {
 
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("changelog.txt"));
-			String changelog = "";
-			String line = "";
+			StringBuilder changelog = new StringBuilder();
+			String line;
 			
 			while ((line = reader.readLine()) != null) {
-				changelog += line + "\n";
+				changelog.append(line).append("\n");
 			}
 			reader.close();
-			MessageSender.message(command, changelog);
+			MessageSender.message(command, changelog.toString());
 			if (command.getMessage() != null)
 				command.getMessage().delete().complete();
 		} catch (Exception e) {

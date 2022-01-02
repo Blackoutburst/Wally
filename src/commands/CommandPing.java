@@ -7,8 +7,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import core.Command;
-import core.CommandExecutable;
+import core.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
@@ -35,6 +34,9 @@ public class CommandPing extends CommandExecutable {
         final String uptime = formatter.format(mxBean.getUptime() / 60000);
         final String iconURL = "https://cdn.discordapp.com/avatars/806086240427966484/72a4fc1ef53f7b729b9b54184e631b88.png?size=128";
         final String wallyURL = "https://github.com/Blackoutburst/Wally";
+		final boolean trackerThread = Tracker.trackerThread.isAlive();
+		final boolean pTrackerThread = PTracker.ptrackerThread.isAlive();
+		final boolean lbThread = LeaderboardUpdater.lbupdaterThread.isAlive();
 
         final MessageEmbed tmp = new EmbedBuilder()
                 .setAuthor("Wally status", wallyURL, iconURL)
@@ -50,7 +52,10 @@ public class CommandPing extends CommandExecutable {
 	                    .addField("Total memory", "`"+mbTotal+"`MiB", true)
 	                    .addField("Max memory", "`"+mbMax+"`MiB", true)
 	                    .addField("Ping", "`"+(System.currentTimeMillis() - time)+"`ms", true)
-	                    .addField("Uptime", "`"+uptime+"` minutes", true).build();
+	                    .addField("Uptime", "`"+uptime+"` minutes", true)
+					   .addField("Tacker", "alive: `"+trackerThread+"`", false)
+					   .addField("PTracker", "alive: `"+pTrackerThread+"`", true)
+					   .addField("Updater", "alive: `"+lbThread+"`", true).build();
 			
 			response.editMessage(embed).queue();
 		});

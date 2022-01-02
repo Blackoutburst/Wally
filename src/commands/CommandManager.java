@@ -12,7 +12,7 @@ public class CommandManager {
 	private static final boolean ADMIN = true;
 	private static final boolean EVERYONE = false;
 	
-	public CommandManager(Command command) {
+	public static void run(Command command) {
 		switch (command.getName()) {
 			case "help": case "h": new CommandHelp(command, EVERYONE, "!help").run(); break;
 			case "pack": new CommandPack(command, EVERYONE, "!pack").run(); break;
@@ -46,7 +46,7 @@ public class CommandManager {
 			case "resetbackground": case "rbg": new CommandResetBackground(command, EVERYONE, "!resetbackground").run(); break;
 			case "setfont": case "sf": new CommandSetFont(command, EVERYONE, "!setfont (file required format .TTF/.OTF)").run(); break;
 			case "resetfont": case "rf": new CommandResetFont(command, EVERYONE, "!resetfont").run(); break;
-			default : return;
+			default :
 		}
 	}
 	

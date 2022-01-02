@@ -1,14 +1,14 @@
 package utils;
 
 import java.awt.Color;
+import java.util.Objects;
 
 public class GraphCanvas {
 	/**
 	 * Create practice graph image
-	 * @param image
-	 * @param data
 	 */
 	public static void createPGraphImage(Canvas image, String name, String data, String type, int games) {
+		image.loadFont("res/font.ttf");
 		image.drawImage("res/graphBackground.png", 0, 0, 1000, 520);
 
 		for (int i = 0; i < 10; i ++) {
@@ -23,13 +23,13 @@ public class GraphCanvas {
 		
 		for (int i = 0; i < games; i++) {
 			if (type.equals("Qualification"))
-				average += PracticeAPI.getQualificationHistory(data)[i];
+				average += Objects.requireNonNull(PracticeAPI.getQualificationHistory(data))[i];
 			if (type.equals("Finals"))
-				average += PracticeAPI.getFinalsHistory(data)[i];
+				average += Objects.requireNonNull(PracticeAPI.getFinalsHistory(data))[i];
 			if (type.equals("Wide Qualification"))
-				average += PracticeAPI.getWideQualificationHistory(data)[i];
+				average += Objects.requireNonNull(PracticeAPI.getWideQualificationHistory(data))[i];
 			if (type.equals("Lobby"))
-				average += PracticeAPI.getLobbyHistory(data)[i];
+				average += Objects.requireNonNull(PracticeAPI.getLobbyHistory(data))[i];
 		}
 		average = average / games;
 		

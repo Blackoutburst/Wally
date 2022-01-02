@@ -7,18 +7,15 @@ import utils.GeneralUtils;
 
 public class LeaderboardUpdater {
 	
-	public static boolean forced = false;
 	public static Thread lbupdaterThread = null;
 	
 	public void start() {
-		lbupdaterThread = new Thread(new Runnable(){
-			public void run(){
-				while (true) {
-					try {
-						checkUsers();
-					} catch (Exception e) {
-						e.printStackTrace();
-					};
+		lbupdaterThread = new Thread(() -> {
+			while (true) {
+				try {
+					checkUsers();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		});
@@ -33,7 +30,9 @@ public class LeaderboardUpdater {
 	private void checkUsers() {
 		File index = new File("leaderboard");
 		String[] entries = index.list();
-		
+
+		if (entries == null) return;
+
 		for(String s: entries) {
 			File playerFolder = new File(index.getPath(), s);
 			String uuid = playerFolder.getName();
@@ -44,17 +43,16 @@ public class LeaderboardUpdater {
 			if (API.getPlayer(data) == null) continue;
 			
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard", false);
-			delay(10000);
+			delay();
 		}
 	}
 	
 	/**
 	 * Stop the current thread for a defined amount of time
-	 * @param ms
 	 */
-	private void delay(int ms) {
+	private void delay() {
 		try {
-			Thread.sleep(ms);
+			Thread.sleep(10000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

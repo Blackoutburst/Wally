@@ -33,10 +33,12 @@ public class CommandSetFontColor extends CommandExecutable {
 	private void updateColor(String discordid, String color) throws Exception {
 		File index = new File("linked player");
 		String[]entries = index.list();
+
+		if (entries == null) return;
+
 		if (!color.startsWith("#")) {
 			color = "#"+color;
 		}
-		
 		for (String s: entries) {
 			File playerFolder = new File(index.getPath(),s);
 			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");

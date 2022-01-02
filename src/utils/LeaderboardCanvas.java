@@ -10,15 +10,10 @@ import core.RolesManager;
 
 public class LeaderboardCanvas {
 
-	/**
-	 * Create leaderboard image
-	 * @param image
-	 * @param data
-	 */
 	public static void createLeaderboardImage(Canvas image, int page, Leaderboard lb) {
-		int f = lb.getPlayers().get((10 * page)).finals;
-		int q = lb.getPlayers().get((10 * page)).qualification;
-		int score = q > f ? q : f;
+		final int f = lb.getPlayers().get((10 * page)).finals;
+		final int q = lb.getPlayers().get((10 * page)).qualification;
+		final int score = Math.max(q, f);
 		
 		image.loadFont("res/font.ttf");
 		image.drawImageFromMemory(LoadedRessources.BACKGROUND_XL, 0, 0, 1000, 770);
@@ -45,24 +40,19 @@ public class LeaderboardCanvas {
 		image.save("lead.png");
 	}
 	
-	/**
-	 * Create leaderboard image
-	 * @param image
-	 * @param data
-	 */
 	public static void createPLeaderboardImage(Canvas image, int page, PracticeLeaderboard lb) {
-		int q = lb.getPlayers().get((10 * page)).finals;
-		int f = lb.getPlayers().get((10 * page)).qualification;
-		int wq = lb.getPlayers().get((10 * page)).wideQualification;
-		int l = lb.getPlayers().get((10 * page)).lobby;
+		final int q = lb.getPlayers().get((10 * page)).finals;
+		final int f = lb.getPlayers().get((10 * page)).qualification;
+		final int wq = lb.getPlayers().get((10 * page)).wideQualification;
+		final int l = lb.getPlayers().get((10 * page)).lobby;
 		int score = 0;
 		
 		if (q >= f && q >= wq && q >= l) score = q;
 		if (f >= q && f >= wq && f >= l) score = f;
 		if (wq >= f && wq >= q && wq >= l) score = wq;
 		if (l >= f && l >= q && l >= wq) score = l;
-		
-		
+
+		image.loadFont("res/font.ttf");
 		image.drawImageFromMemory(LoadedRessources.BACKGROUND_XL, 0, 0, 1000, 770);
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);

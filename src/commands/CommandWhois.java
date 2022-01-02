@@ -31,7 +31,9 @@ public class CommandWhois extends CommandExecutable {
 		String discordNick = "N/A";
 		if (discordId != null && GeneralUtils.isInsideTheServer(discordId)) {
 			Member member = Bot.server.getMemberById(discordId);
-			discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator(); 
+			if (member != null) {
+				discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator();
+			}
 		}
 		discordNick = sanitizeName(discordNick);
 		String uuid = API.getUUID(data);
@@ -57,8 +59,6 @@ public class CommandWhois extends CommandExecutable {
 
 	/**
 	 * Get discord name
-	 * @param name
-	 * @return
 	 */
 	private String sanitizeName(String name) {
 		return name.replaceAll("@", "@ ");

@@ -16,9 +16,8 @@ import javax.imageio.ImageIO;
 
 public class Canvas {
 	
-	private static BufferedImage background = null;
-	private BufferedImage bufferedImage = null;
-	private Graphics2D g = null;
+	private final BufferedImage bufferedImage;
+	private final Graphics2D g;
 	private static Font font = null;
 	
 	public int width;
@@ -26,7 +25,6 @@ public class Canvas {
 	
 	public static void init() {
 		try {
-			background = ImageIO.read(new File("res/background.png"));
 			font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font.ttf"));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,7 +43,6 @@ public class Canvas {
 	
 	/**
 	 * Save image to file
-	 * @param fileName
 	 */
 	public void save(String fileName) {
 		File file = new File(fileName);
@@ -59,11 +56,6 @@ public class Canvas {
 	
 	/**
 	 * Draw image
-	 * @param file
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
 	 */
 	public void drawImageFromMemory(BufferedImage image, int x, int y, int width, int height) {
 		g.drawImage(image, x, y, width, height, null);
@@ -71,11 +63,6 @@ public class Canvas {
 	
 	/**
 	 * Draw image
-	 * @param file
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
 	 */
 	public void drawImage(String file, int x, int y, int width, int height) {
 		try {
@@ -89,25 +76,24 @@ public class Canvas {
 	
 	/**
 	 * Draw graph line
-	 * @param data
 	 */
-	public void drawGraphLine(int data[], int games) {
+	public void drawGraphLine(int[] data, int games) {
 		g.setStroke(new BasicStroke(4.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		
 		for (int i = 0; i < (games-1); i++) {
-				Line2D line = new Line2D.Float(1000 - (i * 1000/games), 520 - (data[i] * 0.86f + 2), 1000 - ((i+1) * 1000/games), 520 - (data[i+1] * 0.86f + 2));
+				Line2D line = new Line2D.Float(1000 - ((float)(i) * 1000/games), 520 - (data[i] * 0.86f + 2), 1000 - (((float)(i)+1) * 1000/games), 520 - (data[i+1] * 0.86f + 2));
 				
-				GradientPaint gradient = new GradientPaint(1000 - (i * 1000/games), 520 - (data[i] * 0.86f  + 2), getLineColor(data[i]), 
-				1000 - ((i+1) * 1000/games), 520 - (data[i+1] * 0.86f + 2), getLineColor(data[i+1]));
+				GradientPaint gradient = new GradientPaint(1000 - ((float)(i) * 1000/games), 520 - (data[i] * 0.86f  + 2), getLineColor(data[i]),
+				1000 - (((float)(i)+1) * 1000/games), 520 - (data[i+1] * 0.86f + 2), getLineColor(data[i+1]));
 				
 				g.setPaint(gradient);
 				g.draw(line);
 				
 				if (i == games-2) {
-					line = new Line2D.Float(1000 - ((i+1) * 1000/games), 520 - (data[i+1] * 0.86f + 2), 1000 - ((i+2) * 1000/games), 520 - (data[i+1] * 0.86f + 2));
+					line = new Line2D.Float(1000 - (((float)(i)+1) * 1000/games), 520 - (data[i+1] * 0.86f + 2), 1000 - (((float)(i)+2) * 1000/games), 520 - (data[i+1] * 0.86f + 2));
 					
-					gradient = new GradientPaint(1000 - ((i+1) * 1000/games), 520 - (data[i+1] * 0.86f  + 2), getLineColor(data[i+1]), 
-					1000 - ((i+2) * 1000/games), 520 - (data[i+1] * 0.86f + 2), getLineColor(data[i+1]));
+					gradient = new GradientPaint(1000 - (((float)(i)+1) * 1000/games), 520 - (data[i+1] * 0.86f  + 2), getLineColor(data[i+1]),
+					1000 - (((float)(i)+2) * 1000/games), 520 - (data[i+1] * 0.86f + 2), getLineColor(data[i+1]));
 					
 					g.setPaint(gradient);
 					g.draw(line);
@@ -118,11 +104,6 @@ public class Canvas {
 	
 	/**
 	 * Draw a string aligned to the left with specified parameters
-	 * @param string
-	 * @param x
-	 * @param y
-	 * @param size
-	 * @param color
 	 */
 	public void drawStringLeft(String string, int x, int y, float size, Color color) {
 		font = font.deriveFont(size);
@@ -133,11 +114,6 @@ public class Canvas {
 	
 	/**
 	 * Draw a string centered with specified parameters
-	 * @param string
-	 * @param x
-	 * @param y
-	 * @param size
-	 * @param color
 	 */
 	public void drawStringCenter(String string, int x, int y, float size, Color color) {
 		font = font.deriveFont(size);
@@ -148,11 +124,6 @@ public class Canvas {
 	
 	/**
 	 * Draw a string aligned to the right with specified parameters
-	 * @param string
-	 * @param x
-	 * @param y
-	 * @param size
-	 * @param color
 	 */
 	public void drawStringRight(String string, int x, int y, float size, Color color) {
 		font = font.deriveFont(size);
@@ -162,41 +133,13 @@ public class Canvas {
 	}
 	
 	/**
-	 * Draw background image and make it darker
-	 */
-	public void drawBackground() {
-		g.drawImage(background, 0, 0, 600, 400, null);
-		g.setColor(new Color(0, 0, 0, 0.4f));
-		g.fillRect(0, 0, 600, 400);
-	}
-	
-	/**
 	 * Draw custom background and make it darker
-	 * @param file
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
 	 */
 	public void drawCustomBackground(String file, int x, int y, int width, int height) {
 		try {
 			BufferedImage image = ImageIO.read(new File(file));
 			
 			g.drawImage(image, x, y, width, height, null);
-			//g.setColor(new Color(0, 0, 0, 0.4f));
-			//g.fillRect(x, y, width, height);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Set background image
-	 * @param file
-	 */
-	public void setBackground(String file) {
-		try {
-			background = ImageIO.read(new File(file));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -204,7 +147,6 @@ public class Canvas {
 	
 	/**
 	 * Load custom font file
-	 * @param file
 	 */
 	public void loadFont(String file) {
 		try {
@@ -216,8 +158,6 @@ public class Canvas {
 	
 	/**
 	 * Return header color
-	 * @param score
-	 * @return
 	 */
 	public static BufferedImage getHeader(int score) {
 		BufferedImage file = LoadedRessources.HMEMBER;
@@ -237,8 +177,6 @@ public class Canvas {
 	
 	/**
 	 * Return header color
-	 * @param score
-	 * @return
 	 */
 	public static BufferedImage getHeaderRight(int score) {
 		BufferedImage file = LoadedRessources.HMEMBERR;
@@ -258,8 +196,6 @@ public class Canvas {
 	
 	/**
 	 * Return line color
-	 * @param score
-	 * @return
 	 */
 	public static Color getLineColor(int score) {
 		Color color = new Color(170, 170, 170);

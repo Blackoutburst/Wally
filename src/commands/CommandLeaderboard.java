@@ -50,7 +50,6 @@ public class CommandLeaderboard extends CommandExecutable {
 
 	/**
 	 * Get leader board type
-	 * @return
 	 */
 	private char getType() {
 		for (String arg : command.getArgs()) {
@@ -63,7 +62,6 @@ public class CommandLeaderboard extends CommandExecutable {
 
 	/**
 	 * Get leader board page
-	 * @return
 	 */
 	private int getPage() {
 		int page = 1;
@@ -72,7 +70,7 @@ public class CommandLeaderboard extends CommandExecutable {
 			try {
 				page = Integer.parseInt(arg);
 				break;
-			} catch(Exception e) {}
+			} catch(Exception ignored) {}
 		}
 		if (page <= 0) page = 1;
 		page--;

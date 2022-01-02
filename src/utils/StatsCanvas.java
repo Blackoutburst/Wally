@@ -1,24 +1,19 @@
 package utils;
 
-import java.awt.Color;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import core.Bot;
 import net.dv8tion.jda.api.entities.Member;
+
+import java.awt.*;
 
 public class StatsCanvas {
 
 	/**
 	 * Create stats image
-	 * @param image
-	 * @param data
 	 */
 	public static void createStatsImage(Canvas image, String data, String uuid) {
 		final int f = API.getFinalsToInt(data);
 		final int q = API.getQualificationToInt(data);
-		final int score = q > f ? q : f;
+		final int score = Math.max(q, f);
 		
 		final String ap = API.getAP(data);
 		final String name = API.getName(data);
@@ -60,11 +55,13 @@ public class StatsCanvas {
 		String discordNick = "N/A";
 		if (discordId != null && GeneralUtils.isInsideTheServer(discordId)) {
 			Member member = Bot.server.getMemberById(discordId);
-			
-			if (member.getEffectiveName().length() > 16) {
-				discordNick = member.getEffectiveName().substring(0, 16)+"[...]" + "#" + member.getUser().getDiscriminator(); 
-			} else {
-				discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator(); 
+
+			if (member != null) {
+				if (member.getEffectiveName().length() > 16) {
+					discordNick = member.getEffectiveName().substring(0, 16)+"[...]" + "#" + member.getUser().getDiscriminator(); 
+				} else {
+					discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator();
+				}
 			}
 			discordNick = discordNick.replaceAll("@", "@ ");
 		}
@@ -120,17 +117,16 @@ public class StatsCanvas {
 			image.drawStringLeft("Overall rank: N/A", 562, 452, 30, shadow);
 			image.drawStringLeft("Overall rank: N/A", 560, 450, 30, color);
 		} else {
-			image.drawStringLeft("Overall rank: #"+rank + ((olb != 10000) ? " (#"+ (olb+1) + ")" : ""), 562, 452, 30, shadow);
-			image.drawStringLeft("Overall rank: #"+rank + ((olb != 10000) ? " (#"+ (olb+1) + ")" : ""), 560, 450, 30, color);
+			final String overall = "Overall rank: #" + rank + ((olb != 10000) ? " (#" + (olb + 1) + ")" : "");
+			image.drawStringLeft(overall, 562, 452, 30, shadow);
+			image.drawStringLeft(overall, 560, 450, 30, color);
 		}
 		
 		image.save("stats.png");
 	}
-	
+
 	/**
 	 * Create practice stats image
-	 * @param image
-	 * @param data
 	 */
 	public static void createPStatsImage(Canvas image, String uuid, String name, String data) {
 		final int q = PracticeAPI.getQualificationToInt(data);
@@ -152,20 +148,20 @@ public class StatsCanvas {
 			image.drawImage(GeneralUtils.getCustomBackground(uuid), 0, 0, 1000, 520);
 		}
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
-		image.drawImage("res/practiceHeader.png", 0, 0, 1000, 400);
+		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
-		image.drawImage("res/q.png", 520, 125, 30, 30);
-		image.drawImage("res/f.png", 520, 185, 30, 30);
-		image.drawImage("res/l.png", 520, 245, 30, 30);
-		image.drawImage("res/wq.png", 520, 305, 30, 30);
-		image.drawImage("res/qf.png", 520, 365, 30, 30);
-		image.drawImage("res/rank.png", 520, 425, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 520, 125, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 520, 185, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.L, 520, 245, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WQ, 520, 305, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 520, 365, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 520, 425, 30, 30);
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
-			image.drawImage("res/blackout.png", 130, 110, 320, 80);
+			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 130, 110, 320, 80);
 		else if (uuid.equals("92a5199614ac4bd181d1f3c951fb719f"))
-			image.drawImage("res/venom.png", 130, 110, 300, 85);
+			image.drawImageFromMemory(LoadedRessources.VENOM, 130, 110, 300, 85);
 		else {
 			image.drawStringLeft(name, 132, 142, 40, shadow);
 			image.drawStringLeft(name, 130, 140, 40, color);
@@ -180,11 +176,13 @@ public class StatsCanvas {
 		String discordNick = "N/A";
 		if (discordId != null && GeneralUtils.isInsideTheServer(discordId)) {
 			Member member = Bot.server.getMemberById(discordId);
-			
-			if (member.getEffectiveName().length() > 16) {
-				discordNick = member.getEffectiveName().substring(0, 16)+"[...]" + "#" + member.getUser().getDiscriminator(); 
-			} else {
-				discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator(); 
+
+			if (member != null) {
+				if (member.getEffectiveName().length() > 16) {
+					discordNick = member.getEffectiveName().substring(0, 16)+"[...]" + "#" + member.getUser().getDiscriminator();
+				} else {
+					discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator();
+				}
 			}
 			discordNick = discordNick.replaceAll("@", "@ ");
 		}
@@ -198,15 +196,13 @@ public class StatsCanvas {
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
 		
-		List<PracticeLeaderboardPlayer> lead = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), true);
-		final int qlb = GeneralUtils.getPLBPosToInt(uuid, "q", new ArrayList<PracticeLeaderboardPlayer>(lead));
-		final int flb = GeneralUtils.getPLBPosToInt(uuid, "f", new ArrayList<PracticeLeaderboardPlayer>(lead));
-		final int llb = GeneralUtils.getPLBPosToInt(uuid, "l", new ArrayList<PracticeLeaderboardPlayer>(lead));
-		final int wlb = GeneralUtils.getPLBPosToInt(uuid, "wq", new ArrayList<PracticeLeaderboardPlayer>(lead));
-		final int tlb = GeneralUtils.getPLBPosToInt(uuid, "t", new ArrayList<PracticeLeaderboardPlayer>(lead));
-		final int olb = GeneralUtils.getPLBPosToInt(uuid, "o", new ArrayList<PracticeLeaderboardPlayer>(lead));
-		
-		
+		final int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
+		final int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
+		final int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
+		final int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
+		final int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
+		final int olb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.POVERALL);
+
 		final String qual = "Qualification: " + q + ((qlb != 10000) ? " (#"+ (qlb+1) + ")" : "");
 		final String finals = "Finals: " + f + ((flb != 10000) ? " (#"+ (flb+1) + ")" : "");
 		final String lobby = "Lobby: " + l + ((llb != 10000) ? " (#"+ (llb+1) + ")" : "");
@@ -232,8 +228,9 @@ public class StatsCanvas {
 			image.drawStringLeft("Overall rank: N/A", 562, 452, 30, shadow);
 			image.drawStringLeft("Overall rank: N/A", 560, 450, 30, color);
 		} else {
-			image.drawStringLeft("Overall rank: #"+rank + ((olb != 10000) ? " (#"+ (olb+1) + ")" : ""), 562, 452, 30, shadow);
-			image.drawStringLeft("Overall rank: #"+rank + ((olb != 10000) ? " (#"+ (olb+1) + ")" : ""), 560, 450, 30, color);
+			final String overall = "Overall rank: #" + rank + ((olb != 10000) ? " (#" + (olb + 1) + ")" : "");
+			image.drawStringLeft(overall, 562, 452, 30, shadow);
+			image.drawStringLeft(overall, 560, 450, 30, color);
 		}
 		
 		image.save("pstats.png");

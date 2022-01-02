@@ -1,6 +1,7 @@
 package commands;
 
 import java.io.File;
+import java.util.Objects;
 
 import org.json.JSONObject;
 
@@ -24,7 +25,7 @@ public class CommandSetBackground extends CommandExecutable {
 
 		if(file.getSize() > 8388608) return (fileSizeOverLimit(this, "8MiB"));
 		
-		if (file.getFileExtension().equals("png") || file.getFileExtension().equals("jpg") || file.getFileExtension().equals("jpeg")) {
+		if (Objects.equals(file.getFileExtension(), "png") || Objects.equals(file.getFileExtension(), "jpg") || Objects.equals(file.getFileExtension(), "jpeg")) {
 			updateBackground(command.getSender().getId(), file);
 		} else {
 			return (wrongFileFormat(this, ".png/.jpg/.jpeg"));
@@ -35,7 +36,9 @@ public class CommandSetBackground extends CommandExecutable {
 	private void updateBackground(String discordid, Attachment file) {
 		File index = new File("linked player");
 		String[]entries = index.list();
-		
+
+		if (entries == null) return;
+
 		for (String s: entries) {
 			File playerFolder = new File(index.getPath(),s);
 			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");

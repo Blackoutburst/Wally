@@ -5,14 +5,15 @@ import core.RolesManager;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
 import utils.ConfigManager;
 
+import java.util.Objects;
+
 public class GuildMessageReactionRemove {
 	
 	/**
 	 * Execute the event
-	 * @param event
 	 */
 	public void run(GuildMessageReactionRemoveEvent event) {
-		if (event.getMember().getUser().isBot()) return;
+		if (Objects.requireNonNull(event.getMember()).getUser().isBot()) return;
 		if (event.getMessageId().equals(ConfigManager.getString("tournamentMessage"))) {
 			new RolesManager().setTournamentPlayer(RoleAction.REMOVE, event.getGuild(), event.getMember());
 		}
@@ -25,8 +26,6 @@ public class GuildMessageReactionRemove {
 	
 	/**
 	 * Get gender role from reaction
-	 * @param emote
-	 * @return
 	 */
 	private String getGender(String emote) {
 		switch(emote) {

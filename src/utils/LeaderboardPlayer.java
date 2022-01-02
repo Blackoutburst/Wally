@@ -36,13 +36,12 @@ public class LeaderboardPlayer {
 		this.qualification = fromAPI ? API.getQualificationToInt(data) : Stats.getQualificationToInt(data);
 		this.finals = fromAPI ? API.getFinalsToInt(data) : Stats.getFinalsToInt(data);
 		this.total = fromAPI ? API.getTotalToInt(data) : Stats.getTotalToInt(data);
-		try {this.discord = Stats.getDiscordId(data);} catch(Exception e) {}
+		try {this.discord = Stats.getDiscordId(data);} catch(Exception ignored) {}
 	}
 	
 	
 	/**
 	 * Return player wins
-	 * @return
 	 */
 	public String getWins() {
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
@@ -53,7 +52,6 @@ public class LeaderboardPlayer {
 	
 	/**
 	 * Return player walls cleared
-	 * @return
 	 */
 	public String getWalls() {
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
@@ -64,7 +62,6 @@ public class LeaderboardPlayer {
 	
 	/**
 	 * Return player qualification score
-	 * @return
 	 */
 	public String getQualification() {
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
@@ -75,7 +72,6 @@ public class LeaderboardPlayer {
 	
 	/**
 	 * Return player final score
-	 * @return
 	 */
 	public String getFinals() {
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
@@ -86,7 +82,6 @@ public class LeaderboardPlayer {
 	
 	/**
 	 * Return player total score
-	 * @return
 	 */
 	public String getTotal() {
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);

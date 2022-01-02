@@ -27,7 +27,6 @@ public abstract class CommandExecutable implements CommandError {
 				execute();
 			} else {
 				MessageSender.messageJSONMention(command, "missing permission");
-				return;
 			}
 		} else {
 			execute();
@@ -36,7 +35,6 @@ public abstract class CommandExecutable implements CommandError {
 	
 	/**
 	 * Return if the command is staff only
-	 * @return
 	 */
 	protected boolean isStaffOnly() {
 		return staffOnly;
@@ -44,7 +42,6 @@ public abstract class CommandExecutable implements CommandError {
 	
 	/**
 	 * Check is the command sender is staff
-	 * @return
 	 */
 	protected boolean senderIsStaff() {
 		return (GeneralUtils.isStaff(command.getSender()));

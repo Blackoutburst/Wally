@@ -7,7 +7,7 @@ import utils.PracticeLeaderboardPlayer;
 public class PlayerComparatorLQF implements Comparator<PracticeLeaderboardPlayer> {
 	
 	public int compare(PracticeLeaderboardPlayer b, PracticeLeaderboardPlayer a) {
-		int winsComparator = Integer.valueOf(a.total).compareTo(b.total);
-		return winsComparator == 0 ? Integer.valueOf(a.total).compareTo(b.total) : winsComparator;
+		int comparator = Integer.compare(a.total, b.total);
+		return comparator == 0 ? Integer.compare(a.total, b.total) : comparator;
 	}
 }

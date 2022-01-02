@@ -1,45 +1,26 @@
 package utils;
 
-import java.awt.Color;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.json.JSONObject;
-
-import comparators.PlayerComparatorF;
-import comparators.PlayerComparatorL;
-import comparators.PlayerComparatorLQF;
-import comparators.PlayerComparatorOverall;
-import comparators.PlayerComparatorPF;
-import comparators.PlayerComparatorPOverall;
-import comparators.PlayerComparatorPQ;
-import comparators.PlayerComparatorQ;
-import comparators.PlayerComparatorRounds;
-import comparators.PlayerComparatorTotal;
-import comparators.PlayerComparatorWQ;
-import comparators.PlayerComparatorWins;
+import comparators.*;
 import core.Bot;
 import core.Command;
-import core.Request;
 import core.RolesManager;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
+import org.json.JSONObject;
+
+import java.awt.*;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class GeneralUtils {
 
@@ -105,7 +86,6 @@ public class GeneralUtils {
 	
 	/**
 	 * Send a typing event
-	 * @param event
 	 */
 	public static void startTyping(MessageChannel chan) {
 		try {
@@ -117,8 +97,6 @@ public class GeneralUtils {
 	
 	/**
 	 * Check if member is staff
-	 * @param member
-	 * @return
 	 */
 	public static boolean isStaff(Member member) {
 		Role staffRole = Bot.server.getRoleById(ConfigManager.getRoleId("Staff"));
@@ -129,8 +107,6 @@ public class GeneralUtils {
 
 	/**
 	 * Remove useless space in string
-	 * @param str
-	 * @return
 	 */
 	public static String removeDuplicateSpace(String str) {
 		return str.replaceAll("\\s+", " ");
@@ -138,35 +114,19 @@ public class GeneralUtils {
 
 	/**
 	 * Check if the player is linked
-	 * @param player
-	 * @return
-	 */
-	public static boolean isLinkedIGN(String player) {
-		String uuid = Request.getPlayerUUID(player);
-		String playerFolder = "linked player/" + uuid;
-
-		return new File(playerFolder).exists();
-	}
-
-	/**
-	 * Check if the player is linked
-	 * @param uuid
-	 * @return
 	 */
 	public static boolean isLinkedUUID(String uuid) {
-		String playerFolder = "linked player/" + uuid;
-
-		return new File(playerFolder).exists();
+		return new File("linked player/" + uuid).exists();
 	}
 	
 	/**
 	 * Check if the player is linked
-	 * @param player
-	 * @return
 	 */
 	public static boolean isLinkedDiscord(String discordid) {
 		File index = new File("linked player");
 		String[] entries  = index.list();
+
+		if (entries == null) return (false);
 
 		for (String s : entries) {
 			File playerFolder = new File(index.getPath(), s);
@@ -182,8 +142,6 @@ public class GeneralUtils {
 
 	/**
 	 * Check if JSON is valid
-	 * @param player
-	 * @return
 	 */
 	public static boolean isValidJSON(String json) {
 		try {
@@ -196,12 +154,12 @@ public class GeneralUtils {
 
 	/**
 	 * Get player uuid from is discord id
-	 * @param player
-	 * @return
 	 */
 	public static String getUUIDfromDiscord(String discordid) {
 		File index = new File("linked player");
 		String[] entries  = index.list();
+
+		if (entries == null) return (null);
 
 		for (String s : entries) {
 			File playerFolder = new File(index.getPath(), s);
@@ -216,12 +174,12 @@ public class GeneralUtils {
 
 	/**
 	 * Get user IGN from his discord account
-	 * @param player
-	 * @return
 	 */
 	public static String getIGNfromDiscord(String discordid) {
 		File index = new File("linked player");
 		String[] entries  = index.list();
+
+		if (entries == null) return (null);
 
 		for (String s : entries) {
 			File playerFolder = new File(index.getPath(), s);
@@ -236,12 +194,12 @@ public class GeneralUtils {
 
 	/**
 	 * Get user discord id from is IGN
-	 * @param player
-	 * @return
 	 */
 	public static String getDiscordfromIGN(String ign) {
 		File index = new File("linked player");
 		String[] entries  = index.list();
+
+		if (entries == null) return (null);
 
 		for (String s : entries) {
 			File playerFolder = new File(index.getPath(), s);
@@ -255,18 +213,14 @@ public class GeneralUtils {
 	}
 
 	/**
-	 * Create an new JSON object from a json file
-	 * @param file
-	 * @return
+	 * Create a new JSON object from a json file
 	 */
 	public static JSONObject readJson(String file) {
-		return (new JSONObject(GeneralUtils.readJsonToString(file)));
+		return (new JSONObject(Objects.requireNonNull(GeneralUtils.readJsonToString(file))));
 	}
 
 	/**
-	 * Create an new string from a json file
-	 * @param file
-	 * @return
+	 * Create a new string from a json file
 	 */
 	public static String readJsonToString(String file) {
 		try {
@@ -280,8 +234,6 @@ public class GeneralUtils {
 
 	/**
 	 * Add a player to the leader board
-	 * @param uuid
-	 * @param data
 	 */
 	public static void addToLeaderBoard(String uuid, String data, Command command) {
 		if (!new File("leaderboard/" + uuid).exists()) {
@@ -306,8 +258,6 @@ public class GeneralUtils {
 	
 	/**
 	 * Add a player to the practice leader board
-	 * @param uuid
-	 * @param data
 	 */
 	public static void addToPracticeLeaderBoard(String uuid, String data, Command command) {
 		if (!new File("pleaderboard/" + uuid).exists()) {
@@ -331,19 +281,17 @@ public class GeneralUtils {
 
 	/**
 	 * Get gender prefix from roles
-	 * @param discordid
-	 * @return
 	 */
 	public static String getGenderPrefix(String discordid) {
 		Role hisRole = Bot.server.getRoleById(ConfigManager.getRoleId("He/Him"));
 		Role herRole = Bot.server.getRoleById(ConfigManager.getRoleId("She/Her"));
 		Role theirRole = Bot.server.getRoleById(ConfigManager.getRoleId("They/Them"));
 
-		List<Role> memberRoles = Bot.server.getMemberById(discordid).getRoles();
+		List<Role> memberRoles = Objects.requireNonNull(Bot.server.getMemberById(discordid)).getRoles();
 
-		boolean his = memberRoles.contains(hisRole);
-		boolean her = memberRoles.contains(herRole);
-		boolean their = memberRoles.contains(theirRole);
+		final boolean his = memberRoles.contains(hisRole);
+		final boolean her = memberRoles.contains(herRole);
+		final boolean their = memberRoles.contains(theirRole);
 
 		if (his && !her && !their) return ("his");
 		if (her && !his && !their) return ("her");
@@ -352,8 +300,6 @@ public class GeneralUtils {
 
 	/**
 	 * Check is the user in inside the discord server
-	 * @param discordid
-	 * @return
 	 */
 	public static boolean isInsideTheServer(String discordid) {
 		Member member = Bot.server.getMemberById(discordid);
@@ -363,8 +309,6 @@ public class GeneralUtils {
 
 	/**
 	 * Check if the user in online
-	 * @param discordid
-	 * @return
 	 */
 	public static boolean isOnline(String discordid) {
 		Member member = Bot.server.getMemberById(discordid);
@@ -374,11 +318,12 @@ public class GeneralUtils {
 
 	/**
 	 * Remove a member from the database
-	 * @param uuid
 	 */
 	public static void unlinkMember(String uuid) {
 		File index = new File("linked player/" + uuid);
 		String[] entries = index.list();
+
+		if (entries == null) return;
 
 		for(String s : entries) {
 			File file = new File(index.getPath(), s);
@@ -390,9 +335,6 @@ public class GeneralUtils {
 
 	/**
 	 * Update player data file
-	 * @param data
-	 * @param uuid
-	 * @param folder
 	 */
 	public static void updateFile(String data, String localData, String uuid, String folder, boolean practiceServer) {
 		if (localData == null) return;
@@ -420,134 +362,109 @@ public class GeneralUtils {
 
 	/**
 	 * Sort leader board
-	 * @param user
-	 * @return
 	 */
-	public static List<LeaderboardPlayer> sortLB(List<LeaderboardPlayer> lead, char type) {
+	public static void sortLB(List<LeaderboardPlayer> lead, char type) {
 		switch (type) {
-			case 'w' : Collections.sort(lead, new PlayerComparatorWins()); break;
-			case 'r' : Collections.sort(lead, new PlayerComparatorRounds()); break;
-			case 'q' : Collections.sort(lead, new PlayerComparatorQ()); break;
-			case 'f' : Collections.sort(lead, new PlayerComparatorF()); break;
-			case 't' : Collections.sort(lead, new PlayerComparatorTotal()); break;
-			case 'o' : Collections.sort(lead, new PlayerComparatorOverall()); break;
-			default : Collections.sort(lead, new PlayerComparatorWins()); break;
+			case 'r' : lead.sort(new PlayerComparatorRounds()); break;
+			case 'q' : lead.sort(new PlayerComparatorQ()); break;
+			case 'f' : lead.sort(new PlayerComparatorF()); break;
+			case 't' : lead.sort(new PlayerComparatorTotal()); break;
+			case 'o' : lead.sort(new PlayerComparatorOverall()); break;
+			default : lead.sort(new PlayerComparatorWins()); break;
 		}
-		return (lead);
 	}
 	
 	/**
 	 * Sort leader board
-	 * @param user
-	 * @return
 	 */
-	public static List<PracticeLeaderboardPlayer> sortPLB(List<PracticeLeaderboardPlayer> lead, String type) {
+	public static void sortPLB(List<PracticeLeaderboardPlayer> lead, String type) {
 		switch (type) {
-			case "q" : Collections.sort(lead, new PlayerComparatorPQ()); break;
-			case "f" : Collections.sort(lead, new PlayerComparatorPF()); break;
-			case "wq" : Collections.sort(lead, new PlayerComparatorWQ()); break;
-			case "l" : Collections.sort(lead, new PlayerComparatorL()); break;
-			case "t" : Collections.sort(lead, new PlayerComparatorLQF()); break;
-			case "o" : Collections.sort(lead, new PlayerComparatorPOverall()); break;
-			default : Collections.sort(lead, new PlayerComparatorPQ()); break;
+			case "f" : lead.sort(new PlayerComparatorPF()); break;
+			case "wq" : lead.sort(new PlayerComparatorWQ()); break;
+			case "l" : lead.sort(new PlayerComparatorL()); break;
+			case "t" : lead.sort(new PlayerComparatorLQF()); break;
+			case "o" : lead.sort(new PlayerComparatorPOverall()); break;
+			default : lead.sort(new PlayerComparatorPQ()); break;
 		}
-		return (lead);
 	}
 
 	/**
 	 * Get player position in the leader board
-	 * @param user
-	 * @return
-	 */
-	public static String getLBPos(String user, char type) {
-		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"), false);
-		
-		int pos = getLBPosToInt(user, type, lead) + 1;
-		return (pos != 10001) ? " (#"+ pos + ")" : "";
-	}
-	
-	/**
-	 * Get player position in the leader board
-	 * @param user
-	 * @return
-	 */
-	public static String getPLBPos(String user, String type) {
-		List<PracticeLeaderboardPlayer> lead = generatePracticePlayerList(new File("pleaderboard"), false);
-		
-		int pos = getPLBPosToInt(user, type, lead) + 1;
-		return (pos != 10001) ? " (#"+ pos + ")" : "";
-	}
-
-	/**
-	 * Get player position in the leader board
-	 * @param user
-	 * @return
 	 */
 	public static int getLBPosToInt(String user, char type, List<LeaderboardPlayer> lead) {
-		lead = sortLB(lead, type);
+		sortLB(lead, type);
 
 		if(user.length() > 31) {
 			for(int i = 0; i < lead.size(); i++) {
 				if(lead.get(i).uuid.equals(user)) return i;
 			}
-			return (10000);
 		} else {
 			for(int i = 0; i < lead.size(); i++) {
 				if(lead.get(i).name.equals(user)) return i;
 			}
-			return (10000);
 		}
+		return (10000);
 	}
 	
 	/**
 	 * Get player position in the leader board
-	 * @param user
-	 * @return
 	 */
 	public static int getLBPosToIntFast(String user, List<LeaderboardPlayer> lead) {
 		if(user.length() > 31) {
 			for(int i = 0; i < lead.size(); i++) {
 				if(lead.get(i).uuid.equals(user)) return i;
 			}
-			return (10000);
 		} else {
 			for(int i = 0; i < lead.size(); i++) {
 				if(lead.get(i).name.equals(user)) return i;
 			}
-			return (10000);
 		}
+		return (10000);
 	}
-	
+
 	/**
 	 * Get player position in the leader board
-	 * @param user
-	 * @return
+	 */
+	public static int getPLBPosToIntFast(String user, List<PracticeLeaderboardPlayer> lead) {
+		if(user.length() > 31) {
+			for(int i = 0; i < lead.size(); i++) {
+				if(lead.get(i).uuid.equals(user)) return i;
+			}
+		} else {
+			for(int i = 0; i < lead.size(); i++) {
+				if(lead.get(i).name.equals(user)) return i;
+			}
+		}
+		return (10000);
+	}
+
+	/**
+	 * Get player position in the leader board
 	 */
 	public static int getPLBPosToInt(String user, String type, List<PracticeLeaderboardPlayer> lead) {
-		lead = sortPLB(lead, type);
+		sortPLB(lead, type);
 
 		if(user.length() > 31) {
 			for(int i = 0; i < lead.size(); i++) {
 				if(lead.get(i).uuid.equals(user)) return i;
 			}
-			return (10000);
 		} else {
 			for(int i = 0; i < lead.size(); i++) {
 				if(lead.get(i).name.equals(user)) return i;
 			}
-			return (10000);
 		}
+		return (10000);
 	}
 
 	/**
 	 * Generate list of player from specified data folder
-	 * @param index
-	 * @return
 	 */
 	public static List<LeaderboardPlayer> generatePlayerList(File index, boolean overall) {
-		List<LeaderboardPlayer> lead = new ArrayList<LeaderboardPlayer>();
-
+		List<LeaderboardPlayer> lead = new ArrayList<>();
 		String[]entries = index.list();
+
+		if (entries == null) return (lead);
+
 		for(String s: entries) {
 			File playerFolder = new File(index.getPath(),s);
 			String data = GeneralUtils.readJsonToString(playerFolder + "/data.json");
@@ -557,11 +474,11 @@ public class GeneralUtils {
 		
 		if (overall) {
 			for (LeaderboardPlayer p : lead) {
-				float rank = GeneralUtils.getLBPosToInt(p.uuid, 'w', new ArrayList<LeaderboardPlayer>(lead));
-				rank += GeneralUtils.getLBPosToInt(p.uuid, 'r', new ArrayList<LeaderboardPlayer>(lead));
-				rank += GeneralUtils.getLBPosToInt(p.uuid, 'q', new ArrayList<LeaderboardPlayer>(lead));
-				rank += GeneralUtils.getLBPosToInt(p.uuid, 'f', new ArrayList<LeaderboardPlayer>(lead));
-				rank += GeneralUtils.getLBPosToInt(p.uuid, 't', new ArrayList<LeaderboardPlayer>(lead));
+				float rank = GeneralUtils.getLBPosToInt(p.uuid, 'w', new ArrayList<>(lead));
+				rank += GeneralUtils.getLBPosToInt(p.uuid, 'r', new ArrayList<>(lead));
+				rank += GeneralUtils.getLBPosToInt(p.uuid, 'q', new ArrayList<>(lead));
+				rank += GeneralUtils.getLBPosToInt(p.uuid, 'f', new ArrayList<>(lead));
+				rank += GeneralUtils.getLBPosToInt(p.uuid, 't', new ArrayList<>(lead));
 				rank = (rank / 5) + 1;
 				p.overall = rank;
 			}
@@ -572,13 +489,13 @@ public class GeneralUtils {
 	
 	/**
 	 * Generate list of player from specified data folder
-	 * @param index
-	 * @return
 	 */
 	public static List<PracticeLeaderboardPlayer> generatePracticePlayerList(File index, boolean overall) {
-		List<PracticeLeaderboardPlayer> lead = new ArrayList<PracticeLeaderboardPlayer>();
-
+		List<PracticeLeaderboardPlayer> lead = new ArrayList<>();
 		String[]entries = index.list();
+
+		if (entries == null) return (lead);
+
 		for(String s: entries) {
 			File playerFolder = new File(index.getPath(),s);
 			String data = GeneralUtils.readJsonToString(playerFolder + "/data.json");
@@ -588,11 +505,11 @@ public class GeneralUtils {
 		
 		if (overall) {
 			for (PracticeLeaderboardPlayer p : lead) {
-				float rank = GeneralUtils.getPLBPosToInt(p.uuid, "q", new ArrayList<PracticeLeaderboardPlayer>(lead));
-				rank += GeneralUtils.getPLBPosToInt(p.uuid, "f", new ArrayList<PracticeLeaderboardPlayer>(lead));
-				rank += GeneralUtils.getPLBPosToInt(p.uuid, "l", new ArrayList<PracticeLeaderboardPlayer>(lead));
-				rank += GeneralUtils.getPLBPosToInt(p.uuid, "wq", new ArrayList<PracticeLeaderboardPlayer>(lead));
-				rank += GeneralUtils.getPLBPosToInt(p.uuid, "t", new ArrayList<PracticeLeaderboardPlayer>(lead));
+				float rank = GeneralUtils.getPLBPosToInt(p.uuid, "q", new ArrayList<>(lead));
+				rank += GeneralUtils.getPLBPosToInt(p.uuid, "f", new ArrayList<>(lead));
+				rank += GeneralUtils.getPLBPosToInt(p.uuid, "l", new ArrayList<>(lead));
+				rank += GeneralUtils.getPLBPosToInt(p.uuid, "wq", new ArrayList<>(lead));
+				rank += GeneralUtils.getPLBPosToInt(p.uuid, "t", new ArrayList<>(lead));
 				rank = (rank / 5) + 1;
 				p.overall = rank;
 			}
@@ -603,7 +520,6 @@ public class GeneralUtils {
 	
 	/**
 	 * Get player head
-	 * @param uuid
 	 */
 	public static void getPlayerHead(String uuid) {
 		try {
@@ -617,7 +533,7 @@ public class GeneralUtils {
 			InputStream in = new BufferedInputStream(url.openStream());
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			byte[] buf = new byte[1024];
-			int n = 0;
+			int n;
 			while (-1 != (n = in.read(buf))) {
 				out.write(buf, 0, n);
 			}

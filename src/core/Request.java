@@ -1,47 +1,41 @@
 package core;
 
-import java.io.BufferedInputStream;
+import main.Main;
+import utils.Stats;
+
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
-
-import main.Main;
-import utils.Stats;
+import java.nio.charset.StandardCharsets;
 
 public class Request {
 	
 	/**
 	 * Get a player stats from the practice server API
-	 * @param uuid
-	 * @return
 	 */
 	public static String getPracticeServerScore(String uuid) {
 		Socket socket;
 		try {
 			socket = new Socket(Main.PRACTICE_API_IP, Main.PRACTICE_API_PORT);
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 			OutputStream out = socket.getOutputStream();
 			uuid += '\n';
-			out.write(uuid.getBytes("UTF-8"));
+			out.write(uuid.getBytes(StandardCharsets.UTF_8));
 			String data = in.readLine();
 			socket.close();
 			in.close();
 			out.close();
 			return (data);
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		return (null);
 	}
 	
 	/**
 	 * Get player stats from Hypixel API (slower)
-	 * @param user
-	 * @return
 	 */
 	public static String getPlayerStats(String user) {
 		try {
@@ -56,8 +50,6 @@ public class Request {
 	
 	/**
 	 * Get player stats from Hypixel API using UUID (faster)
-	 * @param user
-	 * @return
 	 */
 	public static String getPlayerStatsUUID(String uuid) {
 			try {
@@ -71,8 +63,6 @@ public class Request {
 	
 	/**
 	 * Get player stats from Hypixel API
-	 * @param url
-	 * @return
 	 */
 	private static String getStats(URL url) {
 		try {
@@ -80,7 +70,7 @@ public class Request {
 			InputStream is = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			StringBuilder builder = new StringBuilder();
-			String line = null;
+			String line;
 			
 			while ( (line = br.readLine()) != null) {
 				builder.append(line);
@@ -95,9 +85,7 @@ public class Request {
 	}
 	
 	/**
-	 * Get player UUID from his user name
-	 * @param user
-	 * @return
+	 * Get player UUID from his username
 	 */
 	public static String getPlayerUUID(String player) {
 		try {
@@ -106,7 +94,7 @@ public class Request {
 			InputStream is = con.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			StringBuilder builder = new StringBuilder();
-			String line = null;
+			String line;
 			
 			while ( (line = br.readLine()) != null) {
 					builder.append(line);
@@ -115,73 +103,6 @@ public class Request {
 			is.close();
 			br.close();
 			return (Stats.getID(builder.toString()));
-		} catch (Exception e) {
-			return (null);
-		}
-	}
-	
-	/**
-	 * Get user achievement point bar from plancke generator
-	 * @param name
-	 * @return
-	 */
-	public static String getAPBar(String name) {
-		try {
-			URL url = new URL("https://gen.plancke.io/achievementPoints/" + name + ".png");
-			FileOutputStream fos = new FileOutputStream("ap.png");
-			
-			byte[] response = getPicture(url);
-			fos.write(response);
-			fos.close();
-			return ("ok");
-		} catch (Exception e) {
-			return (null);
-		}
-	}
-	
-	/**
-	 * Get user level bar from plancke generator
-	 * @param name
-	 * @return
-	 */
-	public static String getLevelBar(String name) {
-		try {
-			URL url = new URL("https://gen.plancke.io/exp/" + name + ".png");
-			FileOutputStream fos = new FileOutputStream("level.png");
-			
-			byte[] response = getPicture(url);
-			fos.write(response);
-			fos.close();
-			return ("ok");
-		} catch (Exception e) {
-			return (null);
-		}
-	}
-	
-	/**
-	 * Get picture from plancke generator
-	 * @param url
-	 * @return
-	 */
-	private static byte[] getPicture(URL url) {
-		try {
-			URLConnection con = url.openConnection();
-			InputStream is = con.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			
-			if (br.readLine().contains("ensure"))return (null);
-				
-			InputStream in = new BufferedInputStream(url.openStream());
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			byte[] buf = new byte[1024];
-			int n = 0;
-			while (-1 != (n = in.read(buf))) {
-				out.write(buf, 0, n);
-			}
-			out.close();
-			in.close();
-			br.close();
-			return (out.toByteArray());
 		} catch (Exception e) {
 			return (null);
 		}

@@ -9,7 +9,6 @@ public class GuildMessageReactionAdd {
 	
 	/**
 	 * Execute the event
-	 * @param event
 	 */
 	public void run(GuildMessageReactionAddEvent event) {
 		if (event.getMember().getUser().isBot()) return;
@@ -19,20 +18,12 @@ public class GuildMessageReactionAdd {
 		if (event.getMessageId().equals(ConfigManager.getString("genderMessage"))) {
 			String roleName = getGender(event.getReactionEmote().toString());
 			
-			switch(event.getReactionEmote().toString()) {
-				case "RE:U+1f1ed" : roleName = "He/Him"; break;
-				case "RE:U+1f1f8" : roleName = "She/Her"; break;
-				case "RE:U+1f1f9" : roleName = "They/Them"; break;
-				default : return;
-			}
 			new RolesManager().setGender(RoleAction.ADD, event.getGuild(), event.getMember(), roleName);
 		}
 	}
 	
 	/**
 	 * Get gender role from reaction
-	 * @param emote
-	 * @return
 	 */
 	private String getGender(String emote) {
 		switch(emote) {
