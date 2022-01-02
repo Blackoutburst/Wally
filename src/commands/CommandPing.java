@@ -51,11 +51,12 @@ public class CommandPing extends CommandExecutable {
 	                    .addField("Used memory", "`"+mbUsed+"`MiB", true)
 	                    .addField("Total memory", "`"+mbTotal+"`MiB", true)
 	                    .addField("Max memory", "`"+mbMax+"`MiB", true)
-	                    .addField("Ping", "`"+(System.currentTimeMillis() - time)+"`ms", true)
-	                    .addField("Uptime", "`"+uptime+"` minutes", true)
-					   .addField("Tacker", "alive: `"+trackerThread+"`", false)
+					   .addField("Tacker", "alive: `"+trackerThread+"`", true)
 					   .addField("PTracker", "alive: `"+pTrackerThread+"`", true)
-					   .addField("Updater", "alive: `"+lbThread+"`", true).build();
+					   .addField("Updater", "alive: `"+lbThread+"`", true)
+					   .addField("Ping", "`"+(System.currentTimeMillis() - time)+"`ms", true)
+					   .addField("Uptime", "`"+uptime+"` minutes", true)
+					    .addField("Version", "`1.0.7`", true).build();
 			
 			response.editMessage(embed).queue();
 		});

@@ -53,6 +53,7 @@ public class CommandHelp extends CommandExecutable {
 			.setTitle("Available commands")
 			.setColor(new Color(71, 165, 255))
 			.addField("!help/!h", "Show this message", false)
+			.addField("!skin", "Show someone skin", false)
 			.addField("!pack","Redirect you to the #resource-packs channel" ,false)
 			.addField("!stats/!stat/!s [player]", "Show player Hole in the Wall stats", false)
 			.addField("!pstats/!pstat/!ps [player]", "Show player Hole in the Wall practice server stats", false)

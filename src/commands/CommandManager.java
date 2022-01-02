@@ -14,6 +14,7 @@ public class CommandManager {
 	
 	public static void run(Command command) {
 		switch (command.getName()) {
+			case "skin": new CommandSkin(command, EVERYONE, "!skin [player]").run(); break;
 			case "help": case "h": new CommandHelp(command, EVERYONE, "!help").run(); break;
 			case "pack": new CommandPack(command, EVERYONE, "!pack").run(); break;
 			case "stats": case "stat": case "s": new CommandStats(command, EVERYONE, "!stats [player]").run(); break;
@@ -69,6 +70,7 @@ public class CommandManager {
 		commands.addCommands(new CommandData("poll", "Make a poll (Requires permission)").addOptions(new OptionData(OptionType.STRING, "message", "The poll message Wally will say").setRequired(true)));
 	
 		//Users
+		commands.addCommands(new CommandData("skin", "Show player skin").addOptions(new OptionData(OptionType.STRING, "player", "The player skin you want to check")));
 		commands.addCommands(new CommandData("help", "Show this message"));
 		commands.addCommands(new CommandData("pack", "Redirect you to the #resource-packs channel"));
 		commands.addCommands(new CommandData("stats", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));

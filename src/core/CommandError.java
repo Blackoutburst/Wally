@@ -1,5 +1,6 @@
 package core;
 
+import utils.API;
 import utils.MessageSender;
 
 public interface CommandError {
@@ -9,6 +10,7 @@ public interface CommandError {
 	 */
 	default boolean badUsage(CommandExecutable cmd) {
 		MessageSender.badUsage(cmd.command, cmd.errorMessage);
+
 		return (false);
 	}
 	
