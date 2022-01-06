@@ -43,11 +43,7 @@ public class CommandRawStats extends CommandExecutable {
 			Member member = Bot.server.getMemberById(discordId);
 
 			if (member != null) {
-				if (member.getEffectiveName().length() > 16) {
-					discordNick = member.getEffectiveName().substring(0, 16)+"[...]" + "#" + member.getUser().getDiscriminator();
-				} else {
-					discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator();
-				}
+				discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator();
 			}
 			discordNick = discordNick.replaceAll("@", "@ ");
 		}
