@@ -152,7 +152,7 @@ public class MessageSender {
 
 		// Add a unique part to the request url so discord cannot cache it and the skin stays up to date.
 		// By: EatMyVenom
-		long time = System.currentTimeMillis();
+		final long time = System.currentTimeMillis();
 
 		final String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
 		final String avatarUrl = Objects.requireNonNull(Bot.server.getMemberById(discordid)).getUser().getAvatarUrl();
@@ -161,6 +161,8 @@ public class MessageSender {
 		final int newQ = API.getQualificationToInt(data);
 		final int oldF = Stats.getFinalsToInt(localData);
 		final int newF = API.getFinalsToInt(data);
+
+		boolean weTakeThose = false;
 		
 		embed.setAuthor(name + " | " + API.getName(data), url, avatarUrl);
 		embed.setThumbnail(url);
@@ -168,6 +170,7 @@ public class MessageSender {
 		
 		if (type == 'q') {
 			if (newQ - oldQ <= 0) return;
+			if (newQ - oldQ == 1) weTakeThose = true;
 			embed.setTitle(API.getName(data)+" Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Qualifiers** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newQ));
 			embed.addField("Old PB", "**" + oldQ + "**",true);
@@ -175,6 +178,7 @@ public class MessageSender {
 			embed.addField("Increase","**" + (newQ - oldQ) + "**",true);
 		} else {
 			if (newF - oldF <= 0) return;
+			if (newF - oldF == 1) weTakeThose = true;
 			embed.setTitle(API.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Finals** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newF));
 			embed.addField("Old PB", "**" + oldF + "**",true);
@@ -182,7 +186,13 @@ public class MessageSender {
 			embed.addField("Increase","**" + (newF - oldF) + "**",true);
 		}
 		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF, null);
-		Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel"))).sendMessage(embed.build()).complete();
+
+		if (weTakeThose) {
+			Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel"))).sendMessage(embed.build()).queue(response ->
+					response.addReaction("weTakeThose:839985386012147783").queue());
+		} else {
+			Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel"))).sendMessage(embed.build()).complete();
+		}
 	}
 	
 	/**
@@ -194,7 +204,7 @@ public class MessageSender {
 
 		// Add a unique part to the request url so discord cannot cache it and the skin stays up to date.
 		// By: EatMyVenom
-		long time = System.currentTimeMillis();
+		final long time = System.currentTimeMillis();
 
 		String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
 		String avatarUrl = Objects.requireNonNull(Bot.server.getMemberById(discordid)).getUser().getAvatarUrl();
@@ -207,6 +217,8 @@ public class MessageSender {
 		int newL = PracticeAPI.getLobbyToInt(data);
 		int oldWQ = PracticeStats.getWideQualificationToInt(localData);
 		int newWQ = PracticeAPI.getWideQualificationToInt(data);
+
+		boolean weTakeThose = false;
 		
 		embed.setAuthor(name + " | " + PracticeAPI.getName(data), url, avatarUrl);
 		embed.setThumbnail(url);
@@ -214,6 +226,7 @@ public class MessageSender {
 		
 		if (Objects.equals(type, "q")) {
 			if (newQ - oldQ <= 0) return;
+			if (newQ - oldQ == 1) weTakeThose = true;
 			embed.setTitle(PracticeAPI.getName(data)+" Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Qualifiers** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newQ));
 			embed.addField("Old PB", "**" + oldQ + "**",true);
@@ -221,6 +234,7 @@ public class MessageSender {
 			embed.addField("Increase","**" + (newQ - oldQ) + "**",true);
 		} else if (Objects.equals(type, "f")) {
 			if (newF - oldF <= 0) return;
+			if (newF - oldF == 1) weTakeThose = true;
 			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Finals** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newF));
 			embed.addField("Old PB", "**" + oldF + "**",true);
@@ -228,6 +242,7 @@ public class MessageSender {
 			embed.addField("Increase","**" + (newF - oldF) + "**",true);
 		} else if (Objects.equals(type, "l")) {
 			if (newL - oldL <= 0) return;
+			if (newL - oldL == 1) weTakeThose = true;
 			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Lobby** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newL));
 			embed.addField("Old PB", "**" + oldL + "**",true);
@@ -235,12 +250,19 @@ public class MessageSender {
 			embed.addField("Increase","**" + (newL - oldL) + "**",true);
 		}  else if (Objects.equals(type, "wq")) {
 			if (newWQ - oldWQ <= 0) return;
+			if (newWQ - oldWQ == 1) weTakeThose = true;
 			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Wide Qualifiers** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newWQ));
 			embed.addField("Old PB", "**" + oldWQ + "**",true);
 			embed.addField("New PB", "**" + newWQ + "**",true);
 			embed.addField("Increase","**" + (newWQ - oldWQ) + "**",true);
 		}
-		Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("practiceTrackerChannel"))).sendMessage(embed.build()).complete();
+
+		if (weTakeThose) {
+			Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("practiceTrackerChannel"))).sendMessage(embed.build()).queue(response ->
+					response.addReaction("weTakeThose:839985386012147783").queue());
+		} else {
+			Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("practiceTrackerChannel"))).sendMessage(embed.build()).complete();
+		}
 	}
 }
