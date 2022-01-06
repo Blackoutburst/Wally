@@ -32,8 +32,7 @@ public class GraphCanvas {
 				average += Objects.requireNonNull(PracticeAPI.getLobbyHistory(data))[i];
 		}
 		average = average / games;
-		
-		
+
 		if (type.equals("Qualification"))
 			image.drawGraphLine(PracticeAPI.getQualificationHistory(data), games);
 		if (type.equals("Finals"))
