@@ -18,6 +18,7 @@ public class CommandManager {
 			case "help": case "h": new CommandHelp(command, EVERYONE, "!help").run(); break;
 			case "pack": new CommandPack(command, EVERYONE, "!pack").run(); break;
 			case "stats": case "stat": case "s": new CommandStats(command, EVERYONE, "!stats [player]").run(); break;
+			case "rawstats": case "rstat": case "rs": new CommandRawStats(command, EVERYONE, "!rawstats [player]").run(); break;
 			case "pstats": case "pstat": case "ps": new CommandPStats(command, EVERYONE, "!pstats [player]").run(); break;
 			case "pgraph": new CommandPGraph(command, EVERYONE, "!pgraph [player] [Q/F/WQ/L]").run(); break;
 			case "ping": new CommandPing(command, EVERYONE, "!ping").run(); break;
@@ -77,6 +78,10 @@ public class CommandManager {
 		commands.addCommands(new CommandData("stat", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
 		commands.addCommands(new CommandData("s", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
 
+		commands.addCommands(new CommandData("rawstats", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
+		commands.addCommands(new CommandData("rstat", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
+		commands.addCommands(new CommandData("rs", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
+
 		commands.addCommands(new CommandData("pstats", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
 		commands.addCommands(new CommandData("pstat", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
 		commands.addCommands(new CommandData("ps", "Show player Hole in the Wall stats").addOptions(new OptionData(OptionType.STRING, "player", "The player you want to check")));
@@ -120,7 +125,7 @@ public class CommandManager {
 		commands.addCommands(new CommandData("resetfont", "Reset your stats font"));
 		
 		commands.addCommands(new CommandData("sf", "Set your stats font (file required format .TTF/.OTF)"));
-		commands.addCommands(new CommandData("rs", "Reset your stats font"));
+		commands.addCommands(new CommandData("rf", "Reset your stats font"));
 		commands.queue();
 	}
 }

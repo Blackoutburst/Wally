@@ -56,6 +56,7 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!skin", "Show someone skin", false)
 			.addField("!pack","Redirect you to the #resource-packs channel" ,false)
 			.addField("!stats/!stat/!s [player]", "Show player Hole in the Wall stats", false)
+			.addField("!rawstats/!rstat/!rs [player]", "Show player Hole in the Wall stats", false)
 			.addField("!pstats/!pstat/!ps [player]", "Show player Hole in the Wall practice server stats", false)
 			.addField("!ping", "Show how much Wally is dying", false)
 			.addField("!pgraph [player] [Q/F/L/WQ] [games]", "Show player practice server score graph", false)
