@@ -329,6 +329,7 @@ public class CompareCanvas {
 		image.drawImageFromMemory(LoadedRessources.Q, 950, 340, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.F, 950, 400, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.QF, 950, 460, 30, 30);
+
 		
 		if (API.getUUID(player1).equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 550, 110, 320, 80);
@@ -448,7 +449,9 @@ public class CompareCanvas {
 		image.drawImageFromMemory(LoadedRessources.F, 20, 280, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.L, 20, 340, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.WQ, 20, 400, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.QF, 20, 460, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WF, 20, 520, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 20, 580, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 20, 640, 30, 30);
 		
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
@@ -547,12 +550,14 @@ public class CompareCanvas {
 		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
 		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
-		
+
 		image.drawImageFromMemory(LoadedRessources.Q, 950, 220, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.F, 950, 280, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.L, 950, 340, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.WQ, 950, 400, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.QF, 950, 460, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WF, 950, 520, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 950, 580, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 950, 640, 30, 30);
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 550, 110, 320, 80);
@@ -622,9 +627,9 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + ":Overall Rank",
+		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank",
 				942, 607, 30, pOverallstringColor(p2rank, p1rank).darker().darker().darker());
-		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + ":Overall Rank",
+		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank",
 				940, 605, 30, pOverallstringColor(p2rank, p1rank));
 
 	}
