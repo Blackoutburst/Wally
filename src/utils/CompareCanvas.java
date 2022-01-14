@@ -384,7 +384,7 @@ public class CompareCanvas {
 	}
 	
 	private static String diff(String p1, String p2, Type type) {
-		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 		int d1;
 		int d2;
@@ -516,10 +516,13 @@ public class CompareCanvas {
 		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
 		p2rank = (p2rank / 6) + 1;
 
-		image.drawStringLeft("Overall Rank: " + p1rank + " (" + pOveralldiff(p1rank, p2rank) + ")",
-				62, 607, 30, pOverallstringColor(p1rank, p2rank).darker().darker().darker());
-		image.drawStringLeft("Overall Rank: " + p1rank + " (" + pOveralldiff(p1rank, p2rank) + ")",
-				60, 605, 30, pOverallstringColor(p1rank, p2rank));
+		NumberFormat nf = new DecimalFormat("0.00");
+		DecimalFormat formatter = (DecimalFormat) nf;
+
+		image.drawStringLeft("Overall Rank: " + formatter.format(p1rank) + " (" + pOveralldiff(p2rank, p1rank) + ")",
+				62, 607, 30, pOverallstringColor(p2rank, p1rank).darker().darker().darker());
+		image.drawStringLeft("Overall Rank: " + formatter.format(p1rank) + " (" + pOveralldiff(p2rank, p1rank) + ")",
+				60, 605, 30, pOverallstringColor(p2rank, p1rank));
 
 	}
 	
@@ -616,10 +619,13 @@ public class CompareCanvas {
 		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
 		p2rank = (p2rank / 6) + 1;
 
-		image.drawStringRight("(" + pOveralldiff(p1rank, p2rank) + ") " + p1rank + ":Overall Rank",
-				942, 607, 30, pOverallstringColor(p1rank, p2rank).darker().darker().darker());
-		image.drawStringRight("(" + pOveralldiff(p1rank, p2rank) + ") " + p1rank + ":Overall Rank",
-				940, 605, 30, pOverallstringColor(p1rank, p2rank));
+		NumberFormat nf = new DecimalFormat("0.00");
+		DecimalFormat formatter = (DecimalFormat) nf;
+
+		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + ":Overall Rank",
+				942, 607, 30, pOverallstringColor(p2rank, p1rank).darker().darker().darker());
+		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + ":Overall Rank",
+				940, 605, 30, pOverallstringColor(p2rank, p1rank));
 
 	}
 
@@ -632,7 +638,7 @@ public class CompareCanvas {
 	}
 
 	private static String pOveralldiff(float p1, float p2) {
-		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 		return (formatter.format(p1 - p2));
 	}

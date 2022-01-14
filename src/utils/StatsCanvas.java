@@ -4,6 +4,9 @@ import core.Bot;
 import net.dv8tion.jda.api.entities.Member;
 
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class StatsCanvas {
 
@@ -112,12 +115,15 @@ public class StatsCanvas {
 		
 		float rank = wlb + rlb + qlb + flb + tlb;
 		rank = (rank / 5) + 1;
+
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		DecimalFormat formatter = (DecimalFormat) nf;
 		
 		if ((int)(rank) == 10001) {
 			image.drawStringLeft("Overall rank: N/A", 562, 452, 30, shadow);
 			image.drawStringLeft("Overall rank: N/A", 560, 450, 30, color);
 		} else {
-			final String overall = "Overall rank: #" + rank + ((olb != 10000) ? " (#" + (olb + 1) + ")" : "");
+			final String overall = "Overall rank: #" + formatter.format(rank) + ((olb != 10000) ? " (#" + (olb + 1) + ")" : "");
 			image.drawStringLeft(overall, 562, 452, 30, shadow);
 			image.drawStringLeft(overall, 560, 450, 30, color);
 		}
@@ -230,12 +236,15 @@ public class StatsCanvas {
 	
 		float rank = qlb + flb + llb + wlb + tlb + wflb;
 		rank = (rank / 6) + 1;
-		
+
+		NumberFormat nf = new DecimalFormat("0.00");
+		DecimalFormat formatter = (DecimalFormat) nf;
+
 		if ((int)(rank) == 10001) {
 			image.drawStringLeft("Overall rank: N/A", 562, 452, 30, shadow);
 			image.drawStringLeft("Overall rank: N/A", 560, 450, 30, color);
 		} else {
-			final String overall = "Overall rank: #" + rank + ((olb != 10000) ? " (#" + (olb + 1) + ")" : "");
+			final String overall = "Overall rank: #" + formatter.format(rank) + ((olb != 10000) ? " (#" + (olb + 1) + ")" : "");
 			image.drawStringLeft(overall, 562, 502, 30, shadow);
 			image.drawStringLeft(overall, 560, 500, 30, color);
 		}
