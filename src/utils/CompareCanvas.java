@@ -255,20 +255,21 @@ public class CompareCanvas {
 	 */
 	private static void drawLeftSide(Canvas image, String player1, String player2) {
 		String uuid = API.getUUID(player1);
+		String uuid2 = API.getUUID(player2);
 		int f = API.getFinalsToInt(player1);
 		int q = API.getQualificationToInt(player1);
 		int score = Math.max(q, f);
 		
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
-		
-		image.drawImageFromMemory(LoadedRessources.WINS, 20, 220, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.WALLS, 20, 280, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.Q, 20, 340, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.F, 20, 400, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.QF, 20, 460, 30, 30);
-		
-		
+
+		image.drawImageFromMemory(LoadedRessources.WINS, 20, 215, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WALLS, 20, 265, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 20, 315, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 20, 365, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 20, 415, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 20, 465, 30, 30);
+
 		if (API.getUUID(player1).equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 130, 110, 320, 80);
 		else if (API.getUUID(player1).equals("92a5199614ac4bd181d1f3c951fb719f"))
@@ -285,29 +286,57 @@ public class CompareCanvas {
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 		
 		image.drawStringLeft("Wins: " + API.getWins(player1) + " (" + diff(player1, player2, Type.WINS) + ")",
-				62, 247, 30, stringColor(player1, player2, Type.WINS).darker().darker().darker());
+		62, 242, 30, stringColor(player1, player2, Type.WINS).darker().darker().darker());
 		image.drawStringLeft("Wins: " + API.getWins(player1) + " (" + diff(player1, player2, Type.WINS) + ")",
-		60, 245, 30, stringColor(player1, player2, Type.WINS));
+		60, 240, 30, stringColor(player1, player2, Type.WINS));
 		
 		image.drawStringLeft("Walls: " + API.getWalls(player1) + " (" + diff(player1, player2, Type.WALLS) + ")",
-		62, 307, 30, stringColor(player1, player2, Type.WALLS).darker().darker().darker());
+		62, 297, 30, stringColor(player1, player2, Type.WALLS).darker().darker().darker());
 		image.drawStringLeft("Walls: " + API.getWalls(player1) + " (" + diff(player1, player2, Type.WALLS) + ")",
-		60, 305, 30, stringColor(player1, player2, Type.WALLS));
+		60, 295, 30, stringColor(player1, player2, Type.WALLS));
 
 		image.drawStringLeft("Qualification: " + API.getQualification(player1) + " (" + diff(player1, player2, Type.Q) + ")",
-		62, 367, 30, stringColor(player1, player2, Type.Q).darker().darker().darker());
+		62, 347, 30, stringColor(player1, player2, Type.Q).darker().darker().darker());
 		image.drawStringLeft("Qualification: " + API.getQualification(player1) + " (" + diff(player1, player2, Type.Q) + ")",
-		60, 365, 30, stringColor(player1, player2, Type.Q));
+		60, 345, 30, stringColor(player1, player2, Type.Q));
 
 		image.drawStringLeft("Finals: " + API.getFinals(player1) + " (" + diff(player1, player2, Type.F) + ")",
-		62, 427, 30, stringColor(player1, player2, Type.F).darker().darker().darker());
+		62, 397, 30, stringColor(player1, player2, Type.F).darker().darker().darker());
 		image.drawStringLeft("Finals: " + API.getFinals(player1) + " (" + diff(player1, player2, Type.F) + ")",
-		60, 425, 30, stringColor(player1, player2, Type.F));
+		60, 395, 30, stringColor(player1, player2, Type.F));
 
 		image.drawStringLeft("Q/F: " + API.getTotal(player1) + " (" + diff(player1, player2, Type.T) + ")",
-		62, 487, 30, stringColor(player1, player2, Type.T).darker().darker().darker());
+		62, 447, 30, stringColor(player1, player2, Type.T).darker().darker().darker());
 		image.drawStringLeft("Q/F: " + API.getTotal(player1) + " (" + diff(player1, player2, Type.T) + ")",
-		60, 485, 30, stringColor(player1, player2, Type.T));
+		60, 445, 30, stringColor(player1, player2, Type.T));
+
+		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
+		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
+		int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
+		int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
+		int wflb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WF);
+		int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
+
+		float p1rank = qlb + flb + llb + wlb + tlb + wflb;
+		p1rank = (p1rank / 6) + 1;
+
+		qlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PQ);
+		flb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PF);
+		llb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.L);
+		wlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WQ);
+		wflb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WF);
+		tlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.LQF);
+
+		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
+		p2rank = (p2rank / 6) + 1;
+
+		NumberFormat nf = new DecimalFormat("0.00");
+		DecimalFormat formatter = (DecimalFormat) nf;
+
+		image.drawStringLeft("Overall Rank: " + formatter.format(p1rank) + " (" + pOveralldiff(p2rank, p1rank) + ")",
+				62, 497, 30, pOverallstringColor(p2rank, p1rank).darker().darker().darker());
+		image.drawStringLeft("Overall Rank: " + formatter.format(p1rank) + " (" + pOveralldiff(p2rank, p1rank) + ")",
+				60, 495, 30, pOverallstringColor(p2rank, p1rank));
 
 	}
 	
@@ -316,6 +345,7 @@ public class CompareCanvas {
 	 */
 	private static void drawRightSide(Canvas image, String player1, String player2) {
 		String uuid = API.getUUID(player1);
+		String uuid2 = API.getUUID(player2);
 		int f = API.getFinalsToInt(player1);
 		int q = API.getQualificationToInt(player1);
 		int score = Math.max(q, f);
@@ -323,14 +353,13 @@ public class CompareCanvas {
 		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
-		
-		image.drawImageFromMemory(LoadedRessources.WINS, 950, 220, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.WALLS, 950, 280, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.Q, 950, 340, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.F, 950, 400, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.QF, 950, 460, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WINS, 950, 215, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WALLS, 950, 265, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 950, 315, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 950, 365, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 950, 415, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 950, 465, 30, 30);
 
-		
 		if (API.getUUID(player1).equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 550, 110, 320, 80);
 		else if (API.getUUID(player1).equals("92a5199614ac4bd181d1f3c951fb719f"))
@@ -347,29 +376,57 @@ public class CompareCanvas {
 		image.drawImage("res/head.png", 880, 100, 100, 100);
 		
 		image.drawStringRight("(" + diff(player1, player2, Type.WINS) + ") " + API.getWins(player1) + " :Wins",
-		942, 247, 30, stringColor(player1, player2, Type.WINS).darker().darker().darker());
+		942, 242, 30, stringColor(player1, player2, Type.WINS).darker().darker().darker());
 		image.drawStringRight("(" + diff(player1, player2, Type.WINS) + ") " + API.getWins(player1) + " :Wins",
-		940, 245, 30, stringColor(player1, player2, Type.WINS));
+		940, 240, 30, stringColor(player1, player2, Type.WINS));
 
 		image.drawStringRight("(" + diff(player1, player2, Type.WALLS) + ") " + API.getWalls(player1) + " :Walls",
-		942, 307, 30, stringColor(player1, player2, Type.WALLS).darker().darker().darker());
+		942, 297, 30, stringColor(player1, player2, Type.WALLS).darker().darker().darker());
 		image.drawStringRight("(" + diff(player1, player2, Type.WALLS) + ") " + API.getWalls(player1) + " :Walls",
-		940, 305, 30, stringColor(player1, player2, Type.WALLS));
+		940, 295, 30, stringColor(player1, player2, Type.WALLS));
 
 		image.drawStringRight("(" + diff(player1, player2, Type.Q) + ") " + API.getQualification(player1) + " :Qualification",
-		942, 367, 30, stringColor(player1, player2, Type.Q).darker().darker().darker());
+		942, 347, 30, stringColor(player1, player2, Type.Q).darker().darker().darker());
 		image.drawStringRight("(" + diff(player1, player2, Type.Q) + ") " + API.getQualification(player1) + " :Qualification",
-		940, 365, 30, stringColor(player1, player2, Type.Q));
+		940, 345, 30, stringColor(player1, player2, Type.Q));
 		
 		image.drawStringRight("(" + diff(player1, player2, Type.F) + ") " + API.getFinals(player1) + " :Finals",
-		942, 427, 30, stringColor(player1, player2, Type.F).darker().darker().darker());
+		942, 397, 30, stringColor(player1, player2, Type.F).darker().darker().darker());
 		image.drawStringRight("(" + diff(player1, player2, Type.F) + ") " + API.getFinals(player1) + " :Finals",
-		940, 425, 30, stringColor(player1, player2, Type.F));
+		940, 395, 30, stringColor(player1, player2, Type.F));
 
 		image.drawStringRight("(" + diff(player1, player2, Type.T) + ") " + API.getTotal(player1) + " :Q/F",
-		942, 487, 30, stringColor(player1, player2, Type.T).darker().darker().darker());
+		942, 447, 30, stringColor(player1, player2, Type.T).darker().darker().darker());
 		image.drawStringRight("(" + diff(player1, player2, Type.T) + ") " + API.getTotal(player1) + " :Q/F",
-		940, 485, 30, stringColor(player1, player2, Type.T));
+		940, 445, 30, stringColor(player1, player2, Type.T));
+
+		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
+		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
+		int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
+		int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
+		int wflb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WF);
+		int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
+
+		float p1rank = qlb + flb + llb + wlb + tlb + wflb;
+		p1rank = (p1rank / 6) + 1;
+
+		qlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PQ);
+		flb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PF);
+		llb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.L);
+		wlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WQ);
+		wflb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WF);
+		tlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.LQF);
+
+		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
+		p2rank = (p2rank / 6) + 1;
+
+		NumberFormat nf = new DecimalFormat("0.00");
+		DecimalFormat formatter = (DecimalFormat) nf;
+
+		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank",
+				942, 497, 30, pOverallstringColor(p2rank, p1rank).darker().darker().darker());
+		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank",
+				940, 495, 30, pOverallstringColor(p2rank, p1rank));
 
 	}
 	
@@ -449,9 +506,9 @@ public class CompareCanvas {
 		image.drawImageFromMemory(LoadedRessources.F, 20, 280, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.L, 20, 340, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.WQ, 20, 400, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.WF, 20, 520, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.QF, 20, 580, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.RANK, 20, 640, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WF, 20, 460, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 20, 520, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 20, 580, 30, 30);
 		
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
@@ -555,9 +612,9 @@ public class CompareCanvas {
 		image.drawImageFromMemory(LoadedRessources.F, 950, 280, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.L, 950, 340, 30, 30);
 		image.drawImageFromMemory(LoadedRessources.WQ, 950, 400, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.WF, 950, 520, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.QF, 950, 580, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.RANK, 950, 640, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WF, 950, 460, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 950, 520, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 950, 580, 30, 30);
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 550, 110, 320, 80);
