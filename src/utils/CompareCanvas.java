@@ -310,25 +310,23 @@ public class CompareCanvas {
 		image.drawStringLeft("Q/F: " + API.getTotal(player1) + " (" + diff(player1, player2, Type.T) + ")",
 		60, 445, 30, stringColor(player1, player2, Type.T));
 
-		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
-		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
-		int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
-		int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
-		int wflb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WF);
-		int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
+		int wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
+		int rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
+		int qlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.Q);
+		int flb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.F);
+		int tlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.QF);
 
-		float p1rank = qlb + flb + llb + wlb + tlb + wflb;
-		p1rank = (p1rank / 6) + 1;
+		float p1rank = wlb + rlb + qlb + flb + tlb;
+		p1rank = (p1rank / 5) + 1;
 
-		qlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PQ);
-		flb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PF);
-		llb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.L);
-		wlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WQ);
-		wflb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WF);
-		tlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.LQF);
+		wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
+		rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
+		qlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.Q);
+		flb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.F);
+		tlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.QF);
 
-		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
-		p2rank = (p2rank / 6) + 1;
+		float p2rank = wlb + rlb + qlb + flb + tlb;
+		p2rank = (p2rank / 5) + 1;
 
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
@@ -400,25 +398,23 @@ public class CompareCanvas {
 		image.drawStringRight("(" + diff(player1, player2, Type.T) + ") " + API.getTotal(player1) + " :Q/F",
 		940, 445, 30, stringColor(player1, player2, Type.T));
 
-		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
-		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
-		int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
-		int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
-		int wflb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WF);
-		int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
+		int wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
+		int rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
+		int qlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.Q);
+		int flb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.F);
+		int tlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.QF);
 
-		float p1rank = qlb + flb + llb + wlb + tlb + wflb;
-		p1rank = (p1rank / 6) + 1;
+		float p1rank = wlb + rlb + qlb + flb + tlb;
+		p1rank = (p1rank / 5) + 1;
 
-		qlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PQ);
-		flb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PF);
-		llb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.L);
-		wlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WQ);
-		wflb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WF);
-		tlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.LQF);
+		wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
+		rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
+		qlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.Q);
+		flb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.F);
+		tlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.QF);
 
-		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
-		p2rank = (p2rank / 6) + 1;
+		float p2rank = wlb + rlb + qlb + flb + tlb;
+		p2rank = (p2rank / 5) + 1;
 
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
