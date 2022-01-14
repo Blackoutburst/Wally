@@ -36,6 +36,7 @@ public class LoadedRessources {
 	public static BufferedImage BACKGROUND_LARGE = null;
 	public static BufferedImage BACKGROUND_XL = null;
 	public static BufferedImage BACKGROUND_ENDL = null;
+	public static BufferedImage BACKGROUND_COMPARE = null;
 	
 	public static BufferedImage PHEADER = null;
 	
@@ -81,6 +82,7 @@ public class LoadedRessources {
 		BACKGROUND_LARGE = ImageIO.read(new File("res/backgroundLarge.png"));
 		BACKGROUND_XL = ImageIO.read(new File("res/backgroundXL.png"));
 		BACKGROUND_ENDL = ImageIO.read(new File("res/backgroundEndL.png"));
+		BACKGROUND_COMPARE = ImageIO.read(new File("res/backgroundCompare.png"));
 		
 		PHEADER = ImageIO.read(new File("res/practiceHeader.png"));
 		

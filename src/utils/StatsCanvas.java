@@ -140,7 +140,7 @@ public class StatsCanvas {
 		
 		if (q >= f && q >= wq && q >= l && q >= wf) score = q;
 		if (f >= q && f >= wq && f >= l && f >= wf) score = f;
-		if (wq >= f && wq >= q && wq >= l && l >= wf) score = wq;
+		if (wq >= f && wq >= q && wq >= l && wq >= wf) score = wq;
 		if (l >= f && l >= q && l >= wq && l >= wf) score = l;
 		if (wf >= f && wf >= q && wf >= wq && wf >= l) score = wf;
 		
@@ -228,8 +228,8 @@ public class StatsCanvas {
 		image.drawStringLeft(wideF, 560, 380, 30, color);
 		image.drawStringLeft(tot, 560, 440, 30, color);
 	
-		float rank = qlb + flb + llb + wlb + tlb;
-		rank = (rank / 5) + 1;
+		float rank = qlb + flb + llb + wlb + tlb + wflb;
+		rank = (rank / 6) + 1;
 		
 		if ((int)(rank) == 10001) {
 			image.drawStringLeft("Overall rank: N/A", 562, 452, 30, shadow);

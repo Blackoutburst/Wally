@@ -56,7 +56,7 @@ public class CommandPing extends CommandExecutable {
 					   .addField("Updater", "alive: `"+lbThread+"`", true)
 					   .addField("Ping", "`"+(System.currentTimeMillis() - time)+"`ms", true)
 					   .addField("Uptime", "`"+uptime+"` minutes", true)
-					    .addField("Version", "`1.0.7`", true).build();
+					    .addField("Version", "`1.0.8`", true).build();
 			
 			response.editMessage(embed).queue();
 		});

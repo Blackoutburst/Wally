@@ -25,12 +25,13 @@ public class CommandLeaderboard extends CommandExecutable {
 		List<LeaderboardPlayer> lead = null;
 		
 		switch(type) {
+			case 'w': lead = LeaderboardList.WINS; break;
 			case 'r': lead = LeaderboardList.WALLS; break;
 			case 'q': lead = LeaderboardList.Q; break;
 			case 'f': lead = LeaderboardList.F; break;
 			case 't': lead = LeaderboardList.QF; break;
 			case 'o': lead = LeaderboardList.OVERALL; break;
-			default: lead = LeaderboardList.WINS;
+			default: MessageSender.message(command,"This leaderboard doesn't exist, try one of these [W, R, Q, F, T, O]");
 		}
 		
 		Leaderboard lb = new Leaderboard(lead, type);

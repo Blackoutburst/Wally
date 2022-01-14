@@ -24,6 +24,7 @@ public class CompareCanvas {
 		T,
 		LQF,
 		WQ,
+		WF,
 		L
 	}
 	
@@ -414,45 +415,32 @@ public class CompareCanvas {
 	}
 	
 	public static void createPCompareImage(Canvas image, String player1Uuid, String player2Uuid, String player1Stats, String player2Stats, String player1Name, String player2Name) {
-		setPracticeBackground(image, player1Uuid, player2Uuid);
+		image.drawImageFromMemory(LoadedRessources.BACKGROUND_COMPARE, 0, 0, 1000, 640);
 
-		drawPLeftSide(image, player1Stats, player2Stats, player1Uuid, player1Name);
-		drawPRightSide(image, player2Stats, player1Stats, player2Uuid, player2Name);
+		drawPLeftSide(image, player1Stats, player2Stats, player1Uuid, player1Name, player2Uuid);
+		drawPRightSide(image, player2Stats, player1Stats, player2Uuid, player2Name, player1Uuid);
 
 		image.save("pcompare.png");
 	}
-	
-	private static void setPracticeBackground(Canvas image, String player1, String player2) {
-		Canvas half = new Canvas(500, 520);
-		
-		half.drawImage(GeneralUtils.getCustomBackground(player1), 0, 0, 1000, GeneralUtils.hasCustomBackground(player1) ? 440 : 520);
-		half.save("half.png");
-		
-		Canvas half2 = new Canvas(500, 520);
-		
-		half2.drawImage(GeneralUtils.getCustomBackground(player2), -500, 0, 1000, GeneralUtils.hasCustomBackground(player2) ? 440 : 520);
-		half2.save("half2.png");
-		
-		image.drawCustomBackground("half.png", 0, GeneralUtils.hasCustomBackground(player1) ? 80 : 0, 500, 520);
-		image.drawCustomBackground("half2.png", 500, GeneralUtils.hasCustomBackground(player2) ? 80 : 0, 500, 520);
-	}
-	
+
 	/**
 	 * Draw the left side of the compare canvas
 	 */
-	private static void drawPLeftSide(Canvas image, String player1, String player2, String uuid, String name) {
+	private static void drawPLeftSide(Canvas image, String player1, String player2, String uuid, String name, String uuid2) {
 		final int q = PracticeAPI.getQualificationToInt(player1);
 		final int f = PracticeAPI.getFinalsToInt(player1);
 		final int wq = PracticeAPI.getWideQualificationToInt(player1);
+		final int wf = PracticeAPI.getWideFinalsToInt(player1);
 		final int l = PracticeAPI.getLobbyToInt(player1);
 		final int lqf = l+q+f+wq;
 		int score = 0;
-		
-		if (q >= f && q >= wq && q >= l) score = q;
-		if (f >= q && f >= wq && f >= l) score = f;
-		if (wq >= f && wq >= q && wq >= l) score = wq;
-		if (l >= f && l >= q && l >= wq) score = l;
-		
+
+		if (q >= f && q >= wq && q >= l && q >= wf) score = q;
+		if (f >= q && f >= wq && f >= l && f >= wf) score = f;
+		if (wq >= f && wq >= q && wq >= l && wq >= wf) score = wq;
+		if (l >= f && l >= q && l >= wq && l >= wf) score = l;
+		if (wf >= f && wf >= q && wf >= wq && wf >= l) score = wf;
+
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
@@ -493,33 +481,65 @@ public class CompareCanvas {
 		image.drawStringLeft("Lobby: " + l + " (" + pdiff(player1, player2, Type.L) + ")",
 		60, 365, 30, pstringColor(player1, player2, Type.L));
 
-		image.drawStringLeft("Wide Qual: " + wq + " (" + pdiff(player1, player2, Type.WQ) + ")",
+		image.drawStringLeft("Wide Q: " + wq + " (" + pdiff(player1, player2, Type.WQ) + ")",
 		62, 427, 30, pstringColor(player1, player2, Type.WQ).darker().darker().darker());
-		image.drawStringLeft("Wide Qual: " + wq + " (" + pdiff(player1, player2, Type.WQ) + ")",
+		image.drawStringLeft("Wide Q: " + wq + " (" + pdiff(player1, player2, Type.WQ) + ")",
 		60, 425, 30, pstringColor(player1, player2, Type.WQ));
+
+		image.drawStringLeft("Wide F: " + wf + " (" + pdiff(player1, player2, Type.WF) + ")",
+				62, 487, 30, pstringColor(player1, player2, Type.WF).darker().darker().darker());
+		image.drawStringLeft("Wide F: " + wf + " (" + pdiff(player1, player2, Type.WF) + ")",
+				60, 485, 30, pstringColor(player1, player2, Type.WF));
 		
-		image.drawStringLeft("L/Q/F/WQ: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
-		62, 487, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());		
-		image.drawStringLeft("L/Q/F/WQ: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
-		60, 485, 30, pstringColor(player1, player2, Type.LQF));
+		image.drawStringLeft("Total: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
+		62, 547, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());
+		image.drawStringLeft("Total: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
+		60, 545, 30, pstringColor(player1, player2, Type.LQF));
+
+		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
+		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
+		int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
+		int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
+		int wflb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WF);
+		int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
+
+		float p1rank = qlb + flb + llb + wlb + tlb + wflb;
+		p1rank = (p1rank / 6) + 1;
+
+		qlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PQ);
+		flb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PF);
+		llb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.L);
+		wlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WQ);
+		wflb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WF);
+		tlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.LQF);
+
+		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
+		p2rank = (p2rank / 6) + 1;
+
+		image.drawStringLeft("Overall Rank: " + p1rank + " (" + pOveralldiff(p1rank, p2rank) + ")",
+				62, 607, 30, pOverallstringColor(p1rank, p2rank).darker().darker().darker());
+		image.drawStringLeft("Overall Rank: " + p1rank + " (" + pOveralldiff(p1rank, p2rank) + ")",
+				60, 605, 30, pOverallstringColor(p1rank, p2rank));
 
 	}
 	
 	/**
 	 * Draw the left side of the compare canvas
 	 */
-	private static void drawPRightSide(Canvas image, String player1, String player2, String uuid, String name) {
+	private static void drawPRightSide(Canvas image, String player1, String player2, String uuid, String name, String uuid2) {
 		final int q = PracticeAPI.getQualificationToInt(player1);
 		final int f = PracticeAPI.getFinalsToInt(player1);
 		final int wq = PracticeAPI.getWideQualificationToInt(player1);
+		final int wf = PracticeAPI.getWideFinalsToInt(player1);
 		final int l = PracticeAPI.getLobbyToInt(player1);
 		final int lqf = l+q+f+wq;
 		int score = 0;
-		
-		if (q >= f && q >= wq && q >= l) score = q;
-		if (f >= q && f >= wq && f >= l) score = f;
-		if (wq >= f && wq >= q && wq >= l) score = wq;
-		if (l >= f && l >= q && l >= wq) score = l;
+
+		if (q >= f && q >= wq && q >= l && q >= wf) score = q;
+		if (f >= q && f >= wq && f >= l && f >= wf) score = f;
+		if (wq >= f && wq >= q && wq >= l && wq >= wf) score = wq;
+		if (l >= f && l >= q && l >= wq && l >= wf) score = l;
+		if (wf >= f && wf >= q && wf >= wq && wf >= l) score = wf;
 		
 		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
 		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
@@ -561,18 +581,62 @@ public class CompareCanvas {
 		image.drawStringRight("(" + pdiff(player1, player2, Type.L) + ") " + l + " :Lobby",
 		940, 365, 30, pstringColor(player1, player2, Type.L));
 
-		image.drawStringRight("(" + pdiff(player1, player2, Type.WQ) + ") " + wq + " :Wide Qual",
+		image.drawStringRight("(" + pdiff(player1, player2, Type.WQ) + ") " + wq + " :Wide Q",
 		942, 427, 30, pstringColor(player1, player2, Type.WQ).darker().darker().darker());
-		image.drawStringRight("(" + pdiff(player1, player2, Type.WQ) + ") " + wq + " :Wide Qual",
+		image.drawStringRight("(" + pdiff(player1, player2, Type.WQ) + ") " + wq + " :Wide Q",
 		940, 425, 30, pstringColor(player1, player2, Type.WQ));
+
+		image.drawStringRight("(" + pdiff(player1, player2, Type.WF) + ") " + wq + " :Wide F",
+				942, 487, 30, pstringColor(player1, player2, Type.WF).darker().darker().darker());
+		image.drawStringRight("(" + pdiff(player1, player2, Type.WF) + ") " + wq + " :Wide F",
+				940, 485, 30, pstringColor(player1, player2, Type.WF));
 		
-		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :L/Q/F/WQ",
-		942, 487, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());		
-		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :L/Q/F/WQ",
-		940, 485, 30, pstringColor(player1, player2, Type.LQF));
+		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :Total",
+		942, 547, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());
+		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :Total",
+		940, 545, 30, pstringColor(player1, player2, Type.LQF));
+
+		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
+		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
+		int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
+		int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
+		int wflb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WF);
+		int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
+
+		float p1rank = qlb + flb + llb + wlb + tlb + wflb;
+		p1rank = (p1rank / 6) + 1;
+
+		qlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PQ);
+		flb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PF);
+		llb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.L);
+		wlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WQ);
+		wflb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WF);
+		tlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.LQF);
+
+		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
+		p2rank = (p2rank / 6) + 1;
+
+		image.drawStringRight("(" + pOveralldiff(p1rank, p2rank) + ") " + p1rank + ":Overall Rank",
+				942, 607, 30, pOverallstringColor(p1rank, p2rank).darker().darker().darker());
+		image.drawStringRight("(" + pOveralldiff(p1rank, p2rank) + ") " + p1rank + ":Overall Rank",
+				940, 605, 30, pOverallstringColor(p1rank, p2rank));
 
 	}
-	
+
+	private static Color pOverallstringColor(float score1, float score2) {
+		Color color;
+
+		color = pOveralldiff(score1, score2).charAt(0) == '-' ? new Color(255, 80, 80): new Color(80, 255, 80);
+		if (pOveralldiff(score1, score2).charAt(0) == '0') color = Color.white;
+		return (color);
+	}
+
+	private static String pOveralldiff(float p1, float p2) {
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+		DecimalFormat formatter = (DecimalFormat) nf;
+		return (formatter.format(p1 - p2));
+	}
+
 	/**
 	 * Get string color if value is positive negative or null
 	 */
@@ -603,6 +667,10 @@ public class CompareCanvas {
 				d1 = PracticeAPI.getWideQualificationToInt(p1);
 				d2 = PracticeAPI.getWideQualificationToInt(p2);
 			break;
+			case WF:
+				d1 = PracticeAPI.getWideFinalsToInt(p1);
+				d2 = PracticeAPI.getWideFinalsToInt(p2);
+				break;
 			case L: 
 				d1 = PracticeAPI.getLobbyToInt(p1);
 				d2 = PracticeAPI.getLobbyToInt(p2);

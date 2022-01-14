@@ -53,7 +53,7 @@ public class CommandPCompare extends CommandExecutable {
 			return unknownPlayer(this, player2Name);
 		}
 		
-		Canvas image = new Canvas(1000, 520);
+		Canvas image = new Canvas(1000, 640);
 		
 		CompareCanvas.createPCompareImage(image, player1Uuid, player2Uuid, player1, player2, player1Name, player2Name);
 
