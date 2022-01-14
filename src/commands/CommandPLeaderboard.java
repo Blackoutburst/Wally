@@ -25,6 +25,7 @@ public class CommandPLeaderboard extends CommandExecutable {
 			case "f": lead = LeaderboardList.PF; break;
 			case "l": lead = LeaderboardList.L; break;
 			case "wq": lead = LeaderboardList.WQ; break;
+			case "wf": lead = LeaderboardList.WF; break;
 			case "t": lead = LeaderboardList.LQF; break;
 			case "o": lead = LeaderboardList.POVERALL; break;
 		}
