@@ -9,14 +9,14 @@ import utils.ConfigManager;
 
 public class Main {
 
-	private static final String TOKEN = "ODA2MDg2MjQwNDI3OTY2NDg0.YBkUUA.wtnzbqYPpwQyDd7xXaYyX7WSycs";
+	private static final String TOKEN = "X";
 	private static final String ACTIVITY = "Hole in the Wall";
 
-	public static final String BOT_ID = "806086240427966484";
-	public static final String API = "5687a8ae-cb08-4fa3-ba4f-77b9944916cb";
+	public static final String BOT_ID = "X";
+	public static final String API = "X";
 	public static final String PREFIX = "!";
 
-	public static final String PRACTICE_API_IP = "178.32.125.169";
+	public static final String PRACTICE_API_IP = "X";
 	public static final int PRACTICE_API_PORT = 30100;
 	
 	public static void main(String[] args) throws LoginException, IOException {
