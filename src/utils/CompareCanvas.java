@@ -319,11 +319,11 @@ public class CompareCanvas {
 		float p1rank = wlb + rlb + qlb + flb + tlb;
 		p1rank = (p1rank / 5) + 1;
 
-		wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
-		rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
-		qlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.Q);
-		flb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.F);
-		tlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.QF);
+		wlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.WINS);
+		rlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.WALLS);
+		qlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.Q);
+		flb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.F);
+		tlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.QF);
 
 		float p2rank = wlb + rlb + qlb + flb + tlb;
 		p2rank = (p2rank / 5) + 1;
@@ -407,11 +407,11 @@ public class CompareCanvas {
 		float p1rank = wlb + rlb + qlb + flb + tlb;
 		p1rank = (p1rank / 5) + 1;
 
-		wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
-		rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
-		qlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.Q);
-		flb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.F);
-		tlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.QF);
+		wlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.WINS);
+		rlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.WALLS);
+		qlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.Q);
+		flb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.F);
+		tlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.QF);
 
 		float p2rank = wlb + rlb + qlb + flb + tlb;
 		p2rank = (p2rank / 5) + 1;
@@ -438,7 +438,7 @@ public class CompareCanvas {
 	}
 	
 	private static String diff(String p1, String p2, Type type) {
-		NumberFormat nf = new DecimalFormat("0.00");
+		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat formatter = (DecimalFormat) nf;
 		int d1;
 		int d2;
