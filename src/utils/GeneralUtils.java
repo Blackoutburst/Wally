@@ -514,7 +514,7 @@ public class GeneralUtils {
 				rank += GeneralUtils.getPLBPosToInt(p.uuid, "wq", new ArrayList<>(lead));
 				rank += GeneralUtils.getPLBPosToInt(p.uuid, "wf", new ArrayList<>(lead));
 				rank += GeneralUtils.getPLBPosToInt(p.uuid, "t", new ArrayList<>(lead));
-				rank = (rank / 5) + 1;
+				rank = (rank / 6) + 1;
 				p.overall = rank;
 			}
 		}
