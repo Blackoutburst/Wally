@@ -12,19 +12,6 @@ public class PracticeLeaderboardPlayer {
 	public String name;
 	public String discord;
 	public String uuid;
-	
-	public PracticeLeaderboardPlayer(int qualification, int finals, int wideQualification, int lobby, int wideFinals, int total, float overall, String name, String discord, String uuid) {
-		this.qualification = qualification;
-		this.finals = finals;
-		this.wideQualification = wideQualification;
-		this.lobby = lobby;
-		this.wideFinals = wideFinals;
-		this.total = total;
-		this.overall = overall;
-		this.name = name;
-		this.discord = discord;
-		this.uuid = uuid;
-	}
 
 	public PracticeLeaderboardPlayer(String data) {
 		this.uuid = PracticeStats.getUUID(data);

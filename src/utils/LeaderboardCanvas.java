@@ -44,6 +44,7 @@ public class LeaderboardCanvas {
 		final int q = lb.getPlayers().get((10 * page)).finals;
 		final int f = lb.getPlayers().get((10 * page)).qualification;
 		final int wq = lb.getPlayers().get((10 * page)).wideQualification;
+		final int wf = lb.getPlayers().get((10 * page)).wideQualification;
 		final int l = lb.getPlayers().get((10 * page)).lobby;
 		int score = 0;
 		
@@ -51,6 +52,7 @@ public class LeaderboardCanvas {
 		if (f >= q && f >= wq && f >= l) score = f;
 		if (wq >= f && wq >= q && wq >= l) score = wq;
 		if (l >= f && l >= q && l >= wq) score = l;
+		if (wf >= f && wf >= q && wf >= l) score = wf;
 
 		image.loadFont("res/font.ttf");
 		image.drawImageFromMemory(LoadedRessources.BACKGROUND_XL, 0, 0, 1000, 770);

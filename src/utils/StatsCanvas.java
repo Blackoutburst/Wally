@@ -211,7 +211,7 @@ public class StatsCanvas {
 		final String finals = "Finals: " + f + ((flb != 10000) ? " (#"+ (flb+1) + ")" : "");
 		final String lobby = "Lobby: " + l + ((llb != 10000) ? " (#"+ (llb+1) + ")" : "");
 		final String wide = "Wide Q: " + wq + ((wlb != 10000) ? " (#"+ (wlb+1) + ")" : "");
-		final String wideF = "Wide F: " + wq + ((wflb != 10000) ? " (#"+ (wflb+1) + ")" : "");
+		final String wideF = "Wide F: " + wf + ((wflb != 10000) ? " (#"+ (wflb+1) + ")" : "");
 		final String tot = "Total: " + (l+q+f+wq+wf) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
 		
 		image.drawStringLeft(qual, 562, 142, 30, shadow);
