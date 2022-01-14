@@ -35,7 +35,7 @@ public class CommandSearch extends CommandExecutable {
 		LeaderboardPlayer player = lb.getPlayers().get(pos);
 		String data = Request.getPlayerStatsUUID(player.uuid);
 		
-		Canvas image = new Canvas(1000, 400);
+		Canvas image = new Canvas(1000, 520);
 
 		StatsCanvas.createStatsImage(image, data, player.uuid);
 		MessageSender.sendFile(command, "stats.png");
