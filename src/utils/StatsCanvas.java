@@ -132,15 +132,17 @@ public class StatsCanvas {
 		final int q = PracticeAPI.getQualificationToInt(data);
 		final int f = PracticeAPI.getFinalsToInt(data);
 		final int wq = PracticeAPI.getWideQualificationToInt(data);
+		final int wf = PracticeAPI.getWideFinalsToInt(data);
 		final int l = PracticeAPI.getLobbyToInt(data);
 		int score = 0;
 		final Color color = GeneralUtils.getFontColor(uuid);
 		final Color shadow = GeneralUtils.getFontColor(uuid).darker().darker().darker();
 		
-		if (q >= f && q >= wq && q >= l) score = q;
-		if (f >= q && f >= wq && f >= l) score = f;
-		if (wq >= f && wq >= q && wq >= l) score = wq;
-		if (l >= f && l >= q && l >= wq) score = l;
+		if (q >= f && q >= wq && q >= l && q >= wf) score = q;
+		if (f >= q && f >= wq && f >= l && f >= wf) score = f;
+		if (wq >= f && wq >= q && wq >= l && l >= wf) score = wq;
+		if (l >= f && l >= q && l >= wq && l >= wf) score = l;
+		if (wf >= f && wf >= q && wf >= wq && wf >= l) score = wf;
 		
 		if (GeneralUtils.hasCustomBackground(uuid)) {
 			image.drawImage(GeneralUtils.getCustomBackground(uuid), 0, 80, 1000, 440);
@@ -151,12 +153,13 @@ public class StatsCanvas {
 		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
-		image.drawImageFromMemory(LoadedRessources.Q, 520, 125, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.F, 520, 185, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.L, 520, 245, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.WQ, 520, 305, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.QF, 520, 365, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.RANK, 520, 425, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 520, 115, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 520, 175, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.L, 520, 235, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WQ, 520, 295, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.WF, 520, 355, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 520, 415, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 520, 475, 30, 30);
 		
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 130, 110, 320, 80);
@@ -200,26 +203,30 @@ public class StatsCanvas {
 		final int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
 		final int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
 		final int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
+		final int wflb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WF);
 		final int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
 		final int olb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.POVERALL);
 
 		final String qual = "Qualification: " + q + ((qlb != 10000) ? " (#"+ (qlb+1) + ")" : "");
 		final String finals = "Finals: " + f + ((flb != 10000) ? " (#"+ (flb+1) + ")" : "");
 		final String lobby = "Lobby: " + l + ((llb != 10000) ? " (#"+ (llb+1) + ")" : "");
-		final String wide = "Wide Qual: " + wq + ((wlb != 10000) ? " (#"+ (wlb+1) + ")" : "");
-		final String tot = "L/Q/F/WQ: " + (l+q+f+wq) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
+		final String wide = "Wide Q: " + wq + ((wlb != 10000) ? " (#"+ (wlb+1) + ")" : "");
+		final String wideF = "Wide F: " + wq + ((wflb != 10000) ? " (#"+ (wflb+1) + ")" : "");
+		final String tot = "Total: " + (l+q+f+wq+wf) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
 		
-		image.drawStringLeft(qual, 562, 152, 30, shadow);
-		image.drawStringLeft(finals, 562, 212, 30, shadow);
-		image.drawStringLeft(lobby, 562, 272, 30, shadow);
-		image.drawStringLeft(wide, 562, 332, 30, shadow);
-		image.drawStringLeft(tot, 562, 392, 30, shadow);
+		image.drawStringLeft(qual, 562, 142, 30, shadow);
+		image.drawStringLeft(finals, 562, 202, 30, shadow);
+		image.drawStringLeft(lobby, 562, 262, 30, shadow);
+		image.drawStringLeft(wide, 562, 322, 30, shadow);
+		image.drawStringLeft(wideF, 562, 382, 30, shadow);
+		image.drawStringLeft(tot, 562, 442, 30, shadow);
 		
-		image.drawStringLeft(qual, 560, 150, 30, color);
-		image.drawStringLeft(finals, 560, 210, 30, color);
-		image.drawStringLeft(lobby, 560, 270, 30, color);
-		image.drawStringLeft(wide, 560, 330, 30, color);
-		image.drawStringLeft(tot, 560, 390, 30, color);
+		image.drawStringLeft(qual, 560, 140, 30, color);
+		image.drawStringLeft(finals, 560, 200, 30, color);
+		image.drawStringLeft(lobby, 560, 260, 30, color);
+		image.drawStringLeft(wide, 560, 320, 30, color);
+		image.drawStringLeft(wideF, 560, 380, 30, color);
+		image.drawStringLeft(tot, 560, 440, 30, color);
 	
 		float rank = qlb + flb + llb + wlb + tlb;
 		rank = (rank / 5) + 1;
@@ -229,8 +236,8 @@ public class StatsCanvas {
 			image.drawStringLeft("Overall rank: N/A", 560, 450, 30, color);
 		} else {
 			final String overall = "Overall rank: #" + rank + ((olb != 10000) ? " (#" + (olb + 1) + ")" : "");
-			image.drawStringLeft(overall, 562, 452, 30, shadow);
-			image.drawStringLeft(overall, 560, 450, 30, color);
+			image.drawStringLeft(overall, 562, 502, 30, shadow);
+			image.drawStringLeft(overall, 560, 500, 30, color);
 		}
 		
 		image.save("pstats.png");

@@ -267,6 +267,7 @@ public class GeneralUtils {
 				.put("qualification", PracticeAPI.getQualificationToInt(data))
 				.put("finals", PracticeAPI.getFinalsToInt(data))
 				.put("wide_qualification", PracticeAPI.getWideQualificationToInt(data))
+				.put("wide_finals", PracticeAPI.getWideFinalsToInt(data))
 				.put("lobby", PracticeAPI.getLobbyToInt(data))
 				.put("uuid", uuid);
 
@@ -344,6 +345,7 @@ public class GeneralUtils {
 			obj.put("qualification", PracticeAPI.getQualificationToInt(data));
 			obj.put("finals", PracticeAPI.getFinalsToInt(data));
 			obj.put("wide_qualification", PracticeAPI.getWideQualificationToInt(data));
+			obj.put("wide_finals", PracticeAPI.getWideFinalsToInt(data));
 			obj.put("lobby", PracticeAPI.getLobbyToInt(data));
 			obj.put("name", PracticeAPI.getName(data));
 		} else {
@@ -381,6 +383,7 @@ public class GeneralUtils {
 		switch (type) {
 			case "f" : lead.sort(new PlayerComparatorPF()); break;
 			case "wq" : lead.sort(new PlayerComparatorWQ()); break;
+			case "wf" : lead.sort(new PlayerComparatorWF()); break;
 			case "l" : lead.sort(new PlayerComparatorL()); break;
 			case "t" : lead.sort(new PlayerComparatorLQF()); break;
 			case "o" : lead.sort(new PlayerComparatorPOverall()); break;
@@ -509,6 +512,7 @@ public class GeneralUtils {
 				rank += GeneralUtils.getPLBPosToInt(p.uuid, "f", new ArrayList<>(lead));
 				rank += GeneralUtils.getPLBPosToInt(p.uuid, "l", new ArrayList<>(lead));
 				rank += GeneralUtils.getPLBPosToInt(p.uuid, "wq", new ArrayList<>(lead));
+				rank += GeneralUtils.getPLBPosToInt(p.uuid, "wf", new ArrayList<>(lead));
 				rank += GeneralUtils.getPLBPosToInt(p.uuid, "t", new ArrayList<>(lead));
 				rank = (rank / 5) + 1;
 				p.overall = rank;

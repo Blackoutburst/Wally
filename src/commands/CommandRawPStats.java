@@ -52,11 +52,13 @@ public class CommandRawPStats extends CommandExecutable {
 		final int f = PracticeAPI.getFinalsToInt(data);
 		final int wq = PracticeAPI.getWideQualificationToInt(data);
 		final int l = PracticeAPI.getLobbyToInt(data);
+		final int wf = PracticeAPI.getWideFinalsToInt(data);
 
 		final int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
 		final int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
 		final int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
 		final int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
+		final int wflb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WF);
 		final int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
 		final int olb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.POVERALL);
 
@@ -64,7 +66,8 @@ public class CommandRawPStats extends CommandExecutable {
 		final String finals = "Finals: " + f + ((flb != 10000) ? " (#"+ (flb+1) + ")" : "");
 		final String lobby = "Lobby: " + l + ((llb != 10000) ? " (#"+ (llb+1) + ")" : "");
 		final String wide = "Wide Qualification: " + wq + ((wlb != 10000) ? " (#"+ (wlb+1) + ")" : "");
-		final String tot = "L/Q/F/WQ: " + (l+q+f+wq) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
+		final String wideF = "Wide Finals: " + wq + ((wflb != 10000) ? " (#"+ (wflb+1) + ")" : "");
+		final String tot = "Total: " + (l+q+f+wq+wf) + ((tlb != 10000) ? " (#"+ (tlb+1) + ")" : "");
 
 		float rank = qlb + flb + llb + wlb + tlb;
 		rank = (rank / 5) + 1;
@@ -82,6 +85,7 @@ public class CommandRawPStats extends CommandExecutable {
 				finals + "\n" +
 				lobby + "\n" +
 				wide + "\n" +
+				wideF + "\n" +
 				tot + "\n" +
 				overall + "\n" +
 				"```";

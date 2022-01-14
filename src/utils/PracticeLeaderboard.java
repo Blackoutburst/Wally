@@ -8,6 +8,7 @@ public class PracticeLeaderboard {
 		Q,
 		F,
 		WQ,
+		WF,
 		L,
 		T,
 		O
@@ -26,6 +27,7 @@ public class PracticeLeaderboard {
 		switch (this.type) {
 			case F : return (player.finals);
 			case WQ : return (player.wideQualification);
+			case WF : return (player.wideFinals);
 			case L : return (player.lobby);
 			case T : return (player.total);
 			case O : return (player.overall);
@@ -39,9 +41,10 @@ public class PracticeLeaderboard {
 	public String getCanvasName() {
 		switch (this.type) {
 			case F: return ("Finals Leaderboard");
-			case WQ: return ("Wide Quali Leaderboard");
+			case WQ: return ("Wide Q Leaderboard");
+			case WF: return ("Wide F Leaderboard");
 			case L: return ("Lobby Leaderboard");
-			case T: return ("L/Q/F/WQ Leaderboard");
+			case T: return ("Total Score Leaderboard");
 			case O: return ("Overall Rank Leaderboard");
 			default: return ("Qualification Leaderboard");
 		}
@@ -55,6 +58,7 @@ public class PracticeLeaderboard {
 		switch(c) {
 			case "f" : return (Type.F);
 			case "wq" : return (Type.WQ);
+			case "wf" : return (Type.WF);
 			case "l" : return (Type.L);
 			case "t" : return (Type.T);
 			case "o" : return (Type.O);

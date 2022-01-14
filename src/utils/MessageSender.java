@@ -217,6 +217,8 @@ public class MessageSender {
 		int newL = PracticeAPI.getLobbyToInt(data);
 		int oldWQ = PracticeStats.getWideQualificationToInt(localData);
 		int newWQ = PracticeAPI.getWideQualificationToInt(data);
+		int oldWF = PracticeStats.getWideFinalsToInt(localData);
+		int newWF = PracticeAPI.getWideFinalsToInt(data);
 
 		boolean weTakeThose = false;
 		
@@ -256,6 +258,14 @@ public class MessageSender {
 			embed.addField("Old PB", "**" + oldWQ + "**",true);
 			embed.addField("New PB", "**" + newWQ + "**",true);
 			embed.addField("Increase","**" + (newWQ - oldWQ) + "**",true);
+		}  else if (Objects.equals(type, "wf")) {
+			if (newWF - oldWF <= 0) return;
+			if (newWF - oldWF == 1) weTakeThose = true;
+			embed.setTitle(PracticeAPI.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Wide Finals** Personal Best!");
+			embed.setColor(RolesManager.getRoleColor(newWF));
+			embed.addField("Old PB", "**" + oldWF + "**",true);
+			embed.addField("New PB", "**" + newWF + "**",true);
+			embed.addField("Increase","**" + (newWF - oldWF) + "**",true);
 		}
 
 		if (weTakeThose) {

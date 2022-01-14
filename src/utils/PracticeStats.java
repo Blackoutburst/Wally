@@ -60,6 +60,16 @@ public class PracticeStats {
 		} catch (Exception ignored) {}
 		return (value);
 	}
+
+	public static int getWideFinalsToInt(String json) {
+		JSONObject obj = new JSONObject(json);
+		int value = 0;
+
+		try {
+			value = obj.getInt("wide_finals");
+		} catch (Exception ignored) {}
+		return (value);
+	}
 	
 	/**
 	 * Return player lobby score
@@ -83,15 +93,17 @@ public class PracticeStats {
 		int q = 0;
 		int f = 0;
 		int wq = 0;
+		int wf = 0;
 		
 		try {
 			l = obj.getInt("lobby");
 			q = obj.getInt("qualification");
 			f = obj.getInt("finals");
 			wq = obj.getInt("wide_qualification");
+			wf = obj.getInt("wide_finals");
 		} catch (Exception ignored) {}
 		
-		return (l + q + f + wq);
+		return (l + q + f + wq + wf);
 	}
 	
 }

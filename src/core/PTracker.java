@@ -2,11 +2,7 @@ package core;
 
 import java.io.File;
 
-import utils.GeneralUtils;
-import utils.MessageSender;
-import utils.PracticeAPI;
-import utils.PracticeStats;
-import utils.Stats;
+import utils.*;
 
 public class PTracker {
 	
@@ -55,13 +51,17 @@ public class PTracker {
 			int newL = PracticeAPI.getLobbyToInt(data);
 			int oldWQ = PracticeStats.getWideQualificationToInt(localData);
 			int newWQ = PracticeAPI.getWideQualificationToInt(data);
-			
+			int oldWF = PracticeStats.getWideFinalsToInt(localData);
+			int newWF = PracticeAPI.getWideFinalsToInt(data);
+
 			if (newQ > oldQ) MessageSender.practicePbMessage(data, discordId, uuid, "q");
 			if (newF > oldF) MessageSender.practicePbMessage(data, discordId, uuid, "f");
 			if (newL > oldL) MessageSender.practicePbMessage(data, discordId, uuid, "l");
 			if (newWQ > oldWQ) MessageSender.practicePbMessage(data, discordId, uuid, "wq");
-			
+			if (newWF > oldWF) MessageSender.practicePbMessage(data, discordId, uuid, "wf");
+
 			GeneralUtils.updateFile(data, localData, uuid, "pleaderboard", true);
+			LeaderboardList.pInit();
 			delay();
 		}
 	}

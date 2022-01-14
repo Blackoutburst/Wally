@@ -57,6 +57,16 @@ public class PracticeAPI {
 		} catch (Exception ignored) {}
 		return (value);
 	}
+
+	public static int getWideFinalsToInt(String json) {
+		JSONObject obj = new JSONObject(json);
+		int value = 0;
+
+		try {
+			value =  obj.getJSONObject("scores").getInt("wide_finals");
+		} catch (Exception ignored) {}
+		return (value);
+	}
 	
 	/**
 	 * Return player lobby score
@@ -99,6 +109,19 @@ public class PracticeAPI {
 	public static int[] getWideQualificationHistory(String json) {
 		JSONObject obj = new JSONObject(json);
 		JSONArray array = obj.optJSONArray("wide_qualification_history");
+
+		if (array == null) return (null);
+
+		int[] values = new int[array.length()];
+		for (int i = 0; i < array.length(); ++i) {
+			values[i] = array.getInt(i);
+		}
+		return (values);
+	}
+
+	public static int[] getWideFinalsHistory(String json) {
+		JSONObject obj = new JSONObject(json);
+		JSONArray array = obj.optJSONArray("wide_finals_history");
 
 		if (array == null) return (null);
 

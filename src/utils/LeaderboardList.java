@@ -17,6 +17,7 @@ public class LeaderboardList {
 	public static List<PracticeLeaderboardPlayer> PQ = null;
 	public static List<PracticeLeaderboardPlayer> PF = null;
 	public static List<PracticeLeaderboardPlayer> WQ = null;
+	public static List<PracticeLeaderboardPlayer> WF = null;
 	public static List<PracticeLeaderboardPlayer> L = null;
 	public static List<PracticeLeaderboardPlayer> LQF = null;
 	public static List<PracticeLeaderboardPlayer> POVERALL = null;
@@ -35,6 +36,7 @@ public class LeaderboardList {
 		PQ.sort(new PlayerComparatorPQ());
 		PF.sort(new PlayerComparatorPF());
 		WQ.sort(new PlayerComparatorWQ());
+		WF.sort(new PlayerComparatorWF());
 		L.sort(new PlayerComparatorL());
 		LQF.sort(new PlayerComparatorLQF());
 		POVERALL.sort(new PlayerComparatorPOverall());
@@ -44,6 +46,7 @@ public class LeaderboardList {
 		PQ = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
 		PF = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
 		WQ = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
+		WF = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
 		L = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
 		LQF = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), false);
 		POVERALL = GeneralUtils.generatePracticePlayerList(new File("pleaderboard"), true);

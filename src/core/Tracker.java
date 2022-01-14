@@ -2,10 +2,7 @@ package core;
 
 import java.io.File;
 
-import utils.API;
-import utils.MessageSender;
-import utils.Stats;
-import utils.GeneralUtils;
+import utils.*;
 
 public class Tracker {
 	
@@ -74,7 +71,8 @@ public class Tracker {
 			GeneralUtils.updateFile(data, localData, uuid, "linked player", false);
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard", false);
 			GeneralUtils.updateLifeTimeRoles();
-			
+			LeaderboardList.init();
+
 			delay();
 		}
 	}

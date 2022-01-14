@@ -30,6 +30,8 @@ public class GraphCanvas {
 				average += Objects.requireNonNull(PracticeAPI.getWideQualificationHistory(data))[i];
 			if (type.equals("Lobby"))
 				average += Objects.requireNonNull(PracticeAPI.getLobbyHistory(data))[i];
+			if (type.equals("Wide Finals"))
+				average += Objects.requireNonNull(PracticeAPI.getWideFinalsHistory(data))[i];
 		}
 		average = average / games;
 
@@ -41,6 +43,8 @@ public class GraphCanvas {
 			image.drawGraphLine(PracticeAPI.getWideQualificationHistory(data), games);
 		if (type.equals("Lobby"))
 			image.drawGraphLine(PracticeAPI.getLobbyHistory(data), games);
+		if (type.equals("Wide Finals"))
+			image.drawGraphLine(PracticeAPI.getWideFinalsHistory(data), games);
 		
 		image.drawStringCenter(name + " | "+ type+" - latest " + games + " games", 500, 30, 24, Color.white);
 		image.drawStringCenter("Average Score: " + average, 500, 64, 24, Canvas.getLineColor(average));

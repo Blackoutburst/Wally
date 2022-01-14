@@ -77,6 +77,7 @@ public class CommandPGraph extends CommandExecutable {
 					case "f": return ("Finals");
 					case "wq": return ("Wide Qualification");
 					case "l": return ("Lobby");
+					case "wf": return ("Wide Finals");
 				}
 			}
 		}

@@ -45,6 +45,7 @@ public class LoadedRessources {
 	public static BufferedImage WINS = null;
 	public static BufferedImage WALLS = null;
 	public static BufferedImage WQ = null;
+	public static BufferedImage WF = null;
 	public static BufferedImage L = null;
 	public static BufferedImage RANK = null;
 	
@@ -89,6 +90,7 @@ public class LoadedRessources {
 		WINS = ImageIO.read(new File("res/win.png"));
 		WALLS = ImageIO.read(new File("res/wall.png"));
 		WQ = ImageIO.read(new File("res/wq.png"));
+		WF = ImageIO.read(new File("res/wf.png"));
 		L = ImageIO.read(new File("res/l.png"));
 		RANK = ImageIO.read(new File("res/rank.png"));
 		
