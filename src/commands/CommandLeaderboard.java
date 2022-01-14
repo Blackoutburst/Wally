@@ -25,12 +25,12 @@ public class CommandLeaderboard extends CommandExecutable {
 		List<LeaderboardPlayer> lead = null;
 		
 		switch(type) {
-			case 'w': lead = LeaderboardList.WINS; break;
 			case 'r': lead = LeaderboardList.WALLS; break;
 			case 'q': lead = LeaderboardList.Q; break;
 			case 'f': lead = LeaderboardList.F; break;
 			case 't': lead = LeaderboardList.QF; break;
 			case 'o': lead = LeaderboardList.OVERALL; break;
+			default: lead = LeaderboardList.WINS;
 		}
 		
 		Leaderboard lb = new Leaderboard(lead, type);

@@ -21,13 +21,13 @@ public class CommandPLeaderboard extends CommandExecutable {
 		List<PracticeLeaderboardPlayer> lead = null;
 
 		switch(type.toLowerCase(Locale.ROOT)) {
-			case "q": lead = LeaderboardList.PQ; break;
 			case "f": lead = LeaderboardList.PF; break;
 			case "l": lead = LeaderboardList.L; break;
 			case "wq": lead = LeaderboardList.WQ; break;
 			case "wf": lead = LeaderboardList.WF; break;
 			case "t": lead = LeaderboardList.LQF; break;
 			case "o": lead = LeaderboardList.POVERALL; break;
+			default: lead = LeaderboardList.PQ;
 		}
 
 		PracticeLeaderboard lb = new PracticeLeaderboard(lead, type);
