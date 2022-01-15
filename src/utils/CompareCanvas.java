@@ -321,7 +321,7 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank) + ")", 60, 495, 30, pOverallStringColor(p2rank, p1rank));
+		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank, true) + ")", 60, 495, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
 	
 	/**
@@ -384,7 +384,7 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 495, 30, pOverallStringColor(p2rank, p1rank));
+		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank, true) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 495, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
 	
 	/**
@@ -460,10 +460,10 @@ public class CompareCanvas {
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
-		image.drawImageFromMemory(LoadedRessources.Q, 20, 215, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.F, 20, 265, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.QF, 20, 315, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.RANK, 20, 365, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 20, 315, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 20, 365, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 20, 415, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 20, 465, 30, 30);
 
 		if (API.getUUID(player1).equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 130, 110, 320, 80);
@@ -478,9 +478,9 @@ public class CompareCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 
-		drawStringLeft(image, "Qualification: " + API.getQualification(player1) + " (" + pOverallDiff(q, p2Q) + ")", 60, 240, 30, pOverallStringColor(q, p2Q));
-		drawStringLeft(image, "Finals: " + API.getFinals(player1) + " (" + pOverallDiff(f, p2F) + ")", 60, 295, 30, pOverallStringColor(f, p2F));
-		drawStringLeft(image, "Q/F: " + API.getTotal(player1) + " (" +  pOverallDiff((q + f), (p2Q + p2F)) + ")", 60, 345, 30, pOverallStringColor((q + f), (p2Q + p2F)));
+		drawStringLeft(image, "Qualification: " + API.getQualification(player1) + " (" + pOverallDiff(q, p2Q, false) + ")", 60, 340, 30, pOverallStringColor(q, p2Q, false));
+		drawStringLeft(image, "Finals: " + API.getFinals(player1) + " (" + pOverallDiff(f, p2F, false) + ")", 60, 395, 30, pOverallStringColor(f, p2F, false));
+		drawStringLeft(image, "Q/F: " + API.getTotal(player1) + " (" +  pOverallDiff((q + f), (p2Q + p2F), false) + ")", 60, 445, 30, pOverallStringColor((q + f), (p2Q + p2F), false));
 
 		int wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
 		int rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
@@ -504,7 +504,7 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank) + ")", 60, 395, 30, pOverallStringColor(p2rank, p1rank));
+		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank, true) + ")", 60, 495, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
 
 	private static void drawCrossRightSide(Canvas image, String player1, String player2, String uuid, String name, String uuid2) {
@@ -520,10 +520,10 @@ public class CompareCanvas {
 		image.drawImageFromMemory(LoadedRessources.PHEADERR, 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
-		image.drawImageFromMemory(LoadedRessources.Q, 950, 215, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.F, 950, 265, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.QF, 950, 315, 30, 30);
-		image.drawImageFromMemory(LoadedRessources.RANK, 950, 365, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.Q, 950, 315, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 950, 365, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 950, 415, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 950, 465, 30, 30);
 
 		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 550, 110, 320, 80);
@@ -538,9 +538,9 @@ public class CompareCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 880, 100, 100, 100);
 
-		drawStringRight(image, "(" + pOverallDiff(q, p2Q) + ") " + q + " :Qualification", 940, 240, 30, pOverallStringColor(q, p2Q));
-		drawStringRight(image, "(" + pOverallDiff(f, p2F) + ") " + f + " :Finals", 940, 295, 30, pOverallStringColor(f, p2F));
-		drawStringRight(image, "(" + pOverallDiff(q+f, p2Q+p2F) + ") " + (q+f) + " :Q/F", 940, 345, 30, pOverallStringColor(q+f, p2Q+p2F));
+		drawStringRight(image, "(" + pOverallDiff(q, p2Q, false) + ") " + q + " :Qualification", 940, 340, 30, pOverallStringColor(q, p2Q, false));
+		drawStringRight(image, "(" + pOverallDiff(f, p2F, false) + ") " + f + " :Finals", 940, 395, 30, pOverallStringColor(f, p2F, false));
+		drawStringRight(image, "(" + pOverallDiff(q+f, p2Q+p2F, false) + ") " + (q+f) + " :Q/F", 940, 445, 30, pOverallStringColor(q+f, p2Q+p2F, false));
 
 		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
 		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
@@ -564,7 +564,7 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 395, 30, pOverallStringColor(p2rank, p1rank));
+		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank, true) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 495, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
 
 	/**
@@ -640,7 +640,7 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank) + ")", 60, 605, 30, pOverallStringColor(p2rank, p1rank));
+		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank, true) + ")", 60, 605, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
 	
 	/**
@@ -716,19 +716,19 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 605, 30, pOverallStringColor(p2rank, p1rank));
+		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank, true) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 605, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
 
-	private static Color pOverallStringColor(float score1, float score2) {
+	private static Color pOverallStringColor(float score1, float score2, boolean alt) {
 		Color color;
 
-		color = pOverallDiff(score1, score2).charAt(0) == '-' ? new Color(255, 80, 80): new Color(80, 255, 80);
-		if (pOverallDiff(score1, score2).charAt(0) == '0') color = Color.white;
+		color = pOverallDiff(score1, score2, alt).charAt(0) == '-' ? new Color(255, 80, 80): new Color(80, 255, 80);
+		if (pOverallDiff(score1, score2, alt).charAt(0) == '0') color = Color.white;
 		return (color);
 	}
 
-	private static String pOverallDiff(float p1, float p2) {
-		NumberFormat nf = new DecimalFormat("0.00");
+	private static String pOverallDiff(float p1, float p2, boolean alt) {
+		NumberFormat nf = alt ? new DecimalFormat("0.00") : NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat formatter = (DecimalFormat) nf;
 		return (formatter.format(p1 - p2));
 	}
