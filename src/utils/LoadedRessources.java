@@ -39,6 +39,7 @@ public class LoadedRessources {
 	public static BufferedImage BACKGROUND_COMPARE = null;
 	
 	public static BufferedImage PHEADER = null;
+	public static BufferedImage PHEADERR = null;
 	
 	public static BufferedImage Q = null;
 	public static BufferedImage F = null;
@@ -85,6 +86,7 @@ public class LoadedRessources {
 		BACKGROUND_COMPARE = ImageIO.read(new File("res/backgroundCompare.png"));
 		
 		PHEADER = ImageIO.read(new File("res/practiceHeader.png"));
+		PHEADERR = ImageIO.read(new File("res/practiceHeaderR.png"));
 		
 		Q = ImageIO.read(new File("res/q.png"));
 		F = ImageIO.read(new File("res/f.png"));

@@ -441,20 +441,22 @@ public class CompareCanvas {
 	public static void createCrossCompareImage(Canvas image, String player1Uuid, String player2Uuid, String player1Hypixel, String player2Hypixel, String player1Practice, String player2Practice, String player2Name) {
 		setBackground(image, player1Hypixel, player2Hypixel);
 
-		drawCrossLeftSide(image, player1Hypixel, player2Hypixel);
-		drawCrossRightSide(image, player2Practice, player1Practice, player2Uuid, player2Name, player1Uuid);
+		drawCrossLeftSide(image, player1Hypixel, player2Practice);
+		drawCrossRightSide(image, player2Practice, player1Hypixel, player2Uuid, player2Name, player1Uuid);
 
 		image.save("ccompare.png");
 	}
 
-	private static void drawCrossLeftSide(Canvas image, String player1, String player2) {
-		String uuid = API.getUUID(player1);
-		String uuid2 = API.getUUID(player2);
-		int f = API.getFinalsToInt(player1);
-		int q = API.getQualificationToInt(player1);
-		int score = Math.max(q, f);
+	private static void drawCrossLeftSide(Canvas image, String player1, String player2Practice) {
+		final String uuid = API.getUUID(player1);
+		final int f = API.getFinalsToInt(player1);
+		final int q = API.getQualificationToInt(player1);
 
-		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
+		final int p2F = PracticeAPI.getFinalsToInt(player2Practice);
+		final int p2Q = PracticeAPI.getQualificationToInt(player2Practice);
+
+		final int score = Math.max(q, f);
+
 		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
@@ -476,9 +478,9 @@ public class CompareCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 
-		drawStringLeft(image, "Qualification: " + API.getQualification(player1) + " (" + diff(player1, player2, Type.Q) + ")", 60, 240, 30, stringColor(player1, player2, Type.Q));
-		drawStringLeft(image, "Finals: " + API.getFinals(player1) + " (" + diff(player1, player2, Type.F) + ")", 60, 295, 30, stringColor(player1, player2, Type.F));
-		drawStringLeft(image, "Q/F: " + API.getTotal(player1) + " (" + diff(player1, player2, Type.T) + ")", 60, 345, 30, stringColor(player1, player2, Type.T));
+		drawStringLeft(image, "Qualification: " + API.getQualification(player1) + " (" + pOverallDiff(q, p2Q) + ")", 60, 240, 30, pOverallStringColor(q, p2Q));
+		drawStringLeft(image, "Finals: " + API.getFinals(player1) + " (" + pOverallDiff(f, p2F) + ")", 60, 295, 30, pOverallStringColor(f, p2F));
+		drawStringLeft(image, "Q/F: " + API.getTotal(player1) + " (" +  pOverallDiff((q + f), (p2Q + p2F)) + ")", 60, 345, 30, pOverallStringColor((q + f), (p2Q + p2F)));
 
 		int wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
 		int rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
@@ -508,9 +510,14 @@ public class CompareCanvas {
 	private static void drawCrossRightSide(Canvas image, String player1, String player2, String uuid, String name, String uuid2) {
 		final int q = PracticeAPI.getQualificationToInt(player1);
 		final int f = PracticeAPI.getFinalsToInt(player1);
-		int score = Math.max(q, f);
+
+		final int p2F = API.getFinalsToInt(player2);
+		final int p2Q = API.getQualificationToInt(player2);
+
+		final int score = Math.max(q, f);
 
 		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(LoadedRessources.PHEADERR, 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
 		image.drawImageFromMemory(LoadedRessources.Q, 950, 215, 30, 30);
@@ -531,9 +538,9 @@ public class CompareCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 880, 100, 100, 100);
 
-		drawStringRight(image, "(" + pdiff(player1, player2, Type.Q) + ") " + q + " :Qualification", 940, 240, 30, pstringColor(player1, player2, Type.Q));
-		drawStringRight(image, "(" + pdiff(player1, player2, Type.F) + ") " + f + " :Finals", 940, 295, 30, pstringColor(player1, player2, Type.F));
-		drawStringRight(image, "(" + pdiff(player1, player2, Type.LQF) + ") " + (q+f) + " :Q/F", 940, 345, 30, pstringColor(player1, player2, Type.LQF));
+		drawStringRight(image, "(" + pOverallDiff(q, p2Q) + ") " + q + " :Qualification", 940, 240, 30, pOverallStringColor(q, p2Q));
+		drawStringRight(image, "(" + pOverallDiff(f, p2F) + ") " + f + " :Finals", 940, 295, 30, pOverallStringColor(f, p2F));
+		drawStringRight(image, "(" + pOverallDiff(q+f, p2Q+p2F) + ") " + (q+f) + " :Q/F", 940, 345, 30, pOverallStringColor(q+f, p2Q+p2F));
 
 		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
 		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
