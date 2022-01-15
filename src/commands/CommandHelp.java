@@ -63,6 +63,7 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!pgraph [player] [Q/F/L/WQ] [games]", "Show player practice server score graph", false)
 			.addField("!compare/!c [player1] [player2]", "Compare two players Hole in the Wall stats", false)
 			.addField("!pcompare/!pc [player1] [player2]", "Compare two players Hole in the Wall practice server stats", false)
+			.addField("!crosscompare/!cc [player1] [player2]", "Compare a player Hypixel and Practice server Q and F scores", false)
 			.addField("!leaderboard/!lead/!lb [W/R/Q/F/T/O] [page] \"discord\"", "Show Hole in the Wall leaderboard", false)
 			.addField("!pleaderboard/!plead/!plb [Q/F/WQ/L/T/O] [page]", "Show Hole in the Wall practice server leaderboard", false)
 			.addField("!convert [Q/F] [score]", "Convert a finals score to a qualification score and the other way around", false)
