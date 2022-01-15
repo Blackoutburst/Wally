@@ -240,8 +240,8 @@ public class StatsCanvas {
 		DecimalFormat formatter = new DecimalFormat("0.00");
 
 		if ((int)(rank) == 10001) {
-			image.drawStringLeft("Overall rank: N/A", 562, 452, 30, shadow);
-			image.drawStringLeft("Overall rank: N/A", 560, 450, 30, color);
+			image.drawStringLeft("Overall rank: N/A", 562, 502, 30, shadow);
+			image.drawStringLeft("Overall rank: N/A", 560, 500, 30, color);
 		} else {
 			final String overall = "Overall rank: #" + formatter.format(rank) + ((olb != 10000) ? " (#" + (olb + 1) + ")" : "");
 			image.drawStringLeft(overall, 562, 502, 30, shadow);
