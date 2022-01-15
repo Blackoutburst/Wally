@@ -40,8 +40,10 @@ public class DisplayPracticePBOnMention {
 		int newL = PracticeAPI.getLobbyToInt(data);
 		int oldWQ = PracticeStats.getWideQualificationToInt(localData);
 		int newWQ = PracticeAPI.getWideQualificationToInt(data);
+		int oldWF = PracticeStats.getWideFinalsToInt(localData);
+		int newWF = PracticeAPI.getWideFinalsToInt(data);
 		
-		if (oldQ >= newQ && oldF >= newF && oldL >= newL && oldWQ >= newWQ) {
+		if (oldQ >= newQ && oldF >= newF && oldL >= newL && oldWQ >= newWQ && oldWF >= newWF) {
 			event.getChannel().sendMessage(sender.getAsMention() + ",\n" + ConfigManager.getMessage("not pb")).complete();
 			return;
 		}
@@ -52,6 +54,7 @@ public class DisplayPracticePBOnMention {
 		if (newF > oldF) MessageSender.practicePbMessage(data, sender.getId(), uuid, "f");
 		if (newL > oldL) MessageSender.practicePbMessage(data, sender.getId(), uuid, "l");
 		if (newWQ > oldWQ) MessageSender.practicePbMessage(data, sender.getId(), uuid, "wq");
+		if (newWF > oldWF) MessageSender.practicePbMessage(data, sender.getId(), uuid, "wf");
 		
 		GeneralUtils.updateFile(data, localData, uuid, "pleaderboard", true);
 	}
