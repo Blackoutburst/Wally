@@ -92,6 +92,10 @@ public class CommandRawPStats extends CommandExecutable {
 
 		MessageSender.message(command, stats);
 
+		String fileLocation = "pleaderboard/" + uuid + "/data.json";
+		String localData = GeneralUtils.readJsonToString(fileLocation);
+		GeneralUtils.updateFile(data, localData, uuid, "pleaderboard", true);
+
 		if(!AltExcluder.isAnAlt(uuid, this.command)) {
 			GeneralUtils.addToPracticeLeaderBoard(uuid, data, command);
 		}
