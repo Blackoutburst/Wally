@@ -31,7 +31,9 @@ public class CommandLeaderboard extends CommandExecutable {
 			case 'f': lead = LeaderboardList.F; break;
 			case 't': lead = LeaderboardList.QF; break;
 			case 'o': lead = LeaderboardList.OVERALL; break;
-			default: MessageSender.message(command,"This leaderboard doesn't exist, try one of these [W, R, Q, F, T, O]");
+			default:
+				MessageSender.message(command,"This leaderboard doesn't exist, try one of these [W, R, Q, F, T, O]");
+			return false;
 		}
 		
 		Leaderboard lb = new Leaderboard(lead, type);
