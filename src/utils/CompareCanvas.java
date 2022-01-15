@@ -293,7 +293,6 @@ public class CompareCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 
-
 		drawStringLeft(image, "Wins: " + API.getWins(player1) + " (" + diff(player1, player2, Type.WINS) + ")", 60, 240, 30, stringColor(player1, player2, Type.WINS));
 		drawStringLeft(image, "Walls: " + API.getWalls(player1) + " (" + diff(player1, player2, Type.WALLS) + ")", 60, 295, 30, stringColor(player1, player2, Type.WALLS));
 		drawStringLeft(image, "Qualification: " + API.getQualification(player1) + " (" + diff(player1, player2, Type.Q) + ")", 60, 345, 30, stringColor(player1, player2, Type.Q));
@@ -478,6 +477,8 @@ public class CompareCanvas {
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 
+		drawStringLeft(image, "Hypixel Stats", 20, 280, 50, GeneralUtils.getFontColor(uuid));
+
 		drawStringLeft(image, "Qualification: " + API.getQualification(player1) + " (" + pOverallDiff(q, p2Q, false) + ")", 60, 340, 30, pOverallStringColor(q, p2Q, false));
 		drawStringLeft(image, "Finals: " + API.getFinals(player1) + " (" + pOverallDiff(f, p2F, false) + ")", 60, 395, 30, pOverallStringColor(f, p2F, false));
 		drawStringLeft(image, "Q/F: " + API.getTotal(player1) + " (" +  pOverallDiff((q + f), (p2Q + p2F), false) + ")", 60, 445, 30, pOverallStringColor((q + f), (p2Q + p2F), false));
@@ -537,6 +538,8 @@ public class CompareCanvas {
 
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 880, 100, 100, 100);
+
+		drawStringRight(image, "Practice Stats", 980, 280, 50, GeneralUtils.getFontColor(uuid));
 
 		drawStringRight(image, "(" + pOverallDiff(q, p2Q, false) + ") " + q + " :Qualification", 940, 340, 30, pOverallStringColor(q, p2Q, false));
 		drawStringRight(image, "(" + pOverallDiff(f, p2F, false) + ") " + f + " :Finals", 940, 395, 30, pOverallStringColor(f, p2F, false));
