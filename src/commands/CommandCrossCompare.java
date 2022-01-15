@@ -49,7 +49,7 @@ public class CommandCrossCompare extends CommandExecutable {
 		if (player1Practice != null && player1Practice.contains("Unknown player")) {
 			return unknownPlayer(this, player1Name);
 		}
-		
+
 		player2Practice = Request.getPracticeServerScore(player2Uuid);
 		if (player2Practice != null && player2Practice.contains("Unknown player")) {
 			return unknownPlayer(this, player2Name);
@@ -64,10 +64,10 @@ public class CommandCrossCompare extends CommandExecutable {
 		if (player2Hypixel != null && player2Hypixel.contains("Unknown player")) {
 			return unknownPlayer(this, player2Name);
 		}
-		
+
 		Canvas image = new Canvas(1000, 640);
 		
-		CompareCanvas.createCrossCompareImage(image, player1Uuid, player2Uuid, player1Hypixel, player2Hypixel, player1Practice, player2Practice, player1Name, player2Name);
+		CompareCanvas.createCrossCompareImage(image, player1Uuid, player2Uuid, player1Hypixel, player2Hypixel, player1Practice, player2Practice, player2Name);
 
 		MessageSender.sendFile(command, "ccompare.png");
 		return (true);
