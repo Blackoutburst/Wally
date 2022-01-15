@@ -225,7 +225,17 @@ public class CompareCanvas {
 			image.drawStringCenter(diff, 900, 50 + (180 * i) + 120, 40, Color.white);
 		}
 	}
-	
+
+	private static void drawStringLeft(Canvas image, String str, int x, int y, int size, Color color) {
+		image.drawStringLeft(str,x + 2, y + 2, size, color.darker().darker().darker());
+		image.drawStringLeft(str, x, y, size, color);
+	}
+
+	private static void drawStringRight(Canvas image, String str, int x, int y, int size, Color color) {
+		image.drawStringRight(str,x + 2, y + 2, size, color.darker().darker().darker());
+		image.drawStringRight(str, x, y, size, color);
+	}
+
 	public static void createCompareImage(Canvas image, String player1, String player2) {
 		setBackground(image, player1, player2);
 
@@ -275,40 +285,20 @@ public class CompareCanvas {
 		else if (API.getUUID(player1).equals("92a5199614ac4bd181d1f3c951fb719f"))
 			image.drawImageFromMemory(LoadedRessources.VENOM, 130, 110, 300, 85);
 		else {
-			image.drawStringLeft(API.getName(player1), 132, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-			image.drawStringLeft(API.getName(player1), 130, 140, 40, GeneralUtils.getFontColor(uuid));
+			drawStringLeft(image, API.getName(player1), 130, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
-		
-		image.drawStringLeft(Stats.getSubTitle(uuid), 132, 182, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
-		
+
+		drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
+
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
-		
-		image.drawStringLeft("Wins: " + API.getWins(player1) + " (" + diff(player1, player2, Type.WINS) + ")",
-		62, 242, 30, stringColor(player1, player2, Type.WINS).darker().darker().darker());
-		image.drawStringLeft("Wins: " + API.getWins(player1) + " (" + diff(player1, player2, Type.WINS) + ")",
-		60, 240, 30, stringColor(player1, player2, Type.WINS));
-		
-		image.drawStringLeft("Walls: " + API.getWalls(player1) + " (" + diff(player1, player2, Type.WALLS) + ")",
-		62, 297, 30, stringColor(player1, player2, Type.WALLS).darker().darker().darker());
-		image.drawStringLeft("Walls: " + API.getWalls(player1) + " (" + diff(player1, player2, Type.WALLS) + ")",
-		60, 295, 30, stringColor(player1, player2, Type.WALLS));
 
-		image.drawStringLeft("Qualification: " + API.getQualification(player1) + " (" + diff(player1, player2, Type.Q) + ")",
-		62, 347, 30, stringColor(player1, player2, Type.Q).darker().darker().darker());
-		image.drawStringLeft("Qualification: " + API.getQualification(player1) + " (" + diff(player1, player2, Type.Q) + ")",
-		60, 345, 30, stringColor(player1, player2, Type.Q));
 
-		image.drawStringLeft("Finals: " + API.getFinals(player1) + " (" + diff(player1, player2, Type.F) + ")",
-		62, 397, 30, stringColor(player1, player2, Type.F).darker().darker().darker());
-		image.drawStringLeft("Finals: " + API.getFinals(player1) + " (" + diff(player1, player2, Type.F) + ")",
-		60, 395, 30, stringColor(player1, player2, Type.F));
-
-		image.drawStringLeft("Q/F: " + API.getTotal(player1) + " (" + diff(player1, player2, Type.T) + ")",
-		62, 447, 30, stringColor(player1, player2, Type.T).darker().darker().darker());
-		image.drawStringLeft("Q/F: " + API.getTotal(player1) + " (" + diff(player1, player2, Type.T) + ")",
-		60, 445, 30, stringColor(player1, player2, Type.T));
+		drawStringLeft(image, "Wins: " + API.getWins(player1) + " (" + diff(player1, player2, Type.WINS) + ")", 60, 240, 30, stringColor(player1, player2, Type.WINS));
+		drawStringLeft(image, "Walls: " + API.getWalls(player1) + " (" + diff(player1, player2, Type.WALLS) + ")", 60, 295, 30, stringColor(player1, player2, Type.WALLS));
+		drawStringLeft(image, "Qualification: " + API.getQualification(player1) + " (" + diff(player1, player2, Type.Q) + ")", 60, 345, 30, stringColor(player1, player2, Type.Q));
+		drawStringLeft(image, "Finals: " + API.getFinals(player1) + " (" + diff(player1, player2, Type.F) + ")", 60, 395, 30, stringColor(player1, player2, Type.F));
+		drawStringLeft(image, "Q/F: " + API.getTotal(player1) + " (" + diff(player1, player2, Type.T) + ")", 60, 445, 30, stringColor(player1, player2, Type.T));
 
 		int wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
 		int rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
@@ -331,11 +321,7 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		image.drawStringLeft("Overall Rank: " + formatter.format(p1rank) + " (" + pOveralldiff(p2rank, p1rank) + ")",
-				62, 497, 30, pOverallstringColor(p2rank, p1rank).darker().darker().darker());
-		image.drawStringLeft("Overall Rank: " + formatter.format(p1rank) + " (" + pOveralldiff(p2rank, p1rank) + ")",
-				60, 495, 30, pOverallstringColor(p2rank, p1rank));
-
+		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank) + ")", 60, 495, 30, pOverallStringColor(p2rank, p1rank));
 	}
 	
 	/**
@@ -363,40 +349,19 @@ public class CompareCanvas {
 		else if (API.getUUID(player1).equals("92a5199614ac4bd181d1f3c951fb719f"))
 			image.drawImageFromMemory(LoadedRessources.VENOM, 570, 110, 300, 85);
 		else {
-			image.drawStringRight(API.getName(player1), 872, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-			image.drawStringRight(API.getName(player1), 870, 140, 40, GeneralUtils.getFontColor(uuid));
+			drawStringRight(image, API.getName(player1), 870, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
-		
-		image.drawStringRight(Stats.getSubTitle(uuid), 872, 182, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringRight(Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
-		
+
+		drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
+
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 880, 100, 100, 100);
-		
-		image.drawStringRight("(" + diff(player1, player2, Type.WINS) + ") " + API.getWins(player1) + " :Wins",
-		942, 242, 30, stringColor(player1, player2, Type.WINS).darker().darker().darker());
-		image.drawStringRight("(" + diff(player1, player2, Type.WINS) + ") " + API.getWins(player1) + " :Wins",
-		940, 240, 30, stringColor(player1, player2, Type.WINS));
 
-		image.drawStringRight("(" + diff(player1, player2, Type.WALLS) + ") " + API.getWalls(player1) + " :Walls",
-		942, 297, 30, stringColor(player1, player2, Type.WALLS).darker().darker().darker());
-		image.drawStringRight("(" + diff(player1, player2, Type.WALLS) + ") " + API.getWalls(player1) + " :Walls",
-		940, 295, 30, stringColor(player1, player2, Type.WALLS));
-
-		image.drawStringRight("(" + diff(player1, player2, Type.Q) + ") " + API.getQualification(player1) + " :Qualification",
-		942, 347, 30, stringColor(player1, player2, Type.Q).darker().darker().darker());
-		image.drawStringRight("(" + diff(player1, player2, Type.Q) + ") " + API.getQualification(player1) + " :Qualification",
-		940, 345, 30, stringColor(player1, player2, Type.Q));
-		
-		image.drawStringRight("(" + diff(player1, player2, Type.F) + ") " + API.getFinals(player1) + " :Finals",
-		942, 397, 30, stringColor(player1, player2, Type.F).darker().darker().darker());
-		image.drawStringRight("(" + diff(player1, player2, Type.F) + ") " + API.getFinals(player1) + " :Finals",
-		940, 395, 30, stringColor(player1, player2, Type.F));
-
-		image.drawStringRight("(" + diff(player1, player2, Type.T) + ") " + API.getTotal(player1) + " :Q/F",
-		942, 447, 30, stringColor(player1, player2, Type.T).darker().darker().darker());
-		image.drawStringRight("(" + diff(player1, player2, Type.T) + ") " + API.getTotal(player1) + " :Q/F",
-		940, 445, 30, stringColor(player1, player2, Type.T));
+		drawStringRight(image, "(" + diff(player1, player2, Type.WINS) + ") " + API.getWins(player1) + " :Wins", 940, 240, 30, stringColor(player1, player2, Type.WINS));
+		drawStringRight(image, "(" + diff(player1, player2, Type.WALLS) + ") " + API.getWalls(player1) + " :Walls", 940, 295, 30, stringColor(player1, player2, Type.WALLS));
+		drawStringRight(image, "(" + diff(player1, player2, Type.Q) + ") " + API.getQualification(player1) + " :Qualification", 940, 345, 30, stringColor(player1, player2, Type.Q));
+		drawStringRight(image, "(" + diff(player1, player2, Type.F) + ") " + API.getFinals(player1) + " :Finals", 940, 395, 30, stringColor(player1, player2, Type.F));
+		drawStringRight(image, "(" + diff(player1, player2, Type.T) + ") " + API.getTotal(player1) + " :Q/F", 940, 445, 30, stringColor(player1, player2, Type.T));
 
 		int wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
 		int rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
@@ -419,11 +384,7 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank",
-				942, 497, 30, pOverallstringColor(p2rank, p1rank).darker().darker().darker());
-		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank",
-				940, 495, 30, pOverallstringColor(p2rank, p1rank));
-
+		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 495, 30, pOverallStringColor(p2rank, p1rank));
 	}
 	
 	/**
@@ -512,45 +473,20 @@ public class CompareCanvas {
 		else if (uuid.equals("92a5199614ac4bd181d1f3c951fb719f"))
 			image.drawImageFromMemory(LoadedRessources.VENOM, 130, 110, 300, 85);
 		else {
-			image.drawStringLeft(name, 132, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-			image.drawStringLeft(name, 130, 140, 40, GeneralUtils.getFontColor(uuid));
+			drawStringLeft(image, name, 130, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
-		
-		image.drawStringLeft(Stats.getSubTitle(uuid), 132, 182, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
-		
+
+		drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
+
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
 
-		image.drawStringLeft("Qualification: " + q + " (" + pdiff(player1, player2, Type.Q) + ")",
-		62, 247, 30, pstringColor(player1, player2, Type.Q).darker().darker().darker());
-		image.drawStringLeft("Qualification: " + q + " (" + pdiff(player1, player2, Type.Q) + ")",
-		60, 245, 30, pstringColor(player1, player2, Type.Q));
-
-		image.drawStringLeft("Finals: " + f + " (" + pdiff(player1, player2, Type.F) + ")",
-		62, 307, 30, pstringColor(player1, player2, Type.F).darker().darker().darker());
-		image.drawStringLeft("Finals: " + f + " (" + pdiff(player1, player2, Type.F) + ")",
-		60, 305, 30, pstringColor(player1, player2, Type.F));
-
-		image.drawStringLeft("Lobby: " + l + " (" + pdiff(player1, player2, Type.L) + ")",
-		62, 367, 30, pstringColor(player1, player2, Type.L).darker().darker().darker());
-		image.drawStringLeft("Lobby: " + l + " (" + pdiff(player1, player2, Type.L) + ")",
-		60, 365, 30, pstringColor(player1, player2, Type.L));
-
-		image.drawStringLeft("Wide Q: " + wq + " (" + pdiff(player1, player2, Type.WQ) + ")",
-		62, 427, 30, pstringColor(player1, player2, Type.WQ).darker().darker().darker());
-		image.drawStringLeft("Wide Q: " + wq + " (" + pdiff(player1, player2, Type.WQ) + ")",
-		60, 425, 30, pstringColor(player1, player2, Type.WQ));
-
-		image.drawStringLeft("Wide F: " + wf + " (" + pdiff(player1, player2, Type.WF) + ")",
-				62, 487, 30, pstringColor(player1, player2, Type.WF).darker().darker().darker());
-		image.drawStringLeft("Wide F: " + wf + " (" + pdiff(player1, player2, Type.WF) + ")",
-				60, 485, 30, pstringColor(player1, player2, Type.WF));
-		
-		image.drawStringLeft("Total: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
-		62, 547, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());
-		image.drawStringLeft("Total: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")",
-		60, 545, 30, pstringColor(player1, player2, Type.LQF));
+		drawStringLeft(image, "Qualification: " + q + " (" + pdiff(player1, player2, Type.Q) + ")", 60, 245, 30, pstringColor(player1, player2, Type.Q));
+		drawStringLeft(image, "Finals: " + f + " (" + pdiff(player1, player2, Type.F) + ")", 60, 305, 30, pstringColor(player1, player2, Type.F));
+		drawStringLeft(image, "Lobby: " + l + " (" + pdiff(player1, player2, Type.L) + ")", 60, 365, 30, pstringColor(player1, player2, Type.L));
+		drawStringLeft(image, "Wide Q: " + wq + " (" + pdiff(player1, player2, Type.WQ) + ")", 60, 425, 30, pstringColor(player1, player2, Type.WQ));
+		drawStringLeft(image, "Wide F: " + wf + " (" + pdiff(player1, player2, Type.WF) + ")", 60, 485, 30, pstringColor(player1, player2, Type.WF));
+		drawStringLeft(image, "Total: " + lqf + " (" + pdiff(player1, player2, Type.LQF) + ")", 60, 545, 30, pstringColor(player1, player2, Type.LQF));
 
 		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
 		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
@@ -575,11 +511,7 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		image.drawStringLeft("Overall Rank: " + formatter.format(p1rank) + " (" + pOveralldiff(p2rank, p1rank) + ")",
-				62, 607, 30, pOverallstringColor(p2rank, p1rank).darker().darker().darker());
-		image.drawStringLeft("Overall Rank: " + formatter.format(p1rank) + " (" + pOveralldiff(p2rank, p1rank) + ")",
-				60, 605, 30, pOverallstringColor(p2rank, p1rank));
-
+		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank) + ")", 60, 605, 30, pOverallStringColor(p2rank, p1rank));
 	}
 	
 	/**
@@ -617,45 +549,20 @@ public class CompareCanvas {
 		else if (uuid.equals("92a5199614ac4bd181d1f3c951fb719f"))
 			image.drawImageFromMemory(LoadedRessources.VENOM, 570, 110, 300, 85);
 		else {
-			image.drawStringRight(name, 872, 142, 40, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-			image.drawStringRight(name, 870, 140, 40, GeneralUtils.getFontColor(uuid));
+			drawStringRight(image, name, 870, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
-		
-		image.drawStringRight(Stats.getSubTitle(uuid), 872, 182, 36, GeneralUtils.getFontColor(uuid).darker().darker().darker());
-		image.drawStringRight(Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
-		
+
+		drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
+
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 880, 100, 100, 100);
 
-		image.drawStringRight("(" + pdiff(player1, player2, Type.Q) + ") " + q + " :Qualification",
-		942, 247, 30, pstringColor(player1, player2, Type.Q).darker().darker().darker());
-		image.drawStringRight("(" + pdiff(player1, player2, Type.Q) + ") " + q + " :Qualification",
-		940, 245, 30, pstringColor(player1, player2, Type.Q));
-
-		image.drawStringRight("(" + pdiff(player1, player2, Type.F) + ") " + f + " :Finals",
-		942, 307, 30, pstringColor(player1, player2, Type.F).darker().darker().darker());
-		image.drawStringRight("(" + pdiff(player1, player2, Type.F) + ") " + f + " :Finals",
-		940, 305, 30, pstringColor(player1, player2, Type.F));
-
-		image.drawStringRight("(" + pdiff(player1, player2, Type.L) + ") " + l + " :Lobby",
-		942, 367, 30, pstringColor(player1, player2, Type.L).darker().darker().darker());
-		image.drawStringRight("(" + pdiff(player1, player2, Type.L) + ") " + l + " :Lobby",
-		940, 365, 30, pstringColor(player1, player2, Type.L));
-
-		image.drawStringRight("(" + pdiff(player1, player2, Type.WQ) + ") " + wq + " :Wide Q",
-		942, 427, 30, pstringColor(player1, player2, Type.WQ).darker().darker().darker());
-		image.drawStringRight("(" + pdiff(player1, player2, Type.WQ) + ") " + wq + " :Wide Q",
-		940, 425, 30, pstringColor(player1, player2, Type.WQ));
-
-		image.drawStringRight("(" + pdiff(player1, player2, Type.WF) + ") " + wf + " :Wide F",
-				942, 487, 30, pstringColor(player1, player2, Type.WF).darker().darker().darker());
-		image.drawStringRight("(" + pdiff(player1, player2, Type.WF) + ") " + wf + " :Wide F",
-				940, 485, 30, pstringColor(player1, player2, Type.WF));
-		
-		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :Total",
-		942, 547, 30, pstringColor(player1, player2, Type.LQF).darker().darker().darker());
-		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :Total",
-		940, 545, 30, pstringColor(player1, player2, Type.LQF));
+		drawStringRight(image, "(" + pdiff(player1, player2, Type.Q) + ") " + q + " :Qualification", 940, 245, 30, pstringColor(player1, player2, Type.Q));
+		drawStringRight(image, "(" + pdiff(player1, player2, Type.F) + ") " + f + " :Finals", 940, 305, 30, pstringColor(player1, player2, Type.F));
+		drawStringRight(image, "(" + pdiff(player1, player2, Type.L) + ") " + l + " :Lobby", 940, 365, 30, pstringColor(player1, player2, Type.L));
+		drawStringRight(image, "(" + pdiff(player1, player2, Type.WQ) + ") " + wq + " :Wide Q", 940, 425, 30, pstringColor(player1, player2, Type.WQ));
+		drawStringRight(image, "(" + pdiff(player1, player2, Type.WF) + ") " + wf + " :Wide F", 940, 485, 30, pstringColor(player1, player2, Type.WF));
+		drawStringRight(image, "(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :Total", 940, 545, 30, pstringColor(player1, player2, Type.LQF));
 
 		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
 		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
@@ -680,22 +587,18 @@ public class CompareCanvas {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 
-		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank",
-				942, 607, 30, pOverallstringColor(p2rank, p1rank).darker().darker().darker());
-		image.drawStringRight("(" + pOveralldiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank",
-				940, 605, 30, pOverallstringColor(p2rank, p1rank));
-
+		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 605, 30, pOverallStringColor(p2rank, p1rank));
 	}
 
-	private static Color pOverallstringColor(float score1, float score2) {
+	private static Color pOverallStringColor(float score1, float score2) {
 		Color color;
 
-		color = pOveralldiff(score1, score2).charAt(0) == '-' ? new Color(255, 80, 80): new Color(80, 255, 80);
-		if (pOveralldiff(score1, score2).charAt(0) == '0') color = Color.white;
+		color = pOverallDiff(score1, score2).charAt(0) == '-' ? new Color(255, 80, 80): new Color(80, 255, 80);
+		if (pOverallDiff(score1, score2).charAt(0) == '0') color = Color.white;
 		return (color);
 	}
 
-	private static String pOveralldiff(float p1, float p2) {
+	private static String pOverallDiff(float p1, float p2) {
 		NumberFormat nf = new DecimalFormat("0.00");
 		DecimalFormat formatter = (DecimalFormat) nf;
 		return (formatter.format(p1 - p2));
