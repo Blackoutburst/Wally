@@ -647,9 +647,9 @@ public class CompareCanvas {
 		image.drawStringRight("(" + pdiff(player1, player2, Type.WQ) + ") " + wq + " :Wide Q",
 		940, 425, 30, pstringColor(player1, player2, Type.WQ));
 
-		image.drawStringRight("(" + pdiff(player1, player2, Type.WF) + ") " + wq + " :Wide F",
+		image.drawStringRight("(" + pdiff(player1, player2, Type.WF) + ") " + wf + " :Wide F",
 				942, 487, 30, pstringColor(player1, player2, Type.WF).darker().darker().darker());
-		image.drawStringRight("(" + pdiff(player1, player2, Type.WF) + ") " + wq + " :Wide F",
+		image.drawStringRight("(" + pdiff(player1, player2, Type.WF) + ") " + wf + " :Wide F",
 				940, 485, 30, pstringColor(player1, player2, Type.WF));
 		
 		image.drawStringRight("(" + pdiff(player1, player2, Type.LQF) + ") " + lqf + " :Total",
