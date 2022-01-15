@@ -444,7 +444,7 @@ public class CompareCanvas {
 		drawCrossLeftSide(image, player1Hypixel, player2Hypixel);
 		drawCrossRightSide(image, player2Practice, player1Practice, player2Uuid, player2Name, player1Uuid);
 
-		image.save("compare.png");
+		image.save("ccompare.png");
 	}
 
 	private static void drawCrossLeftSide(Canvas image, String player1, String player2) {
