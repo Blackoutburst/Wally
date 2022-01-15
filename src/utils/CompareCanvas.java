@@ -438,6 +438,128 @@ public class CompareCanvas {
 		image.save("pcompare.png");
 	}
 
+	public static void createCrossCompareImage(Canvas image, String player1Uuid, String player2Uuid, String player1Hypixel, String player2Hypixel, String player1Practice, String player2Practice, String player2Name) {
+		setBackground(image, player1Hypixel, player2Hypixel);
+
+		drawCrossLeftSide(image, player1Hypixel, player2Hypixel);
+		drawCrossRightSide(image, player2Practice, player1Practice, player2Uuid, player2Name, player1Uuid);
+
+		image.save("compare.png");
+	}
+
+	private static void drawCrossLeftSide(Canvas image, String player1, String player2) {
+		String uuid = API.getUUID(player1);
+		String uuid2 = API.getUUID(player2);
+		int f = API.getFinalsToInt(player1);
+		int q = API.getQualificationToInt(player1);
+		int score = Math.max(q, f);
+
+		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.loadFont(GeneralUtils.getCustomFont(uuid));
+
+		image.drawImageFromMemory(LoadedRessources.Q, 20, 215, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 20, 265, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 20, 315, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 20, 365, 30, 30);
+
+		if (API.getUUID(player1).equals("b8ef1c7615e04b958d474ca133561f5a"))
+			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 130, 110, 320, 80);
+		else if (API.getUUID(player1).equals("92a5199614ac4bd181d1f3c951fb719f"))
+			image.drawImageFromMemory(LoadedRessources.VENOM, 130, 110, 300, 85);
+		else {
+			drawStringLeft(image, API.getName(player1), 130, 140, 40, GeneralUtils.getFontColor(uuid));
+		}
+
+		drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
+
+		GeneralUtils.getPlayerHead(uuid);
+		image.drawImage("res/head.png", 20, 100, 100, 100);
+
+		drawStringLeft(image, "Qualification: " + API.getQualification(player1) + " (" + diff(player1, player2, Type.Q) + ")", 60, 240, 30, stringColor(player1, player2, Type.Q));
+		drawStringLeft(image, "Finals: " + API.getFinals(player1) + " (" + diff(player1, player2, Type.F) + ")", 60, 295, 30, stringColor(player1, player2, Type.F));
+		drawStringLeft(image, "Q/F: " + API.getTotal(player1) + " (" + diff(player1, player2, Type.T) + ")", 60, 345, 30, stringColor(player1, player2, Type.T));
+
+		int wlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WINS);
+		int rlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.WALLS);
+		int qlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.Q);
+		int flb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.F);
+		int tlb = GeneralUtils.getLBPosToIntFast(uuid, LeaderboardList.QF);
+
+		float p1rank = wlb + rlb + qlb + flb + tlb;
+		p1rank = (p1rank / 5) + 1;
+
+		wlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.WINS);
+		rlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.WALLS);
+		qlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.Q);
+		flb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.F);
+		tlb = GeneralUtils.getLBPosToIntFast(uuid2, LeaderboardList.QF);
+
+		float p2rank = wlb + rlb + qlb + flb + tlb;
+		p2rank = (p2rank / 5) + 1;
+
+		NumberFormat nf = new DecimalFormat("0.00");
+		DecimalFormat formatter = (DecimalFormat) nf;
+
+		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank) + ")", 60, 395, 30, pOverallStringColor(p2rank, p1rank));
+	}
+
+	private static void drawCrossRightSide(Canvas image, String player1, String player2, String uuid, String name, String uuid2) {
+		final int q = PracticeAPI.getQualificationToInt(player1);
+		final int f = PracticeAPI.getFinalsToInt(player1);
+		int score = Math.max(q, f);
+
+		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
+		image.loadFont(GeneralUtils.getCustomFont(uuid));
+
+		image.drawImageFromMemory(LoadedRessources.Q, 950, 215, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.F, 950, 265, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.QF, 950, 315, 30, 30);
+		image.drawImageFromMemory(LoadedRessources.RANK, 950, 365, 30, 30);
+
+		if (uuid.equals("b8ef1c7615e04b958d474ca133561f5a"))
+			image.drawImageFromMemory(LoadedRessources.BLACKOUT, 550, 110, 320, 80);
+		else if (uuid.equals("92a5199614ac4bd181d1f3c951fb719f"))
+			image.drawImageFromMemory(LoadedRessources.VENOM, 570, 110, 300, 85);
+		else {
+			drawStringRight(image, name, 870, 140, 40, GeneralUtils.getFontColor(uuid));
+		}
+
+		drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
+
+		GeneralUtils.getPlayerHead(uuid);
+		image.drawImage("res/head.png", 880, 100, 100, 100);
+
+		drawStringRight(image, "(" + pdiff(player1, player2, Type.Q) + ") " + q + " :Qualification", 940, 240, 30, pstringColor(player1, player2, Type.Q));
+		drawStringRight(image, "(" + pdiff(player1, player2, Type.F) + ") " + f + " :Finals", 940, 295, 30, pstringColor(player1, player2, Type.F));
+		drawStringRight(image, "(" + pdiff(player1, player2, Type.LQF) + ") " + (q+f) + " :Q/F", 940, 345, 30, pstringColor(player1, player2, Type.LQF));
+
+		int qlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PQ);
+		int flb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.PF);
+		int llb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.L);
+		int wlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WQ);
+		int wflb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.WF);
+		int tlb = GeneralUtils.getPLBPosToIntFast(uuid, LeaderboardList.LQF);
+
+		float p1rank = qlb + flb + llb + wlb + tlb + wflb;
+		p1rank = (p1rank / 6) + 1;
+
+		qlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PQ);
+		flb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.PF);
+		llb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.L);
+		wlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WQ);
+		wflb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.WF);
+		tlb = GeneralUtils.getPLBPosToIntFast(uuid2, LeaderboardList.LQF);
+
+		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
+		p2rank = (p2rank / 6) + 1;
+
+		NumberFormat nf = new DecimalFormat("0.00");
+		DecimalFormat formatter = (DecimalFormat) nf;
+
+		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 395, 30, pOverallStringColor(p2rank, p1rank));
+	}
+
 	/**
 	 * Draw the left side of the compare canvas
 	 */
@@ -643,9 +765,13 @@ public class CompareCanvas {
 				d2 = PracticeAPI.getLobbyToInt(p2);
 			break;
 			case LQF: 
-				d1 = PracticeAPI.getQualificationToInt(p1) + PracticeAPI.getFinalsToInt(p1) + PracticeAPI.getLobbyToInt(p1);
-				d2 = PracticeAPI.getQualificationToInt(p2) + PracticeAPI.getFinalsToInt(p2) + PracticeAPI.getLobbyToInt(p2);
+				d1 = PracticeAPI.getQualificationToInt(p1) + PracticeAPI.getFinalsToInt(p1) + PracticeAPI.getLobbyToInt(p1) + PracticeAPI.getWideQualificationToInt(p1) + PracticeAPI.getWideFinalsToInt(p1);
+				d2 = PracticeAPI.getQualificationToInt(p2) + PracticeAPI.getFinalsToInt(p2) + PracticeAPI.getLobbyToInt(p2) + PracticeAPI.getWideQualificationToInt(p2) + PracticeAPI.getWideFinalsToInt(p2);
 			break;
+			case T:
+				d1 = PracticeAPI.getQualificationToInt(p1) + PracticeAPI.getFinalsToInt(p1);
+				d2 = PracticeAPI.getQualificationToInt(p2) + PracticeAPI.getFinalsToInt(p2);
+				break;
 			default: 
 				d1 = 0;
 				d2 = 0;
