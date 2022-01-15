@@ -317,8 +317,7 @@ public class CompareCanvas {
 		float p2rank = wlb + rlb + qlb + flb + tlb;
 		p2rank = (p2rank / 5) + 1;
 
-		NumberFormat nf = new DecimalFormat("0.00");
-		DecimalFormat formatter = (DecimalFormat) nf;
+		DecimalFormat formatter = new DecimalFormat("0.00");
 
 		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank, true) + ")", 60, 495, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
@@ -380,8 +379,7 @@ public class CompareCanvas {
 		float p2rank = wlb + rlb + qlb + flb + tlb;
 		p2rank = (p2rank / 5) + 1;
 
-		NumberFormat nf = new DecimalFormat("0.00");
-		DecimalFormat formatter = (DecimalFormat) nf;
+		DecimalFormat formatter = new DecimalFormat("0.00");
 
 		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank, true) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 495, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
@@ -437,7 +435,7 @@ public class CompareCanvas {
 		image.save("pcompare.png");
 	}
 
-	public static void createCrossCompareImage(Canvas image, String player1Uuid, String player2Uuid, String player1Hypixel, String player2Hypixel, String player1Practice, String player2Practice, String player2Name) {
+	public static void createCrossCompareImage(Canvas image, String player1Uuid, String player2Uuid, String player1Hypixel, String player2Hypixel, String player2Practice, String player2Name) {
 		setBackground(image, player1Hypixel, player2Hypixel);
 
 		drawCrossLeftSide(image, player1Hypixel, player2Practice);
@@ -502,8 +500,7 @@ public class CompareCanvas {
 		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
 		p2rank = (p2rank / 6) + 1;
 
-		NumberFormat nf = new DecimalFormat("0.00");
-		DecimalFormat formatter = (DecimalFormat) nf;
+		DecimalFormat formatter = new DecimalFormat("0.00");
 
 		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank, true) + ")", 60, 495, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
@@ -564,8 +561,7 @@ public class CompareCanvas {
 		float p2rank = wlb + rlb + qlb + flb + tlb;
 		p2rank = (p2rank / 5) + 1;
 
-		NumberFormat nf = new DecimalFormat("0.00");
-		DecimalFormat formatter = (DecimalFormat) nf;
+		DecimalFormat formatter = new DecimalFormat("0.00");
 
 		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank, true) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 495, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
@@ -640,8 +636,7 @@ public class CompareCanvas {
 		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
 		p2rank = (p2rank / 6) + 1;
 
-		NumberFormat nf = new DecimalFormat("0.00");
-		DecimalFormat formatter = (DecimalFormat) nf;
+		DecimalFormat formatter = new DecimalFormat("0.00");
 
 		drawStringLeft(image, "Overall Rank: " + formatter.format(p1rank) + " (" + pOverallDiff(p2rank, p1rank, true) + ")", 60, 605, 30, pOverallStringColor(p2rank, p1rank, true));
 	}
@@ -716,8 +711,7 @@ public class CompareCanvas {
 		float p2rank = qlb + flb + llb + wlb + tlb + wflb;
 		p2rank = (p2rank / 6) + 1;
 
-		NumberFormat nf = new DecimalFormat("0.00");
-		DecimalFormat formatter = (DecimalFormat) nf;
+		DecimalFormat formatter = new DecimalFormat("0.00");
 
 		drawStringRight(image, "(" + pOverallDiff(p2rank, p1rank, true) + ") " + formatter.format(p1rank) + " :Overall Rank", 940, 605, 30, pOverallStringColor(p2rank, p1rank, true));
 	}

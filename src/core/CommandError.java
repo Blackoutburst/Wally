@@ -1,6 +1,5 @@
 package core;
 
-import utils.API;
 import utils.MessageSender;
 
 public interface CommandError {

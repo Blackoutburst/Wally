@@ -32,7 +32,11 @@ public class CommandRawStats extends CommandExecutable {
 			if (API.getPlayer(data) == null) return (neverJoined(this, command.getArgs()[0]));
 			uuid = API.getUUID(data);
 		}
-		
+
+		if (uuid == null) {
+			return unknownPlayer(this, command.getArgs()[0]);
+		}
+
 		LeaderboardList.sort();
 
 		final int lvl = (int) (1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data)));

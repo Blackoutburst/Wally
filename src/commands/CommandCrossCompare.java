@@ -67,7 +67,7 @@ public class CommandCrossCompare extends CommandExecutable {
 
 		Canvas image = new Canvas(1000, 640);
 		
-		CompareCanvas.createCrossCompareImage(image, player1Uuid, player2Uuid, player1Hypixel, player2Hypixel, player1Practice, player2Practice, player2Name);
+		CompareCanvas.createCrossCompareImage(image, player1Uuid, player2Uuid, player1Hypixel, player2Hypixel, player2Practice, player2Name);
 
 		MessageSender.sendFile(command, "ccompare.png");
 		return (true);

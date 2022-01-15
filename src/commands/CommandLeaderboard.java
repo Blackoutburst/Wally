@@ -22,7 +22,7 @@ public class CommandLeaderboard extends CommandExecutable {
 		char type = getType();
 		int page = getPage();
 		
-		List<LeaderboardPlayer> lead = null;
+		List<LeaderboardPlayer> lead;
 		
 		switch(type) {
 			case 'w': lead = LeaderboardList.WINS; break;

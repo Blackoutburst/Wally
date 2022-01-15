@@ -18,7 +18,7 @@ public class CommandPLeaderboard extends CommandExecutable {
 		String type = getType();
 		int page = getPage();
 
-		List<PracticeLeaderboardPlayer> lead = null;
+		List<PracticeLeaderboardPlayer> lead;
 
 		switch(type.toLowerCase(Locale.ROOT)) {
 			case "q": lead = LeaderboardList.PQ; break;

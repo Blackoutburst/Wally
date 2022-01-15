@@ -29,7 +29,11 @@ public class CommandRawPStats extends CommandExecutable {
 			uuid = Request.getPlayerUUID(command.getArgs()[0]);
 			playerName = command.getArgs()[0];
 		}
-		
+
+		if (uuid == null) {
+			return unknownPlayer(this, playerName);
+		}
+
 		data = Request.getPracticeServerScore(uuid);
 		if (data != null && data.contains("Unknown player")) {
 			return unknownPlayer(this, playerName);

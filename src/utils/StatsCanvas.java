@@ -237,8 +237,7 @@ public class StatsCanvas {
 		float rank = qlb + flb + llb + wlb + tlb + wflb;
 		rank = (rank / 6) + 1;
 
-		NumberFormat nf = new DecimalFormat("0.00");
-		DecimalFormat formatter = (DecimalFormat) nf;
+		DecimalFormat formatter = new DecimalFormat("0.00");
 
 		if ((int)(rank) == 10001) {
 			image.drawStringLeft("Overall rank: N/A", 562, 452, 30, shadow);
