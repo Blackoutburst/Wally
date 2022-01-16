@@ -37,6 +37,8 @@ public class CommandPStats extends CommandExecutable {
 			return unknownPlayer(this, playerName);
 		}
 
+		playerName = PracticeStats.getName(data);
+
 		LeaderboardList.pSort();
 		Canvas image = new Canvas(1000, 520);
 		

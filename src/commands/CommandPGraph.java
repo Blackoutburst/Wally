@@ -4,10 +4,7 @@ package commands;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
-import utils.Canvas;
-import utils.GeneralUtils;
-import utils.GraphCanvas;
-import utils.MessageSender;
+import utils.*;
 
 public class CommandPGraph extends CommandExecutable {
 
@@ -39,7 +36,9 @@ public class CommandPGraph extends CommandExecutable {
 		if (data != null && data.contains("Unknown player")) {
 			return unknownPlayer(this, playerName);
 		}
-		
+
+		playerName = PracticeStats.getName(data);
+
 		games = getGames();
 		
 		if (games <= 1) {

@@ -3,10 +3,7 @@ package commands;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
-import utils.Canvas;
-import utils.CompareCanvas;
-import utils.MessageSender;
-import utils.GeneralUtils;
+import utils.*;
 
 public class CommandPCompare extends CommandExecutable {
 
@@ -52,6 +49,9 @@ public class CommandPCompare extends CommandExecutable {
 		if (player2 != null && player2.contains("Unknown player")) {
 			return unknownPlayer(this, player2Name);
 		}
+
+		player1Name = PracticeStats.getName(player1);
+		player2Name = PracticeStats.getName(player2);
 		
 		Canvas image = new Canvas(1000, 640);
 		
