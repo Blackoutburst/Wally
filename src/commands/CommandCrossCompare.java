@@ -65,7 +65,7 @@ public class CommandCrossCompare extends CommandExecutable {
 			return unknownPlayer(this, player2Name);
 		}
 
-		Canvas image = new Canvas(1000, 640);
+		Canvas image = new Canvas(1000, 520);
 		
 		CompareCanvas.createCrossCompareImage(image, player1Uuid, player2Uuid, player1Hypixel, player2Hypixel, player2Practice, player2Name);
 
