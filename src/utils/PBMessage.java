@@ -49,7 +49,7 @@ public class PBMessage {
 
         boolean weTakeThose = false;
 
-        embed.setAuthor(name + " | " + API.getName(data), url, avatarUrl);
+        embed.setAuthor(name + " | " + playerName, url, avatarUrl);
         embed.setThumbnail(url);
         embed.setFooter("Discord ID: " + discordid + "\nUUID: " + uuid);
 
@@ -81,7 +81,7 @@ public class PBMessage {
         final String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
         final String avatarUrl = Objects.requireNonNull(Bot.server.getMemberById(discordid)).getUser().getAvatarUrl();
         final String name = Objects.requireNonNull(Bot.server.getMemberById(discordid)).getEffectiveName();
-        final String playerName = API.getName(data);
+        final String playerName = PracticeAPI.getName(data);
         final int oldQ = PracticeStats.getQualificationToInt(localData);
         final int newQ = PracticeAPI.getQualificationToInt(data);
         final int oldF = PracticeStats.getFinalsToInt(localData);
@@ -95,7 +95,7 @@ public class PBMessage {
 
         boolean weTakeThose = false;
 
-        embed.setAuthor(name + " | " + PracticeAPI.getName(data), url, avatarUrl);
+        embed.setAuthor(name + " | " + playerName, url, avatarUrl);
         embed.setThumbnail(url);
         embed.setFooter("Discord ID: " + discordid + "\nUUID: " + uuid);
 
