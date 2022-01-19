@@ -74,7 +74,8 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!setfont/!sf (file required format .TTF/.OTF)", "Change your stats font", false)
 			.addField("!resetfont/!rf", "Reset your stats font", false)
 			.addField("!setbackground/!setbg (file required format .JPG/.JPEG/.PNG Recommended size 1000x440)", "Change your stats background", false)
-			.addField("!resetbackground/!rbg", "Reset your stats background", false);
+			.addField("!resetbackground/!rbg", "Reset your stats background", false)
+			.addField("!toggleheader/!th", "Toggle stats header visibility", false);
 		MessageSender.sendEmbeded(command, embed);
 	}
 }
