@@ -18,8 +18,6 @@ public class CommandToggleHeader extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getArgs().length == 0) return (badUsage(this));
-		
 		try {
 			toggleHeader(command.getSender().getId());
 		} catch (Exception e) {
