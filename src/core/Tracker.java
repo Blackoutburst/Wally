@@ -65,8 +65,8 @@ public class Tracker {
 			oldF = Stats.getFinalsToInt(localData);
 			newF = API.getFinalsToInt(data);
 
-			if (newQ > oldQ) MessageSender.pbMessage(data, discordid, uuid, 'q');
-			if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
+			if (newQ > oldQ) PBMessage.pbMessage(data, discordid, uuid, 'q');
+			if (newF > oldF) PBMessage.pbMessage(data, discordid, uuid, 'f');
 			
 			GeneralUtils.updateFile(data, localData, uuid, "linked player", false);
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard", false);

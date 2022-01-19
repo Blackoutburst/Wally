@@ -2,11 +2,7 @@ package core;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import utils.ConfigManager;
-import utils.MessageSender;
-import utils.PracticeAPI;
-import utils.PracticeStats;
-import utils.GeneralUtils;
+import utils.*;
 
 public class DisplayPracticePBOnMention {
 	
@@ -50,11 +46,11 @@ public class DisplayPracticePBOnMention {
 		
 		String uuid = GeneralUtils.getUUIDfromDiscord(sender.getId());
 		
-		if (newQ > oldQ) MessageSender.practicePbMessage(data, sender.getId(), uuid, "q");
-		if (newF > oldF) MessageSender.practicePbMessage(data, sender.getId(), uuid, "f");
-		if (newL > oldL) MessageSender.practicePbMessage(data, sender.getId(), uuid, "l");
-		if (newWQ > oldWQ) MessageSender.practicePbMessage(data, sender.getId(), uuid, "wq");
-		if (newWF > oldWF) MessageSender.practicePbMessage(data, sender.getId(), uuid, "wf");
+		if (newQ > oldQ) PBMessage.practicePbMessage(data, sender.getId(), uuid, "q");
+		if (newF > oldF) PBMessage.practicePbMessage(data, sender.getId(), uuid, "f");
+		if (newL > oldL) PBMessage.practicePbMessage(data, sender.getId(), uuid, "l");
+		if (newWQ > oldWQ) PBMessage.practicePbMessage(data, sender.getId(), uuid, "wq");
+		if (newWF > oldWF) PBMessage.practicePbMessage(data, sender.getId(), uuid, "wf");
 		
 		GeneralUtils.updateFile(data, localData, uuid, "pleaderboard", true);
 	}

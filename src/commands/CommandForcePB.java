@@ -6,6 +6,7 @@ import core.Request;
 import utils.API;
 import utils.MessageSender;
 import utils.GeneralUtils;
+import utils.PBMessage;
 
 public class CommandForcePB extends CommandExecutable {
 
@@ -36,11 +37,11 @@ public class CommandForcePB extends CommandExecutable {
 		String localData = GeneralUtils.readJsonToString("linked player/"+uuid+"/data.json");
 		
 		switch(type) {
-			case Q : MessageSender.pbMessage(data, discordId, uuid, 'q');break;
-			case F : MessageSender.pbMessage(data, discordId, uuid, 'f');break;
+			case Q : PBMessage.pbMessage(data, discordId, uuid, 'q');break;
+			case F : PBMessage.pbMessage(data, discordId, uuid, 'f');break;
 			default :
-				MessageSender.pbMessage(data, discordId, uuid, 'q');
-				MessageSender.pbMessage(data, discordId, uuid, 'f');
+				PBMessage.pbMessage(data, discordId, uuid, 'q');
+				PBMessage.pbMessage(data, discordId, uuid, 'f');
 			break;
 		}
 		GeneralUtils.updateFile(data, localData, uuid, "linked player", false);

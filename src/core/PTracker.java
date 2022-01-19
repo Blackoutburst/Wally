@@ -54,11 +54,11 @@ public class PTracker {
 			int oldWF = PracticeStats.getWideFinalsToInt(localData);
 			int newWF = PracticeAPI.getWideFinalsToInt(data);
 
-			if (newQ > oldQ) MessageSender.practicePbMessage(data, discordId, uuid, "q");
-			if (newF > oldF) MessageSender.practicePbMessage(data, discordId, uuid, "f");
-			if (newL > oldL) MessageSender.practicePbMessage(data, discordId, uuid, "l");
-			if (newWQ > oldWQ) MessageSender.practicePbMessage(data, discordId, uuid, "wq");
-			if (newWF > oldWF) MessageSender.practicePbMessage(data, discordId, uuid, "wf");
+			if (newQ > oldQ) PBMessage.practicePbMessage(data, discordId, uuid, "q");
+			if (newF > oldF) PBMessage.practicePbMessage(data, discordId, uuid, "f");
+			if (newL > oldL) PBMessage.practicePbMessage(data, discordId, uuid, "l");
+			if (newWQ > oldWQ) PBMessage.practicePbMessage(data, discordId, uuid, "wq");
+			if (newWF > oldWF) PBMessage.practicePbMessage(data, discordId, uuid, "wf");
 
 			GeneralUtils.updateFile(data, localData, uuid, "pleaderboard", true);
 			LeaderboardList.pInit();

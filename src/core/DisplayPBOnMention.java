@@ -2,11 +2,7 @@ package core;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import utils.API;
-import utils.ConfigManager;
-import utils.MessageSender;
-import utils.Stats;
-import utils.GeneralUtils;
+import utils.*;
 
 public class DisplayPBOnMention {
 	
@@ -42,8 +38,8 @@ public class DisplayPBOnMention {
 			return;
 		}
 		
-		if (newQ > oldQ) MessageSender.pbMessage(data, sender.getId(), GeneralUtils.getUUIDfromDiscord(sender.getId()), 'q');
-		if (newF > oldF) MessageSender.pbMessage(data, sender.getId(), GeneralUtils.getUUIDfromDiscord(sender.getId()), 'f');
+		if (newQ > oldQ) PBMessage.pbMessage(data, sender.getId(), GeneralUtils.getUUIDfromDiscord(sender.getId()), 'q');
+		if (newF > oldF) PBMessage.pbMessage(data, sender.getId(), GeneralUtils.getUUIDfromDiscord(sender.getId()), 'f');
 		
 		GeneralUtils.updateFile(data, localData, GeneralUtils.getUUIDfromDiscord(sender.getId()), "linked player", false);
 		GeneralUtils.updateFile(data, localData, GeneralUtils.getUUIDfromDiscord(sender.getId()), "leaderboard", false);
