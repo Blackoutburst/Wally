@@ -16,17 +16,23 @@ public class CommandCrossCompare extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (command.getArgs().length < 1) return (badUsage(this));
-
 		String player1Hypixel;
 		String player2Hypixel;
 		String player1Practice;
 		String player2Practice;
-		String player1Uuid;
-		String player2Uuid;
-		String player1Name;
-		String player2Name;
-		
+		String player1Uuid = null;
+		String player2Uuid = null;
+		String player1Name = null;
+		String player2Name = null;
+
+		if (command.getArgs().length == 0) {
+			player1Uuid = GeneralUtils.getUUIDfromDiscord(command.getSender().getId());
+			player1Name = GeneralUtils.getIGNfromDiscord(command.getSender().getId());
+
+			player2Uuid = player1Uuid;
+			player2Name = player1Name;
+		}
+
 		if (command.getArgs().length == 1) {
 			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {
 				player1Uuid = GeneralUtils.getUUIDfromDiscord(command.getSender().getId());
@@ -37,7 +43,7 @@ public class CommandCrossCompare extends CommandExecutable {
 			} else {
 				return (badUsage(this));
 			}
-		} else {
+		} else if (command.getArgs().length > 1) {
 			player1Uuid = Request.getPlayerUUID(command.getArgs()[0]);
 			player1Name = command.getArgs()[0];
 			
