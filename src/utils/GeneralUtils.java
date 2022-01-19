@@ -39,6 +39,10 @@ public class GeneralUtils {
 
 		return ("res/font.ttf");
 	}
+
+	public static boolean hasHeader(String uuid) {
+		return (!new File("linked player/" + uuid + "/hideHeader").exists());
+	}
 	
 	public static String getCustomBackground(String uuid) {
 		String playerFolder = "linked player/" + uuid;

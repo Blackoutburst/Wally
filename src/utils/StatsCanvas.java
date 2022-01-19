@@ -28,7 +28,8 @@ public class StatsCanvas {
 		} else {
 			image.drawImageFromMemory(LoadedRessources.BACKGROUND_LARGE, 0, 0, 1000, 520);
 		}
-		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+		if (GeneralUtils.hasHeader(uuid))
+			image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
 		image.drawImageFromMemory(LoadedRessources.WINS, 520, 125, 30, 30);
@@ -155,8 +156,10 @@ public class StatsCanvas {
 		} else {
 			image.drawImage(GeneralUtils.getCustomBackground(uuid), 0, 0, 1000, 520);
 		}
-		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
-		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
+		if (GeneralUtils.hasHeader(uuid)) {
+			image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+			image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
+		}
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
 		image.drawImageFromMemory(LoadedRessources.Q, 520, 115, 30, 30);
