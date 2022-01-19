@@ -62,7 +62,7 @@ public class PBMessage {
             case 'f':
                 if (newF - oldF <= 0) return;
                 if (newF - oldF == 1) weTakeThose = true;
-                fillEmbed(embed, oldF, oldF, playerName, discordid, "Finals");
+                fillEmbed(embed, newF, oldF, playerName, discordid, "Finals");
             break;
             default: break;
         }
