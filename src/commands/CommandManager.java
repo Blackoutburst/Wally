@@ -50,6 +50,7 @@ public class CommandManager {
 			case "resetbackground": case "rbg": new CommandResetBackground(command, EVERYONE, "!resetbackground").run(); break;
 			case "setfont": case "sf": new CommandSetFont(command, EVERYONE, "!setfont (file required format .TTF/.OTF)").run(); break;
 			case "resetfont": case "rf": new CommandResetFont(command, EVERYONE, "!resetfont").run(); break;
+			case "toggleheader": case "th": new CommandToggleHeader(command, EVERYONE, "!toggleheader").run(); break;
 			default :
 		}
 	}
@@ -135,6 +136,9 @@ public class CommandManager {
 		
 		commands.addCommands(new CommandData("sf", "Set your stats font (file required format .TTF/.OTF)"));
 		commands.addCommands(new CommandData("rf", "Reset your stats font"));
+
+		commands.addCommands(new CommandData("toggleheader", "Toggle your stats header"));
+		commands.addCommands(new CommandData("th", "Toggle your stats header"));
 		commands.queue();
 	}
 }
