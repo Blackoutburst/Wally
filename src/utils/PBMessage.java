@@ -8,12 +8,12 @@ import java.util.Objects;
 
 public class PBMessage {
 
-    private static void react(boolean weTakeThose, EmbedBuilder embed) {
+    private static void send(boolean weTakeThose, EmbedBuilder embed, String channel) {
         if (weTakeThose) {
-            Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel"))).sendMessage(embed.build()).queue(response ->
+            Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString(channel))).sendMessage(embed.build()).queue(response ->
                 response.addReaction("weTakeThose:839985386012147783").queue());
         } else {
-            Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel"))).sendMessage(embed.build()).complete();
+            Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString(channel))).sendMessage(embed.build()).complete();
         }
     }
 
@@ -68,7 +68,7 @@ public class PBMessage {
         }
 
         new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF, null);
-        react(weTakeThose, embed);
+        send(weTakeThose, embed, "trackerChannel");
     }
 
     public static void practicePbMessage(String data, String discordid, String uuid, String type) {
@@ -127,6 +127,6 @@ public class PBMessage {
             break;
         }
 
-        react(weTakeThose, embed);
+        send(weTakeThose, embed, "practiceTrackerChannel");
     }
 }
