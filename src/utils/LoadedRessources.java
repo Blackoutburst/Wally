@@ -20,8 +20,9 @@ public class LoadedRessources {
 	public static BufferedImage H450 = null;
 	public static BufferedImage H500 = null;
 
+	public static BufferedImage H250P = null;
 	public static BufferedImage H300P = null;
-	
+
 	public static BufferedImage HMEMBERR = null;
 	public static BufferedImage H50R = null;
 	public static BufferedImage H100R = null;
@@ -34,6 +35,7 @@ public class LoadedRessources {
 	public static BufferedImage H450R = null;
 	public static BufferedImage H500R = null;
 
+	public static BufferedImage H250PR = null;
 	public static BufferedImage H300PR = null;
 	
 	public static BufferedImage BACKGROUND = null;
@@ -75,6 +77,7 @@ public class LoadedRessources {
 		H450 = ImageIO.read(new File("res/450.png"));
 		H500 = ImageIO.read(new File("res/500.png"));
 
+		H250P = ImageIO.read(new File("res/250P.png"));
 		H300P = ImageIO.read(new File("res/300P.png"));
 		
 		HMEMBERR = ImageIO.read(new File("res/memberR.png"));
@@ -89,6 +92,7 @@ public class LoadedRessources {
 		H450R = ImageIO.read(new File("res/450R.png"));
 		H500R = ImageIO.read(new File("res/500R.png"));
 
+		H250PR = ImageIO.read(new File("res/250PR.png"));
 		H300PR = ImageIO.read(new File("res/300PR.png"));
 		
 		BACKGROUND = ImageIO.read(new File("res/background.png"));

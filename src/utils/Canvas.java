@@ -169,7 +169,7 @@ public class Canvas {
 		if (score >= 100) file = LoadedRessources.H100;
 		if (score >= 150) file = LoadedRessources.H150;
 		if (score >= 200) file = LoadedRessources.H200;
-		if (score >= 250) file = LoadedRessources.H250;
+		if (score >= 250) file = patreon ? LoadedRessources.H250P : LoadedRessources.H250;
 		if (score >= 300) file = patreon ? LoadedRessources.H300P : LoadedRessources.H300;
 		if (score >= 350) file = LoadedRessources.H350;
 		if (score >= 400) file = LoadedRessources.H400;
@@ -189,7 +189,7 @@ public class Canvas {
 		if (score >= 100) file = LoadedRessources.H100R;
 		if (score >= 150) file = LoadedRessources.H150R;
 		if (score >= 200) file = LoadedRessources.H200R;
-		if (score >= 250) file = LoadedRessources.H250R;
+		if (score >= 250) file = patreon ? LoadedRessources.H250PR : LoadedRessources.H250R;
 		if (score >= 300) file = patreon ? LoadedRessources.H300PR : LoadedRessources.H300R;
 		if (score >= 350) file = LoadedRessources.H350R;
 		if (score >= 400) file = LoadedRessources.H400R;
