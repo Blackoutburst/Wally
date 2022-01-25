@@ -1,6 +1,7 @@
 package utils;
 
 import core.Bot;
+import core.Patreon;
 import net.dv8tion.jda.api.entities.Member;
 
 import java.awt.*;
@@ -29,7 +30,7 @@ public class StatsCanvas {
 			image.drawImageFromMemory(LoadedRessources.BACKGROUND_LARGE, 0, 0, 1000, 520);
 		}
 		if (GeneralUtils.hasHeader(uuid))
-			image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+			image.drawImageFromMemory(Canvas.getHeader(score, uuid), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
 		image.drawImageFromMemory(LoadedRessources.WINS, 520, 125, 30, 30);
@@ -49,10 +50,20 @@ public class StatsCanvas {
 		}
 		
 		final String sub = Stats.getSubTitle(uuid);
-		
-		image.drawStringLeft(sub, 132, 182, 36, shadow);
-		image.drawStringLeft(sub, 130, 180, 36, color);
-		
+
+		if (Patreon.isPatreon(uuid))  {
+			int lvl = Patreon.getPatreonLevel(uuid);
+			if (lvl >= 1)
+				image.drawImageFromMemory(LoadedRessources.TIER1, 150, 150, 64, 64);
+			if (lvl >= 2)
+				image.drawImageFromMemory(LoadedRessources.TIER2, 200, 150, 64, 64);
+			if (lvl >= 3)
+				image.drawImageFromMemory(LoadedRessources.TIER3, 250, 150, 64, 64);
+		} else {
+			image.drawStringLeft(sub, 132, 182, 36, shadow);
+			image.drawStringLeft(sub, 130, 180, 36, color);
+		}
+
 		final int lvl = (int) (1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data)));
 		
 		final String discordId = GeneralUtils.getDiscordfromIGN(name);
@@ -157,7 +168,7 @@ public class StatsCanvas {
 			image.drawImage(GeneralUtils.getCustomBackground(uuid), 0, 0, 1000, 520);
 		}
 		if (GeneralUtils.hasHeader(uuid)) {
-			image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+			image.drawImageFromMemory(Canvas.getHeader(score, uuid), 0, 0, 1000, 400);
 			image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
 		}
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
@@ -181,8 +192,18 @@ public class StatsCanvas {
 		
 		final String sub = Stats.getSubTitle(uuid);
 		
-		image.drawStringLeft(sub, 132, 182, 36, shadow);
-		image.drawStringLeft(sub, 130, 180, 36, color);
+		if (Patreon.isPatreon(uuid))  {
+			int lvl = Patreon.getPatreonLevel(uuid);
+			if (lvl >= 1)
+				image.drawImageFromMemory(LoadedRessources.TIER1, 150, 150, 64, 64);
+			if (lvl >= 2)
+				image.drawImageFromMemory(LoadedRessources.TIER2, 200, 150, 64, 64);
+			if (lvl >= 3)
+				image.drawImageFromMemory(LoadedRessources.TIER3, 250, 150, 64, 64);
+		} else {
+			image.drawStringLeft(sub, 132, 182, 36, shadow);
+			image.drawStringLeft(sub, 130, 180, 36, color);
+		}
 		
 		final String discordId = GeneralUtils.getDiscordfromIGN(name);
 		String discordNick = "N/A";

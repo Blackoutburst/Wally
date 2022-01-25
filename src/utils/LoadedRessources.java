@@ -19,6 +19,8 @@ public class LoadedRessources {
 	public static BufferedImage H400 = null;
 	public static BufferedImage H450 = null;
 	public static BufferedImage H500 = null;
+
+	public static BufferedImage H300P = null;
 	
 	public static BufferedImage HMEMBERR = null;
 	public static BufferedImage H50R = null;
@@ -31,6 +33,8 @@ public class LoadedRessources {
 	public static BufferedImage H400R = null;
 	public static BufferedImage H450R = null;
 	public static BufferedImage H500R = null;
+
+	public static BufferedImage H300PR = null;
 	
 	public static BufferedImage BACKGROUND = null;
 	public static BufferedImage BACKGROUND_LARGE = null;
@@ -40,7 +44,11 @@ public class LoadedRessources {
 	
 	public static BufferedImage PHEADER = null;
 	public static BufferedImage PHEADERR = null;
-	
+
+	public static BufferedImage TIER1 = null;
+	public static BufferedImage TIER2 = null;
+	public static BufferedImage TIER3 = null;
+
 	public static BufferedImage Q = null;
 	public static BufferedImage F = null;
 	public static BufferedImage QF = null;
@@ -66,6 +74,8 @@ public class LoadedRessources {
 		H400 = ImageIO.read(new File("res/400.png"));
 		H450 = ImageIO.read(new File("res/450.png"));
 		H500 = ImageIO.read(new File("res/500.png"));
+
+		H300P = ImageIO.read(new File("res/300P.png"));
 		
 		HMEMBERR = ImageIO.read(new File("res/memberR.png"));
 		H50R = ImageIO.read(new File("res/50R.png"));
@@ -78,6 +88,8 @@ public class LoadedRessources {
 		H400R = ImageIO.read(new File("res/400R.png"));
 		H450R = ImageIO.read(new File("res/450R.png"));
 		H500R = ImageIO.read(new File("res/500R.png"));
+
+		H300PR = ImageIO.read(new File("res/300PR.png"));
 		
 		BACKGROUND = ImageIO.read(new File("res/background.png"));
 		BACKGROUND_LARGE = ImageIO.read(new File("res/backgroundLarge.png"));
@@ -87,7 +99,11 @@ public class LoadedRessources {
 		
 		PHEADER = ImageIO.read(new File("res/practiceHeader.png"));
 		PHEADERR = ImageIO.read(new File("res/practiceHeaderR.png"));
-		
+
+		TIER1 = ImageIO.read(new File("res/tier1.png"));
+		TIER2 = ImageIO.read(new File("res/tier2.png"));
+		TIER3 = ImageIO.read(new File("res/tier3.png"));
+
 		Q = ImageIO.read(new File("res/q.png"));
 		F = ImageIO.read(new File("res/f.png"));
 		QF = ImageIO.read(new File("res/qf.png"));

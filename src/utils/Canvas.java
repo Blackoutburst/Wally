@@ -1,5 +1,7 @@
 package utils;
 
+import core.Patreon;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -159,15 +161,16 @@ public class Canvas {
 	/**
 	 * Return header color
 	 */
-	public static BufferedImage getHeader(int score) {
+	public static BufferedImage getHeader(int score, String uuid) {
+		boolean patreon = Patreon.isPatreon(uuid);
 		BufferedImage file = LoadedRessources.HMEMBER;
 		
-		if (score >= 50) file = LoadedRessources.H50;
+		if (score >= 50) file =  LoadedRessources.H50;
 		if (score >= 100) file = LoadedRessources.H100;
 		if (score >= 150) file = LoadedRessources.H150;
 		if (score >= 200) file = LoadedRessources.H200;
 		if (score >= 250) file = LoadedRessources.H250;
-		if (score >= 300) file = LoadedRessources.H300;
+		if (score >= 300) file = patreon ? LoadedRessources.H300P : LoadedRessources.H300;
 		if (score >= 350) file = LoadedRessources.H350;
 		if (score >= 400) file = LoadedRessources.H400;
 		if (score >= 450) file = LoadedRessources.H450;
@@ -178,7 +181,8 @@ public class Canvas {
 	/**
 	 * Return header color
 	 */
-	public static BufferedImage getHeaderRight(int score) {
+	public static BufferedImage getHeaderRight(int score, String uuid) {
+		boolean patreon = Patreon.isPatreon(uuid);
 		BufferedImage file = LoadedRessources.HMEMBERR;
 		
 		if (score >= 50) file = LoadedRessources.H50R;
@@ -186,7 +190,7 @@ public class Canvas {
 		if (score >= 150) file = LoadedRessources.H150R;
 		if (score >= 200) file = LoadedRessources.H200R;
 		if (score >= 250) file = LoadedRessources.H250R;
-		if (score >= 300) file = LoadedRessources.H300R;
+		if (score >= 300) file = patreon ? LoadedRessources.H300PR : LoadedRessources.H300R;
 		if (score >= 350) file = LoadedRessources.H350R;
 		if (score >= 400) file = LoadedRessources.H400R;
 		if (score >= 450) file = LoadedRessources.H450R;

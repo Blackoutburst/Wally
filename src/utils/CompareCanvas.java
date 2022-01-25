@@ -12,6 +12,7 @@ import comparators.PlayerComparatorQ;
 import comparators.PlayerComparatorRounds;
 import comparators.PlayerComparatorTotal;
 import comparators.PlayerComparatorWins;
+import core.Patreon;
 import core.RolesManager;
 
 public class CompareCanvas {
@@ -40,7 +41,7 @@ public class CompareCanvas {
 		int score = Math.max(q, f);
 		
 		image.drawImageFromMemory(LoadedRessources.BACKGROUND_ENDL, 0, 80, 1000, image.height);
-		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score, ""), 0, 0, 1000, 400);
 		
 		drawWins(image, pls);
 		drawWalls(image, pls);
@@ -270,7 +271,7 @@ public class CompareCanvas {
 		int q = API.getQualificationToInt(player1);
 		int score = Math.max(q, f);
 		
-		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score, uuid), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
 		image.drawImageFromMemory(LoadedRessources.WINS, 20, 215, 30, 30);
@@ -288,7 +289,19 @@ public class CompareCanvas {
 			drawStringLeft(image, API.getName(player1), 130, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
 
-		drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
+
+		if (Patreon.isPatreon(uuid))  {
+			int lvl = Patreon.getPatreonLevel(uuid);
+			if (lvl >= 1)
+				image.drawImageFromMemory(LoadedRessources.TIER1, 150, 150, 64, 64);
+			if (lvl >= 2)
+				image.drawImageFromMemory(LoadedRessources.TIER2, 200, 150, 64, 64);
+			if (lvl >= 3)
+				image.drawImageFromMemory(LoadedRessources.TIER3, 250, 150, 64, 64);
+		} else {
+			drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
+		}
+
 
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
@@ -332,7 +345,7 @@ public class CompareCanvas {
 		int q = API.getQualificationToInt(player1);
 		int score = Math.max(q, f);
 		
-		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeaderRight(score, uuid), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
 		image.drawImageFromMemory(LoadedRessources.WINS, 950, 215, 30, 30);
@@ -350,7 +363,17 @@ public class CompareCanvas {
 			drawStringRight(image, API.getName(player1), 870, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
 
-		drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
+		if (Patreon.isPatreon(uuid))  {
+			int lvl = Patreon.getPatreonLevel(uuid);
+			if (lvl >= 1)
+				image.drawImageFromMemory(LoadedRessources.TIER1, 786, 150, 64, 64);
+			if (lvl >= 2)
+				image.drawImageFromMemory(LoadedRessources.TIER2, 736, 150, 64, 64);
+			if (lvl >= 3)
+				image.drawImageFromMemory(LoadedRessources.TIER3, 686, 150, 64, 64);
+		} else {
+			drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
+		}
 
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 880, 100, 100, 100);
@@ -454,7 +477,7 @@ public class CompareCanvas {
 
 		final int score = Math.max(q, f);
 
-		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score, uuid), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
 		image.drawImageFromMemory(LoadedRessources.Q, 20, 315, 30, 30);
@@ -470,7 +493,19 @@ public class CompareCanvas {
 			drawStringLeft(image, API.getName(player1), 130, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
 
-		drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
+
+		if (Patreon.isPatreon(uuid))  {
+			int lvl = Patreon.getPatreonLevel(uuid);
+			if (lvl >= 1)
+				image.drawImageFromMemory(LoadedRessources.TIER1, 150, 150, 64, 64);
+			if (lvl >= 2)
+				image.drawImageFromMemory(LoadedRessources.TIER2, 200, 150, 64, 64);
+			if (lvl >= 3)
+				image.drawImageFromMemory(LoadedRessources.TIER3, 250, 150, 64, 64);
+		} else {
+			drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
+		}
+
 
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
@@ -514,7 +549,7 @@ public class CompareCanvas {
 
 		final int score = Math.max(q, f);
 
-		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeaderRight(score, uuid), 0, 0, 1000, 400);
 		image.drawImageFromMemory(LoadedRessources.PHEADERR, 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
@@ -531,7 +566,18 @@ public class CompareCanvas {
 			drawStringRight(image, name, 870, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
 
-		drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
+		if (Patreon.isPatreon(uuid))  {
+			int lvl = Patreon.getPatreonLevel(uuid);
+			if (lvl >= 1)
+				image.drawImageFromMemory(LoadedRessources.TIER1, 786, 150, 64, 64);
+			if (lvl >= 2)
+				image.drawImageFromMemory(LoadedRessources.TIER2, 736, 150, 64, 64);
+			if (lvl >= 3)
+				image.drawImageFromMemory(LoadedRessources.TIER3, 686, 150, 64, 64);
+		} else {
+			drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
+		}
+
 
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 880, 100, 100, 100);
@@ -584,7 +630,7 @@ public class CompareCanvas {
 		if (l >= f && l >= q && l >= wq && l >= wf) score = l;
 		if (wf >= f && wf >= q && wf >= wq && wf >= l) score = wf;
 
-		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score, uuid), 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 		
 		image.drawImageFromMemory(LoadedRessources.Q, 20, 220, 30, 30);
@@ -604,7 +650,18 @@ public class CompareCanvas {
 			drawStringLeft(image, name, 130, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
 
-		drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
+		if (Patreon.isPatreon(uuid))  {
+			int lvl = Patreon.getPatreonLevel(uuid);
+			if (lvl >= 1)
+				image.drawImageFromMemory(LoadedRessources.TIER1, 150, 150, 64, 64);
+			if (lvl >= 2)
+				image.drawImageFromMemory(LoadedRessources.TIER2, 200, 150, 64, 64);
+			if (lvl >= 3)
+				image.drawImageFromMemory(LoadedRessources.TIER3, 250, 150, 64, 64);
+		} else {
+			drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
+		}
+
 
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 20, 100, 100, 100);
@@ -659,7 +716,7 @@ public class CompareCanvas {
 		if (l >= f && l >= q && l >= wq && l >= wf) score = l;
 		if (wf >= f && wf >= q && wf >= wq && wf >= l) score = wf;
 		
-		image.drawImageFromMemory(Canvas.getHeaderRight(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeaderRight(score, uuid), 0, 0, 1000, 400);
 		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
 		image.loadFont(GeneralUtils.getCustomFont(uuid));
 
@@ -679,7 +736,17 @@ public class CompareCanvas {
 			drawStringRight(image, name, 870, 140, 40, GeneralUtils.getFontColor(uuid));
 		}
 
-		drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
+		if (Patreon.isPatreon(uuid))  {
+			int lvl = Patreon.getPatreonLevel(uuid);
+			if (lvl >= 1)
+				image.drawImageFromMemory(LoadedRessources.TIER1, 786, 150, 64, 64);
+			if (lvl >= 2)
+				image.drawImageFromMemory(LoadedRessources.TIER2, 736, 150, 64, 64);
+			if (lvl >= 3)
+				image.drawImageFromMemory(LoadedRessources.TIER3, 686, 150, 64, 64);
+		} else {
+			drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
+		}
 
 		GeneralUtils.getPlayerHead(uuid);
 		image.drawImage("res/head.png", 880, 100, 100, 100);

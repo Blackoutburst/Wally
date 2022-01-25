@@ -51,12 +51,14 @@ public class CommandPing extends CommandExecutable {
 	                    .addField("Used memory", "`"+mbUsed+"`MiB", true)
 	                    .addField("Total memory", "`"+mbTotal+"`MiB", true)
 	                    .addField("Max memory", "`"+mbMax+"`MiB", true)
-					   .addField("Tacker", "alive: `"+trackerThread+"`", true)
-					   .addField("PTracker", "alive: `"+pTrackerThread+"`", true)
-					   .addField("Updater", "alive: `"+lbThread+"`", true)
-					   .addField("Ping", "`"+(System.currentTimeMillis() - time)+"`ms", true)
-					   .addField("Uptime", "`"+uptime+"` minutes", true)
-					    .addField("Version", "`1.0.8`", true).build();
+					    .addField("Tacker", "alive: `"+trackerThread+"`", true)
+					    .addField("PTracker", "alive: `"+pTrackerThread+"`", true)
+					    .addField("Updater", "alive: `"+lbThread+"`", true)
+					    .addField("Ping", "`"+(System.currentTimeMillis() - time)+"`ms", true)
+					    .addField("Uptime", "`"+uptime+"` minutes", true)
+					    .addField("Version", "`1.0.8`", true)
+					    .addField("Patreon", "https://www.patreon.com/Blackoutburst", false)
+					    .addField("GitHub", "https://github.com/Blackoutburst/Wally", false).build();
 			
 			response.editMessage(embed).queue();
 		});

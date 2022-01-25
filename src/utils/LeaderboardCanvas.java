@@ -17,7 +17,7 @@ public class LeaderboardCanvas {
 		
 		image.loadFont("res/font.ttf");
 		image.drawImageFromMemory(LoadedRessources.BACKGROUND_XL, 0, 0, 1000, 770);
-		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score, ""), 0, 0, 1000, 400);
 		
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat formatter = (DecimalFormat) nf;
@@ -56,7 +56,7 @@ public class LeaderboardCanvas {
 
 		image.loadFont("res/font.ttf");
 		image.drawImageFromMemory(LoadedRessources.BACKGROUND_XL, 0, 0, 1000, 770);
-		image.drawImageFromMemory(Canvas.getHeader(score), 0, 0, 1000, 400);
+		image.drawImageFromMemory(Canvas.getHeader(score, ""), 0, 0, 1000, 400);
 		image.drawImageFromMemory(LoadedRessources.PHEADER, 0, 0, 1000, 400);
 		
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
