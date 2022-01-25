@@ -293,11 +293,11 @@ public class CompareCanvas {
 		if (Patreon.isPatreon(uuid))  {
 			int lvl = Patreon.getPatreonLevel(uuid);
 			if (lvl >= 1)
-				image.drawImageFromMemory(LoadedRessources.TIER1, 150, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER1, 130, 140, 64, 64);
 			if (lvl >= 2)
-				image.drawImageFromMemory(LoadedRessources.TIER2, 200, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER2, 180, 140, 64, 64);
 			if (lvl >= 3)
-				image.drawImageFromMemory(LoadedRessources.TIER3, 250, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER3, 230, 140, 64, 64);
 		} else {
 			drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
 		}
@@ -366,11 +366,11 @@ public class CompareCanvas {
 		if (Patreon.isPatreon(uuid))  {
 			int lvl = Patreon.getPatreonLevel(uuid);
 			if (lvl >= 1)
-				image.drawImageFromMemory(LoadedRessources.TIER1, 786, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER1, 806, 140, 64, 64);
 			if (lvl >= 2)
-				image.drawImageFromMemory(LoadedRessources.TIER2, 736, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER2, 756, 140, 64, 64);
 			if (lvl >= 3)
-				image.drawImageFromMemory(LoadedRessources.TIER3, 686, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER3, 706, 140, 64, 64);
 		} else {
 			drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
 		}
@@ -497,11 +497,11 @@ public class CompareCanvas {
 		if (Patreon.isPatreon(uuid))  {
 			int lvl = Patreon.getPatreonLevel(uuid);
 			if (lvl >= 1)
-				image.drawImageFromMemory(LoadedRessources.TIER1, 150, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER1, 130, 140, 64, 64);
 			if (lvl >= 2)
-				image.drawImageFromMemory(LoadedRessources.TIER2, 200, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER2, 180, 140, 64, 64);
 			if (lvl >= 3)
-				image.drawImageFromMemory(LoadedRessources.TIER3, 250, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER3, 230, 140, 64, 64);
 		} else {
 			drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
 		}
@@ -569,11 +569,11 @@ public class CompareCanvas {
 		if (Patreon.isPatreon(uuid))  {
 			int lvl = Patreon.getPatreonLevel(uuid);
 			if (lvl >= 1)
-				image.drawImageFromMemory(LoadedRessources.TIER1, 786, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER1, 806, 140, 64, 64);
 			if (lvl >= 2)
-				image.drawImageFromMemory(LoadedRessources.TIER2, 736, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER2, 756, 140, 64, 64);
 			if (lvl >= 3)
-				image.drawImageFromMemory(LoadedRessources.TIER3, 686, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER3, 706, 140, 64, 64);
 		} else {
 			drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
 		}
@@ -653,11 +653,11 @@ public class CompareCanvas {
 		if (Patreon.isPatreon(uuid))  {
 			int lvl = Patreon.getPatreonLevel(uuid);
 			if (lvl >= 1)
-				image.drawImageFromMemory(LoadedRessources.TIER1, 150, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER1, 130, 140, 64, 64);
 			if (lvl >= 2)
-				image.drawImageFromMemory(LoadedRessources.TIER2, 200, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER2, 180, 140, 64, 64);
 			if (lvl >= 3)
-				image.drawImageFromMemory(LoadedRessources.TIER3, 250, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER3, 230, 140, 64, 64);
 		} else {
 			drawStringLeft(image, Stats.getSubTitle(uuid), 130, 180, 36, GeneralUtils.getFontColor(uuid));
 		}
@@ -739,11 +739,11 @@ public class CompareCanvas {
 		if (Patreon.isPatreon(uuid))  {
 			int lvl = Patreon.getPatreonLevel(uuid);
 			if (lvl >= 1)
-				image.drawImageFromMemory(LoadedRessources.TIER1, 786, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER1, 806, 140, 64, 64);
 			if (lvl >= 2)
-				image.drawImageFromMemory(LoadedRessources.TIER2, 736, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER2, 756, 140, 64, 64);
 			if (lvl >= 3)
-				image.drawImageFromMemory(LoadedRessources.TIER3, 686, 150, 64, 64);
+				image.drawImageFromMemory(LoadedRessources.TIER3, 706, 140, 64, 64);
 		} else {
 			drawStringRight(image, Stats.getSubTitle(uuid), 870, 180, 36, GeneralUtils.getFontColor(uuid));
 		}
