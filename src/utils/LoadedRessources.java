@@ -20,8 +20,17 @@ public class LoadedRessources {
 	public static BufferedImage H450 = null;
 	public static BufferedImage H500 = null;
 
+	public static BufferedImage HMEMBERP = null;
+	public static BufferedImage H50P = null;
+	public static BufferedImage H100P = null;
+	public static BufferedImage H150P = null;
+	public static BufferedImage H200P = null;
 	public static BufferedImage H250P = null;
 	public static BufferedImage H300P = null;
+	public static BufferedImage H350P = null;
+	public static BufferedImage H400P = null;
+	public static BufferedImage H450P = null;
+	public static BufferedImage H500P = null;
 
 	public static BufferedImage HMEMBERR = null;
 	public static BufferedImage H50R = null;
@@ -35,8 +44,17 @@ public class LoadedRessources {
 	public static BufferedImage H450R = null;
 	public static BufferedImage H500R = null;
 
+	public static BufferedImage HMEMBERPR = null;
+	public static BufferedImage H50PR = null;
+	public static BufferedImage H100PR = null;
+	public static BufferedImage H150PR = null;
+	public static BufferedImage H200PR = null;
 	public static BufferedImage H250PR = null;
 	public static BufferedImage H300PR = null;
+	public static BufferedImage H350PR = null;
+	public static BufferedImage H400PR = null;
+	public static BufferedImage H450PR = null;
+	public static BufferedImage H500PR = null;
 	
 	public static BufferedImage BACKGROUND = null;
 	public static BufferedImage BACKGROUND_LARGE = null;
@@ -77,8 +95,17 @@ public class LoadedRessources {
 		H450 = ImageIO.read(new File("res/450.png"));
 		H500 = ImageIO.read(new File("res/500.png"));
 
+		HMEMBERP = ImageIO.read(new File("res/memberP.png"));
+		H50P = ImageIO.read(new File("res/50P.png"));
+		H100P = ImageIO.read(new File("res/100P.png"));
+		H150P = ImageIO.read(new File("res/150P.png"));
+		H200P = ImageIO.read(new File("res/200P.png"));
 		H250P = ImageIO.read(new File("res/250P.png"));
 		H300P = ImageIO.read(new File("res/300P.png"));
+		H350P = ImageIO.read(new File("res/350P.png"));
+		H400P = ImageIO.read(new File("res/400P.png"));
+		H450P = ImageIO.read(new File("res/450P.png"));
+		H500P = ImageIO.read(new File("res/500P.png"));
 		
 		HMEMBERR = ImageIO.read(new File("res/memberR.png"));
 		H50R = ImageIO.read(new File("res/50R.png"));
@@ -92,8 +119,17 @@ public class LoadedRessources {
 		H450R = ImageIO.read(new File("res/450R.png"));
 		H500R = ImageIO.read(new File("res/500R.png"));
 
+		HMEMBERPR = ImageIO.read(new File("res/memberPR.png"));
+		H50PR = ImageIO.read(new File("res/50PR.png"));
+		H100PR = ImageIO.read(new File("res/100PR.png"));
+		H150PR = ImageIO.read(new File("res/150PR.png"));
+		H200PR = ImageIO.read(new File("res/200PR.png"));
 		H250PR = ImageIO.read(new File("res/250PR.png"));
 		H300PR = ImageIO.read(new File("res/300PR.png"));
+		H350PR = ImageIO.read(new File("res/350PR.png"));
+		H400PR = ImageIO.read(new File("res/400PR.png"));
+		H450PR = ImageIO.read(new File("res/450PR.png"));
+		H500PR = ImageIO.read(new File("res/500PR.png"));
 		
 		BACKGROUND = ImageIO.read(new File("res/background.png"));
 		BACKGROUND_LARGE = ImageIO.read(new File("res/backgroundLarge.png"));

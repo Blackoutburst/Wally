@@ -163,18 +163,18 @@ public class Canvas {
 	 */
 	public static BufferedImage getHeader(int score, String uuid) {
 		boolean patreon = Patreon.isPatreon(uuid);
-		BufferedImage file = LoadedRessources.HMEMBER;
+		BufferedImage file = patreon ? LoadedRessources.HMEMBERP : LoadedRessources.HMEMBER;
 		
-		if (score >= 50) file =  LoadedRessources.H50;
-		if (score >= 100) file = LoadedRessources.H100;
-		if (score >= 150) file = LoadedRessources.H150;
-		if (score >= 200) file = LoadedRessources.H200;
+		if (score >= 50) file =  patreon ? LoadedRessources.H50P : LoadedRessources.H50;
+		if (score >= 100) file = patreon ? LoadedRessources.H100P : LoadedRessources.H100;
+		if (score >= 150) file = patreon ? LoadedRessources.H150P : LoadedRessources.H150;
+		if (score >= 200) file = patreon ? LoadedRessources.H200P : LoadedRessources.H200;
 		if (score >= 250) file = patreon ? LoadedRessources.H250P : LoadedRessources.H250;
 		if (score >= 300) file = patreon ? LoadedRessources.H300P : LoadedRessources.H300;
-		if (score >= 350) file = LoadedRessources.H350;
-		if (score >= 400) file = LoadedRessources.H400;
-		if (score >= 450) file = LoadedRessources.H450;
-		if (score >= 500) file = LoadedRessources.H500;
+		if (score >= 350) file = patreon ? LoadedRessources.H350P : LoadedRessources.H350;
+		if (score >= 400) file = patreon ? LoadedRessources.H400P : LoadedRessources.H400;
+		if (score >= 450) file = patreon ? LoadedRessources.H450P : LoadedRessources.H450;
+		if (score >= 500) file = patreon ? LoadedRessources.H500P : LoadedRessources.H500;
 		return file;
 	}
 	
@@ -183,18 +183,18 @@ public class Canvas {
 	 */
 	public static BufferedImage getHeaderRight(int score, String uuid) {
 		boolean patreon = Patreon.isPatreon(uuid);
-		BufferedImage file = LoadedRessources.HMEMBERR;
+		BufferedImage file = patreon ? LoadedRessources.HMEMBERPR : LoadedRessources.HMEMBERR;
 		
-		if (score >= 50) file = LoadedRessources.H50R;
-		if (score >= 100) file = LoadedRessources.H100R;
-		if (score >= 150) file = LoadedRessources.H150R;
-		if (score >= 200) file = LoadedRessources.H200R;
+		if (score >= 50) file = patreon ? LoadedRessources.H50PR : LoadedRessources.H50R;
+		if (score >= 100) file = patreon ? LoadedRessources.H100PR : LoadedRessources.H100R;
+		if (score >= 150) file = patreon ? LoadedRessources.H150PR : LoadedRessources.H150R;
+		if (score >= 200) file = patreon ? LoadedRessources.H200PR : LoadedRessources.H200R;
 		if (score >= 250) file = patreon ? LoadedRessources.H250PR : LoadedRessources.H250R;
 		if (score >= 300) file = patreon ? LoadedRessources.H300PR : LoadedRessources.H300R;
-		if (score >= 350) file = LoadedRessources.H350R;
-		if (score >= 400) file = LoadedRessources.H400R;
-		if (score >= 450) file = LoadedRessources.H450R;
-		if (score >= 500) file = LoadedRessources.H500R;
+		if (score >= 350) file = patreon ? LoadedRessources.H350PR : LoadedRessources.H350R;
+		if (score >= 400) file = patreon ? LoadedRessources.H400PR : LoadedRessources.H400R;
+		if (score >= 450) file = patreon ? LoadedRessources.H450PR : LoadedRessources.H450R;
+		if (score >= 500) file = patreon ? LoadedRessources.H500PR : LoadedRessources.H500R;
 		return file;
 	}
 	
