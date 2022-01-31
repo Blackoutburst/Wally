@@ -30,8 +30,9 @@ public class Request {
 			in.close();
 			out.close();
 			return (data);
-		} catch (Exception ignored) {}
-		return (null);
+		} catch (Exception e) {
+			return (null);
+		}
 	}
 	
 	/**
