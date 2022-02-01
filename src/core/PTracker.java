@@ -37,8 +37,8 @@ public class PTracker {
 			String uuid = playerFolder.getName();
 			String data = Request.getPracticeServerScore(uuid);
 			String localData = GeneralUtils.readJsonToString(playerFolder + "/data.json");
-			
-			if (data != null && data.contains("Unknown player")) continue;
+
+			if (data == null || data.contains("Unknown player")) continue;
 			if (!GeneralUtils.isLinkedUUID(uuid)) continue;
 			
 			String discordId = Stats.getDiscordId(GeneralUtils.readJsonToString("linked player/" + uuid + "/data.json"));
