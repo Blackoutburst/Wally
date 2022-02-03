@@ -4,7 +4,12 @@ import core.Command;
 import core.CommandError;
 import core.CommandExecutable;
 import core.Request;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import utils.GeneralUtils;
 import utils.MessageSender;
+
+import java.awt.*;
 
 public class CommandSkin extends CommandExecutable implements CommandError {
 
@@ -22,10 +27,13 @@ public class CommandSkin extends CommandExecutable implements CommandError {
 
 		final long time = System.currentTimeMillis();
 
-		String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512&time=" + time;
+		final MessageEmbed embed = new EmbedBuilder()
+				.setAuthor(command.getArgs()[0], "https://fr.namemc.com/profile/"+uuid, "https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
+				.setTitle("NameMC Link", "https://fr.namemc.com/profile/"+uuid)
+				.setColor(new Color(71, 165, 255))
+				.setImage("https://visage.surgeplay.com/full/512/" + uuid + "?&time=" + time).build();
 
-		MessageSender.message(command, url);
-		MessageSender.message(command, "NameMC link: <https://fr.namemc.com/profile/"+uuid+">");
+		command.getChannel().sendMessage(embed).complete();
 		return (true);
 	}
 }
