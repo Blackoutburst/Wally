@@ -1,12 +1,13 @@
 .classpath
 .project
+.idea/
 /bin/
 *.rar
 /leaderboard/
 /linked player/
 *.png
 .settings
-/src/main/Main.java
+src/main/Main.java
 
 # Ignore Gradle project-specific cache directory
 .gradle
