@@ -42,14 +42,17 @@ public class CommandWhois extends CommandExecutable {
 		int ap = API.getAPToInt(data);
 		
 		EmbedBuilder embed = new EmbedBuilder();
-		embed.setAuthor("Information about : " + IGN, "https://namemc.com/profile/"+uuid, "https://crafatar.com/avatars/" + uuid + "?overlay");
+		embed.setAuthor("Information about : " + IGN, "https://namemc.com/profile/"+uuid, "https://cdn.discordapp.com/avatars/806086240427966484/72a4fc1ef53f7b729b9b54184e631b88.png?size=128");
 		embed.setTitle(IGN);
-		embed.setColor(new Color(0, 128, 255));
+		embed.setThumbnail("https://visage.surgeplay.com/face/128/" + uuid);
+		embed.setColor(new Color(71, 165, 255));
 		embed.addField("Discord", discordNick, false);
 		embed.addField("UUID", uuid, false);
-		embed.addField("Level", String.format("%.2f", lvl), false);
-		embed.addField("Achievements", "" + ap, false);
-		embed.addField("Plancke", "[Link](https://plancke.io/hypixel/player/stats/" + uuid + ")", false);
+		embed.addField("Level", String.format("%.2f", lvl), true);
+		embed.addField("Achievements", "" + ap, true);
+		embed.addBlankField(true);
+		embed.addField("Plancke", "[Link](https://plancke.io/hypixel/player/stats/" + uuid + ")", true);
+		embed.addField("NameMC", "[Link](https://namemc.com/profile/" + uuid + ")", true);
 		MessageSender.sendEmbeded(command, embed);
 		
 		AltExcluder.isAnAlt(uuid, this.command);
