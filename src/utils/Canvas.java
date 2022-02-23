@@ -2,14 +2,9 @@ package utils;
 
 import core.Patreon;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -80,7 +75,7 @@ public class Canvas {
 	 * Draw graph line
 	 */
 	public void drawGraphLine(int[] data, int games) {
-		g.setStroke(new BasicStroke(4.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(3.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		
 		for (int i = 0; i < (games-1); i++) {
 				Line2D line = new Line2D.Float(1000 - ((float)(i) * 1000/games), 520 - (data[i] * 0.86f + 2), 1000 - (((float)(i)+1) * 1000/games), 520 - (data[i+1] * 0.86f + 2));
@@ -145,6 +140,16 @@ public class Canvas {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void drawQuad(int x, int y, int w, int h, Color color) {
+		g.setColor(color);
+		g.fillRect(x, y, w, h);
+	}
+
+	public void drawEmptyQuad(int x, int y, int w, int h, Color color) {
+		g.setColor(color);
+		g.drawRect(x, y, w, h);
 	}
 	
 	/**
@@ -214,6 +219,22 @@ public class Canvas {
 		if (score >= 400) color = new Color(0, 176, 176);
 		if (score >= 450) color = new Color(0, 212, 146);
 		if (score >= 500) color = new Color(0, 200, 85);
+		return color;
+	}
+
+	public static Color getLineColorTransparent(int score) {
+		Color color = new Color(170, 170, 170);
+
+		if (score >= 50) color = new Color(204, 222, 25, 70);
+		if (score >= 100) color = new Color(214, 147, 35, 70);
+		if (score >= 150) color = new Color(230, 110, 41, 70);
+		if (score >= 200) color = new Color(224, 17, 85, 70);
+		if (score >= 250) color = new Color(187, 0, 221, 70);
+		if (score >= 300) color = new Color(140, 84, 254, 70);
+		if (score >= 350) color = new Color(0, 102, 204, 70);
+		if (score >= 400) color = new Color(0, 176, 176, 70);
+		if (score >= 450) color = new Color(0, 212, 146, 70);
+		if (score >= 500) color = new Color(0, 200, 85, 70);
 		return color;
 	}
 }

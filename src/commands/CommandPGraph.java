@@ -4,7 +4,13 @@ package commands;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
+import net.dv8tion.jda.api.EmbedBuilder;
 import utils.*;
+import utils.Canvas;
+
+import java.awt.*;
+import java.io.File;
+import java.util.Objects;
 
 public class CommandPGraph extends CommandExecutable {
 
@@ -53,8 +59,41 @@ public class CommandPGraph extends CommandExecutable {
 		
 		Canvas image = new Canvas(1000, 520);
 		
-		GraphCanvas.createPGraphImage(image, playerName, data, getType(), games);
-		MessageSender.sendFile(command, "pgraph.png");
+		GraphCanvas.createPGraphImage(image, data, getType(), games);
+
+		int average = 0;
+
+		for (int i = 0; i < games; i++) {
+			switch (getType()) {
+				case "Qualification":
+					average += Objects.requireNonNull(PracticeAPI.getQualificationHistory(data))[i];
+				break;
+				case "Finals":
+					average += Objects.requireNonNull(PracticeAPI.getFinalsHistory(data))[i];
+				break;
+				case "Wide Qualification":
+					average += Objects.requireNonNull(PracticeAPI.getWideQualificationHistory(data))[i];
+				break;
+				case "Lobby":
+					average += Objects.requireNonNull(PracticeAPI.getLobbyHistory(data))[i];
+				break;
+				case "Wide Finals":
+					average += Objects.requireNonNull(PracticeAPI.getWideFinalsHistory(data))[i];
+				break;
+			}
+		}
+		average = average / games;
+
+		File file = new File("pgraph.png");
+
+		EmbedBuilder embed = new EmbedBuilder();
+		embed.setAuthor(playerName + " | "+ getType()+" - latest " + games + " games", "https://namemc.com/profile/"+uuid, "https://cdn.discordapp.com/avatars/806086240427966484/72a4fc1ef53f7b729b9b54184e631b88.png?size=128");
+		embed.setTitle("Average Score: " + average);
+		embed.setThumbnail("https://visage.surgeplay.com/face/128/" + uuid);
+		embed.setColor(Canvas.getLineColor(average));
+		embed.setImage("attachment://graph.png");
+
+		command.getChannel().sendMessage(embed.build()).addFile(file, "graph.png").queue();
 
 		return (true);
 	}
