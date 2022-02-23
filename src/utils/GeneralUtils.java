@@ -531,7 +531,7 @@ public class GeneralUtils {
 	 */
 	public static void getPlayerHead(String uuid) {
 		try {
-			URL url = new URL("https://crafatar.com/avatars/" + uuid + "?overlay");
+			URL url = new URL("https://visage.surgeplay.com/face/128/" + uuid);
 			FileOutputStream fos = new FileOutputStream("res/head.png");
 			
 			URLConnection con = url.openConnection();
