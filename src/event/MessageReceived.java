@@ -21,7 +21,8 @@ public class MessageReceived {
 	 * Execute the event
 	 */
 	public void run(MessageReceivedEvent event) {
-		if (Objects.requireNonNull(event.getMember()).getUser().isBot() && event.getMessage().getContentDisplay().equals("⠀")) event.getMessage().delete().complete();
+		if (event.getMember() == null) return;
+		if (event.getMember().getUser().isBot() && event.getMessage().getContentDisplay().equals("⠀")) event.getMessage().delete().complete();
 		if (event.isFromType(ChannelType.PRIVATE)) return;
 		if (event.getMember().getUser().isBot()) return;
 		if (event.getMessage().getContentRaw().length() == 0) return;

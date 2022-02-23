@@ -57,7 +57,7 @@ public class CommandPGraph extends CommandExecutable {
 			MessageSender.message(command, "Only the last 100 games are saved impossible to display more");
 		}
 		
-		Canvas image = new Canvas(1000, 520);
+		Canvas image = new Canvas(1000, 600);
 		
 		GraphCanvas.createPGraphImage(image, data, getType(), games);
 
