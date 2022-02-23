@@ -85,8 +85,9 @@ public class Bot extends ListenerAdapter {
 	}
 	
 	@Override
-	public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-		new MessageReceived().run(event);
+	public void onMessageReceived(MessageReceivedEvent event) {
+		if (event != null)
+			new MessageReceived().run(event);
 	}
 	
 	@Override
