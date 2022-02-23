@@ -78,19 +78,19 @@ public class Canvas {
 		g.setStroke(new BasicStroke(3.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		
 		for (int i = 0; i < (games-1); i++) {
-				Line2D line = new Line2D.Float(1000 - ((float)(i) * 1000/games), 600 - (data[i] * 1.08f), 1000 - (((float)(i)+1) * 1000/games), 600 - (data[i+1] * 1.08f));
+				Line2D line = new Line2D.Float(1000 - ((float)(i) * 1000/games), 600 - (data[i] * 1.08f + 4), 1000 - (((float)(i)+1) * 1000/games), 600 - (data[i+1] * 1.08f + 4));
 				
-				GradientPaint gradient = new GradientPaint(1000 - ((float)(i) * 1000/games), 600 - (data[i] * 1.08f), getLineColor(data[i]),
-				1000 - (((float)(i)+1) * 1000/games), 600 - (data[i+1] * 1.08f), getLineColor(data[i+1]));
+				GradientPaint gradient = new GradientPaint(1000 - ((float)(i) * 1000/games), 600 - (data[i] * 1.08f + 4), getLineColor(data[i]),
+				1000 - (((float)(i)+1) * 1000/games), 600 - (data[i+1] * 1.08f + 4), getLineColor(data[i+1]));
 				
 				g.setPaint(gradient);
 				g.draw(line);
 				
 				if (i == games-2) {
-					line = new Line2D.Float(1000 - (((float)(i)+1) * 1000/games), 600 - (data[i+1] * 1.08f), 1000 - (((float)(i)+2) * 1000/games), 600 - (data[i+1] * 1.08f));
+					line = new Line2D.Float(1000 - (((float)(i)+1) * 1000/games), 600 - (data[i+1] * 1.08f + 4), 1000 - (((float)(i)+2) * 1000/games), 600 - (data[i+1] * 1.08f + 4));
 					
-					gradient = new GradientPaint(1000 - (((float)(i)+1) * 1000/games), 600 - (data[i+1] * 1.08f), getLineColor(data[i+1]),
-					1000 - (((float)(i)+2) * 1000/games), 600 - (data[i+1] * 1.08f), getLineColor(data[i+1]));
+					gradient = new GradientPaint(1000 - (((float)(i)+1) * 1000/games), 600 - (data[i+1] * 1.08f + 4), getLineColor(data[i+1]),
+					1000 - (((float)(i)+2) * 1000/games), 600 - (data[i+1] * 1.08f + 4), getLineColor(data[i+1]));
 					
 					g.setPaint(gradient);
 					g.draw(line);
