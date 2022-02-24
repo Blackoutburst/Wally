@@ -23,6 +23,9 @@ public class AltExcluder {
 			
 			if (uuid.equals(split[0])) {
 				switch (split[2]) {
+					case "?":
+						MessageSender.personalReasonAcount(command);
+						return (true);
 					case "s":
 						MessageSender.susAccount(command);
 						break;

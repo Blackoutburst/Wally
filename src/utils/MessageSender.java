@@ -1,11 +1,8 @@
 package utils;
 
 import java.io.File;
-import java.util.Objects;
 
-import core.Bot;
 import core.Command;
-import core.RolesManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public class MessageSender {
@@ -43,6 +40,13 @@ public class MessageSender {
 	 */
 	public static void susAccount(Command command) {
 		command.getChannel().sendMessage("This account stat are off, it's most likely a boosted account or an alt account").complete();
+	}
+
+	/**
+	 * Send message in the command channel
+	 */
+	public static void personalReasonAcount(Command command) {
+		command.getChannel().sendMessage("This account got removed for a specific reason").complete();
 	}
 	
 	/**
