@@ -37,7 +37,7 @@ public class CommandManager {
 			case "pleaderboard": case "plead": case "plb": new CommandPLeaderboard(command, EVERYONE, "!leaderboard [Q/F/WQ/L/T] [page]").run(); break;
 			case "forcepb": new CommandForcePB(command, ADMIN, "!forcePB [IGN] [Q/F]").run(); break;
 			case "forcetracker": new CommandForceTracker(command, ADMIN, "!forcetracker").run(); break;
-			case "changelog": new CommandChangelog(command, EVERYONE, "!changelog").run(); break;
+			case "changelog": new CommandChangelog(command, ADMIN, "!changelog").run(); break;
 			case "setchangelog": new CommandSetChangelog(command, ADMIN, "!setchangelog (file required)").run(); break;
 			case "getchangelog": new CommandGetChangelog(command, ADMIN, "!getchangelog").run(); break;
 			case "convert": new CommandConvert(command, EVERYONE, "!convert [Q/F] [score]").run(); break;
