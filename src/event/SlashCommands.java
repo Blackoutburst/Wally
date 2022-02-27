@@ -17,6 +17,7 @@ public class SlashCommands {
 		if (event.getGuild() == null) return;
 		if (Objects.requireNonNull(event.getMember()).getUser().isBot()) return;
 		if (event.getMember() == null) return;
+		if (event.getMember().getId().equals("696055080629043201")) return;
 		
 		Member sender = event.getMember();
 		String name = event.getName();

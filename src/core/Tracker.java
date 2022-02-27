@@ -44,6 +44,8 @@ public class Tracker {
 			String localData = GeneralUtils.readJsonToString(fileLocation);
 			String discordid = Stats.getDiscordId(localData);
 
+			if (discordid.equals("696055080629043201")) continue;
+
 			String uuid = Stats.getUUID(localData);
 			int oldQ;
 			int newQ;

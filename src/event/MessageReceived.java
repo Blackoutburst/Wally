@@ -28,6 +28,7 @@ public class MessageReceived {
 		if (event.getMessage().getContentRaw().length() == 0) return;
 		if (wallyMention(event)) return;
 		if (!event.getMessage().getContentRaw().startsWith(Main.PREFIX)) return;
+		if (event.getMember().getId().equals("696055080629043201")) return;
 		
 		String message = event.getMessage().getContentRaw();
 		Member sender = event.getMember();
@@ -41,12 +42,15 @@ public class MessageReceived {
 	 * Check if Wally is mentioned inside the tracker channel
 	 */
 	private boolean wallyMention(MessageReceivedEvent event) {
+		if (event.getMember() == null) return false;
+		if (event.getMember().getId().equals("696055080629043201")) return false;
+
 		if (event.getChannel().getId().equals(ConfigManager.getString("trackerChannel"))) {
 			List<Member> members = event.getMessage().getMentionedMembers();
 			for (Member m : members) {
 				if (m.getId().equals(Main.BOT_ID)) {
 					GeneralUtils.startTyping(event.getChannel());
-					new DisplayPBOnMention(Objects.requireNonNull(event.getMember()), event);
+					new DisplayPBOnMention(event.getMember(), event);
 					return (true);
 				}
 			}
@@ -55,7 +59,7 @@ public class MessageReceived {
 			for (Member m : members) {
 				if (m.getId().equals(Main.BOT_ID)) {
 					GeneralUtils.startTyping(event.getChannel());
-					new DisplayPracticePBOnMention(Objects.requireNonNull(event.getMember()), event);
+					new DisplayPracticePBOnMention(event.getMember(), event);
 					return (true);
 				}
 			}
