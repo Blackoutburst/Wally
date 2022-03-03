@@ -35,7 +35,7 @@ public class MessageReceived {
 		String name = getCommandName(message);
 		String[] args = getArgs(message);
 		
-		CommandManager.run(new Command(sender, name, args, event.getChannel(), event.getMessage()));
+		CommandManager.run(new Command(sender, name, args, event.getChannel(), event.getMessage(), event.getGuild()));
 	}
 	
 	/**

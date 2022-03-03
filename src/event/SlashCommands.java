@@ -30,6 +30,6 @@ public class SlashCommands {
 			args[i++] = opt.getAsString();
 		}
 		event.reply("...").complete();
-		CommandManager.run(new Command(sender, name, args, event.getChannel(), null));
+		CommandManager.run(new Command(sender, name, args, event.getChannel(), null, event.getGuild()));
 	}
 }

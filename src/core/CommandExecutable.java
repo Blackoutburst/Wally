@@ -1,5 +1,7 @@
 package core;
 
+import com.sun.deploy.config.Config;
+import utils.ConfigManager;
 import utils.MessageSender;
 import utils.GeneralUtils;
 
@@ -23,6 +25,11 @@ public abstract class CommandExecutable implements CommandError {
 	public void run() {
 		GeneralUtils.startTyping(this.command.channel);
 		if (isStaffOnly()) {
+			if (!this.command.getGuild().getId().equals(ConfigManager.getString("serverID")) &&
+				!this.command.getGuild().getId().equals(ConfigManager.getString("devServerID"))) {
+				MessageSender.message(this.command, "This action in not possible inside this server!");
+				return;
+			}
 			if (senderIsStaff()) {
 				execute();
 			} else {
