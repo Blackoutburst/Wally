@@ -52,6 +52,7 @@ public class CommandManager {
 			case "setfont": case "sf": new CommandSetFont(command, EVERYONE, "!setfont (file required format .TTF/.OTF)").run(); break;
 			case "resetfont": case "rf": new CommandResetFont(command, EVERYONE, "!resetfont").run(); break;
 			case "toggleheader": case "th": new CommandToggleHeader(command, EVERYONE, "!toggleheader").run(); break;
+			case "suggest": new CommandSuggest(command, EVERYONE, "!suggest [Your idea or bug report]").run(); break;
 			default :
 		}
 	}
@@ -141,6 +142,8 @@ public class CommandManager {
 
 		commands.addCommands(new CommandData("toggleheader", "Toggle your stats header"));
 		commands.addCommands(new CommandData("th", "Toggle your stats header"));
+
+		commands.addCommands(new CommandData("suggest", "Create a new suggestion for Wally or the practice server").addOptions(new OptionData(OptionType.STRING, "message", "The suggestion").setRequired(true)));
 		commands.queue();
 	}
 }
