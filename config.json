@@ -24,6 +24,7 @@
         "Muted": "774296119726571541",
         "They/Them": "778299418876051509"
     },
+    "practiceTrackerChannel": "909117760116756570",
     "genderMessage": "778301653748285460",
     "message": {
         "background remove": "Background removed",
@@ -51,7 +52,6 @@
         "missing file": "You need to upload a file with the command!"
     },
     "serverID": "709521394848890880",
-    "trackerChannel": "709548207717220352",
-    "practiceTrackerChannel": "909117760116756570"
-	
+	"changelogChannel": "739630025304703068",
+    "trackerChannel": "709548207717220352"
 }
