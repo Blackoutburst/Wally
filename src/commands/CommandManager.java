@@ -38,6 +38,7 @@ public class CommandManager {
 			case "forcepb": new CommandForcePB(command, ADMIN, "!forcePB [IGN] [Q/F]").run(); break;
 			case "forcetracker": new CommandForceTracker(command, ADMIN, "!forcetracker").run(); break;
 			case "changelog": new CommandChangelog(command, ADMIN, "!changelog").run(); break;
+			case "prechangelog": new CommandChangelog(command, ADMIN, "!prechangelog").run(); break;
 			case "setchangelog": new CommandSetChangelog(command, ADMIN, "!setchangelog (file required)").run(); break;
 			case "getchangelog": new CommandGetChangelog(command, ADMIN, "!getchangelog").run(); break;
 			case "convert": new CommandConvert(command, EVERYONE, "!convert [Q/F] [score]").run(); break;
@@ -71,6 +72,7 @@ public class CommandManager {
 		commands.addCommands(new CommandData("setchangelog", "Change Wally changelog (file required) (Requires permission)"));
 		commands.addCommands(new CommandData("getchangelog", "Get wally Changelog (Requires permission)"));
 		commands.addCommands(new CommandData("changelog", "Show latest Wally modifications (Requires permission)"));
+		commands.addCommands(new CommandData("prechangelog", "Show latest Wally modifications (Requires permission)"));
 		commands.addCommands(new CommandData("poll", "Make a poll (Requires permission)").addOptions(new OptionData(OptionType.STRING, "message", "The poll message Wally will say").setRequired(true)));
 	
 		//Users
