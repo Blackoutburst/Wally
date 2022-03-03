@@ -11,5 +11,6 @@ public class Generic {
 	 */
 	public void run(GenericEvent event) {
 		Bot.server = event.getJDA().getGuildById(ConfigManager.getString("serverID"));
+		Bot.devServer = event.getJDA().getGuildById(ConfigManager.getString("devServerID"));
 	}
 }

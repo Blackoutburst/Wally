@@ -52,6 +52,8 @@
         "missing file": "You need to upload a file with the command!"
     },
     "serverID": "709521394848890880",
+	"devServerID": "813806897542594560",
+	"devServerSuggestionChannel": "949052086258106380",
 	"changelogChannel": "739630025304703068",
     "trackerChannel": "709548207717220352"
 }

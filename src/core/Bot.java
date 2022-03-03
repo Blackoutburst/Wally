@@ -35,6 +35,7 @@ import utils.LoadedRessources;
 public class Bot extends ListenerAdapter {
 	
 	public static Guild server;
+	public static Guild devServer;
 	
 	public Bot(String token, String activity) throws LoginException {
 		try {
@@ -86,8 +87,7 @@ public class Bot extends ListenerAdapter {
 	
 	@Override
 	public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-		if (event != null)
-			new MessageReceived().run(event);
+		new MessageReceived().run(event);
 	}
 	
 	@Override
