@@ -31,6 +31,9 @@ public class CommandChangelog extends CommandExecutable {
 			}
 			reader.close();
 			Objects.requireNonNull(Bot.server.getTextChannelById(ConfigManager.getString("changelogChannel"))).sendMessage(changelog.toString()).complete();
+
+			MessageSender.message(command, "Changelog displayed successfully");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
