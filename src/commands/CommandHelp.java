@@ -93,7 +93,8 @@ public class CommandHelp extends CommandExecutable {
 				.addField("!compare/!c [player1] [player2]", "Compare two players Hole in the Wall stats", true)
 				.addField("!crosscompare/!cc [player1] [player2]", "Compare a player Hypixel and Practice server Q and F scores", true)
 				.addField("!leaderboard/!lead/!lb [W/R/Q/F/T/O] [page] \"discord\"", "Show Hole in the Wall leaderboard", true)
-				.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", true);
+				.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", true)
+				.addField("!suggest [message]", "Create a new suggestion", true);
 		MessageSender.sendEmbeded(command, embed);
 	}
 
@@ -130,6 +131,7 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!setchangelog (file required)", "Change Wally changelog", true)
 			.addField("!getchangelog", "Get wally Changelog", true)
 			.addField("!changelog", "Show latest Wally modifications", true)
+			.addField("!prechangelog", "Show latest Wally modifications", true)
 			.addField("!poll [message]", "Make a poll", true);
 		MessageSender.sendEmbeded(command, embed);
 	}
