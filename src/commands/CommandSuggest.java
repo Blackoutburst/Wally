@@ -26,7 +26,7 @@ public class CommandSuggest extends CommandExecutable {
 		String fullString = String.join(" ", command.getArgs());
 		String iconURL = command.getSender().getUser().getAvatarUrl();
 		String wallyURL = "https://github.com/Blackoutburst/Wally";
-		
+
 		EmbedBuilder embed = new EmbedBuilder()
 				.setAuthor(command.getSender().getEffectiveName(), wallyURL, iconURL)
 				.setTitle("New suggestion")

@@ -1,6 +1,5 @@
 package core;
 
-import com.sun.deploy.config.Config;
 import utils.ConfigManager;
 import utils.MessageSender;
 import utils.GeneralUtils;
