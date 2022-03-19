@@ -22,6 +22,15 @@ public abstract class CommandExecutable implements CommandError {
 	 * Check user permission to use the command
 	 */
 	public void run() {
+		if ((this.command.getName().equals("stats") || this.command.getName().equals("stat") || this.command.getName().equals("s")) &&
+			this.command.getSender().getId().equals("696055080629043201")) {
+			GeneralUtils.startTyping(this.command.channel);
+			MessageSender.sendFile(this.command, "res/L.gif");
+			return;
+		}
+		if (this.command.getSender().getId().equals("696055080629043201"))
+			return;
+
 		GeneralUtils.startTyping(this.command.channel);
 		if (isStaffOnly()) {
 			if (!this.command.getGuild().getId().equals(ConfigManager.getString("serverID")) &&

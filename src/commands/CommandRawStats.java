@@ -37,6 +37,9 @@ public class CommandRawStats extends CommandExecutable {
 			return unknownPlayer(this, command.getArgs()[0]);
 		}
 
+		if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			return gameOver(this);
+
 		LeaderboardList.sort();
 
 		final int lvl = (int) (1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data)));

@@ -25,6 +25,9 @@ public class CommandSkin extends CommandExecutable implements CommandError {
 
 		if (uuid == null) return (unknownPlayer(this, command.getArgs()[0]));
 
+		if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			return (true);
+
 		final long time = System.currentTimeMillis();
 
 		final MessageEmbed embed = new EmbedBuilder()

@@ -37,6 +37,10 @@ public class CommandWhois extends CommandExecutable {
 		}
 		discordNick = sanitizeName(discordNick);
 		String uuid = API.getUUID(data);
+
+		if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			return gameOver(this);
+
 		String IGN = API.getName(data);
 		double lvl = 1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data));
 		int ap = API.getAPToInt(data);

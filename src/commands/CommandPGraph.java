@@ -37,7 +37,13 @@ public class CommandPGraph extends CommandExecutable {
 			uuid = Request.getPlayerUUID(command.getArgs()[0]);
 			playerName = command.getArgs()[0];
 		}
-		
+
+		if (uuid == null)
+			return unknownPlayer(this, command.getArgs()[0]);
+
+		if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			return gameOver(this);
+
 		data = Request.getPracticeServerScore(uuid);
 		if (data != null && data.contains("Unknown player")) {
 			return unknownPlayer(this, playerName);

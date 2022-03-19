@@ -36,6 +36,14 @@ public interface CommandError {
 		MessageSender.unknownPlayer(cmd.command, playerName);
 		return (false);
 	}
+
+	/**
+	 * You shouldn't have fucked with me
+	 */
+	default boolean gameOver(CommandExecutable cmd) {
+		MessageSender.message(cmd.command, "Game Over");
+		return (false);
+	}
 	
 	/**
 	 * Custom error for never joined

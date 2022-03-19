@@ -33,6 +33,10 @@ public class CommandSearch extends CommandExecutable {
 		if (pos >= lb.getPlayers().size()) return (outOfBounds(this));
 		
 		LeaderboardPlayer player = lb.getPlayers().get(pos);
+
+		if (player.uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			return gameOver(this);
+
 		String data = Request.getPlayerStatsUUID(player.uuid);
 		
 		Canvas image = new Canvas(1000, 520);

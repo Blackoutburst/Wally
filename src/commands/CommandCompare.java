@@ -52,6 +52,16 @@ public class CommandCompare extends CommandExecutable {
 				if (API.getPlayer(players[i]) == null) return (neverJoined(this, command.getArgs()[i]));
 				if(!GeneralUtils.isValidJSON(players[i])) return (apiDead(this));
 			}
+
+			for (String p : players) {
+				String uuid = API.getUUID(p);
+				if (uuid == null)
+					return unknownPlayer(this, command.getArgs()[0]);
+
+				if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+					return gameOver(this);
+			}
+
 			Canvas image = new Canvas(1000, 200 + (180 * players.length));
 			
 			CompareCanvas.createMultiCompareImage(image, players);

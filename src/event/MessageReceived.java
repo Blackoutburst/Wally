@@ -28,8 +28,7 @@ public class MessageReceived {
 		if (event.getMessage().getContentRaw().length() == 0) return;
 		if (wallyMention(event)) return;
 		if (!event.getMessage().getContentRaw().startsWith(Main.PREFIX)) return;
-		if (event.getMember().getId().equals("696055080629043201")) return;
-		
+
 		String message = event.getMessage().getContentRaw();
 		Member sender = event.getMember();
 		String name = getCommandName(message);

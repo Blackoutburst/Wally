@@ -39,7 +39,13 @@ public class CommandStats extends CommandExecutable {
 			if (API.getPlayer(data) == null) return (neverJoined(this, command.getArgs()[0]));
 			uuid = API.getUUID(data);
 		}
-		
+
+		if (uuid == null)
+			return unknownPlayer(this, command.getArgs()[0]);
+
+		if (uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			return gameOver(this);
+
 		LeaderboardList.sort();
 		Canvas image = new Canvas(1000, 520);
 		

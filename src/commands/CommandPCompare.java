@@ -39,6 +39,18 @@ public class CommandPCompare extends CommandExecutable {
 			player2Uuid = Request.getPlayerUUID(command.getArgs()[1]);
 			player2Name = command.getArgs()[1];
 		}
+
+		if (player1Uuid == null)
+			return unknownPlayer(this, command.getArgs()[0]);
+
+		if (player1Uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			return gameOver(this);
+
+		if (player2Uuid == null)
+			return unknownPlayer(this, command.getArgs()[0]);
+
+		if (player2Uuid.equals("640459a7a5c8417bbb06f6e6d28614a1"))
+			return gameOver(this);
 		
 		player1 = Request.getPracticeServerScore(player1Uuid);
 		if (player1 != null && player1.contains("Unknown player")) {
