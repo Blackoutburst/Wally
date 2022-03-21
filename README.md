@@ -5,8 +5,10 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/aa829b4c324a4e5f85b98afe85030317)](https://www.codacy.com/gh/Blackoutburst/Wally/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Blackoutburst/Wally&amp;utm_campaign=Badge_Grade)
 [<img src="https://img.shields.io/badge/Webpage-Wally-blueviolet">](https://www.blackoutburst.com/wally.html)
 
-# Wally
+# Important
+A complete rework is planned soon to allow new features and more stability
 
+# Wally
 Wally is a bot for discord that is used to link with hypixel. 
 
 ## Prerequsites
