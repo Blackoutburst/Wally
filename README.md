@@ -4,7 +4,6 @@
 ![Language](https://img.shields.io/github/languages/top/Blackoutburst/Wally?&logo=java&color=orange)
 [![Release](https://img.shields.io/github/release/Blackoutburst/Wally.svg)](https://github.com/Blackoutburst/Wally/releases)
 ![Size](https://img.shields.io/github/repo-size/Blackoutburst/Wally)
-[![Webpage](https://img.shields.io/badge/Webpage-Wally-blueviolet)](https://www.blackoutburst.com/wally.html)
 [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?&logo=patreon)](https://www.patreon.com/Blackoutburst)
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Blackoutburst/Wally/Java%20CI%20with%20Gradle/master?logo=github)](https://github.com/Blackoutburst/Wally/actions)
 [![License](https://img.shields.io/github/license/Blackoutburst/Wally.svg)](LICENSE)
