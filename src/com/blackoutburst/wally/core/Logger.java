@@ -2,6 +2,7 @@ package com.blackoutburst.wally.core;
 
 import org.slf4j.helpers.Util;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -48,7 +49,7 @@ public class Logger {
         }
     }
 
-    public static void info(String message) {
+    public static void info(@Nonnull String message) {
         final Date date = new Date();
         final String className = Util.getCallingClass().getSimpleName();
         final String log = "[INFO] ["+DATE_FORMAT.format(date)+"] ["+className+"/"+Thread.currentThread().getName()+"]: "+message;
@@ -62,7 +63,7 @@ public class Logger {
         }
     }
 
-    public static void warn(String message) {
+    public static void warn(@Nonnull String message) {
         final Date date = new Date();
         final String className = Util.getCallingClass().getSimpleName();
         final String log = "[WARN] ["+DATE_FORMAT.format(date)+"] ["+className+"/"+Thread.currentThread().getName()+"]: "+message;
@@ -76,7 +77,7 @@ public class Logger {
         }
     }
 
-    public static void error(String message) {
+    public static void error(@Nonnull String message) {
         final Date date = new Date();
         final String className = Util.getCallingClass().getSimpleName();
         final String log = "[ERROR] ["+DATE_FORMAT.format(date)+"] ["+className+"/"+Thread.currentThread().getName()+"]: "+message;
