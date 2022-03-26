@@ -45,7 +45,7 @@ public class Logger {
             }
         }
 
-        currentLogFile = "logs/"+fileFormat.format(date)+".log";
+        currentLogFile = "logs/" + fileFormat.format(date) + ".log";
 
         final File logFile = new File(currentLogFile);
 

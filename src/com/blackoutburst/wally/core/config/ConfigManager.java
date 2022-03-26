@@ -55,7 +55,7 @@ public class ConfigManager {
             return (object.getAsJsonObject(key).get(value).getAsString());
         } catch (Exception e) {
             Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-            return "";
+            return ("");
         }
     }
 }
