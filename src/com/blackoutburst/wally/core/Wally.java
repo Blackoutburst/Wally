@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import javax.security.auth.login.LoginException;
 
+
 public class Wally {
 
     private static boolean isInitialized = false;
@@ -28,5 +29,7 @@ public class Wally {
         builder.build();
 
         isInitialized = true;
+
+        Logger.info("Wally initialized successfully");
     }
 }
