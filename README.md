@@ -1,10 +1,15 @@
 ![splash](https://user-images.githubusercontent.com/30992311/133887063-18df67a6-6f68-40ab-b74f-5c3b8d51e376.png)
 
-[![License](https://img.shields.io/github/license/Blackoutburst/Wally.svg)](LICENSE)
+[![Codacy Badge](https://img.shields.io/codacy/grade/aa829b4c324a4e5f85b98afe85030317?logo=codacy)](https://www.codacy.com/gh/Blackoutburst/Wally/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Blackoutburst/Wally&amp;utm_campaign=Badge_Grade)
+![Language](https://img.shields.io/github/languages/top/Blackoutburst/Wally?&logo=java&color=orange)
 [![Release](https://img.shields.io/github/release/Blackoutburst/Wally.svg)](https://github.com/Blackoutburst/Wally/releases)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/aa829b4c324a4e5f85b98afe85030317)](https://www.codacy.com/gh/Blackoutburst/Wally/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Blackoutburst/Wally&amp;utm_campaign=Badge_Grade)
-[<img src="https://img.shields.io/badge/Webpage-Wally-blueviolet">](https://www.blackoutburst.com/wally.html)
-[<img src="https://img.shields.io/badge/Support-Patreon-orange?&logo=patreon">](https://www.patreon.com/Blackoutburst)
+![Size](https://img.shields.io/github/repo-size/Blackoutburst/Wally)
+[![Webpage](https://img.shields.io/badge/Webpage-Wally-blueviolet)](https://www.blackoutburst.com/wally.html)
+[![Patreon](https://img.shields.io/badge/Support-Patreon-orange?&logo=patreon)](https://www.patreon.com/Blackoutburst)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Blackoutburst/Wally/Java%20CI%20with%20Gradle/master?logo=github)](https://github.com/Blackoutburst/Wally/actions)
+[![License](https://img.shields.io/github/license/Blackoutburst/Wally.svg)](LICENSE)
+
+
 
 # Important
 A complete rework is planned soon to allow new features and more stability
