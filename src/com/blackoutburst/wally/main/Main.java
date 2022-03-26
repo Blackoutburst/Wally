@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.main;
 
+import com.blackoutburst.wally.core.ConfigManager;
 import com.blackoutburst.wally.core.Logger;
 import com.blackoutburst.wally.core.Wally;
 
@@ -8,7 +9,8 @@ import javax.security.auth.login.LoginException;
 public class Main {
 
 	public static void main(String[] args) throws LoginException {
-		Logger.initialize();
+		Logger.init();
+		ConfigManager.init();
 
 		if (args.length == 0) {
 			Logger.error("You must set the bot Token as first program argument");

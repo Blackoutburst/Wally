@@ -19,7 +19,7 @@ public class Logger {
 
     private static String currentLogFile = null;
 
-    public static void initialize() {
+    public static void init() {
         if (isInitialized) return;
         isInitialized = true;
 
@@ -36,7 +36,6 @@ public class Logger {
         currentLogFile = "logs/"+fileFormat.format(date)+".log";
 
         final File logFile = new File(currentLogFile);
-
 
         try {
             if (!logFile.exists()) {
@@ -90,5 +89,4 @@ public class Logger {
             e.printStackTrace();
         }
     }
-
 }

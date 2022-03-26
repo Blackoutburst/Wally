@@ -2,6 +2,7 @@ package com.blackoutburst.wally.core;
 
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.Compression;
@@ -12,6 +13,8 @@ import javax.security.auth.login.LoginException;
 
 
 public class Wally {
+
+    public static Guild hitwDiscord;
 
     private static boolean isInitialized = false;
 
