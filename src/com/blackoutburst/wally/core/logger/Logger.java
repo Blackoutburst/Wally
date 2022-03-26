@@ -39,10 +39,8 @@ public class Logger {
         final File logFolder = new File("logs");
         final Date date = new Date();
 
-        if (!logFolder.exists()) {
-            if (!logFolder.mkdir()) {
-                log(LogLevel.WARN,"Logs folder creation failed!");
-            }
+        if (!logFolder.exists() && !logFolder.mkdir()) {
+            log(LogLevel.WARN,"Logs folder creation failed!");
         }
 
         currentLogFile = "logs/" + fileFormat.format(date) + ".log";
