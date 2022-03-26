@@ -3,6 +3,7 @@
 .idea/
 /bin/
 *.rar
+/logs/
 /leaderboard/
 /linked player/
 *.png
