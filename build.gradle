@@ -4,7 +4,7 @@ plugins {
 }
 apply plugin: 'java'
 apply plugin: 'maven'
-project.setProperty("mainClassName", "main.Main")
+project.setProperty("mainClassName", "com.blackoutburst.wally.main.Main")
 application {
 	mainClass = 'main.Main'
 }
@@ -14,9 +14,9 @@ targetCompatibility = 1.8
 
 dependencies {
   implementation 'com.google.guava:guava:29.0-jre'
-  implementation 'com.google.code.gson:gson:2.8.6'
-  implementation 'org.json:json:20180813'
-  compile 'net.dv8tion:JDA:4.3.0_277'
+  implementation 'com.google.code.gson:gson:2.9.0'
+  implementation 'net.dv8tion:JDA:5.0.0-alpha.9'
+
 }
 
 allprojects {
@@ -41,7 +41,7 @@ sourceSets {
 jar {
 	manifest {
 		attributes(
-			'Main-Class': 'main.Main'
+			'Main-Class': 'com.blackoutburst.wally.main.Main'
 		)
 	}
 }
@@ -50,7 +50,7 @@ shadowJar {
 	baseName = project.name
 	version = project.version
 	manifest {
-		attributes 'Main-Class': 'main.Main'
+		attributes 'Main-Class': 'com.blackoutburst.wally.main.Main'
 	}		
 }
 

@@ -7,7 +7,7 @@
 /linked player/
 *.png
 .settings
-src/main/Main.java
+.txt
 
 # Ignore Gradle project-specific cache directory
 .gradle
