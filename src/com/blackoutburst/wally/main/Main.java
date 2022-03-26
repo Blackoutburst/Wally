@@ -8,6 +8,8 @@ import javax.security.auth.login.LoginException;
 public class Main {
 
 	public static void main(String[] args) throws LoginException {
+		Logger.initialize();
+
 		if (args.length == 0) {
 			Logger.error("You must set the bot Token as first program argument");
 			return;

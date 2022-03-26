@@ -16,6 +16,7 @@ public class Wally {
 
     public static void init(final String token) throws LoginException {
         if (isInitialized) return;
+        isInitialized = true;
 
         final JDABuilder builder = JDABuilder.createDefault(token)
             .setCompression(Compression.NONE)
@@ -27,8 +28,6 @@ public class Wally {
             .addEventListeners(new EventListener())
             .enableIntents(GatewayIntent.GUILD_PRESENCES);
         builder.build();
-
-        isInitialized = true;
 
         Logger.info("Wally initialized successfully");
     }
