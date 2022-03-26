@@ -9,14 +9,19 @@ import javax.annotation.Nonnull;
 
 public class Ready {
 
-    public static void run(@Nonnull ReadyEvent event) {
-        Wally.hitwDiscord = event.getJDA().getGuildById(ConfigManager.loadValue("servers", "dev server"));
+    /**
+     * This even fire when JDA finish loading
+     * We use it to get the Hole in the Wall discord server
+     * @param event the JDA event
+     */
+    protected static void run(@Nonnull ReadyEvent event) {
+        Wally.hitwDiscord = event.getJDA().getGuildById(ConfigManager.getInstance().loadValue("servers", "dev server"));
 
         if (Wally.hitwDiscord == null) {
-            Wally.LOG.log(LogLevel.ERROR, "Couldn't retrieve the Hole in the Wall discord server!");
+            Wally.getInstance().logger.log(LogLevel.ERROR, "Couldn't retrieve the Hole in the Wall discord server!");
             System.exit(84);
         } else {
-            Wally.LOG.log(LogLevel.INFO, "Hole in the Wall discord retrieved successfully");
+            Wally.getInstance().logger.log(LogLevel.INFO, "Hole in the Wall discord retrieved successfully");
         }
     }
 }

@@ -10,30 +10,51 @@ import java.io.FileReader;
 
 public class ConfigManager {
 
-    private static boolean isInitialized = false;
-    private static File configurationFile = null;
+    private final File configurationFile;
 
-    public static void init() {
-        if (isInitialized) return;
-        isInitialized = true;
+    private static ConfigManager instance = null;
 
+    /**
+     * Get the configuration manager instance
+     * @return the config manager
+     */
+    public static @Nonnull ConfigManager getInstance() {
+        if (instance == null)
+            instance = new ConfigManager();
+
+        return (instance);
+    }
+
+    /**
+     * Create a new configuration manager
+     * Try to load the config.json file if missing
+     * an error message will be displayed and the program will abort
+     */
+    private ConfigManager() {
         final File configFile = new File("config/config.json");
 
         if (!configFile.exists()) {
-            Wally.LOG.log(LogLevel.ERROR, "The configuration file [config/config.json] is missing!");
+            Wally.getInstance().logger.log(LogLevel.ERROR, "The configuration file [config/config.json] is missing!");
             System.exit(84);
         }
         configurationFile = configFile;
     }
 
-    public static @Nonnull String loadValue(@Nonnull String key, @Nonnull String value) {
+    /**
+     * Load a value from the config.json
+     *
+     * @param key the key name
+     * @param value the object name
+     * @return the object value as String
+     */
+    public @Nonnull String loadValue(@Nonnull String key, @Nonnull String value) {
         try {
             final Gson gson = new Gson();
             final JsonObject object = gson.fromJson(new FileReader(configurationFile), JsonObject.class);
 
             return (object.getAsJsonObject(key).get(value).getAsString());
         } catch (Exception e) {
-            Wally.LOG.log(LogLevel.WARN, e.getMessage());
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
             return "";
         }
     }

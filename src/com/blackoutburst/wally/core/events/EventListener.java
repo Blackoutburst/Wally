@@ -1,6 +1,5 @@
-package com.blackoutburst.wally.core;
+package com.blackoutburst.wally.core.events;
 
-import com.blackoutburst.wally.core.events.Ready;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;

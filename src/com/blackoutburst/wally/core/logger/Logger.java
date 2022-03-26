@@ -19,13 +19,21 @@ public class Logger {
 
     private final String currentLogFile;
 
-    public static Logger getInstance() {
+    /**
+     * Get the logger instance
+     * @return the logger
+     */
+    public static @Nonnull Logger getInstance() {
         if (instance == null)
             instance = new Logger();
 
         return (instance);
     }
 
+    /**
+     * Create and initialize the logger
+     * Create the log folder if missing and generate a new log file
+     */
     private Logger() {
         final SimpleDateFormat fileFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         final File logFolder = new File("logs");
@@ -52,6 +60,11 @@ public class Logger {
         }
     }
 
+    /**
+     * Log message to the console and inside a log file
+     * @param level the log level
+     * @param message the log message
+     */
     public void log(@Nonnull LogLevel level, @Nonnull String message) {
         final Date date = new Date();
         final String className = Util.getCallingClass().getSimpleName();
