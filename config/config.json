@@ -1,4 +1,8 @@
 {
+  "settings":
+  {
+    "discord token": "your token here"
+  },
   "servers":
   {
     "hitw discord": "709521394848890880",

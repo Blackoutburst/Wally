@@ -1,7 +1,8 @@
-package com.blackoutburst.wally.core;
+package com.blackoutburst.wally.core.config;
 
+import com.blackoutburst.wally.core.logger.LogLevel;
+import com.blackoutburst.wally.core.Wally;
 import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -19,7 +20,7 @@ public class ConfigManager {
         final File configFile = new File("config/config.json");
 
         if (!configFile.exists()) {
-            Logger.error("The configuration file [config/config.json] is missing!");
+            Wally.LOG.log(LogLevel.ERROR, "The configuration file [config/config.json] is missing!");
             System.exit(84);
         }
         configurationFile = configFile;
@@ -32,7 +33,7 @@ public class ConfigManager {
 
             return (object.getAsJsonObject(key).get(value).getAsString());
         } catch (Exception e) {
-            Logger.warn(e.getMessage());
+            Wally.LOG.log(LogLevel.WARN, e.getMessage());
             return "";
         }
     }

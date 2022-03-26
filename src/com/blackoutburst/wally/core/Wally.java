@@ -1,5 +1,7 @@
 package com.blackoutburst.wally.core;
 
+import com.blackoutburst.wally.core.logger.LogLevel;
+import com.blackoutburst.wally.core.logger.Logger;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
@@ -13,6 +15,8 @@ import javax.security.auth.login.LoginException;
 
 
 public class Wally {
+
+    public static final Logger LOG = Logger.getInstance();
 
     public static Guild hitwDiscord;
 
@@ -33,6 +37,6 @@ public class Wally {
             .enableIntents(GatewayIntent.GUILD_PRESENCES);
         builder.build();
 
-        Logger.info("Wally initialized successfully");
+        LOG.log(LogLevel.INFO,"Wally initialized successfully");
     }
 }
