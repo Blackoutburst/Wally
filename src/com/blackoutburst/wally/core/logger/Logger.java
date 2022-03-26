@@ -50,10 +50,8 @@ public class Logger {
         final File logFile = new File(currentLogFile);
 
         try {
-            if (!logFile.exists()) {
-                if (!logFile.createNewFile()) {
-                    log(LogLevel.WARN, "Logs file creation failed!");
-                }
+            if (!logFile.exists() && !logFile.createNewFile()) {
+                log(LogLevel.WARN, "Logs file creation failed!");
             }
         } catch (IOException e) {
             log(LogLevel.ERROR, e.getMessage());
