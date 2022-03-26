@@ -51,12 +51,16 @@ public class Logger {
     public static void info(@Nonnull String message) {
         final Date date = new Date();
         final String className = Util.getCallingClass().getSimpleName();
-        final String log = "[INFO] ["+DATE_FORMAT.format(date)+"] ["+className+"/"+Thread.currentThread().getName()+"]: "+message;
+        final StringBuilder logBuilder = new StringBuilder()
+            .append("[INFO] [").append(DATE_FORMAT.format(date))
+            .append("] [").append(className)
+            .append("/").append(Thread.currentThread().getName())
+            .append("]: ").append(message);
 
-        System.out.println(log);
+        System.out.println(logBuilder);
 
         try {
-            Files.write(Paths.get(currentLogFile), log.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get(currentLogFile), logBuilder.toString().getBytes(), StandardOpenOption.APPEND);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,12 +69,16 @@ public class Logger {
     public static void warn(@Nonnull String message) {
         final Date date = new Date();
         final String className = Util.getCallingClass().getSimpleName();
-        final String log = "[WARN] ["+DATE_FORMAT.format(date)+"] ["+className+"/"+Thread.currentThread().getName()+"]: "+message;
+        final StringBuilder logBuilder = new StringBuilder()
+                .append("[WARN] [").append(DATE_FORMAT.format(date))
+                .append("] [").append(className)
+                .append("/").append(Thread.currentThread().getName())
+                .append("]: ").append(message);
 
-        System.out.println(log);
+        System.out.println(logBuilder);
 
         try {
-            Files.write(Paths.get(currentLogFile), log.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get(currentLogFile), logBuilder.toString().getBytes(), StandardOpenOption.APPEND);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,12 +87,16 @@ public class Logger {
     public static void error(@Nonnull String message) {
         final Date date = new Date();
         final String className = Util.getCallingClass().getSimpleName();
-        final String log = "[ERROR] ["+DATE_FORMAT.format(date)+"] ["+className+"/"+Thread.currentThread().getName()+"]: "+message;
+        final StringBuilder logBuilder = new StringBuilder()
+                .append("[ERROR] [").append(DATE_FORMAT.format(date))
+                .append("] [").append(className)
+                .append("/").append(Thread.currentThread().getName())
+                .append("]: ").append(message);
 
-        System.err.println(log);
+        System.err.println(logBuilder);
 
         try {
-            Files.write(Paths.get(currentLogFile), log.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get(currentLogFile), logBuilder.toString().getBytes(), StandardOpenOption.APPEND);
         } catch (Exception e) {
             e.printStackTrace();
         }

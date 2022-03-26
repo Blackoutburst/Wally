@@ -1,6 +1,13 @@
 {
-  "hitw discord": "709521394848890880",
-  "gender message": "778301653748285460",
+  "servers":
+  {
+    "hitw discord": "709521394848890880",
+    "dev server": "813806897542594560"
+  },
+  "messages":
+  {
+    "gender message": "778301653748285460"
+  },
   "roles":
   {
     "Tournament Player": "715691790984019988",
