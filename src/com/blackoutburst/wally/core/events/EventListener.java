@@ -32,6 +32,7 @@ public class EventListener extends ListenerAdapter {
     public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
         if (event.getMember() == null) return;
         if (event.getMember().getUser().isBot()) return;
+
         ReactionAdd.run(event);
     }
 
@@ -39,6 +40,7 @@ public class EventListener extends ListenerAdapter {
     public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent event) {
         if (event.getMember() == null) return;
         if (event.getMember().getUser().isBot()) return;
+
         ReactionRemove.run(event);
     }
 
@@ -46,5 +48,7 @@ public class EventListener extends ListenerAdapter {
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (event.getMember() == null) return;
         if (event.getMember().getUser().isBot()) return;
+
+        MessageReceived.run(event);
     }
 }

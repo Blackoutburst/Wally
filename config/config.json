@@ -1,7 +1,9 @@
 {
   "settings":
   {
-    "discord token": "your token here"
+    "discord token": "token",
+    "hypixel api": "api key",
+    "command prefix": "."
   },
   "servers":
   {
