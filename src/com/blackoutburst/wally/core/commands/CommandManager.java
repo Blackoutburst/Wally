@@ -1,6 +1,9 @@
 package com.blackoutburst.wally.core.commands;
 
+import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
+import com.blackoutburst.wally.core.logger.LogLevel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -58,12 +61,22 @@ public class CommandManager {
 
     /**
      * Execute a command
+     *
+     * This is art, but you do not have to touch this function at all
+     * If you find yourself in the need to edit this then you probably did something wrong
      */
-    public void runCommand(@Nonnull Member commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
+    public void runCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         for (Command command : commands) {
             for (String label : command.getLabels()) {
-                if (commandName.equals(label)) { // Add permission check here later
-                    command.getExecutable().onCommand(commandSender, commandName, args, guild, channel, message);
+                if (commandName.equals(label)) {
+                    if (commandSender.getPermissionLevel().getWeight() >= command.getPermissionLevel().getWeight()) {
+                        command.getExecutable().onCommand(commandSender, commandName, args, guild, channel, message);
+                        Wally.getInstance().logger.log(LogLevel.INFO, commandSender.getMember().getEffectiveName()+" used ["+label+"]");
+                    } else {
+                        message.reply(ConfigManager.getInstance().loadValue("replies", "missing permission")).queue();
+                        Wally.getInstance().logger.log(LogLevel.INFO, commandSender.getMember().getEffectiveName()+
+                                " miss permission to use ["+label+"] U:"+commandSender.getPermissionLevel().getWeight()+"/C:"+command.getPermissionLevel().getWeight());
+                    }
                 }
             }
         }

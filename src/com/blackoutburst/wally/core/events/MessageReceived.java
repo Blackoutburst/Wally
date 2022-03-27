@@ -1,6 +1,8 @@
 package com.blackoutburst.wally.core.events;
 
+import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
+import com.blackoutburst.wally.core.commands.PermissionLevel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -53,6 +55,11 @@ public class MessageReceived {
         final Member member = event.getMember();
         if (member == null) return;
 
-        CommandManager.getInstance().runCommand(member, commandName, commandArgs, guild, messageChannel, message);
+        WallyUser commandSender = WallyUser.getUser(member);
+        if (commandSender == null) {
+            commandSender = new WallyUser(member, PermissionLevel.MEMBER);
+        }
+
+        CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
     }
 }

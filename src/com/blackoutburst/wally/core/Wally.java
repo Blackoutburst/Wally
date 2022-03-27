@@ -14,9 +14,13 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Wally {
+
+    public final Set<WallyUser> users = new HashSet<>();
 
     public final Logger logger = Logger.getInstance();
 

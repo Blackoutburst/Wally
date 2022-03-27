@@ -40,7 +40,7 @@ public class RolesManager {
             return;
         }
 
-        guild.addRoleToMember(member, role).complete();
+        guild.addRoleToMember(member, role).queue();
         Wally.getInstance().logger.log(LogLevel.INFO, "Role ["+roleName+"] added to ["+member.getEffectiveName()+"]");
     }
 
@@ -59,7 +59,7 @@ public class RolesManager {
             return;
         }
 
-        guild.removeRoleFromMember(member, role).complete();
+        guild.removeRoleFromMember(member, role).queue();
         Wally.getInstance().logger.log(LogLevel.INFO, "Role ["+roleName+"] removed to ["+member.getEffectiveName()+"]");
     }
 }
