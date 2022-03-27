@@ -1,8 +1,5 @@
 package com.blackoutburst.wally.core;
 
-import com.blackoutburst.wally.core.commands.CommandManager;
-import com.blackoutburst.wally.core.commands.CommandPing;
-import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.events.EventListener;
 import com.blackoutburst.wally.core.logger.LogLevel;

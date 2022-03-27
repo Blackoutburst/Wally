@@ -52,7 +52,7 @@ public class CommandManager {
      * @param executable command executable
      * @param labels command label / alias
      */
-    private void register(PermissionLevel level, CommandExecutable executable, String... labels) {
+    private void register(@Nonnull PermissionLevel level, @Nonnull CommandExecutable executable, @Nonnull String... labels) {
         commands.add(new Command(level, executable, labels));
     }
 
