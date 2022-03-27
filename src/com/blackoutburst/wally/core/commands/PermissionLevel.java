@@ -13,6 +13,10 @@ public enum PermissionLevel {
         this.weight = weight;
     }
 
+    /**
+     * Get the permission weight
+     * @return the permission weight
+     */
     public int getWeight() {
         return weight;
     }
