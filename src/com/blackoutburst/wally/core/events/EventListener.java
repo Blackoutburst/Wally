@@ -19,23 +19,32 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
+        if (event.getMember().getUser().isBot()) return;
     }
 
     @Override
     public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
+        if (event.getMember() == null) return;
+        if (event.getMember().getUser().isBot()) return;
     }
 
     @Override
     public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
+        if (event.getMember() == null) return;
+        if (event.getMember().getUser().isBot()) return;
         ReactionAdd.run(event);
     }
 
     @Override
     public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent event) {
+        if (event.getMember() == null) return;
+        if (event.getMember().getUser().isBot()) return;
         ReactionRemove.run(event);
     }
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
+        if (event.getMember() == null) return;
+        if (event.getMember().getUser().isBot()) return;
     }
 }
