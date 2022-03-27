@@ -9,9 +9,6 @@ application {
 	mainClass = 'main.Main'
 }
 
-sourceCompatibility = 1.8 // java 8
-targetCompatibility = 1.8
-
 dependencies {
   implementation 'com.google.guava:guava:31.1-jre'
   implementation 'com.google.code.gson:gson:2.9.0'

@@ -27,10 +27,12 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
+        ReactionAdd.run(event);
     }
 
     @Override
     public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent event) {
+        ReactionRemove.run(event);
     }
 
     @Override
