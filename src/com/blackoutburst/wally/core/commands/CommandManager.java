@@ -16,6 +16,13 @@ public class CommandManager {
 
     private static CommandManager instance = null;
 
+    /**
+     * Get the command prefix
+     * We could use a static variable but the goal is to
+     * have the configuration refreshed automatically
+     *
+     * @return the command prefix
+     */
     public static String getPrefix() {
         return (ConfigManager.getInstance().loadValue("settings", "command prefix"));
     }
