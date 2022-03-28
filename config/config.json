@@ -3,7 +3,9 @@
   {
     "discord token": "token",
     "hypixel api": "api key",
-    "command prefix": "."
+    "command prefix": ".",
+    "practice server ip": "ip",
+    "practice server api port": "port"
   },
   "servers":
   {
