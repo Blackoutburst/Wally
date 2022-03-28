@@ -47,7 +47,7 @@ public class ConfigManager {
      * @param value the object name
      * @return the object value as String
      */
-    public @Nonnull String loadValue(@Nonnull String key, @Nonnull String value) {
+    public String loadValue(@Nonnull String key, @Nonnull String value) {
         try {
             final Gson gson = new Gson();
             final JsonObject object = gson.fromJson(new FileReader(configurationFile), JsonObject.class);
@@ -55,7 +55,7 @@ public class ConfigManager {
             return (object.getAsJsonObject(key).get(value).getAsString());
         } catch (Exception e) {
             Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-            return ("");
+            return (null);
         }
     }
 }

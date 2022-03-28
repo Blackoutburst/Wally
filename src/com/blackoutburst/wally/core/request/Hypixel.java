@@ -34,6 +34,7 @@ public class Hypixel {
             stream.close();
             reader.close();
 
+            Wally.getInstance().logger.log(LogLevel.INFO, "New Hypixel request sent for [" + uuid + "]");
             return (builder.toString());
         } catch (Exception e) {
             Wally.getInstance().logger.log(LogLevel.ERROR, e.getMessage());
