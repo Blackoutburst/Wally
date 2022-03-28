@@ -24,7 +24,7 @@ public class WallyUser {
         return permissionLevel;
     }
 
-    public void setPermissionLevel(PermissionLevel level) {
+    public void setPermissionLevel(PermissionLevel permissionLevel) {
         this.permissionLevel = permissionLevel;
     }
 
