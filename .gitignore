@@ -4,6 +4,7 @@
 /bin/
 *.rar
 /logs/
+/database/
 /leaderboard/
 /linked player/
 *.png
