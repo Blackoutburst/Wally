@@ -18,7 +18,7 @@ public class WallyUser {
 
     /**
      * Get the discord member associated with the WallyUser
-     * 
+     *
      * @return the discord member
      */
     public Member getMember() {

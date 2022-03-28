@@ -19,6 +19,21 @@ public class Logger {
 
     private final String currentLogFile;
 
+    private LogLevel internalLogLevel = LogLevel.ERROR;
+
+    /**
+     * Allow log filtering
+     * INFO will log everything
+     * WARN will log warning and errors
+     * ERROR only error
+     * NONE will disable logs
+     *
+     * @param level the new filter level
+     */
+    public void setInternalLogLevel(LogLevel level) {
+        internalLogLevel = level;
+    }
+
     /**
      * Get the logger instance
      * @return the logger
@@ -62,6 +77,9 @@ public class Logger {
      * @param message the log message
      */
     public void log(@Nonnull LogLevel level, @Nonnull String message) {
+        if (level.equals(LogLevel.NONE)) return;
+        if (level.getWeight() >= internalLogLevel.getWeight()) return;
+
         final Date date = new Date();
         final String className = Util.getCallingClass().getSimpleName();
         final StringBuilder logBuilder = new StringBuilder()

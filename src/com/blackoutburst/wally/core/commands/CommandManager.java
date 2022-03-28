@@ -73,8 +73,7 @@ public class CommandManager {
                         Wally.getInstance().logger.log(LogLevel.INFO, commandSender.getMember().getEffectiveName()+" used ["+label+"]");
                     } else {
                         message.reply(ConfigManager.getInstance().loadValue("replies", "missing permission")).queue();
-                        Wally.getInstance().logger.log(LogLevel.INFO, commandSender.getMember().getEffectiveName()+
-                                " miss permission to use ["+label+"] U:"+commandSender.getPermissionLevel().getWeight()+"/C:"+command.getPermissionLevel().getWeight());
+                        Wally.getInstance().logger.log(LogLevel.INFO, commandSender.getMember().getEffectiveName()+" miss permission to use ["+label+"] U:"+commandSender.getPermissionLevel().getWeight()+"/C:"+command.getPermissionLevel().getWeight());
                     }
                 }
             }
