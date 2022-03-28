@@ -6,11 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import javax.annotation.Nonnull;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class Mojang {
 
@@ -22,20 +17,10 @@ public class Mojang {
      */
     public static String getPlayerUUID(@Nonnull String playerName) {
         try {
-            final URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + playerName);
-            final URLConnection connection = url.openConnection();
-            final InputStream stream = connection.getInputStream();
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-            final StringBuilder builder = new StringBuilder();
-
-            String line;
-            while ((line = reader.readLine()) != null) builder.append(line).append(System.getProperty("line.separator"));
-
-            stream.close();
-            reader.close();
+            final String result = ConnectionManager.readFromURL("https://api.mojang.com/users/profiles/minecraft/" + playerName);
 
             final Gson gson = new Gson();
-            final JsonObject object = gson.fromJson(builder.toString(), JsonObject.class);
+            final JsonObject object = gson.fromJson(result, JsonObject.class);
 
             Wally.getInstance().logger.log(LogLevel.INFO, "New Mojang request sent for [" + playerName + "]");
 
