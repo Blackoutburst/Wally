@@ -9,6 +9,11 @@ import org.jetbrains.annotations.NotNull;
 public class CommandSay extends CommandExecutable{
     @Override
     protected boolean onCommand(@NotNull WallyUser commandSender, @NotNull String commandName, @NotNull String[] args, @NotNull Guild guild, @NotNull MessageChannel channel, @NotNull Message message) {
-        return false;
+        final String text = message.getContentRaw().replace(CommandManager.getPrefix()+commandName+" ", "");
+
+        message.delete().queue();
+        channel.sendMessage(text).queue();
+
+        return true;
     }
 }
