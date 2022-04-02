@@ -9,7 +9,9 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CommandManager {
@@ -59,6 +61,29 @@ public class CommandManager {
         commands.add(new Command(level, executable, labels));
     }
 
+    private void checkForCloseCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
+        int lowestWeight = Integer.MAX_VALUE;
+
+        String closest = null;
+        int inputWeight = commandName.chars().sum();
+
+        for (final Command c : commands) {
+            for (final String l : c.getLabels()) {
+                final int tempWeight = l.chars().sum();
+
+                if (Math.abs(inputWeight - tempWeight) < lowestWeight) {
+                    lowestWeight = Math.abs(inputWeight - tempWeight);
+                    closest = l;
+                }
+            }
+        }
+        if (lowestWeight > 100) closest = null;
+        if (closest == null) return;
+
+        Wally.getInstance().logger.log(LogLevel.INFO, closest+" | "+lowestWeight);
+        message.reply(closest).queue();
+    }
+
     /**
      * Execute a command
      *
@@ -76,8 +101,10 @@ public class CommandManager {
                         message.reply(ConfigManager.getInstance().loadValue("replies", "missing permission")).queue();
                         Wally.getInstance().logger.log(LogLevel.INFO, commandSender.getMember().getEffectiveName()+" miss permission to use ["+label+"] U:"+commandSender.getPermissionLevel().getWeight()+"/C:"+command.getPermissionLevel().getWeight());
                     }
+                    return;
                 }
             }
         }
+        checkForCloseCommand(commandSender, commandName, args, guild, channel, message);
     }
 }
