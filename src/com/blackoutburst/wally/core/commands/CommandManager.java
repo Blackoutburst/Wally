@@ -81,7 +81,6 @@ public class CommandManager {
         if (closest == null) return;
 
         Wally.getInstance().logger.log(LogLevel.INFO, closest+" | "+lowestWeight);
-        message.reply(closest).queue();
     }
 
     /**
@@ -91,6 +90,8 @@ public class CommandManager {
      * If you find yourself in the need to edit this then you probably did something wrong
      */
     public void runCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
+        channel.sendTyping().queue();
+
         for (Command command : commands) {
             for (String label : command.getLabels()) {
                 if (commandName.equals(label)) {
