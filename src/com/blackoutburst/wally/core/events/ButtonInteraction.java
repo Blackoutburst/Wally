@@ -46,12 +46,8 @@ public class ButtonInteraction {
         final Guild guild = event.getGuild();
         final Member member = event.getMember();
 
-        System.out.println("AAAAAAAAAAA");
-
         if (message == null) return;
-        System.out.println("BBBBBBBBB");
         if (guild == null) return;
-        System.out.println("CCCCCCCCCC");
 
         WallyUser commandSender = WallyUser.getUser(member);
         if (commandSender == null) {
