@@ -46,7 +46,7 @@ public class CommandManager {
      */
     private CommandManager() {
         register(PermissionLevel.MEMBER, new CommandPing(), "ping");
-        register(PermissionLevel.STAFF, new CommandSay(), "say");
+        register(PermissionLevel.MEMBER, new CommandSay(), "say");
     }
 
     /**
@@ -88,7 +88,7 @@ public class CommandManager {
 
         message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+'\n'+
                 ConfigManager.getInstance().loadValue("replies", "close command").replace("%command_name%", closest))
-                .setActionRow(Button.primary(commandSender.getMember().getId(), "Yes run "+closest+' '+tmpArgs)).queue();
+                .setActionRow(Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest+' '+tmpArgs)).queue();
     }
 
     /**
