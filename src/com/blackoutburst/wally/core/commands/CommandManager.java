@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class CommandManager {
 
@@ -88,7 +89,9 @@ public class CommandManager {
 
         message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+'\n'+
                 ConfigManager.getInstance().loadValue("replies", "close command").replace("%command_name%", closest))
-                .setActionRow(Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest+' '+tmpArgs)).queue();
+                .setActionRow(Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest+' '+tmpArgs),
+                        Button.danger(UUID.randomUUID().toString(), "No")).queue();
+
     }
 
     /**

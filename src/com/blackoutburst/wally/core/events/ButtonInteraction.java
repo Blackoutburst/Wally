@@ -13,15 +13,7 @@ import java.util.List;
 
 public class ButtonInteraction {
 
-    /**
-     * Check when someone interacts with a button
-     *
-     * @param event The reaction event
-     */
-    protected static void run(@Nonnull ButtonInteractionEvent event) {
-        if (event.getMember() == null) return;
-        if (event.getButton().getId() == null) return;
-
+    private static void rerunCommand(@Nonnull ButtonInteractionEvent event) {
         final MessageChannel messageChannel = event.getChannel();
         final String messageID = event.getButton().getId().split(":")[1];
         final List<Message> history = messageChannel.getHistory().retrievePast(5).complete();
@@ -68,7 +60,23 @@ public class ButtonInteraction {
 
         event.getMessage().delete().queue();
         CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
+    }
 
+    /**
+     * Check when someone interacts with a button
+     *
+     * @param event The reaction event
+     */
+    protected static void run(@Nonnull ButtonInteractionEvent event) {
+        if (event.getMember() == null) return;
+        if (event.getButton().getId() == null) return;
+
+        if (event.getButton().getLabel().equals("No")) {
+            event.getMessage().delete().queue();
+            return;
+        }
+
+        rerunCommand(event);
     }
 
     /**
