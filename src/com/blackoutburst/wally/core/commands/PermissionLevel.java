@@ -1,11 +1,9 @@
 package com.blackoutburst.wally.core.commands;
 
 public enum PermissionLevel {
-    BANNED(-1),
     MEMBER(0),
-    PATREON(1),
-    STAFF(2),
-    ADMIN(3);
+    STAFF(1),
+    ADMIN(2);
 
     private final int weight;
 
