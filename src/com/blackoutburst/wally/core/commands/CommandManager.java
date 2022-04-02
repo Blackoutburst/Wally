@@ -47,7 +47,7 @@ public class CommandManager {
      */
     private CommandManager() {
         register(PermissionLevel.MEMBER, new CommandPing(), "ping");
-        register(PermissionLevel.MEMBER, new CommandSay(), "say");
+        register(PermissionLevel.STAFF, new CommandSay(), "say");
     }
 
     /**
