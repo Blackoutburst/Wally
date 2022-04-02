@@ -1,11 +1,11 @@
 {
   "settings":
   {
-    "discord token": "token",
-    "hypixel api": "api key",
+    "discord token": "X",
+    "hypixel api": "X",
     "command prefix": ".",
-    "practice server ip": "ip",
-    "practice server api port": "port"
+    "practice server ip": "X",
+    "practice server api port": "X"
   },
   "servers":
   {
@@ -48,6 +48,9 @@
     "tracker channel": "709548207717220352"
   },
   "replies" : {
-    "missing permission": "I'm sorry, but you don't have the necessary permission to use this command!"
+    "missing permission": "I'm sorry, but you don't have the necessary permission to use this command!",
+    "unknown command": "I'm sorry, I couldn't find any commands named `%command_name%` !",
+    "close command": "Maybe try and use `%command_name%` instead ?",
+    "unauthorized button": "Hey sorry, but you cannot use this button!"
   }
 }
