@@ -7,14 +7,10 @@ import com.blackoutburst.wally.core.logger.LogLevel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import net.dv8tion.jda.api.interactions.components.buttons.ButtonInteraction;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class CommandManager {
@@ -64,7 +60,7 @@ public class CommandManager {
         commands.add(new Command(level, executable, labels));
     }
 
-    private void checkForCloseCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
+    private void checkForCloseCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Message message) {
         int lowestWeight = Integer.MAX_VALUE;
 
         String closest = null;
@@ -85,10 +81,14 @@ public class CommandManager {
             message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)).queue();
             return;
         }
+        StringBuilder tmpArgs = new StringBuilder();
+        for (String a : args) {
+            tmpArgs.append(a).append(' ');
+        }
 
-        message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+
+        message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+'\n'+
                 ConfigManager.getInstance().loadValue("replies", "close command").replace("%command_name%", closest))
-                .setActionRow(Button.primary(commandSender.getMember().getId()+":yes", "Yes")).queue();
+                .setActionRow(Button.primary(commandSender.getMember().getId(), "Yes run "+closest+' '+tmpArgs)).queue();
     }
 
     /**
@@ -114,6 +114,6 @@ public class CommandManager {
                 }
             }
         }
-        checkForCloseCommand(commandSender, commandName, args, guild, channel, message);
+        checkForCloseCommand(commandSender, commandName, args, message);
     }
 }
