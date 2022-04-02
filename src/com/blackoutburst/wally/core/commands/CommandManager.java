@@ -90,7 +90,7 @@ public class CommandManager {
         message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+'\n'+
                 ConfigManager.getInstance().loadValue("replies", "close command").replace("%command_name%", closest))
                 .setActionRow(Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest+' '+tmpArgs),
-                        Button.danger(UUID.randomUUID().toString(), "No")).queue();
+                        Button.danger(commandSender.getMember().getId()+":"+UUID.randomUUID().toString(), "No")).queue();
 
     }
 

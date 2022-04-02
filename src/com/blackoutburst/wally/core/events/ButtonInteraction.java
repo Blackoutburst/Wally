@@ -13,7 +13,40 @@ import java.util.List;
 
 public class ButtonInteraction {
 
-    private static void rerunCommand(@Nonnull ButtonInteractionEvent event) {
+    private static void rerunCommand(@Nonnull ButtonInteractionEvent event, MessageChannel messageChannel, Message message) {
+        String label = event.getButton().getLabel();
+        if (label.startsWith("Yes run")) {
+            label = label.split(" ")[2];
+        }
+
+        final String messageString = event.getMessage().getContentRaw();
+        final String commandName = label;
+        final String[] commandArgs = getCommandArgs(messageString);
+        final Guild guild = event.getGuild();
+        final Member member = event.getMember();
+
+        if (message == null) return;
+        if (guild == null) return;
+        if (member == null) return;
+
+        WallyUser commandSender = WallyUser.getUser(member);
+        if (commandSender == null) {
+            commandSender = new WallyUser(member, PermissionLevel.MEMBER);
+        }
+
+        event.getMessage().delete().queue();
+        CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
+    }
+
+    /**
+     * Check when someone interacts with a button
+     *
+     * @param event The reaction event
+     */
+    protected static void run(@Nonnull ButtonInteractionEvent event) {
+        if (event.getMember() == null) return;
+        if (event.getButton().getId() == null) return;
+
         final MessageChannel messageChannel = event.getChannel();
         final String messageID = event.getButton().getId().split(":")[1];
         final List<Message> history = messageChannel.getHistory().retrievePast(5).complete();
@@ -35,44 +68,12 @@ public class ButtonInteraction {
             return;
         }
 
-        String label = event.getButton().getLabel();
-        if (label.startsWith("Yes run")) {
-            label = label.split(" ")[2];
-        }
-
-        final String messageString = event.getMessage().getContentRaw();
-        final String commandName = label;
-        final String[] commandArgs = getCommandArgs(messageString);
-        final Guild guild = event.getGuild();
-        final Member member = event.getMember();
-
-        if (message == null) return;
-        if (guild == null) return;
-
-        WallyUser commandSender = WallyUser.getUser(member);
-        if (commandSender == null) {
-            commandSender = new WallyUser(member, PermissionLevel.MEMBER);
-        }
-
-        event.getMessage().delete().queue();
-        CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
-    }
-
-    /**
-     * Check when someone interacts with a button
-     *
-     * @param event The reaction event
-     */
-    protected static void run(@Nonnull ButtonInteractionEvent event) {
-        if (event.getMember() == null) return;
-        if (event.getButton().getId() == null) return;
-
         if (event.getButton().getLabel().equals("No")) {
             event.getMessage().delete().queue();
             return;
         }
 
-        rerunCommand(event);
+        rerunCommand(event, messageChannel, message);
     }
 
     /**
