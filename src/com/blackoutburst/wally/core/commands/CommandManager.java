@@ -7,6 +7,9 @@ import com.blackoutburst.wally.core.logger.LogLevel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.interactions.components.ActionRow;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonInteraction;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -78,9 +81,14 @@ public class CommandManager {
             }
         }
         if (lowestWeight > 100) closest = null;
-        if (closest == null) return;
+        if (closest == null) {
+            message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)).queue();
+            return;
+        }
 
-        Wally.getInstance().logger.log(LogLevel.INFO, closest+" | "+lowestWeight);
+        message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+
+                ConfigManager.getInstance().loadValue("replies", "close command").replace("%command_name%", closest))
+                .setActionRow(Button.primary(commandSender.getMember().getId()+":yes", "Yes")).queue();
     }
 
     /**
