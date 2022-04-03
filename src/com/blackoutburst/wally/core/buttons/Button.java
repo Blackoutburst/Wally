@@ -1,7 +1,5 @@
 package com.blackoutburst.wally.core.buttons;
 
-import com.blackoutburst.wally.core.commands.CommandExecutable;
-
 import javax.annotation.Nonnull;
 
 public class Button {

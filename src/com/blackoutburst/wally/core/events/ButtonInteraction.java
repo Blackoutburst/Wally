@@ -1,17 +1,13 @@
 package com.blackoutburst.wally.core.events;
 
-import com.blackoutburst.wally.core.Utils;
 import com.blackoutburst.wally.core.Wally;
-import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.buttons.ButtonManager;
-import com.blackoutburst.wally.core.commands.CommandManager;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 
 public class ButtonInteraction {
 

@@ -63,7 +63,7 @@ public class CommandManager {
         commands.add(new Command(level, executable, labels));
     }
 
-    private void checkForCloseCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Message message) {
+    private void checkForCloseCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull Message message) {
         int lowestWeight = Integer.MAX_VALUE;
 
         String closest = null;
@@ -115,6 +115,6 @@ public class CommandManager {
                 }
             }
         }
-        checkForCloseCommand(commandSender, commandName, args, message);
+        checkForCloseCommand(commandSender, commandName, message);
     }
 }
