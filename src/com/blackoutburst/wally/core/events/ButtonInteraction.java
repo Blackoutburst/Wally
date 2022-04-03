@@ -17,6 +17,8 @@ public class ButtonInteraction {
         final String messageID = event.getButton().getId().split(":")[1];
         final Message message = Utils.getMessageFromHistory(messageChannel, messageID);
         if (message == null) {
+            messageChannel.sendMessage("<@"+event.getMember().getId()+">"+
+                    ConfigManager.getInstance().loadValue("replies", "message deleted")).queue();
             return;
         }
 
