@@ -12,10 +12,16 @@ import java.util.Arrays;
 
 public class ButtonInteraction {
 
-
+    /**
+     * Rerun a command based on a button click
+     *
+     * @param event the button click event
+     * @param messageChannel the message channel the action happened in
+     */
     private static void rerunCommand(@Nonnull ButtonInteractionEvent event, MessageChannel messageChannel) {
         final String messageID = event.getButton().getId().split(":")[1];
-        final Message message = Utils.getMessageFromHistory(messageChannel, messageID);
+        final Message message = Utils.getMessageFromHistory(messageChannel, messageID, 5);
+
         if (message == null) {
             messageChannel.sendMessage("<@"+event.getMember().getId()+">"+
                     ConfigManager.getInstance().loadValue("replies", "message deleted")).queue();

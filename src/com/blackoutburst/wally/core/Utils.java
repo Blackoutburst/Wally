@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Utils {
 
-    public static Message getMessageFromHistory(@Nonnull MessageChannel messageChannel, @Nonnull String messageID) {
-        final List<Message> history = messageChannel.getHistory().retrievePast(5).complete();
+    public static Message getMessageFromHistory(@Nonnull MessageChannel messageChannel, @Nonnull String messageID, int historyCount) {
+        final List<Message> history = messageChannel.getHistory().retrievePast(historyCount).complete();
 
         for (Message msg : history) {
             if (msg.getId().equals(messageID)) {
