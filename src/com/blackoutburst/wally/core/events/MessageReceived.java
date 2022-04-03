@@ -56,10 +56,6 @@ public class MessageReceived {
         if (member == null) return;
 
         WallyUser commandSender = WallyUser.getUser(member);
-        if (commandSender == null) {
-            commandSender = new WallyUser(member, PermissionLevel.MEMBER);
-        }
-
         CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
     }
 }

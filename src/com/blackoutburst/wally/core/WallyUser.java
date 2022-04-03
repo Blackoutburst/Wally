@@ -45,15 +45,16 @@ public class WallyUser {
 
     /**
      * Get a new Wally user from a discord Member
+     * If there is no user a default user will get returned instead
      *
      * @param member the member supposed to be affiliated with a WallyUser
      * @return the WallyUser found or null if none
      */
-    public static WallyUser getUser(@Nonnull Member member) {
+    public static @Nonnull WallyUser getUser(@Nonnull Member member) {
         for (WallyUser u : Wally.getInstance().users) {
             if (u.getMember().getId().equals(member.getId()))
                 return (u);
         }
-        return (null);
+        return (new WallyUser(member, PermissionLevel.MEMBER));
     }
 }

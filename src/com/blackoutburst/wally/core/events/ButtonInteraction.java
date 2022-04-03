@@ -1,40 +1,37 @@
 package com.blackoutburst.wally.core.events;
 
+import com.blackoutburst.wally.core.Utils;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
-import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
-import java.util.List;
 
 public class ButtonInteraction {
 
-    private static void rerunCommand(@Nonnull ButtonInteractionEvent event, MessageChannel messageChannel, Message message) {
+
+    private static void rerunCommand(@Nonnull ButtonInteractionEvent event, MessageChannel messageChannel) {
+        final String messageID = event.getButton().getId().split(":")[1];
+        final Message message = Utils.getMessageFromHistory(messageChannel, messageID);
+        if (message == null) {
+            return;
+        }
+
         String label = event.getButton().getLabel();
         if (label.startsWith("Yes run")) {
             label = label.split(" ")[2];
         }
 
-        final String messageString = event.getMessage().getContentRaw();
+        final String messageString = message.getContentRaw();
         final String commandName = label;
         final String[] commandArgs = getCommandArgs(messageString);
         final Guild guild = event.getGuild();
         final Member member = event.getMember();
 
-        if (message == null) return;
-        if (guild == null) return;
-        if (member == null) return;
-
         WallyUser commandSender = WallyUser.getUser(member);
-        if (commandSender == null) {
-            commandSender = new WallyUser(member, PermissionLevel.MEMBER);
-        }
-
-        event.getMessage().delete().queue();
         CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
     }
 
@@ -44,36 +41,29 @@ public class ButtonInteraction {
      * @param event The reaction event
      */
     protected static void run(@Nonnull ButtonInteractionEvent event) {
+        if (event.getGuild() == null) return;
         if (event.getMember() == null) return;
         if (event.getButton().getId() == null) return;
 
+        final String label = event.getButton().getLabel();
+        final String ownerID = event.getButton().getId().split(":")[0];
         final MessageChannel messageChannel = event.getChannel();
-        final String messageID = event.getButton().getId().split(":")[1];
-        final List<Message> history = messageChannel.getHistory().retrievePast(5).complete();
 
-        Message message = null;
-
-        for (Message msg : history) {
-            if (msg.getId().equals(messageID)) {
-                message = msg;
-            }
-        }
-
-        if (!event.getMember().getId().equals(event.getButton().getId().split(":")[0])) {
-            if (message == null) {
-                event.reply(ConfigManager.getInstance().loadValue("replies", "unauthorized button")).queue();
-            } else {
-                message.reply(ConfigManager.getInstance().loadValue("replies", "unauthorized button")).queue();
-            }
+        if (!event.getMember().getId().equals(ownerID)) {
+            messageChannel.sendMessage("<@"+event.getMember().getId()+">"+
+                    ConfigManager.getInstance().loadValue("replies", "unauthorized button")).queue();
             return;
         }
 
-        if (event.getButton().getLabel().equals("No")) {
+        if (label.equals("No")) {
             event.getMessage().delete().queue();
             return;
         }
 
-        rerunCommand(event, messageChannel, message);
+        if (label.startsWith("Yes run")) {
+            rerunCommand(event, messageChannel);
+        }
+        event.getMessage().delete().queue();
     }
 
     /**
