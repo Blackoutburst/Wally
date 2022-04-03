@@ -36,6 +36,5 @@ public class ButtonInteraction {
         }
 
         ButtonManager.getInstance().runAction(event);
-        event.getMessage().delete().queue();
     }
 }

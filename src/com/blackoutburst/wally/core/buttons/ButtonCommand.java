@@ -11,9 +11,6 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import java.util.Arrays;
-
 public class ButtonCommand extends ButtonExecutable {
 
     @Override
@@ -42,6 +39,7 @@ public class ButtonCommand extends ButtonExecutable {
         WallyUser commandSender = WallyUser.getUser(member);
         CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
 
+        event.getMessage().delete().queue();
         return true;
     }
 }

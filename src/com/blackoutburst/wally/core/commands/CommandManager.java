@@ -84,14 +84,10 @@ public class CommandManager {
             message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)).queue();
             return;
         }
-        StringBuilder tmpArgs = new StringBuilder();
-        for (String a : args) {
-            tmpArgs.append(a).append(' ');
-        }
 
         message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+'\n'+
                 ConfigManager.getInstance().loadValue("replies", "close command").replace("%command_name%", closest))
-                .setActionRow(Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest+' '+tmpArgs),
+                .setActionRow(Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest),
                         Button.danger(commandSender.getMember().getId()+":"+UUID.randomUUID().toString(), "No")).queue();
 
     }
