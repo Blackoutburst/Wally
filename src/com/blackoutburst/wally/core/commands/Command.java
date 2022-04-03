@@ -1,5 +1,7 @@
 package com.blackoutburst.wally.core.commands;
 
+import javax.annotation.Nonnull;
+
 public class Command {
 
     private final PermissionLevel permissionLevel;
@@ -8,21 +10,22 @@ public class Command {
 
     private final String[] labels;
 
-    public Command(PermissionLevel permissionLevel, CommandExecutable executable, String... labels) {
+    public Command(@Nonnull PermissionLevel permissionLevel, @Nonnull CommandExecutable executable, @Nonnull String... labels) {
         this.permissionLevel = permissionLevel;
         this.executable = executable;
         this.labels = labels;
     }
 
-    public PermissionLevel getPermissionLevel() {
+    public @Nonnull PermissionLevel getPermissionLevel() {
         return permissionLevel;
     }
 
-    public CommandExecutable getExecutable() {
+    public @Nonnull
+    CommandExecutable getExecutable() {
         return executable;
     }
 
-    public String[] getLabels() {
+    public @Nonnull String[] getLabels() {
         return labels;
     }
 }
