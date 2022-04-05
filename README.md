@@ -11,7 +11,8 @@
 
 
 # Important
-A complete rework is planned soon to allow new features and more stability
+Currently under complete rework, a lot is planned and this will be done in a few months due to limited time.\
+Contribution are still welcomed but are less likely to be accepted in the current state
 
 # Wally
 Wally is a bot for discord that is used to link with hypixel. 
