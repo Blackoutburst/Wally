@@ -12,10 +12,10 @@
 
 # Important
 Currently under complete rework, a lot is planned and this will be done in a few months due to limited time.\
-Contribution are still welcomed but are less likely to be accepted in the current state
+Contribution are still welcomed but are less likely to be accepted in the current state.
 
 # Wally
-Wally is a bot for discord that is used to link with hypixel. 
+Wally is a discord bot that allow you to check your Hypixel Hole in the Wall stats, he contains much more features such as a score tracker, customizable user profile, leaderboards and much more!
 
 ## Prerequsites
 * [Java 8+](https://www.java.com/) - Java is necessary to run the bot since it's made with Java
