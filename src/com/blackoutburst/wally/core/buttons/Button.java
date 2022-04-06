@@ -13,10 +13,20 @@ public class Button {
         this.label = label;
     }
 
+    /**
+     * Get the button executable
+     *
+     * @return the button executable
+     */
     public @Nonnull ButtonExecutable getExecutable() {
         return executable;
     }
 
+    /**
+     * Get the button label
+     *
+     * @return the button label
+     */
     public @Nonnull String getLabel() {
         return label;
     }
