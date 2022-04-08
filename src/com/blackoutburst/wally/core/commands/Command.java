@@ -16,15 +16,29 @@ public class Command {
         this.labels = labels;
     }
 
+    /**
+     * Get the command permission level
+     *
+     * @return the command permission level
+     */
     public @Nonnull PermissionLevel getPermissionLevel() {
         return permissionLevel;
     }
 
-    public @Nonnull
-    CommandExecutable getExecutable() {
+    /**
+     * Get the command executable
+     *
+     * @return the command executable
+     */
+    public @Nonnull CommandExecutable getExecutable() {
         return executable;
     }
 
+    /**
+     * Get the command labels
+     *
+     * @return the command labels
+     */
     public @Nonnull String[] getLabels() {
         return labels;
     }
