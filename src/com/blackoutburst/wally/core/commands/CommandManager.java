@@ -48,8 +48,8 @@ public class CommandManager {
     private CommandManager() {
         register(PermissionLevel.MEMBER, new CommandPing(), "ping");
         register(PermissionLevel.STAFF, new CommandSay(), "say");
-        register(PermissionLevel.MEMBER, new CommandLink(), "link");
-        register(PermissionLevel.MEMBER, new CommandUnlink(), "unlink");
+        register(PermissionLevel.STAFF, new CommandLink(), "link");
+        register(PermissionLevel.STAFF, new CommandUnlink(), "unlink");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }
