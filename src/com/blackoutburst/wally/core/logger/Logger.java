@@ -78,7 +78,7 @@ public class Logger {
      */
     public void log(@Nonnull LogLevel level, @Nonnull String message) {
         if (level.equals(LogLevel.NONE)) return;
-        if (level.getWeight() >= internalLogLevel.getWeight()) return;
+        if (level.getWeight() > internalLogLevel.getWeight()) return;
 
         final Date date = new Date();
         final String className = Util.getCallingClass().getSimpleName();
