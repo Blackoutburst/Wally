@@ -48,7 +48,7 @@ public class CommandManager {
     private CommandManager() {
         register(PermissionLevel.MEMBER, new CommandPing(), "ping");
         register(PermissionLevel.STAFF, new CommandSay(), "say");
-        register(PermissionLevel.STAFF, new CommandLink(), "link");
+        register(PermissionLevel.MEMBER, new CommandLink(), "link");
         register(PermissionLevel.STAFF, new CommandUnlink(), "unlink");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
@@ -90,7 +90,7 @@ public class CommandManager {
         message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+'\n'+
                 ConfigManager.getInstance().loadValue("replies", "close command").replace("%command_name%", closest))
                 .setActionRow(Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest),
-                        Button.danger(commandSender.getMember().getId()+":"+UUID.randomUUID().toString(), "No")).queue();
+                        Button.danger(commandSender.getMember().getId()+":"+UUID.randomUUID(), "No")).queue();
 
     }
 

@@ -1,9 +1,13 @@
 package com.blackoutburst.wally.core.commands;
 
+import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
+import com.blackoutburst.wally.core.database.DatabaseManager;
+import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.core.request.Mojang;
+import com.blackoutburst.wally.core.request.PracticeServer;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -48,7 +52,7 @@ public class CommandLink extends CommandExecutable{
 
         final String discordID = getDiscordID(guild, args);
         if (discordID == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not an user").replace("%id%", discordID)).complete();
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not an user")).complete();
             return false;
         }
 
@@ -64,11 +68,22 @@ public class CommandLink extends CommandExecutable{
             return false;
         }
 
-        final String playerData = Hypixel.getPlayerStats(playerUUID);
-        if (playerData == null) {
+        final String hypixelData = Hypixel.getPlayerStats(playerUUID);
+        if (hypixelData == null) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in hypixel").replace("%name%", playerName)).complete();
             return false;
         }
+
+        String practiceData = PracticeServer.getPlayerStats(playerUUID);
+        if (practiceData == null) practiceData = "";
+
+        if (!DatabaseManager.getInstance().createUserData(discordID, playerUUID, hypixelData, practiceData)) {
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link error")).complete();
+            return false;
+        }
+
+        channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link success").replace("%name%", playerName)).complete();
+        Wally.getInstance().logger.log(LogLevel.INFO, playerName + " was linked to " + discordID);
 
         return true;
     }

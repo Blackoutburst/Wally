@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -85,20 +86,25 @@ public class DatabaseManager {
      * @param file the file used to save them
      */
     private boolean generateHypixelStats(@Nonnull String hypixelData, @Nonnull String file) {
-        final Gson gson = new Gson();
-
-        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
-        final DecimalFormat df = (DecimalFormat) nf;
-
-        final String wins = df.format(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.wins_hole_in_the_wall", "0"));
-        final String walls = df.format(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.rounds_hole_in_the_wall", "0"));
-        final String q = df.format(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.hitw_record_q", "0"));
-        final String f = df.format(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.hitw_record_f", "0"));
-
-        final HypixelStats stats = new HypixelStats(wins, walls, q, f);
-
         try {
-            gson.toJson(stats, new FileWriter(file));
+            final Gson gson = new Gson();
+
+            final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+            final DecimalFormat df = (DecimalFormat) nf;
+
+            final String wins = df.format(Integer.parseInt(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.wins_hole_in_the_wall", "0")));
+            final String walls = df.format(Integer.parseInt(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.rounds_hole_in_the_wall", "0")));
+            final String q = df.format(Integer.parseInt(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.hitw_record_q", "0")));
+            final String f = df.format(Integer.parseInt(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.hitw_record_f", "0")));
+
+            final HypixelStats stats = new HypixelStats(wins, walls, q, f);
+
+            final Writer writer = new FileWriter(file);
+
+            gson.toJson(stats, writer);
+            writer.flush();
+            writer.close();
+
             return true;
         } catch (Exception e) {
             Wally.getInstance().logger.log(LogLevel.ERROR, e.getMessage());
@@ -113,21 +119,26 @@ public class DatabaseManager {
      * @param file the file used to save them
      */
     private boolean generatePracticeStats(@Nonnull String practiceData, @Nonnull String file) {
-        final Gson gson = new Gson();
-
-        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
-        final DecimalFormat df = (DecimalFormat) nf;
-
-        final String q = df.format(Utils.getValuesFromAPI(practiceData, "scores.qualification", "0"));
-        final String f = df.format(Utils.getValuesFromAPI(practiceData, "scores.finals", "0"));
-        final String l = df.format(Utils.getValuesFromAPI(practiceData, "scores.lobby", "0"));
-        final String wq = df.format(Utils.getValuesFromAPI(practiceData, "scores.wide_qualification", "0"));
-        final String wf = df.format(Utils.getValuesFromAPI(practiceData, "scores.wide_finals", "0"));
-
-        final PracticeStats stats = new PracticeStats(q, f, l, wq, wf);
-
         try {
-            gson.toJson(stats, new FileWriter(file));
+            final Gson gson = new Gson();
+
+            final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+            final DecimalFormat df = (DecimalFormat) nf;
+
+            final String q = df.format(Integer.parseInt(Utils.getValuesFromAPI(practiceData, "scores.qualification", "0")));
+            final String f = df.format(Integer.parseInt(Utils.getValuesFromAPI(practiceData, "scores.finals", "0")));
+            final String l = df.format(Integer.parseInt(Utils.getValuesFromAPI(practiceData, "scores.lobby", "0")));
+            final String wq = df.format(Integer.parseInt(Utils.getValuesFromAPI(practiceData, "scores.wide_qualification", "0")));
+            final String wf = df.format(Integer.parseInt(Utils.getValuesFromAPI(practiceData, "scores.wide_finals", "0")));
+
+            final PracticeStats stats = new PracticeStats(q, f, l, wq, wf);
+
+            final Writer writer = new FileWriter(file);
+
+            gson.toJson(stats, writer);
+            writer.flush();
+            writer.close();
+
             return true;
         } catch (Exception e) {
             Wally.getInstance().logger.log(LogLevel.ERROR, e.getMessage());
@@ -142,25 +153,38 @@ public class DatabaseManager {
      * @param hypixelData the user Hypixel player data
      * @return if the operation worked
      */
-    public boolean createUserData(@Nonnull String discordID, @Nonnull String hypixelData, @Nonnull String practiceData) {
-        final String folderPath = "database/linked users/" + discordID;
-        final File rootFolder = new File(folderPath);
+    public boolean createUserData(@Nonnull String discordID, @Nonnull String playerUUID, @Nonnull String hypixelData, @Nonnull String practiceData) {
+        final String rootFolderPath = "database/linked users/" + discordID;
+        final String playerFolderPath = rootFolderPath + "/accounts/" + playerUUID;
+        final File rootFolder = new File(rootFolderPath);
+        final File playerFolder = new File(playerFolderPath);
+        final File resFolder = new File(rootFolderPath + "/resources");
 
         if (rootFolder.exists()) {
-            Wally.getInstance().logger.log(LogLevel.INFO, "The directory [" + folderPath + "] already exist");
+            Wally.getInstance().logger.log(LogLevel.INFO, "The directory [" + rootFolderPath + "] already exist");
             if (!cleanFolder(rootFolder)) {
-                Wally.getInstance().logger.log(LogLevel.WARN, "Couldn't delete the directory [" + folderPath + "] aborting");
+                Wally.getInstance().logger.log(LogLevel.WARN, "Couldn't delete the directory [" + rootFolderPath + "] aborting");
                 return false;
             }
         }
 
         if (!rootFolder.mkdir()) {
-            Wally.getInstance().logger.log(LogLevel.WARN, "Couldn't create the directory [" + folderPath + "] aborting");
+            Wally.getInstance().logger.log(LogLevel.WARN, "Couldn't create the directory [" + rootFolderPath + "] aborting");
             return false;
         }
 
-        if (!generateHypixelStats(hypixelData, folderPath + "/hypixel.json")) return false;
-        if (!generatePracticeStats(practiceData, folderPath + "/practice.json")) return false;
+        if (!resFolder.mkdir()) {
+            Wally.getInstance().logger.log(LogLevel.WARN, "Couldn't create the directory [" + rootFolderPath + "/resources" + "] aborting");
+            return false;
+        }
+
+        if (!playerFolder.mkdirs()) {
+            Wally.getInstance().logger.log(LogLevel.WARN, "Couldn't create the directory [" + playerFolderPath + "] aborting");
+            return false;
+        }
+
+        if (!generateHypixelStats(hypixelData, playerFolderPath + "/hypixel.json")) return false;
+        if (!generatePracticeStats(practiceData, playerFolderPath + "/practice.json")) return false;
 
         return true;
     }
