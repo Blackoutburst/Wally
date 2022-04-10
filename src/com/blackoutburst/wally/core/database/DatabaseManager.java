@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.Utils;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.stats.HypixelStats;
+import com.blackoutburst.wally.core.stats.PracticeStats;
 import com.google.gson.Gson;
 
 import javax.annotation.Nonnull;
@@ -77,23 +78,60 @@ public class DatabaseManager {
         return (rootFolder.delete());
     }
 
-    private void generateHypixelStats(@Nonnull String playerData, @Nonnull String file) {
+    /**
+     * Save Hypixel data to file
+     *
+     * @param hypixelData the player Hypixel data
+     * @param file the file used to save them
+     */
+    private boolean generateHypixelStats(@Nonnull String hypixelData, @Nonnull String file) {
         final Gson gson = new Gson();
 
         final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
         final DecimalFormat df = (DecimalFormat) nf;
 
-        final String wins = df.format(Utils.getValuesFromAPI(playerData, "player.stats.Arcade.wins_hole_in_the_wall"));
-        final String walls = df.format(Utils.getValuesFromAPI(playerData, "player.stats.Arcade.rounds_hole_in_the_wall"));
-        final String q = df.format(Utils.getValuesFromAPI(playerData, "player.stats.Arcade.hitw_record_q"));
-        final String f = df.format(Utils.getValuesFromAPI(playerData, "player.stats.Arcade.hitw_record_f"));
+        final String wins = df.format(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.wins_hole_in_the_wall", "0"));
+        final String walls = df.format(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.rounds_hole_in_the_wall", "0"));
+        final String q = df.format(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.hitw_record_q", "0"));
+        final String f = df.format(Utils.getValuesFromAPI(hypixelData, "player.stats.Arcade.hitw_record_f", "0"));
 
         final HypixelStats stats = new HypixelStats(wins, walls, q, f);
 
         try {
             gson.toJson(stats, new FileWriter(file));
+            return true;
         } catch (Exception e) {
             Wally.getInstance().logger.log(LogLevel.ERROR, e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Save practice data to file
+     *
+     * @param practiceData the player Practice data
+     * @param file the file used to save them
+     */
+    private boolean generatePracticeStats(@Nonnull String practiceData, @Nonnull String file) {
+        final Gson gson = new Gson();
+
+        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        final DecimalFormat df = (DecimalFormat) nf;
+
+        final String q = df.format(Utils.getValuesFromAPI(practiceData, "scores.qualification", "0"));
+        final String f = df.format(Utils.getValuesFromAPI(practiceData, "scores.finals", "0"));
+        final String l = df.format(Utils.getValuesFromAPI(practiceData, "scores.lobby", "0"));
+        final String wq = df.format(Utils.getValuesFromAPI(practiceData, "scores.wide_qualification", "0"));
+        final String wf = df.format(Utils.getValuesFromAPI(practiceData, "scores.wide_finals", "0"));
+
+        final PracticeStats stats = new PracticeStats(q, f, l, wq, wf);
+
+        try {
+            gson.toJson(stats, new FileWriter(file));
+            return true;
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.ERROR, e.getMessage());
+            return false;
         }
     }
 
@@ -101,10 +139,10 @@ public class DatabaseManager {
      * Create user data folder
      *
      * @param discordID the user discord id
-     * @param playerData the user Hypixel player data
+     * @param hypixelData the user Hypixel player data
      * @return if the operation worked
      */
-    public boolean createUserData(@Nonnull String discordID, @Nonnull String playerData) {
+    public boolean createUserData(@Nonnull String discordID, @Nonnull String hypixelData, @Nonnull String practiceData) {
         final String folderPath = "database/linked users/" + discordID;
         final File rootFolder = new File(folderPath);
 
@@ -121,7 +159,8 @@ public class DatabaseManager {
             return false;
         }
 
-        generateHypixelStats(playerData, folderPath + "/hypixel.json");
+        if (!generateHypixelStats(hypixelData, folderPath + "/hypixel.json")) return false;
+        if (!generatePracticeStats(practiceData, folderPath + "/practice.json")) return false;
 
         return true;
     }
