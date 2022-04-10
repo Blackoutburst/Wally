@@ -1,11 +1,11 @@
 {
   "settings":
   {
-    "discord token": "X",
-    "hypixel api": "X",
+    "discord token": "x",
+    "hypixel api": "x",
     "command prefix": ".",
-    "practice server ip": "X",
-    "practice server api port": "X"
+    "practice server ip": "x",
+    "practice server api port": "x"
   },
   "servers":
   {
@@ -52,6 +52,12 @@
     "unknown command": "I'm sorry, I couldn't find any commands named `%command_name%`!",
     "close command": "Maybe try and use `%command_name%` instead ?",
     "unauthorized button": "You can’t use this button, sorry!",
-    "message deleted": "Hey, it seems like your original message got deleted, making me unable to perform this action!"
+    "message deleted": "Hey, it seems like your original message got deleted, making me unable to perform this action!",
+    "not an user": "Seems like this ID doesn't belong to someone, are you sure you copied the correct id ?",
+    "not in hypixel": "Seems like %name% never joined Hypixel",
+    "could not get name": "Sorry I couldn't determine the user name!",
+    "not in mojang": "Sorry, %name% is not a Minecraft player",
+    "link error": "Something went wrong while linking this user, check the log for more information!",
+    "link success": "%name%, was linked successfully!"
   }
 }
