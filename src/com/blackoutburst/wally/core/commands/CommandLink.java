@@ -84,7 +84,5 @@ public class CommandLink extends CommandExecutable{
 
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link success").replace("%name%", playerName)).complete();
         Wally.getInstance().logger.log(LogLevel.INFO, playerName + " was linked to " + discordID);
-
-        return;
     }
 }

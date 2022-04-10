@@ -42,6 +42,5 @@ public class ButtonCommand extends ButtonExecutable {
         CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
 
         event.getMessage().delete().queue();
-        return;
     }
 }

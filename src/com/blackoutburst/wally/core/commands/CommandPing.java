@@ -16,6 +16,5 @@ public class CommandPing extends CommandExecutable{
         channel.sendMessage("Pong !").queue(ping ->
                 ping.editMessage(System.currentTimeMillis() - time+"ms").queue());
 
-        return;
     }
 }

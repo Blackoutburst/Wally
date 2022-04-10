@@ -20,7 +20,5 @@ public class CommandSay extends CommandExecutable{
 
         message.delete().queue();
         channel.sendMessage(builder.toString()).queue();
-
-        return;
     }
 }

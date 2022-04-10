@@ -32,7 +32,5 @@ public class CommandUnlink extends CommandExecutable{
 
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "unlink success")).complete();
         Wally.getInstance().logger.log(LogLevel.INFO, args[0] + " got unlinked");
-
-        return;
     }
 }

@@ -8,6 +8,5 @@ public class ButtonCancel extends ButtonExecutable{
     @Override
     protected void onClick(@NotNull ButtonInteractionEvent event) {
         event.getMessage().delete().queue();
-        return;
     }
 }
