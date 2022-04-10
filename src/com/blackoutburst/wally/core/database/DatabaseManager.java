@@ -67,7 +67,7 @@ public class DatabaseManager {
      * @param rootFolder the folder you wish to clean
      * @return if the operation worked
      */
-    private boolean cleanFolder(@Nonnull File rootFolder) {
+    public boolean cleanFolder(@Nonnull File rootFolder) {
         final File[] contents = rootFolder.listFiles();
 
         if (contents != null) {
