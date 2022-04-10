@@ -69,9 +69,10 @@ public class Utils {
      *
      * @param apiData the apiData as JSON string
      * @param path the value path in the JSON
+     * @param defaultValue is a value used if the object returned is null
      * @return the value if found
      */
-    public static String getValuesFromAPI(@Nonnull String apiData, @Nonnull String path) {
+    public static @Nonnull String getValuesFromAPI(@Nonnull String apiData, @Nonnull String path, @Nonnull String defaultValue) {
         try {
             final Gson gson = new Gson();
             final String[] splitPath = path.split("\\.");
@@ -79,16 +80,16 @@ public class Utils {
             final List<JsonObject> objects = new ArrayList<>();
             objects.add(rootObject);
 
-            for (int i = 0; i < splitPath.length - 1; i++) {
-                final String key = splitPath[i];
-                objects.add(objects.get(i).getAsJsonObject(key));
-            }
+            for (int i = 0; i < splitPath.length - 1; i++)
+                objects.add(objects.get(i).getAsJsonObject(splitPath[i]));
 
-            return (objects.get(objects.size() - 1).get(splitPath[splitPath.length - 1]).getAsString());
+            final String result = objects.get(objects.size() - 1).get(splitPath[splitPath.length - 1]).getAsString();
+
+            return (result == null ? defaultValue : result);
         } catch (Exception e) {
             e.printStackTrace();
             Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-            return (null);
+            return (defaultValue);
         }
     }
 }
