@@ -9,6 +9,6 @@ import javax.annotation.Nonnull;
 
 public abstract class CommandExecutable {
 
-    protected abstract boolean onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args,
+    protected abstract void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args,
                                          @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message);
 }

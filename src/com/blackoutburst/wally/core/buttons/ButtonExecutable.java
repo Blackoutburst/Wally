@@ -6,6 +6,6 @@ import javax.annotation.Nonnull;
 
 public abstract class ButtonExecutable {
 
-    protected abstract boolean onClick(@Nonnull ButtonInteractionEvent event);
+    protected abstract void onClick(@Nonnull ButtonInteractionEvent event);
 
 }

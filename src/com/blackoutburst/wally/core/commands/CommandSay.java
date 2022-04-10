@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CommandSay extends CommandExecutable{
     @Override
-    protected boolean onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
+    protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         final String[] tmp = message.getContentRaw().trim().split(" ");
         final List<String> words = Arrays.asList(Arrays.copyOfRange(tmp, 1, tmp.length));
         final StringBuilder builder = new StringBuilder();
@@ -21,6 +21,6 @@ public class CommandSay extends CommandExecutable{
         message.delete().queue();
         channel.sendMessage(builder.toString()).queue();
 
-        return true;
+        return;
     }
 }

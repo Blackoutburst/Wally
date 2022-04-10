@@ -10,12 +10,12 @@ import javax.annotation.Nonnull;
 public class CommandPing extends CommandExecutable{
 
     @Override
-    protected boolean onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
+    protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         final long time = System.currentTimeMillis();
 
         channel.sendMessage("Pong !").queue(ping ->
                 ping.editMessage(System.currentTimeMillis() - time+"ms").queue());
 
-        return true;
+        return;
     }
 }

@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
 public class ButtonCancel extends ButtonExecutable{
 
     @Override
-    protected boolean onClick(@NotNull ButtonInteractionEvent event) {
+    protected void onClick(@NotNull ButtonInteractionEvent event) {
         event.getMessage().delete().queue();
-        return true;
+        return;
     }
 }

@@ -11,9 +11,6 @@ import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -184,9 +181,7 @@ public class DatabaseManager {
         }
 
         if (!generateHypixelStats(hypixelData, playerFolderPath + "/hypixel.json")) return false;
-        if (!generatePracticeStats(practiceData, playerFolderPath + "/practice.json")) return false;
-
-        return true;
+        return generatePracticeStats(practiceData, playerFolderPath + "/practice.json");
     }
 
 }

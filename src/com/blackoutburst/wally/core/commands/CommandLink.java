@@ -47,31 +47,31 @@ public class CommandLink extends CommandExecutable{
     }
 
     @Override
-    protected boolean onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
-        if (args.length != 2) return false;
+    protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
+        if (args.length != 2) return;
 
         final String discordID = getDiscordID(guild, args);
         if (discordID == null) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not an user")).complete();
-            return false;
+            return;
         }
 
         final String playerName = getPlayerName(guild, args);
         if (playerName == null) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "could not get name")).complete();
-            return false;
+            return;
         }
 
         final String playerUUID = Mojang.getPlayerUUID(playerName);
         if (playerUUID == null) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in mojang").replace("%name%", playerName)).complete();
-            return false;
+            return;
         }
 
         final String hypixelData = Hypixel.getPlayerStats(playerUUID);
         if (hypixelData == null) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in hypixel").replace("%name%", playerName)).complete();
-            return false;
+            return;
         }
 
         String practiceData = PracticeServer.getPlayerStats(playerUUID);
@@ -79,12 +79,12 @@ public class CommandLink extends CommandExecutable{
 
         if (!DatabaseManager.getInstance().createUserData(discordID, playerUUID, hypixelData, practiceData)) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link error")).complete();
-            return false;
+            return;
         }
 
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link success").replace("%name%", playerName)).complete();
         Wally.getInstance().logger.log(LogLevel.INFO, playerName + " was linked to " + discordID);
 
-        return true;
+        return;
     }
 }

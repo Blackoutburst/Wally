@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class ButtonCommand extends ButtonExecutable {
 
     @Override
-    protected boolean onClick(@NotNull ButtonInteractionEvent event) {
+    protected void onClick(@NotNull ButtonInteractionEvent event) {
         final MessageChannel messageChannel = event.getMessageChannel();
         final String messageID = event.getButton().getId().split(":")[1];
         final Message message = Utils.getMessageFromHistory(messageChannel, messageID, 5);
@@ -22,7 +22,7 @@ public class ButtonCommand extends ButtonExecutable {
         if (message == null) {
             messageChannel.sendMessage("<@"+event.getMember().getId()+">"+
                     ConfigManager.getInstance().loadValue("replies", "message deleted")).queue();
-            return false;
+            return;
         }
 
         String label = event.getButton().getLabel();
@@ -35,11 +35,13 @@ public class ButtonCommand extends ButtonExecutable {
         final String[] commandArgs = Utils.getCommandArgs(messageString);
         final Guild guild = event.getGuild();
         final Member member = event.getMember();
+        if (guild == null) return;
+        if (member == null) return;
 
         WallyUser commandSender = WallyUser.getUser(member);
         CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
 
         event.getMessage().delete().queue();
-        return true;
+        return;
     }
 }
