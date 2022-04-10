@@ -2,6 +2,8 @@ package com.blackoutburst.wally.core.commands;
 
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
+import com.blackoutburst.wally.core.request.Hypixel;
+import com.blackoutburst.wally.core.request.Mojang;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -53,6 +55,18 @@ public class CommandLink extends CommandExecutable{
         final String playerName = getPlayerName(guild, args);
         if (playerName == null) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "could not get name")).complete();
+            return false;
+        }
+
+        final String playerUUID = Mojang.getPlayerUUID(playerName);
+        if (playerUUID == null) {
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in mojang").replace("%name%", playerName)).complete();
+            return false;
+        }
+
+        final String playerData = Hypixel.getPlayerStats(playerUUID);
+        if (playerData == null) {
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in hypixel").replace("%name%", playerName)).complete();
             return false;
         }
 
