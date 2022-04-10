@@ -58,6 +58,9 @@
     "could not get name": "Sorry I couldn't determine the user name!",
     "not in mojang": "Sorry, %name% is not a Minecraft player",
     "link error": "Something went wrong while linking this user, check the log for more information!",
-    "link success": "%name%, was linked successfully!"
+    "link success": "%name%, was linked successfully!",
+    "unlink not link": "This user is not linked!",
+    "unlink error": "There was an error while unlinking this user!",
+    "unlink success": "Unlink successful!"
   }
 }
