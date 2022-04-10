@@ -1,10 +1,15 @@
 package com.blackoutburst.wally.core;
 
 import com.blackoutburst.wally.core.commands.CommandManager;
+import com.blackoutburst.wally.core.logger.LogLevel;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import javax.annotation.Nonnull;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,5 +56,39 @@ public class Utils {
         final String[] tmp = message.trim().split(" ");
 
         return (tmp[0].substring(CommandManager.getPrefix().length()).toLowerCase());
+    }
+
+    /**
+     * Return the API value of the specified data<br>
+     *
+     * Usage <br><br>
+     *
+     * <code>
+     * String value = getValuesFromAPI(apiData, "player.stats.Arcade.hitw_record_q")
+     * </code>
+     *
+     * @param apiData the apiData as JSON string
+     * @param path the value path in the JSON
+     * @return the value if found
+     */
+    public static String getValuesFromAPI(@Nonnull String apiData, @Nonnull String path) {
+        try {
+            final Gson gson = new Gson();
+            final String[] splitPath = path.split("\\.");
+            final JsonObject rootObject = gson.fromJson(apiData, JsonObject.class);
+            final List<JsonObject> objects = new ArrayList<>();
+            objects.add(rootObject);
+
+            for (int i = 0; i < splitPath.length - 1; i++) {
+                final String key = splitPath[i];
+                objects.add(objects.get(i).getAsJsonObject(key));
+            }
+
+            return (objects.get(objects.size() - 1).get(splitPath[splitPath.length - 1]).getAsString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
+            return (null);
+        }
     }
 }
