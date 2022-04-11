@@ -19,7 +19,7 @@ public class Logger {
 
     private final String currentLogFile;
 
-    private LogLevel internalLogLevel = LogLevel.ERROR;
+    private LogLevel internalLogLevel = LogLevel.INFO;
 
     /**
      * Allow log filtering
