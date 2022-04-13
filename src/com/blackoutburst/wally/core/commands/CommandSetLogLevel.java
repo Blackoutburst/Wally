@@ -9,7 +9,8 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandSetLogLevel extends CommandExecutable{
-    @Override
+  
+  @Override
     protected void onCommand(@NotNull WallyUser commandSender, @NotNull String commandName, @NotNull String[] args, @NotNull Guild guild, @NotNull MessageChannel channel, @NotNull Message message) {
         if (args.length == 0) return;
 
