@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CommandSay extends CommandExecutable{
+
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         final String[] tmp = message.getContentRaw().trim().split(" ");
