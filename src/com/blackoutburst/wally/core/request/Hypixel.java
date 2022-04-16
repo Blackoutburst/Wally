@@ -3,6 +3,7 @@ package com.blackoutburst.wally.core.request;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
+import com.blackoutburst.wally.main.Main;
 
 import javax.annotation.Nonnull;
 
@@ -16,8 +17,7 @@ public class Hypixel {
      */
     public static String getPlayerStats(@Nonnull String uuid) {
         try {
-            final String apiKey = ConfigManager.getInstance().loadValue("settings", "hypixel api");
-            final String result = ConnectionManager.readFromURL("https://api.hypixel.net/player?uuid=" + uuid + "&key=" + apiKey);
+            final String result = ConnectionManager.readFromURL("https://api.hypixel.net/player?uuid=" + uuid + "&key=" + Main.HYPIXEL_API);
 
             Wally.getInstance().logger.log(LogLevel.INFO, "New Hypixel request sent for [" + uuid + "]");
             return (result);

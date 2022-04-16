@@ -3,6 +3,7 @@ package com.blackoutburst.wally.core.request;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
+import com.blackoutburst.wally.main.Main;
 
 import javax.annotation.Nonnull;
 import java.io.BufferedReader;
@@ -21,9 +22,7 @@ public class PracticeServer {
      */
     public static String getPlayerStats(@Nonnull String uuid) {
         try {
-            final String ip = ConfigManager.getInstance().loadValue("settings", "practice server ip");
-            final short port = Short.parseShort(ConfigManager.getInstance().loadValue("settings", "practice server api port"));
-            final Socket socket = new Socket(ip, port);
+            final Socket socket = new Socket(Main.PRACTICE_SERVER_IP, Short.parseShort(Main.PRACTICE_SERVER_PORT));
             final InputStreamReader inputStream = new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8);
             final BufferedReader reader = new BufferedReader(inputStream);
             final OutputStream outputStream = socket.getOutputStream();

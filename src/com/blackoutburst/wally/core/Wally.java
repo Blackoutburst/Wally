@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.events.EventListener;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.logger.Logger;
+import com.blackoutburst.wally.main.Main;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.JDA;
@@ -42,7 +43,7 @@ public class Wally {
     public static @Nonnull Wally getInstance() {
         if (instance == null) {
             try {
-                instance = new Wally(ConfigManager.getInstance().loadValue("settings", "discord token"));
+                instance = new Wally(Main.DISCORD_TOKEN);
             } catch (LoginException e) {
                 e.printStackTrace();
                 System.exit(84);
