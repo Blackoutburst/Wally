@@ -1,11 +1,11 @@
 {
   "settings":
   {
-    "discord token": "x",
-    "hypixel api": "x",
+    "discord token": "X",
+    "hypixel api": "X",
     "command prefix": ".",
-    "practice server ip": "x",
-    "practice server api port": "x"
+    "practice server ip": "X",
+    "practice server api port": "X"
   },
   "servers":
   {
@@ -61,6 +61,9 @@
     "link success": "%name%, was linked successfully!",
     "unlink not link": "This user is not linked!",
     "unlink error": "There was an error while unlinking this user!",
-    "unlink success": "Unlink successful!"
+    "unlink success": "Unlink successful!",
+    "change log level": "Log level set to %level%",
+    "not a log level": "%level% is not a valid log level",
+    "invalid command usage": "Invalid usage, try `%usage%`"
   }
 }
