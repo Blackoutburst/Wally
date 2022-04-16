@@ -9,11 +9,11 @@ public class WallyUser {
 
     private final Member member;
 
-    private PermissionLevel permissionLevel;
+    private final UserOption options;
 
-    public WallyUser(Member member, PermissionLevel permissionLevel) {
+    public WallyUser(Member member, UserOption options) {
         this.member = member;
-        this.permissionLevel = permissionLevel;
+        this.options = options;
     }
 
     /**
@@ -31,7 +31,7 @@ public class WallyUser {
      * @return the permission level
      */
     public PermissionLevel getPermissionLevel() {
-        return permissionLevel;
+        return options.getPermissionLevel();
     }
 
     /**
@@ -40,7 +40,7 @@ public class WallyUser {
      * @param permissionLevel the new permission level
      */
     public void setPermissionLevel(PermissionLevel permissionLevel) {
-        this.permissionLevel = permissionLevel;
+        this.options.setPermissionLevel(permissionLevel);
     }
 
     /**
@@ -55,6 +55,6 @@ public class WallyUser {
             if (u.getMember().getId().equals(member.getId()))
                 return (u);
         }
-        return (new WallyUser(member, PermissionLevel.MEMBER));
+        return (new WallyUser(member, new UserOption()));
     }
 }

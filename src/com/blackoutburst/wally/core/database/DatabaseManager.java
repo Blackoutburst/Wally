@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.core.database;
 
+import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.Utils;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.logger.LogLevel;
@@ -81,6 +82,7 @@ public class DatabaseManager {
      *
      * @param hypixelData the player Hypixel data
      * @param file the file used to save them
+     * @return if the operation worked
      */
     private boolean generateHypixelStats(@Nonnull String hypixelData, @Nonnull String file) {
         try {
@@ -114,6 +116,7 @@ public class DatabaseManager {
      *
      * @param practiceData the player Practice data
      * @param file the file used to save them
+     * @return if the operation worked
      */
     private boolean generatePracticeStats(@Nonnull String practiceData, @Nonnull String file) {
         try {
@@ -144,13 +147,37 @@ public class DatabaseManager {
     }
 
     /**
+     * Write wally user data into a JSON file
+     * @param wallyProfile the user data
+     * @param file the JSON file
+     * @return if the operation worked
+     */
+    private boolean generateWallyProfile(@Nonnull UserOption wallyProfile, @Nonnull String file) {
+        try {
+            final Gson gson = new Gson();
+
+            final Writer writer = new FileWriter(file);
+
+            gson.toJson(wallyProfile, writer);
+            writer.flush();
+            writer.close();
+
+            return true;
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.ERROR, e.getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Create user data folder
      *
      * @param discordID the user discord id
      * @param hypixelData the user Hypixel player data
+     * @param wallyProfile the wally user data
      * @return if the operation worked
      */
-    public boolean createUserData(@Nonnull String discordID, @Nonnull String playerUUID, @Nonnull String hypixelData, @Nonnull String practiceData) {
+    public boolean createUserData(@Nonnull String discordID, @Nonnull String playerUUID, @Nonnull String hypixelData, @Nonnull String practiceData, @Nonnull UserOption wallyProfile) {
         final String rootFolderPath = "database/linked users/" + discordID;
         final String playerFolderPath = rootFolderPath + "/accounts/" + playerUUID;
         final File rootFolder = new File(rootFolderPath);
@@ -180,8 +207,9 @@ public class DatabaseManager {
             return false;
         }
 
-        if (!generateHypixelStats(hypixelData, playerFolderPath + "/hypixel.json")) return false;
-        return generatePracticeStats(practiceData, playerFolderPath + "/practice.json");
+        return (generateHypixelStats(hypixelData, playerFolderPath + "/hypixel.json") &&
+                generatePracticeStats(practiceData, playerFolderPath + "/practice.json") &&
+                generateWallyProfile(wallyProfile, rootFolderPath + "/data.json"));
     }
 
 }

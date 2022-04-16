@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.core.commands;
 
+import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
@@ -46,6 +47,7 @@ public class CommandLink extends CommandExecutable{
         return (null);
     }
 
+
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         if (args.length != 2) return;
@@ -77,7 +79,9 @@ public class CommandLink extends CommandExecutable{
         String practiceData = PracticeServer.getPlayerStats(playerUUID);
         if (practiceData == null) practiceData = "";
 
-        if (!DatabaseManager.getInstance().createUserData(discordID, playerUUID, hypixelData, practiceData)) {
+        final UserOption wallyProfile = new UserOption(PermissionLevel.MEMBER, playerUUID, guild.getId());
+
+        if (!DatabaseManager.getInstance().createUserData(discordID, playerUUID, hypixelData, practiceData, wallyProfile)) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link error")).complete();
             return;
         }
