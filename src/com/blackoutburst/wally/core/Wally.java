@@ -76,7 +76,9 @@ public class Wally {
 
             UserOption data;
             try {
-                data = gson.fromJson(new FileReader(userFolder.getPath()+"/data.json"), UserOption.class);
+                final FileReader reader = new FileReader(userFolder.getPath()+"/data.json");
+                data = gson.fromJson(reader, UserOption.class);
+                reader.close();
             } catch (Exception e) { data = null; }
             if (data == null) continue;
 
