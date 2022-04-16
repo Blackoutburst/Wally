@@ -50,7 +50,11 @@ public class CommandLink extends CommandExecutable{
 
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
-        if (args.length != 2) return;
+        if (args.length != 2)  {
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
+                    .replace("%usage%", CommandManager.getPrefix()+"link [discordID] [Minecraft UUID]")).complete();
+            return;
+        }
 
         final String discordID = getDiscordID(guild, args);
         if (discordID == null) {

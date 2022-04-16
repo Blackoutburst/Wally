@@ -13,7 +13,11 @@ public class CommandSetLogLevel extends CommandExecutable{
   
   @Override
     protected void onCommand(@NotNull WallyUser commandSender, @NotNull String commandName, @NotNull String[] args, @NotNull Guild guild, @NotNull MessageChannel channel, @NotNull Message message) {
-        if (args.length == 0) return;
+        if (args.length == 0) {
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
+                    .replace("%usage%", CommandManager.getPrefix()+"setloglevel [INFO/WARN/ERROR/NONE]")).complete();
+            return;
+        }
 
         LogLevel level;
 

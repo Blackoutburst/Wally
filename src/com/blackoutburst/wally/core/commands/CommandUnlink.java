@@ -16,7 +16,11 @@ public class CommandUnlink extends CommandExecutable{
 
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
-        if (args.length != 1) return;
+        if (args.length != 1) {
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
+                    .replace("%usage%", CommandManager.getPrefix()+"unlink [discordID]")).complete();
+            return;
+        }
 
         final File folder = new File("database/linked users/" + args[0]);
 
