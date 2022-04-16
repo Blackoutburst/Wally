@@ -1,12 +1,10 @@
 package com.blackoutburst.wally.core;
 
-import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.events.EventListener;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.logger.Logger;
 import com.blackoutburst.wally.main.Main;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -20,7 +18,6 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Set;
