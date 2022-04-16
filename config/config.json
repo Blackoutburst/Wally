@@ -1,11 +1,7 @@
 {
   "settings":
   {
-    "discord token": "X",
-    "hypixel api": "X",
-    "command prefix": ".",
-    "practice server ip": "X",
-    "practice server api port": "X"
+    "command prefix": "."
   },
   "servers":
   {
