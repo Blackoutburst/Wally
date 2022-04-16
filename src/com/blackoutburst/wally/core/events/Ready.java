@@ -15,6 +15,7 @@ public class Ready {
      * @param event the JDA event
      */
     protected static void run(@Nonnull ReadyEvent event) {
+        Wally.getInstance().loadUser(event.getJDA());
         Wally.hitwDiscord = event.getJDA().getGuildById(ConfigManager.getInstance().loadValue("servers", "dev server"));
 
         if (Wally.hitwDiscord == null) {
