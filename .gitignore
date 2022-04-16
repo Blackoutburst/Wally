@@ -10,6 +10,7 @@
 *.png
 .settings
 .txt
+.env
 
 # Ignore Gradle project-specific cache directory
 .gradle
