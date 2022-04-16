@@ -56,6 +56,8 @@ public class Wally {
      * @param jda The jda object used to retrieve guild and members
      */
     public void loadUser(@Nonnull JDA jda) {
+        users.clear();
+
         final String rootFolderPath = "database/linked users/";
         final File rootFolder = new File(rootFolderPath);
         if (!rootFolder.exists()) {
