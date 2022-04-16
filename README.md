@@ -22,6 +22,7 @@ Wally is a discord bot that allow you to check your Hypixel Hole in the Wall sta
 * [A config file](https://github.com/Blackoutburst/Wally/blob/master/config/config.json) - see the [config.json](https://github.com/Blackoutburst/Wally/blob/master/config/config.json) file and modify it to your needs
 * [A Hypixel key](https://hypixel.net/) - In order to get the data from hypixel you need a key
 * [A Discord bot](https://discord.com/developers/) - To send an receive messages via discord you need a bot and a token for that bot
+* [A .env file](https://github.com/Blackoutburst/Wally/blob/master/config/.env) To put confidential values such as API key or discord token
 
 ## Building
 Open a command line and go into the directory and run
