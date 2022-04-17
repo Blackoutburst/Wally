@@ -66,6 +66,14 @@ public class CommandSetPermissionLevel extends CommandExecutable{
         return (null);
     }
 
+    /**
+     * Change someone permission
+     *
+     * @param channel the message channel
+     * @param discordID the user discord id
+     * @param level the new permission level
+     * @return if the operation worked
+     */
     private boolean updateUserPermissionLevel(@Nonnull MessageChannel channel, @Nonnull String discordID, @Nonnull PermissionLevel level) {
         final Gson gson = new Gson();
         final String file = "database/linked users/" + discordID + "/data.json";
