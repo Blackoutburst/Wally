@@ -7,12 +7,13 @@ import com.blackoutburst.wally.core.logger.LogLevel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 public class CommandSetLogLevel extends CommandExecutable{
   
   @Override
-    protected void onCommand(@NotNull WallyUser commandSender, @NotNull String commandName, @NotNull String[] args, @NotNull Guild guild, @NotNull MessageChannel channel, @NotNull Message message) {
+    protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         if (args.length == 0) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
                     .replace("%usage%", CommandManager.getPrefix()+"setloglevel [INFO/WARN/ERROR/NONE]")).queue();

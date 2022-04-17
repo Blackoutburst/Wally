@@ -9,12 +9,13 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 public class ButtonCommand extends ButtonExecutable {
 
     @Override
-    protected void onClick(@NotNull ButtonInteractionEvent event) {
+    protected void onClick(@Nonnull ButtonInteractionEvent event) {
         final MessageChannel messageChannel = event.getMessageChannel();
         final String messageID = event.getButton().getId().split(":")[1];
         final Message message = Utils.getMessageFromHistory(messageChannel, messageID, 5);
