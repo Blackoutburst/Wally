@@ -1,6 +1,6 @@
 package com.blackoutburst.wally.core.buttons;
 
-import com.blackoutburst.wally.core.Utils;
+import com.blackoutburst.wally.utils.Utils;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
 import com.blackoutburst.wally.core.config.ConfigManager;

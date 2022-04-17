@@ -1,5 +1,6 @@
-package com.blackoutburst.wally.core;
+package com.blackoutburst.wally.utils;
 
+import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.commands.CommandManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.google.gson.Gson;

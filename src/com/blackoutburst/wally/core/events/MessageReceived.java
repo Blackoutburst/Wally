@@ -1,6 +1,6 @@
 package com.blackoutburst.wally.core.events;
 
-import com.blackoutburst.wally.core.Utils;
+import com.blackoutburst.wally.utils.Utils;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
 import net.dv8tion.jda.api.entities.Guild;
