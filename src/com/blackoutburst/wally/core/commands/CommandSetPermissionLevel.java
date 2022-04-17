@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.database.DatabaseManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
+import com.blackoutburst.wally.utils.Utils;
 import com.google.gson.Gson;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -17,52 +18,6 @@ import java.io.FileReader;
 import java.util.UUID;
 
 public class CommandSetPermissionLevel extends CommandExecutable{
-
-    /**
-     * Return the discord ID from the command args
-     *
-     * @param guild the guild used to run the command
-     * @param args the command args
-     * @return the discord id
-     */
-    private String getDiscordID(@Nonnull Guild guild, @Nonnull String[] args) {
-        try {
-            if (guild.getMemberById(args[0]) != null)
-                return (args[0]);
-        } catch (Exception e) {
-            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-        }
-        try {
-            if (guild.getMemberById(args[1]) != null)
-                return (args[1]);
-        } catch (Exception e) {
-            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-        }
-        return (null);
-    }
-
-    /**
-     * Get the player name from the command args
-     *
-     * @param guild the guild used to run the command
-     * @param args the command args
-     * @return the player name
-     */
-    private String getPermissionLevel(@Nonnull Guild guild, @Nonnull String[] args) {
-        try {
-            if (guild.getMemberById(args[0]) != null)
-                return (args[1]);
-        } catch (Exception e) {
-            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-        }
-        try {
-            if (guild.getMemberById(args[1]) != null)
-                return (args[0]);
-        } catch (Exception e) {
-            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-        }
-        return (null);
-    }
 
     /**
      * Change someone permission
@@ -101,13 +56,13 @@ public class CommandSetPermissionLevel extends CommandExecutable{
             return;
         }
 
-        final String discordID = getDiscordID(guild, args);
+        final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
         if (discordID == null) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
             return;
         }
 
-        final String permissionLevel = getPermissionLevel(guild, args);
+        final String permissionLevel = Utils.getNonDiscordIDArgFromTwoArgs(guild, args);
         if (permissionLevel == null) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "permission level is null")).queue();
             return;

@@ -5,6 +5,7 @@ import com.blackoutburst.wally.core.commands.CommandManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
@@ -14,6 +15,52 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Utils {
+
+    /**
+     * Return the discord ID from the command args
+     *
+     * @param guild the guild used to run the command
+     * @param args the command args
+     * @return the discord id
+     */
+    public static String getDiscordIDFromTwoArgs(@Nonnull Guild guild, @Nonnull String[] args) {
+        try {
+            if (guild.getMemberById(args[0]) != null)
+                return (args[0]);
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
+        }
+        try {
+            if (guild.getMemberById(args[1]) != null)
+                return (args[1]);
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
+        }
+        return (null);
+    }
+
+    /**
+     * Get the args which isn't a discord id
+     *
+     * @param guild the guild used to run the command
+     * @param args the command args
+     * @return the second arg
+     */
+    public static String getNonDiscordIDArgFromTwoArgs(@Nonnull Guild guild, @Nonnull String[] args) {
+        try {
+            if (guild.getMemberById(args[0]) != null)
+                return (args[1]);
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
+        }
+        try {
+            if (guild.getMemberById(args[1]) != null)
+                return (args[0]);
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
+        }
+        return (null);
+    }
 
     /**
      * Retrieve a message from a message channel history
