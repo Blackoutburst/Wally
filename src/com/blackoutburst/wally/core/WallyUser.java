@@ -35,15 +35,6 @@ public class WallyUser {
     }
 
     /**
-     * Set the user permission level (for commands)
-     *
-     * @param permissionLevel the new permission level
-     */
-    public void setPermissionLevel(PermissionLevel permissionLevel) {
-        this.options.setPermissionLevel(permissionLevel);
-    }
-
-    /**
      * Get a new Wally user from a discord Member
      * If there is no user a default user will get returned instead
      *
