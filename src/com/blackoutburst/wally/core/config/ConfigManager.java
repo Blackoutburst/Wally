@@ -10,7 +10,7 @@ import java.io.FileReader;
 
 public class ConfigManager {
 
-    private final File configurationFile;
+    public final File configurationFile;
 
     private static ConfigManager instance = null;
 

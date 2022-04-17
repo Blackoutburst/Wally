@@ -51,8 +51,9 @@ public class CommandManager {
         register(PermissionLevel.STAFF, new CommandLink(), "link");
         register(PermissionLevel.STAFF, new CommandUnlink(), "unlink");
         register(PermissionLevel.ADMIN, new CommandSetLogLevel(), "setloglevel");
-        register(PermissionLevel.ADMIN, new CommandReloadUser(), "reloaduser");
-        register(PermissionLevel.ADMIN, new CommandSetPermissionLevel(), "setpermissionlevel");
+        register(PermissionLevel.ADMIN, new CommandReloadUser(), "reloaduser", "reloadusers");
+        register(PermissionLevel.ADMIN, new CommandSetPermissionLevel(), "setpermissionlevel", "setperms");
+        register(PermissionLevel.ADMIN, new CommandGetConfig(), "getconfig", "getconfiguration");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }
