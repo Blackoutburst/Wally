@@ -48,9 +48,10 @@ public class CommandManager {
     private CommandManager() {
         register(PermissionLevel.MEMBER, new CommandPing(), "ping");
         register(PermissionLevel.STAFF, new CommandSay(), "say");
-        register(PermissionLevel.MEMBER, new CommandLink(), "link");
+        register(PermissionLevel.STAFF, new CommandLink(), "link");
         register(PermissionLevel.STAFF, new CommandUnlink(), "unlink");
         register(PermissionLevel.ADMIN, new CommandSetLogLevel(), "setloglevel");
+        register(PermissionLevel.ADMIN, new CommandReloadUser(), "reloaduser");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }
@@ -106,7 +107,7 @@ public class CommandManager {
 
         for (Command command : commands) {
             for (String label : command.getLabels()) {
-                if (commandName.equals(label)) {
+                if (commandName.equalsIgnoreCase(label)) {
                     if (commandSender.getPermissionLevel().getWeight() >= command.getPermissionLevel().getWeight()) {
                         command.getExecutable().onCommand(commandSender, commandName, args, guild, channel, message);
                         Wally.getInstance().logger.log(LogLevel.INFO, commandSender.getMember().getEffectiveName()+" used ["+label+"]");

@@ -25,6 +25,8 @@ import java.util.Set;
 
 public class Wally {
 
+    public JDA jda;
+
     public final Set<WallyUser> users = new HashSet<>();
 
     public final Logger logger = Logger.getInstance();
@@ -51,9 +53,8 @@ public class Wally {
 
     /**
      * Load wally user list from database
-     * @param jda The jda object used to retrieve guild and members
      */
-    public void loadUser(@Nonnull JDA jda) {
+    public void loadUser() {
         users.clear();
 
         final String rootFolderPath = "database/linked users/";
