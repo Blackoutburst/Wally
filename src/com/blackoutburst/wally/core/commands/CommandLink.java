@@ -25,10 +25,18 @@ public class CommandLink extends CommandExecutable{
      * @return the discord id
      */
     private String getDiscordID(@Nonnull Guild guild, @Nonnull String[] args) {
-        if (guild.getMemberById(args[0]) != null)
-            return (args[0]);
-        if (guild.getMemberById(args[1]) != null)
-            return (args[1]);
+        try {
+            if (guild.getMemberById(args[0]) != null)
+                return (args[0]);
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
+        }
+        try {
+            if (guild.getMemberById(args[1]) != null)
+                return (args[1]);
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
+        }
         return (null);
     }
 
@@ -40,10 +48,18 @@ public class CommandLink extends CommandExecutable{
      * @return the player name
      */
     private String getPlayerName(@Nonnull Guild guild, @Nonnull String[] args) {
-        if (guild.getMemberById(args[0]) != null)
-            return (args[1]);
-        if (guild.getMemberById(args[1]) != null)
-            return (args[0]);
+        try {
+            if (guild.getMemberById(args[0]) != null)
+                return (args[1]);
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
+        }
+        try {
+            if (guild.getMemberById(args[1]) != null)
+                return (args[0]);
+        } catch (Exception e) {
+            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
+        }
         return (null);
     }
 
@@ -81,7 +97,10 @@ public class CommandLink extends CommandExecutable{
         }
 
         String practiceData = PracticeServer.getPlayerStats(playerUUID);
-        if (practiceData == null) practiceData = "";
+        if (practiceData == null) {
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "could not load practice data").replace("%name%", playerName)).complete();
+            practiceData = "";
+        }
 
         final UserOption wallyProfile = new UserOption(PermissionLevel.MEMBER, playerUUID, guild.getId());
 

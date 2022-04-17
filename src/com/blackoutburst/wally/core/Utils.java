@@ -86,7 +86,6 @@ public class Utils {
 
             return (result == null ? defaultValue : result);
         } catch (Exception e) {
-            e.printStackTrace();
             Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
             return (defaultValue);
         }

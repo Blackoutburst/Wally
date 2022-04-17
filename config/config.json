@@ -60,6 +60,7 @@
     "unlink success": "Unlink successful!",
     "change log level": "Log level set to %level%",
     "not a log level": "%level% is not a valid log level",
-    "invalid command usage": "Invalid usage, try `%usage%`"
+    "invalid command usage": "Invalid usage, try `%usage%`",
+    "could not load practice data": "Couldn't load practice data, skipping step"
   }
 }
