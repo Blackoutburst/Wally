@@ -63,6 +63,10 @@
     "invalid command usage": "Invalid usage, try `%usage%`",
     "could not load practice data": "Couldn't load practice data, skipping step",
     "user reloaded": "Loaded %users% users out of %total%",
-    "no user db": "Database doesn't exist skipping user loading"
+    "no user db": "Database doesn't exist skipping user loading",
+    "not a permission level": "%level% is not a valid permission level",
+    "not linked or corrupted": "This user is not linked or maybe his data are corrupted",
+    "permission level is null": "Sorry I couldn't determine a permission level !",
+    "user permission updated": "The user permission got updated successfully, would you like to reload the user list now ?"
   }
 }

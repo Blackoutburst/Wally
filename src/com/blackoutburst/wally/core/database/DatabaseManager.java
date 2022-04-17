@@ -84,7 +84,7 @@ public class DatabaseManager {
      * @param file the file used to save them
      * @return if the operation worked
      */
-    private boolean generateHypixelStats(@Nonnull String hypixelData, @Nonnull String file) {
+    public boolean generateHypixelStats(@Nonnull String hypixelData, @Nonnull String file) {
         try {
             final Gson gson = new Gson();
 
@@ -118,7 +118,7 @@ public class DatabaseManager {
      * @param file the file used to save them
      * @return if the operation worked
      */
-    private boolean generatePracticeStats(@Nonnull String practiceData, @Nonnull String file) {
+    public boolean generatePracticeStats(@Nonnull String practiceData, @Nonnull String file) {
         try {
             final Gson gson = new Gson();
 
@@ -152,7 +152,7 @@ public class DatabaseManager {
      * @param file the JSON file
      * @return if the operation worked
      */
-    private boolean generateWallyProfile(@Nonnull UserOption wallyProfile, @Nonnull String file) {
+    public boolean generateWallyProfile(@Nonnull UserOption wallyProfile, @Nonnull String file) {
         try {
             final Gson gson = new Gson();
 

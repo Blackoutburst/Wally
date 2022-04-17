@@ -68,48 +68,48 @@ public class CommandLink extends CommandExecutable{
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         if (args.length != 2)  {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
-                    .replace("%usage%", CommandManager.getPrefix()+"link [discordID] [Minecraft UUID]")).complete();
+                    .replace("%usage%", CommandManager.getPrefix()+"link [discordID] [Minecraft UUID]")).queue();
             return;
         }
 
         final String discordID = getDiscordID(guild, args);
         if (discordID == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not an user")).complete();
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
             return;
         }
 
         final String playerName = getPlayerName(guild, args);
         if (playerName == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "could not get name")).complete();
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "could not get name")).queue();
             return;
         }
 
         final String playerUUID = Mojang.getPlayerUUID(playerName);
         if (playerUUID == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in mojang").replace("%name%", playerName)).complete();
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in mojang").replace("%name%", playerName)).queue();
             return;
         }
 
         final String hypixelData = Hypixel.getPlayerStats(playerUUID);
         if (hypixelData == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in hypixel").replace("%name%", playerName)).complete();
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in hypixel").replace("%name%", playerName)).queue();
             return;
         }
 
         String practiceData = PracticeServer.getPlayerStats(playerUUID);
         if (practiceData == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "could not load practice data").replace("%name%", playerName)).complete();
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "could not load practice data").replace("%name%", playerName)).queue();
             practiceData = "";
         }
 
         final UserOption wallyProfile = new UserOption(PermissionLevel.MEMBER, playerUUID, guild.getId());
 
         if (!DatabaseManager.getInstance().createUserData(discordID, playerUUID, hypixelData, practiceData, wallyProfile)) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link error")).complete();
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link error")).queue();
             return;
         }
 
-        channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link success").replace("%name%", playerName)).complete();
+        channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link success").replace("%name%", playerName)).queue();
         Wally.getInstance().logger.log(LogLevel.INFO, playerName + " was linked to " + discordID);
     }
 }

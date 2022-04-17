@@ -15,21 +15,21 @@ public class CommandSetLogLevel extends CommandExecutable{
     protected void onCommand(@NotNull WallyUser commandSender, @NotNull String commandName, @NotNull String[] args, @NotNull Guild guild, @NotNull MessageChannel channel, @NotNull Message message) {
         if (args.length == 0) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
-                    .replace("%usage%", CommandManager.getPrefix()+"setloglevel [INFO/WARN/ERROR/NONE]")).complete();
+                    .replace("%usage%", CommandManager.getPrefix()+"setloglevel [INFO/WARN/ERROR/NONE]")).queue();
             return;
         }
 
         LogLevel level;
 
         try {
-            level = LogLevel.valueOf(args[0]);
+            level = LogLevel.valueOf(args[0].toUpperCase());
         } catch (Exception e) {
             Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not a log level").replace("%level%", args[0])).complete();
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not a log level").replace("%level%", args[0])).queue();
             return;
         }
 
-        channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "change log level").replace("%level%", level.toString())).complete();
+        channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "change log level").replace("%level%", level.toString())).queue();
         Wally.getInstance().logger.setInternalLogLevel(level);
     }
 }

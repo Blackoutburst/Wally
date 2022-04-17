@@ -32,6 +32,7 @@ public class ButtonManager {
     private ButtonManager() {
         register(new ButtonCommand(), "Yes run");
         register(new ButtonCancel(), "No");
+        register(new ButtonReloadUsers(), "Yes reload the users");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Button registered!");
     }
