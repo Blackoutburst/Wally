@@ -17,7 +17,7 @@ public class CommandUnlink extends CommandExecutable{
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         if (args.length != 1) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
+            message.reply(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
                     .replace("%usage%", CommandManager.getPrefix()+"unlink [discordID]")).queue();
             return;
         }
