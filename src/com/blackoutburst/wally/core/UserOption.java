@@ -4,6 +4,9 @@ import com.blackoutburst.wally.core.commands.PermissionLevel;
 
 import javax.annotation.Nonnull;
 
+/**
+ * This class is used to serialize data using GSON
+ */
 public class UserOption {
 
     private PermissionLevel permissionLevel;
