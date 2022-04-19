@@ -46,6 +46,7 @@ public class WallyUser {
             if (u.getMember().getId().equals(member.getId()))
                 return (u);
         }
+        
         return (new WallyUser(member, new UserOption()));
     }
 }
