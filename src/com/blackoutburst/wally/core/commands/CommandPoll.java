@@ -29,7 +29,8 @@ public class CommandPoll extends CommandExecutable{
         final EmbedBuilder embed = new EmbedBuilder()
                 .setAuthor(commandSender.getMember().getEffectiveName(), wallyURL, iconURL)
                 .setTitle(builder.toString())
-                .setColor(new Color(71, 165, 255));
+                .setColor(new Color(71, 165, 255))
+                .setFooter("Created on "+LocalDate.now());
 
         message.delete().queue();
         channel.sendMessageEmbeds(embed.build()).queue(msg -> {
