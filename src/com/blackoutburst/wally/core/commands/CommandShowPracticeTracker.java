@@ -13,6 +13,6 @@ public class CommandShowPracticeTracker extends CommandExecutable {
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "practice tracker location")
-                .replace("%channel%", "<#"+channel.getId()+">")).queue();
+                .replace("%channel%", "<#"+ConfigManager.getInstance().loadValue("channels", "practice tracker channel")+">")).queue();
     }
 }
