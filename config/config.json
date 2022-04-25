@@ -70,6 +70,8 @@
     "user permission updated": "The user permission got updated successfully, would you like to reload the user list now ?",
     "missing config attachment": "You must upload the configuration file with the command!",
     "config updated": "The configuration file was updated successfully!",
-    "not a json": "The file must be in JSON format"
+    "not a json": "The file must be in JSON format",
+    "tracker channel updated": "The tracker is now set inside %channel%",
+    "channel update error": "There was an unknown error while updating this channel"
   }
 }
