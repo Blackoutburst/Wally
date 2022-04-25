@@ -10,8 +10,8 @@ import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Writer;
@@ -19,7 +19,7 @@ import java.io.Writer;
 public class CommandSetTracker extends CommandExecutable {
 
     @Override
-    protected void onCommand(@NotNull WallyUser commandSender, @NotNull String commandName, @NotNull String[] args, @NotNull Guild guild, @NotNull MessageChannel channel, @NotNull Message message) {
+    protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         try {
             final Gson gson = new GsonBuilder().setPrettyPrinting().create();
             final JsonObject object = gson.fromJson(new FileReader(ConfigManager.getInstance().configurationFile), JsonObject.class);

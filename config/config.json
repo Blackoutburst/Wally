@@ -72,6 +72,7 @@
     "config updated": "The configuration file was updated successfully!",
     "not a json": "The file must be in JSON format",
     "tracker channel updated": "The tracker is now set inside %channel%",
+    "practice tracker channel updated": "The practice tracker is now set inside %channel%",
     "channel update error": "There was an unknown error while updating this channel"
   }
 }
