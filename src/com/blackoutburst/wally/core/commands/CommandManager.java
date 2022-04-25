@@ -56,6 +56,7 @@ public class CommandManager {
         register(PermissionLevel.ADMIN, new CommandGetConfig(), "getconfig", "getconfiguration");
         register(PermissionLevel.ADMIN, new CommandSetConfig(), "setconfig", "setconfiguration");
         register(PermissionLevel.MEMBER, new CommandPoll(), "poll");
+        register(PermissionLevel.ADMIN, new CommandSetConfig(), "settracker");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }
