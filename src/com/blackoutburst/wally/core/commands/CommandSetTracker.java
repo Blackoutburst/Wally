@@ -29,7 +29,8 @@ public class CommandSetTracker extends CommandExecutable {
             writer.write(gson.toJson(object).replace("\\u0027", "'")); // Encoding is broken
             writer.flush();
             writer.close();
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "tracker channel updated").replace("%channel%", "<#"+channel.getId()+">")).queue();
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "tracker channel updated")
+.replace("%channel%", "<#"+channel.getId()+">")).queue();
         } catch (Exception e) {
             e.printStackTrace();
             Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
