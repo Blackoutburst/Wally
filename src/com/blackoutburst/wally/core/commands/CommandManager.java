@@ -91,6 +91,7 @@ public class CommandManager {
                 }
             }
         }
+
         if (lowestWeight > 100) closest = null;
         if (closest == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)).queue();
