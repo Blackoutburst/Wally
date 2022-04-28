@@ -13,7 +13,7 @@
 # Important
 Currently under complete rework!\
 Contribution are still welcomed but are less likely to be accepted in the current state.\
-The branch [old](https://github.com/Blackoutburst/Wally/tree/old) is just here for legacy purpose but will be removed once the rework is done
+The branch [old](https://github.com/Blackoutburst/Wally/tree/old) is just here for legacy purpose it will be removed once the rework is done
 
 # Wally
 Wally is a discord bot that allow you to check your Hypixel Hole in the Wall stats, he contains much more features such as a score tracker, customizable user profile, leaderboards and much more!
