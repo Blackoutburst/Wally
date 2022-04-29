@@ -12,7 +12,6 @@
 
 # Important
 Currently under complete rework!\
-Contribution are still welcomed but are less likely to be accepted in the current state.\
 The branch [old](https://github.com/Blackoutburst/Wally/tree/old) is just here for legacy purpose it will be removed once the rework is done
 
 # Wally
