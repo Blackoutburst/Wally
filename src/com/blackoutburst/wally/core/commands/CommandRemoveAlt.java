@@ -53,9 +53,7 @@ public class CommandRemoveAlt extends CommandExecutable{
                     .setActionRow(
                             Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run listaccounts"),
                             Button.danger(commandSender.getMember().getId()+":"+ UUID.randomUUID(), "No"))
-                    .queue(r -> {
-                        if (r != null) r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS);
-                    });
+                    .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
             return;
         }
 

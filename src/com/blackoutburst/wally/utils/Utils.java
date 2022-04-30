@@ -73,9 +73,7 @@ public class Utils {
             message.reply(text).setActionRow(
                 Button.primary(commandSender.getMember().getId() + ":" + message.getId(), "Send me the log"),
                 Button.danger(commandSender.getMember().getId() + ":" + UUID.randomUUID(), "Nevermind"))
-            .queue(r -> {
-                if (r != null) r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS);
-            });
+            .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
         } else {
             message.reply(text).queue();
         }
