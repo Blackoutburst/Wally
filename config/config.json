@@ -47,7 +47,7 @@
     "missing permission": "I'm sorry, but you don't have the necessary permission to use this command!",
     "unknown command": "I'm sorry, I couldn't find any commands named `%command_name%`!",
     "close command": "Maybe try and use `%command_name%` instead ?",
-    "unauthorized button": "You can’t use this button, sorry!",
+    "unauthorized button": "You can't use this button, sorry!",
     "message deleted": "Hey, it seems like your original message got deleted, making me unable to perform this action!",
     "not an user": "Seems like this ID doesn't belong to someone, are you sure you copied the correct id ?",
     "not in hypixel": "Seems like %name% never joined Hypixel",

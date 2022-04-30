@@ -24,8 +24,7 @@ public class ButtonInteraction {
         final MessageChannel messageChannel = event.getChannel();
 
         if (!event.getMember().getId().equals(ownerID)) {
-            messageChannel.sendMessage("<@"+event.getMember().getId()+">"+
-                    ConfigManager.getInstance().loadValue("replies", "unauthorized button")).queue();
+            event.reply(ConfigManager.getInstance().loadValue("replies", "unauthorized button")).setEphemeral(true).queue();
             Wally.getInstance().logger.log(LogLevel.INFO, event.getMember().getEffectiveName()+
                     " couldn't use the button ["+event.getButton().getLabel()+"]");
             return;

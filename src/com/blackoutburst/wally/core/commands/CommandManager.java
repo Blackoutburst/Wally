@@ -13,6 +13,7 @@ import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class CommandManager {
 
@@ -100,8 +101,10 @@ public class CommandManager {
 
         message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+'\n'+
                 ConfigManager.getInstance().loadValue("replies", "close command").replace("%command_name%", closest))
-                .setActionRow(Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest),
-                        Button.danger(commandSender.getMember().getId()+":"+UUID.randomUUID(), "No")).queue();
+                .setActionRow(
+                Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest),
+                Button.danger(commandSender.getMember().getId()+":"+UUID.randomUUID(), "No"))
+                .queue(r -> r.delete().queueAfter(2, TimeUnit.MINUTES));
 
     }
 

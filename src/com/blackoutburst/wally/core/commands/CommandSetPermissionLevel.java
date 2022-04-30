@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import javax.annotation.Nonnull;
 import java.io.FileReader;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class CommandSetPermissionLevel extends CommandExecutable{
 
@@ -80,9 +81,10 @@ public class CommandSetPermissionLevel extends CommandExecutable{
 
         if (updateUserPermissionLevel(channel, discordID, level)) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "user permission updated"))
-                    .setActionRow(Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes reload the users"),
-                            Button.danger(commandSender.getMember().getId()+":"+ UUID.randomUUID(), "No"))
-                    .queue();
+                    .setActionRow(
+                    Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes reload the users"),
+                    Button.danger(commandSender.getMember().getId()+":"+ UUID.randomUUID(), "No"))
+                    .queue(r -> r.delete().queueAfter(2, TimeUnit.MINUTES));
         }
     }
 }
