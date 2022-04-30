@@ -79,6 +79,7 @@
     "practice tracker location": "The practice tracker is located in %channel%",
     "not a number": "%num% is not a valid number",
     "answer life update": "Answer messages with choices will now last %seconds% seconds",
-    "answer life error": "There was an error while updating the answer life"
+    "answer life error": "There was an error while updating the answer life",
+    "no changelog": "The changelog file doesn't exist!"
   }
 }
