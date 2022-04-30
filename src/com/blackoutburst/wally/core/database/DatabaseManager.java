@@ -2,7 +2,6 @@ package com.blackoutburst.wally.core.database;
 
 import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.WallyUser;
-import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.utils.Utils;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.logger.LogLevel;

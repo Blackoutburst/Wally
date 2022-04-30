@@ -5,7 +5,6 @@ import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.core.request.Mojang;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -27,6 +26,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
+    /**
+     * Generate the skin preview in embed
+     *
+     * @param uuid the player uuid
+     * @param playerName the player name
+     * @return the skin embed
+     */
     public static EmbedBuilder generateSkin(@Nonnull String uuid, @Nonnull String playerName) {
         final long time = System.currentTimeMillis();
 

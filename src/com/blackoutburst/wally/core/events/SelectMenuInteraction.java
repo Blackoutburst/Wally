@@ -1,12 +1,9 @@
 package com.blackoutburst.wally.core.events;
 
 import com.blackoutburst.wally.core.Wally;
-import com.blackoutburst.wally.core.buttons.ButtonManager;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
-import com.blackoutburst.wally.core.selectmenu.SelectMenu;
 import com.blackoutburst.wally.core.selectmenu.SelectMenuManager;
-import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 
 import javax.annotation.Nonnull;

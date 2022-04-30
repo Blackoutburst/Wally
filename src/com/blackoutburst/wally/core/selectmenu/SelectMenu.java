@@ -1,6 +1,5 @@
 package com.blackoutburst.wally.core.selectmenu;
 
-import com.blackoutburst.wally.core.buttons.ButtonExecutable;
 
 import javax.annotation.Nonnull;
 
