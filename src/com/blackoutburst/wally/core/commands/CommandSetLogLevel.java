@@ -8,11 +8,8 @@ import com.blackoutburst.wally.utils.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class CommandSetLogLevel extends CommandExecutable{
   

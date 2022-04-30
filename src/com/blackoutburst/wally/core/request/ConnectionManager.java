@@ -1,7 +1,6 @@
 package com.blackoutburst.wally.core.request;
 
 import com.blackoutburst.wally.core.Wally;
-import com.blackoutburst.wally.core.logger.LogLevel;
 
 import javax.annotation.Nonnull;
 import java.io.BufferedReader;
