@@ -7,12 +7,17 @@ import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +25,39 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
+
+    /**
+     * Generate the changelog embed message
+     * @return the changelog embed
+     */
+    public static EmbedBuilder generateChangelog() {
+        try {
+            final String wallyURL = "https://github.com/Blackoutburst/Wally";
+            final String wallyPfp = "https://cdn.discordapp.com/avatars/806086240427966484/72a4fc1ef53f7b729b9b54184e631b88.png?size=128";
+            final BufferedReader reader = new BufferedReader(new FileReader("config/changelog.txt"));
+            final StringBuilder changelog = new StringBuilder();
+            final String title = reader.readLine();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                changelog.append(line).append("\n");
+            }
+            reader.close();
+
+            final EmbedBuilder embed = new EmbedBuilder()
+                    .setAuthor(String.valueOf(LocalDate.now()), wallyURL, wallyPfp)
+                    .setTitle(title, wallyURL)
+                    .addField("Changes", changelog.toString(), false)
+                    .addField("", "[GitHub](https://github.com/Blackoutburst/Wally)", true)
+                    .addField("", "[Patreon](https://www.patreon.com/Blackoutburst)", true)
+                    .setColor(new Color(71, 165, 255))
+                    .setFooter("Made with love by Blackoutburst", "https://www.blackoutburst.com/img/pfp.jpg");
+            return (embed);
+        } catch (Exception e) {
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+        }
+        return (null);
+    }
 
     /**
      * Send an error reply,

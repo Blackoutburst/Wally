@@ -80,6 +80,8 @@
     "not a number": "%num% is not a valid number",
     "answer life update": "Answer messages with choices will now last %seconds% seconds",
     "answer life error": "There was an error while updating the answer life",
-    "no changelog": "The changelog file doesn't exist!"
+    "no changelog": "The changelog file doesn't exist!",
+    "changelog error": "Something went wrong while generating the changelog!",
+    "no changelog channel": "The changelog channel doesn't exist please check the id inside the configuration file!"
   }
 }
