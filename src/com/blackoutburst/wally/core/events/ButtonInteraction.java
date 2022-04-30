@@ -21,7 +21,6 @@ public class ButtonInteraction {
         if (event.getButton().getId() == null) return;
 
         final String ownerID = event.getButton().getId().split(":")[0];
-        final MessageChannel messageChannel = event.getChannel();
 
         if (!event.getMember().getId().equals(ownerID)) {
             event.reply(ConfigManager.getInstance().loadValue("replies", "unauthorized button")).setEphemeral(true).queue();

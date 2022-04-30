@@ -1,15 +1,12 @@
 package com.blackoutburst.wally.core.database;
 
 import com.blackoutburst.wally.core.UserOption;
-import com.blackoutburst.wally.core.commands.PermissionLevel;
-import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.utils.Utils;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.stats.HypixelStats;
 import com.blackoutburst.wally.core.stats.PracticeStats;
 import com.google.gson.Gson;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -18,8 +15,6 @@ import java.io.Writer;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class DatabaseManager {
 

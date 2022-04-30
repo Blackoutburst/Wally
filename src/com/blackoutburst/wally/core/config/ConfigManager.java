@@ -1,16 +1,12 @@
 package com.blackoutburst.wally.core.config;
 
-import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.Wally;
 import com.google.gson.*;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.FileReader;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class ConfigManager {
 

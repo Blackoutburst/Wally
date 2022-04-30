@@ -1,9 +1,5 @@
 package com.blackoutburst.wally.core.logger;
 
-import com.blackoutburst.wally.core.Wally;
-import com.blackoutburst.wally.core.commands.PermissionLevel;
-import com.blackoutburst.wally.core.config.ConfigManager;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.slf4j.helpers.Util;
 
 import javax.annotation.Nonnull;
@@ -14,8 +10,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class Logger {
 

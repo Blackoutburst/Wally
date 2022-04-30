@@ -1,7 +1,6 @@
 package com.blackoutburst.wally.core.buttons;
 
 import com.blackoutburst.wally.core.Wally;
-import com.blackoutburst.wally.core.config.ConfigManager;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 import javax.annotation.Nonnull;
