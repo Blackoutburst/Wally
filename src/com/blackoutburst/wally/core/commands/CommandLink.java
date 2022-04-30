@@ -59,7 +59,7 @@ public class CommandLink extends CommandExecutable{
         final UserOption wallyProfile = new UserOption(PermissionLevel.MEMBER, playerUUID, guild.getId());
 
         if (!DatabaseManager.getInstance().createUserData(discordID, playerUUID, hypixelData, practiceData, wallyProfile)) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "link error")).queue();
+            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "link error"));
             return;
         }
 

@@ -67,6 +67,7 @@ public class CommandManager {
         register(PermissionLevel.ADMIN, new CommandChangelog(), "changelog");
         register(PermissionLevel.ADMIN, new CommandGetChangelog(), "getchangelog");
         register(PermissionLevel.ADMIN, new CommandSetChangelog(), "setchangelog");
+        register(PermissionLevel.STAFF, new CommandAddLinkedAlt(), "addlinkedalt");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }

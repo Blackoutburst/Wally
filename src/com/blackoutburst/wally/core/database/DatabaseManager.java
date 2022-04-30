@@ -170,6 +170,16 @@ public class DatabaseManager {
     }
 
     /**
+     * Check if a player is linked
+     * @param discordID the user discord id
+     * @return if the player is linked
+     */
+    public boolean isLinked(@Nonnull String discordID) {
+        final String rootFolderPath = "database/linked users/" + discordID;
+        return (new File(rootFolderPath).exists());
+    }
+
+    /**
      * Create user data folder
      *
      * @param discordID the user discord id
@@ -212,4 +222,24 @@ public class DatabaseManager {
                 generateWallyProfile(wallyProfile, rootFolderPath + "/data.json"));
     }
 
+    /**
+     * Create user data folder
+     *
+     * @param discordID the user discord id
+     * @param hypixelData the user Hypixel player data
+     * @return if the operation worked
+     */
+    public boolean createAltData(@Nonnull String discordID, @Nonnull String playerUUID, @Nonnull String hypixelData, @Nonnull String practiceData) {
+        final String rootFolderPath = "database/linked users/" + discordID;
+        final String playerFolderPath = rootFolderPath + "/accounts/" + playerUUID;
+        final File playerFolder = new File(playerFolderPath);
+
+        if (!playerFolder.mkdirs()) {
+            Wally.getInstance().logger.log(LogLevel.WARN, "Couldn't create the directory [" + playerFolderPath + "] aborting");
+            return false;
+        }
+
+        return (generateHypixelStats(hypixelData, playerFolderPath + "/hypixel.json") &&
+                generatePracticeStats(practiceData, playerFolderPath + "/practice.json"));
+    }
 }

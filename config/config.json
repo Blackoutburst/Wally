@@ -84,6 +84,9 @@
     "changelog error": "Something went wrong while generating the changelog!",
     "no changelog channel": "The changelog channel doesn't exist please check the id inside the configuration file!",
     "invalid changelog format": "The changelog must be a .txt file",
-    "changelog updated": "The changelog got updated successfully"
+    "changelog updated": "The changelog got updated successfully",
+    "not linked": "%user% is not linked! Please link it first using the `link` command",
+    "add linked alt error": "There was an error while adding this alt account!",
+    "add linked alt success": "%name% was added as %user% alt account"
   }
 }
