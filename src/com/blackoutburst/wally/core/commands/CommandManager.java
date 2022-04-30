@@ -104,7 +104,7 @@ public class CommandManager {
                 .setActionRow(
                 Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest),
                 Button.danger(commandSender.getMember().getId()+":"+UUID.randomUUID(), "No"))
-                .queue(r -> r.delete().queueAfter(2, TimeUnit.MINUTES));
+                .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
 
     }
 

@@ -1,7 +1,8 @@
 {
   "settings":
   {
-    "command prefix": "."
+    "command prefix": ".",
+    "answer lifetime": "120"
   },
   "servers":
   {
