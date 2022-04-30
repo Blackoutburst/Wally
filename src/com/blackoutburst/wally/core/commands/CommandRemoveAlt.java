@@ -10,9 +10,12 @@ import com.blackoutburst.wally.utils.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class CommandRemoveAlt extends CommandExecutable{
 
@@ -46,7 +49,11 @@ public class CommandRemoveAlt extends CommandExecutable{
         if (!folder.exists()) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "not an alt account")
                     .replace("%name%", playerName)
-                    .replace("%user%", "<@"+discordID+">")).queue();
+                    .replace("%user%", "<@"+discordID+">"))
+                    .setActionRow(
+                            Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run listaccounts"),
+                            Button.danger(commandSender.getMember().getId()+":"+ UUID.randomUUID(), "No"))
+                    .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
             return;
         }
 

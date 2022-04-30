@@ -69,6 +69,7 @@ public class CommandManager {
         register(PermissionLevel.ADMIN, new CommandSetChangelog(), "setchangelog");
         register(PermissionLevel.STAFF, new CommandAddAlt(), "addalt");
         register(PermissionLevel.STAFF, new CommandRemoveAlt(), "removealt");
+        register(PermissionLevel.STAFF, new CommandListAccount(), "listaccount", "listacc", "listaccounts", "listaccs");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }

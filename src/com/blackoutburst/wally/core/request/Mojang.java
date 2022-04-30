@@ -30,4 +30,26 @@ public class Mojang {
             return (null);
         }
     }
+
+    /**
+     * Get a player username using his UUID
+     *
+     * @param uuid the player name
+     * @return the player name
+     */
+    public static String getPlayerName(@Nonnull String uuid) {
+        try {
+            final String result = ConnectionManager.readFromURL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid);
+
+            final Gson gson = new Gson();
+            final JsonObject object = gson.fromJson(result, JsonObject.class);
+
+            Wally.getInstance().logger.log(LogLevel.INFO, "New Mojang request sent for [" + uuid + "]");
+
+            return (object.get("name").getAsString());
+        } catch (Exception e) {
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+            return (null);
+        }
+    }
 }
