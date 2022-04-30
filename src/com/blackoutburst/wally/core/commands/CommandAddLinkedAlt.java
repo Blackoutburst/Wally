@@ -1,6 +1,5 @@
 package com.blackoutburst.wally.core.commands;
 
-import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
@@ -18,14 +17,15 @@ import javax.annotation.Nonnull;
 
 public class CommandAddLinkedAlt extends CommandExecutable{
 
-    @Override
-    protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
-        if (args.length != 2)  {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
-                    .replace("%usage%", CommandManager.getPrefix()+"addlinkedalt [discordID] [Minecraft UUID]")).queue();
-            return;
-        }
-
+    /**
+     * Get all data and add the alt account
+     * @param commandSender the command sender
+     * @param args the command args
+     * @param guild the server in which the command was used
+     * @param channel the message channel
+     * @param message the message
+     */
+    private void addAlt(@Nonnull WallyUser commandSender, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
         if (discordID == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
@@ -69,5 +69,16 @@ public class CommandAddLinkedAlt extends CommandExecutable{
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "add linked alt success").replace("%name%", playerName)
                 .replace("%user%", "<@"+discordID+">")).queue();
         Wally.getInstance().logger.log(LogLevel.INFO, playerName + " was added as alt to " + discordID);
+    }
+
+    @Override
+    protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
+        if (args.length != 2)  {
+            message.reply(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
+                    .replace("%usage%", CommandManager.getPrefix()+"addlinkedalt [discordID] [Minecraft UUID]")).queue();
+            return;
+        }
+
+        addAlt(commandSender, args, guild, channel, message);
     }
 }
