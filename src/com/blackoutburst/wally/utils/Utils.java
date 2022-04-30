@@ -27,11 +27,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
-    public static EmbedBuilder generateSkin(@Nonnull String uuid) {
+    public static EmbedBuilder generateSkin(@Nonnull String uuid, @Nonnull String playerName) {
         final long time = System.currentTimeMillis();
 
         return new EmbedBuilder()
-                .setAuthor(Mojang.getPlayerName(uuid), "https://fr.namemc.com/profile/"+uuid, "https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
+                .setAuthor(playerName, "https://fr.namemc.com/profile/"+uuid, "https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
                 .setTitle("NameMC", "https://fr.namemc.com/profile/"+uuid)
                 .setColor(new Color(71, 165, 255))
                 .setImage("https://visage.surgeplay.com/full/512/" + uuid + "?&time=" + time);

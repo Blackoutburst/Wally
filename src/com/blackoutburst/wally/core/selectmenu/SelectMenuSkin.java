@@ -10,7 +10,8 @@ public class SelectMenuSkin extends SelectMenuExecutable {
     @Override
     protected void onChange(@NotNull SelectMenuInteractionEvent event) {
         final String uuid = event.getSelectedOptions().get(0).getValue();
-        final EmbedBuilder embed = Utils.generateSkin(uuid);
+        final String playerName = event.getSelectedOptions().get(0).getLabel();
+        final EmbedBuilder embed = Utils.generateSkin(uuid, playerName);
 
         event.editMessageEmbeds(embed.build()).queue();
     }

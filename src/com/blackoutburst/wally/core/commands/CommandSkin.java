@@ -20,7 +20,8 @@ public class CommandSkin extends CommandExecutable{
 
     private void createMenu(@Nonnull WallyUser commandSender, @Nonnull String uuid, @Nonnull Message message) {
         final boolean linked = DatabaseManager.getInstance().isLinkedUUID(uuid);
-        final EmbedBuilder embed = Utils.generateSkin(uuid);
+        final String playerName = Mojang.getPlayerName(uuid);
+        final EmbedBuilder embed = Utils.generateSkin(uuid, playerName);
 
         if (!linked) {
             message.replyEmbeds(embed.build()).queue();
