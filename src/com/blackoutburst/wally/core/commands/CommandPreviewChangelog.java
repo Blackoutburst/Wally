@@ -9,13 +9,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 
 public class CommandPreviewChangelog extends CommandExecutable{
 
