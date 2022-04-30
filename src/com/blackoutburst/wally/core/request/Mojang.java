@@ -1,11 +1,16 @@
 package com.blackoutburst.wally.core.request;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.commands.PermissionLevel;
+import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class Mojang {
 
@@ -26,7 +31,8 @@ public class Mojang {
 
             return (object.get("id").getAsString());
         } catch (Exception e) {
-            Wally.getInstance().logger.log(LogLevel.ERROR, e.getMessage());
+            for (StackTraceElement stack : e.getStackTrace())
+                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
             return (null);
         }
     }

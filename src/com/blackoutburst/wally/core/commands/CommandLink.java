@@ -28,25 +28,25 @@ public class CommandLink extends CommandExecutable{
 
         final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
         if (discordID == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
             return;
         }
 
         final String playerName = Utils.getNonDiscordIDArgFromTwoArgs(guild, args);
         if (playerName == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "could not get name")).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "could not get name")).queue();
             return;
         }
 
         final String playerUUID = Mojang.getPlayerUUID(playerName);
         if (playerUUID == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in mojang").replace("%name%", playerName)).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "not in mojang").replace("%name%", playerName)).queue();
             return;
         }
 
         final String hypixelData = Hypixel.getPlayerStats(playerUUID);
         if (hypixelData == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not in hypixel").replace("%name%", playerName)).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "not in hypixel").replace("%name%", playerName)).queue();
             return;
         }
 
@@ -59,7 +59,7 @@ public class CommandLink extends CommandExecutable{
         final UserOption wallyProfile = new UserOption(PermissionLevel.MEMBER, playerUUID, guild.getId());
 
         if (!DatabaseManager.getInstance().createUserData(discordID, playerUUID, hypixelData, practiceData, wallyProfile)) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link error")).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "link error")).queue();
             return;
         }
 

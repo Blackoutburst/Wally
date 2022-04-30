@@ -10,11 +10,14 @@ import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class CommandSetPracticeTracker extends CommandExecutable {
 
@@ -31,9 +34,17 @@ public class CommandSetPracticeTracker extends CommandExecutable {
             writer.close();
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "practice tracker channel updated").replace("%channel%", "<#"+channel.getId()+">")).queue();
         } catch (Exception e) {
-            e.printStackTrace();
-            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "channel update error")).queue();
+            for (StackTraceElement stack : e.getStackTrace())
+                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+
+            if (commandSender.getPermissionLevel().equals(PermissionLevel.ADMIN)) {
+                message.reply(ConfigManager.getInstance().loadValue("replies", "channel update error")).setActionRow(
+                                Button.primary(commandSender.getMember().getId() + ":" + message.getId(), "Send me the log"),
+                                Button.danger(commandSender.getMember().getId() + ":" + UUID.randomUUID(), "Nevermind"))
+                        .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
+            } else {
+                message.reply(ConfigManager.getInstance().loadValue("replies", "channel update error")).queue();
+            }
         }
     }
 }

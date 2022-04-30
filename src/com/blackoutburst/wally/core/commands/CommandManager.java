@@ -61,6 +61,7 @@ public class CommandManager {
         register(PermissionLevel.ADMIN, new CommandShowTracker(), "showtracker");
         register(PermissionLevel.ADMIN, new CommandSetPracticeTracker(), "setpracticetracker");
         register(PermissionLevel.ADMIN, new CommandShowPracticeTracker(), "showpracticetracker");
+        register(PermissionLevel.ADMIN, new CommandSetAnswerLifetime(), "setanswerlifetime", "setanswerlife");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }
@@ -105,7 +106,6 @@ public class CommandManager {
                 Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run "+closest),
                 Button.danger(commandSender.getMember().getId()+":"+UUID.randomUUID(), "No"))
                 .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
-
     }
 
     /**

@@ -31,8 +31,9 @@ public class ButtonManager {
      */
     private ButtonManager() {
         register(new ButtonCommand(), "Yes run");
-        register(new ButtonCancel(), "No");
+        register(new ButtonCancel(), "No", "Nevermind");
         register(new ButtonReloadUsers(), "Yes reload the users");
+        register(new ButtonSendLog(), "Send me the log");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Button registered!");
     }
@@ -41,10 +42,10 @@ public class ButtonManager {
      * Register new button
      *
      * @param executable the button executable
-     * @param label the button label
+     * @param labels the button label
      */
-    private void register(@Nonnull ButtonExecutable executable, @Nonnull String label) {
-        buttons.add(new Button(executable, label));
+    private void register(@Nonnull ButtonExecutable executable, @Nonnull String... labels) {
+        buttons.add(new Button(executable, labels));
     }
 
     /**
@@ -55,9 +56,11 @@ public class ButtonManager {
         final String label = event.getButton().getLabel();
 
         for (Button b : buttons) {
-            if (label.startsWith(b.getLabel())) {
-                b.getExecutable().onClick(event);
-                Wally.getInstance().logger.log(LogLevel.INFO, event.getMember().getEffectiveName()+" clicked ["+label+"]");
+            for (String l : b.getLabels()) {
+                if (label.startsWith(l)) {
+                    b.getExecutable().onClick(event);
+                    Wally.getInstance().logger.log(LogLevel.INFO, event.getMember().getEffectiveName() + " clicked [" + label + "]");
+                }
             }
         }
     }

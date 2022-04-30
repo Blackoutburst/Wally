@@ -25,12 +25,12 @@ public class CommandUnlink extends CommandExecutable{
         final File folder = new File("database/linked users/" + args[0]);
 
         if (!folder.exists()) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "unlink not link")).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "unlink not link")).queue();
             return;
         }
 
         if (!DatabaseManager.getInstance().cleanFolder(folder)) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "unlink error")).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "unlink error")).queue();
             return;
         }
 

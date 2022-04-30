@@ -24,7 +24,7 @@ public class CommandSetConfig extends CommandExecutable{
             file.downloadToFile(new File("config/config.json"));
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "config updated")).queue();
         } else {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not a json")).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "not a json")).queue();
         }
     }
 }

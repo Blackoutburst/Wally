@@ -6,11 +6,11 @@ public class Button {
 
     private final ButtonExecutable executable;
 
-    private final String label;
+    private final String[] labels;
 
-    public Button(@Nonnull ButtonExecutable executable, @Nonnull String label) {
+    public Button(@Nonnull ButtonExecutable executable, @Nonnull String... labels) {
         this.executable = executable;
-        this.label = label;
+        this.labels = labels;
     }
 
     /**
@@ -27,8 +27,8 @@ public class Button {
      *
      * @return the button label
      */
-    public @Nonnull String getLabel() {
-        return label;
+    public @Nonnull String[] getLabels() {
+        return labels;
     }
 
 }

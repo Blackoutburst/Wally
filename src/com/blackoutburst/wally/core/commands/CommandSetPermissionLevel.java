@@ -59,13 +59,13 @@ public class CommandSetPermissionLevel extends CommandExecutable{
 
         final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
         if (discordID == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
             return;
         }
 
         final String permissionLevel = Utils.getNonDiscordIDArgFromTwoArgs(guild, args);
         if (permissionLevel == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "permission level is null")).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "permission level is null")).queue();
             return;
         }
 
@@ -74,8 +74,17 @@ public class CommandSetPermissionLevel extends CommandExecutable{
         try {
             level = PermissionLevel.valueOf(permissionLevel.toUpperCase());
         } catch (Exception e) {
-            Wally.getInstance().logger.log(LogLevel.WARN, e.getMessage());
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not a permission level").replace("%level%", permissionLevel)).queue();
+            for (StackTraceElement stack : e.getStackTrace())
+                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+
+            if (commandSender.getPermissionLevel().equals(PermissionLevel.ADMIN)) {
+                message.reply(ConfigManager.getInstance().loadValue("replies", "not a permission level").replace("%level%", permissionLevel)).setActionRow(
+                                Button.primary(commandSender.getMember().getId() + ":" + message.getId(), "Send me the log"),
+                                Button.danger(commandSender.getMember().getId() + ":" + UUID.randomUUID(), "Nevermind"))
+                        .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
+            } else {
+                message.reply(ConfigManager.getInstance().loadValue("replies", "not a permission level").replace("%level%", permissionLevel)).queue();
+            }
             return;
         }
 

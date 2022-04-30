@@ -76,6 +76,9 @@
     "practice tracker channel updated": "The practice tracker is now set inside %channel%",
     "channel update error": "There was an unknown error while updating this channel",
     "tracker location": "The tracker is located in %channel%",
-    "practice tracker location": "The practice tracker is located in %channel%"
+    "practice tracker location": "The practice tracker is located in %channel%",
+    "not a number": "%num% is not a valid number",
+    "answer life update": "Answer messages with choices will now last %seconds% seconds",
+    "answer life error": "There was an error while updating the answer life"
   }
 }

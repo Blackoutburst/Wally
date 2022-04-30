@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import javax.annotation.Nonnull;
 import java.io.File;
 
-public class ButtonReloadUsers extends ButtonExecutable{
+public class ButtonReloadUsers extends ButtonExecutable {
 
     @Override
     protected void onClick(@Nonnull ButtonInteractionEvent event) {

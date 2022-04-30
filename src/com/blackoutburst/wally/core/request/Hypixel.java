@@ -21,7 +21,8 @@ public class Hypixel {
             Wally.getInstance().logger.log(LogLevel.INFO, "New Hypixel request sent for [" + uuid + "]");
             return (result);
         } catch (Exception e) {
-            Wally.getInstance().logger.log(LogLevel.ERROR, e.getMessage());
+            for (StackTraceElement stack : e.getStackTrace())
+                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
             return (null);
         }
     }
