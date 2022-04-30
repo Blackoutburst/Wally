@@ -18,7 +18,7 @@ public class CommandGetChangelog extends CommandExecutable{
             message.reply(ConfigManager.getInstance().loadValue("replies", "no changelog")).queue();
             return;
         }
-        
+
         channel.sendFile(new File("config/changelog.txt")).queue();
     }
 }

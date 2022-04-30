@@ -82,6 +82,8 @@
     "answer life error": "There was an error while updating the answer life",
     "no changelog": "The changelog file doesn't exist!",
     "changelog error": "Something went wrong while generating the changelog!",
-    "no changelog channel": "The changelog channel doesn't exist please check the id inside the configuration file!"
+    "no changelog channel": "The changelog channel doesn't exist please check the id inside the configuration file!",
+    "invalid changelog format": "The changelog must be a .txt file",
+    "changelog updated": "The changelog got updated successfully"
   }
 }
