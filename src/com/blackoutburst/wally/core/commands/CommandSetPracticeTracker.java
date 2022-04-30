@@ -34,8 +34,7 @@ public class CommandSetPracticeTracker extends CommandExecutable {
             writer.close();
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "practice tracker channel updated").replace("%channel%", "<#"+channel.getId()+">")).queue();
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
 
             if (commandSender.getPermissionLevel().equals(PermissionLevel.ADMIN)) {
                 message.reply(ConfigManager.getInstance().loadValue("replies", "channel update error")).setActionRow(

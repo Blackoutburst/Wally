@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.core.logger;
 
+import com.blackoutburst.wally.core.Wally;
 import org.slf4j.helpers.Util;
 
 import javax.annotation.Nonnull;
@@ -46,6 +47,15 @@ public class Logger {
     }
 
     /**
+     * Log a full stacktrace
+     * @param stacktrace the stacktrace
+     */
+    public void logStackTrace(@Nonnull StackTraceElement[] stacktrace) {
+        for (StackTraceElement stack : stacktrace)
+            log(LogLevel.ERROR, stack.toString());
+    }
+
+    /**
      * Create and initialize the logger
      * Create the log folder if missing and generate a new log file
      */
@@ -67,8 +77,7 @@ public class Logger {
                 log(LogLevel.WARN, "Logs file creation failed!");
             }
         } catch (IOException e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
     }
 

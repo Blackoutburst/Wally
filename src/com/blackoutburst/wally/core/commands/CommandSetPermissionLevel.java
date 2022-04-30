@@ -74,8 +74,7 @@ public class CommandSetPermissionLevel extends CommandExecutable{
         try {
             level = PermissionLevel.valueOf(permissionLevel.toUpperCase());
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
                 message.reply(ConfigManager.getInstance().loadValue("replies", "not a permission level").replace("%level%", permissionLevel)).queue();
             return;
         }

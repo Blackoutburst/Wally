@@ -28,8 +28,7 @@ public class CommandSetLogLevel extends CommandExecutable{
         try {
             level = LogLevel.valueOf(args[0].toUpperCase());
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
 
             if (commandSender.getPermissionLevel().equals(PermissionLevel.ADMIN)) {
                 message.reply(ConfigManager.getInstance().loadValue("replies", "not a log level").replace("%level%", args[0])).setActionRow(

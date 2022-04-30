@@ -54,8 +54,7 @@ public class ConfigManager {
 
             return (object.getAsJsonObject(key).get(value).getAsString());
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
             return (null);
         }
     }

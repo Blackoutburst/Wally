@@ -34,11 +34,10 @@ public class CommandSetAnswerLifetime extends CommandExecutable {
         try {
             value = Long.parseLong(args[0]);
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
 
-                message.reply(ConfigManager.getInstance().loadValue("replies", "not a number")
-                        .replace("%num%", args[0])).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "not a number")
+                    .replace("%num%", args[0])).queue();
             return;
         }
 
@@ -54,8 +53,7 @@ public class CommandSetAnswerLifetime extends CommandExecutable {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "answer life update")
             .replace("%seconds%", args[0])).queue();
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
 
             if (commandSender.getPermissionLevel().equals(PermissionLevel.ADMIN)) {
                 message.reply(ConfigManager.getInstance().loadValue("replies", "answer life error")).setActionRow(

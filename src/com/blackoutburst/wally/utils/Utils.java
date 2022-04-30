@@ -28,15 +28,13 @@ public class Utils {
             if (guild.getMemberById(args[0]) != null)
                 return (args[0]);
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
         try {
             if (guild.getMemberById(args[1]) != null)
                 return (args[1]);
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
         return (null);
     }
@@ -53,15 +51,13 @@ public class Utils {
             if (guild.getMemberById(args[0]) != null)
                 return (args[1]);
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
         try {
             if (guild.getMemberById(args[1]) != null)
                 return (args[0]);
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
         return (null);
     }
@@ -138,8 +134,7 @@ public class Utils {
 
             return (result == null ? defaultValue : result);
         } catch (Exception e) {
-            for (StackTraceElement stack : e.getStackTrace())
-                Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
             return (defaultValue);
         }
     }
