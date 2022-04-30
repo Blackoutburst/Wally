@@ -42,7 +42,7 @@ public class CommandRemoveAlt extends CommandExecutable{
         }
 
         final String playerUUID = Mojang.getPlayerUUID(playerName);
-        final File folder = new File("database/linked users/" + discordID + "accounts" + playerUUID);
+        final File folder = new File("database/linked users/" + discordID + "/accounts/" + playerUUID);
         if (!folder.exists()) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "not an alt account")
                     .replace("%name%", playerName)
