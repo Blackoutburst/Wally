@@ -5,6 +5,7 @@ import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.database.DatabaseManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
+import com.blackoutburst.wally.utils.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -24,13 +25,13 @@ public class CommandUnlink extends CommandExecutable{
 
         final File folder = new File("database/linked users/" + args[0]);
 
-        if (!folder.exists()) {
+        if (!DatabaseManager.getInstance().isLinked(args[0])) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "unlink not link")).queue();
             return;
         }
 
         if (!DatabaseManager.getInstance().cleanFolder(folder)) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "unlink error")).queue();
+            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "unlink error"));
             return;
         }
 
