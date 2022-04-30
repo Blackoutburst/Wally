@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
+import com.blackoutburst.wally.utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -54,15 +55,7 @@ public class CommandSetAnswerLifetime extends CommandExecutable {
             .replace("%seconds%", args[0])).queue();
         } catch (Exception e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
-
-            if (commandSender.getPermissionLevel().equals(PermissionLevel.ADMIN)) {
-                message.reply(ConfigManager.getInstance().loadValue("replies", "answer life error")).setActionRow(
-                                Button.primary(commandSender.getMember().getId() + ":" + message.getId(), "Send me the log"),
-                                Button.danger(commandSender.getMember().getId() + ":" + UUID.randomUUID(), "Nevermind"))
-                        .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
-            } else {
-                message.reply(ConfigManager.getInstance().loadValue("replies", "answer life error")).queue();
-            }
+            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "answer life error"));
         }
     }
 }

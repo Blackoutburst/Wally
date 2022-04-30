@@ -1,20 +1,37 @@
 package com.blackoutburst.wally.utils;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
+import com.blackoutburst.wally.core.commands.PermissionLevel;
+import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class Utils {
+
+    public static void sendLogButtonReply(@Nonnull WallyUser commandSender, @Nonnull Message message, @Nonnull String text) {
+        if (commandSender.getPermissionLevel().equals(PermissionLevel.ADMIN)) {
+            message.reply(text).setActionRow(
+                Button.primary(commandSender.getMember().getId() + ":" + message.getId(), "Send me the log"),
+                Button.danger(commandSender.getMember().getId() + ":" + UUID.randomUUID(), "Nevermind"))
+            .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
+        } else {
+            message.reply(text).queue();
+        }
+    }
 
     /**
      * Return the discord ID from the command args

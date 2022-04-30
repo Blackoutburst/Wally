@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
+import com.blackoutburst.wally.utils.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -29,15 +30,7 @@ public class CommandSetLogLevel extends CommandExecutable{
             level = LogLevel.valueOf(args[0].toUpperCase());
         } catch (Exception e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
-
-            if (commandSender.getPermissionLevel().equals(PermissionLevel.ADMIN)) {
-                message.reply(ConfigManager.getInstance().loadValue("replies", "not a log level").replace("%level%", args[0])).setActionRow(
-                                Button.primary(commandSender.getMember().getId() + ":" + message.getId(), "Send me the log"),
-                                Button.danger(commandSender.getMember().getId() + ":" + UUID.randomUUID(), "Nevermind"))
-                        .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
-            } else {
-                message.reply(ConfigManager.getInstance().loadValue("replies", "not a log level").replace("%level%", args[0])).queue();
-            }
+            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "not a log level").replace("%level%", args[0]));
 
             return;
         }
