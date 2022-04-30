@@ -54,6 +54,7 @@
     "not in hypixel": "Seems like %name% never joined Hypixel",
     "could not get name": "Sorry I couldn't determine the user name!",
     "not in mojang": "Sorry, %name% is not a Minecraft player",
+    "unknown player": "Sorry, I couldn't find any player",
     "link error": "Something went wrong while linking this user, check the log for more information!",
     "link success": "%name%, was linked successfully!",
     "unlink not link": "This user is not linked!",
@@ -91,6 +92,7 @@
     "removed alt error": "There was an error while removing this alt account!",
     "remove alt success": "%name% was removed from %user% alt account list",
     "not an alt account": "%name% is not %user% alt account use `listaccounts` to check this user accounts",
-    "account list error": "Something went wrong while retrieving %user% account list"
+    "account list error": "Something went wrong while retrieving %user% account list",
+    "unauthorized menu": "You can't use this menu, sorry!"
   }
 }

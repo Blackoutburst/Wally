@@ -1,6 +1,8 @@
 package com.blackoutburst.wally.core.database;
 
 import com.blackoutburst.wally.core.UserOption;
+import com.blackoutburst.wally.core.WallyUser;
+import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.utils.Utils;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.logger.LogLevel;
@@ -10,6 +12,7 @@ import com.google.gson.Gson;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.text.DecimalFormat;
@@ -170,6 +173,27 @@ public class DatabaseManager {
     }
 
     /**
+     * Return wally user data using a discord ID
+     * @param discordID
+     * @return
+     */
+    public UserOption getWallyUserData(@Nonnull String discordID) {
+        final Gson gson = new Gson();
+
+        try {
+            final FileReader reader = new FileReader("database/linked users/" + discordID + "/data.json");
+            final UserOption data = gson.fromJson(reader, UserOption.class);
+
+            reader.close();
+
+            return (data);
+        } catch (Exception e) {
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+            return (null);
+        }
+    }
+
+    /**
      * Check if a player is linked
      * @param discordID the user discord id
      * @return if the player is linked
@@ -177,6 +201,38 @@ public class DatabaseManager {
     public boolean isLinked(@Nonnull String discordID) {
         final String rootFolderPath = "database/linked users/" + discordID;
         return (new File(rootFolderPath).exists());
+    }
+
+    /**
+     * Check if a player is linked
+     * @param uuid the user discord id
+     * @return if the player is linked
+     */
+    public boolean isLinkedUUID(@Nonnull String uuid) {
+        boolean linked = false;
+
+        for (WallyUser w : Wally.getInstance().users) {
+            if (w.getOptions().getMainAccountUUID().equals(uuid)) {
+                linked = true;
+                break;
+            }
+        }
+
+        return linked;
+    }
+
+    /**
+     * Check if a player is linked
+     * @param uuid the user discord id
+     * @return if the player is linked
+     */
+    public WallyUser getWallyUserFromUUID(@Nonnull String uuid) {
+        for (WallyUser w : Wally.getInstance().users) {
+            if (w.getOptions().getMainAccountUUID().equals(uuid)) {
+                return (w);
+            }
+        }
+        return null;
     }
 
     /**

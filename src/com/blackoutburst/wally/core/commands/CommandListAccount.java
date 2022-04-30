@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
+import com.blackoutburst.wally.core.database.DatabaseManager;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.utils.Utils;
 import com.google.gson.Gson;
@@ -27,15 +28,9 @@ public class CommandListAccount extends CommandExecutable{
         final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
         final File folder = new File("database/linked users/" + discordID + "/accounts/");
         final String[] entries = folder.list();
-        final Gson gson = new Gson();
+        final UserOption data = DatabaseManager.getInstance().getWallyUserData(discordID);
 
-        UserOption data;
-        try {
-            final FileReader reader = new FileReader("database/linked users/" + discordID + "/data.json");
-            data = gson.fromJson(reader, UserOption.class);
-            reader.close();
-        } catch (Exception e) {
-            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+        if (data == null) {
             Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "account list error"));
             return;
         }

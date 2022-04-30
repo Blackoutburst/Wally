@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
@@ -50,6 +51,13 @@ public class EventListener extends ListenerAdapter {
         if (event.getMember() == null) return;
 
         ButtonInteraction.run(event);
+    }
+
+    @Override
+    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent event) {
+        if (event.getMember() == null) return;
+
+        SelectMenuInteraction.run(event);
     }
 
     @Override

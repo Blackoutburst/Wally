@@ -5,6 +5,7 @@ import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
+import com.blackoutburst.wally.core.request.Mojang;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -26,6 +27,16 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
+    public static EmbedBuilder generateSkin(@Nonnull String uuid) {
+        final long time = System.currentTimeMillis();
+
+        return new EmbedBuilder()
+                .setAuthor(Mojang.getPlayerName(uuid), "https://fr.namemc.com/profile/"+uuid, "https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
+                .setTitle("NameMC", "https://fr.namemc.com/profile/"+uuid)
+                .setColor(new Color(71, 165, 255))
+                .setImage("https://visage.surgeplay.com/full/512/" + uuid + "?&time=" + time);
+    }
+
     /**
      * Generate the changelog embed message
      * @return the changelog embed
@@ -44,15 +55,14 @@ public class Utils {
             }
             reader.close();
 
-            final EmbedBuilder embed = new EmbedBuilder()
+            return (new EmbedBuilder()
                     .setAuthor(String.valueOf(LocalDate.now()), wallyURL, wallyPfp)
                     .setTitle(title, wallyURL)
                     .addField("Changes", changelog.toString(), false)
                     .addField("", "[GitHub](https://github.com/Blackoutburst/Wally)", true)
                     .addField("", "[Patreon](https://www.patreon.com/Blackoutburst)", true)
                     .setColor(new Color(71, 165, 255))
-                    .setFooter("Made with love by Blackoutburst", "https://www.blackoutburst.com/img/pfp.jpg");
-            return (embed);
+                    .setFooter("Made with love by Blackoutburst", "https://www.blackoutburst.com/img/pfp.jpg"));
         } catch (Exception e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }

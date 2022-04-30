@@ -35,6 +35,15 @@ public class WallyUser {
     }
 
     /**
+     * Get user options
+     *
+     * @return user options
+     */
+    public UserOption getOptions() {
+        return options;
+    }
+
+    /**
      * Get a new Wally user from a discord Member
      * If there is no user a default user will get returned instead
      *
