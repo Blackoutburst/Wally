@@ -37,16 +37,8 @@ public class CommandSetAnswerLifetime extends CommandExecutable {
             for (StackTraceElement stack : e.getStackTrace())
                 Wally.getInstance().logger.log(LogLevel.ERROR, stack.toString());
 
-            if (commandSender.getPermissionLevel().equals(PermissionLevel.ADMIN)) {
-                message.reply(ConfigManager.getInstance().loadValue("replies", "not a number")
-                                .replace("%num%", args[0])).setActionRow(
-                                Button.primary(commandSender.getMember().getId() + ":" + message.getId(), "Send me the log"),
-                                Button.danger(commandSender.getMember().getId() + ":" + UUID.randomUUID(), "Nevermind"))
-                        .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
-            } else {
                 message.reply(ConfigManager.getInstance().loadValue("replies", "not a number")
                         .replace("%num%", args[0])).queue();
-            }
             return;
         }
 

@@ -121,11 +121,11 @@ public class CommandManager {
             for (String label : command.getLabels()) {
                 if (commandName.equalsIgnoreCase(label)) {
                     if (commandSender.getPermissionLevel().getWeight() >= command.getPermissionLevel().getWeight()) {
-                        command.getExecutable().onCommand(commandSender, commandName, args, guild, channel, message);
                         Wally.getInstance().logger.log(LogLevel.INFO, commandSender.getMember().getEffectiveName()+" used ["+label+"]");
+                        command.getExecutable().onCommand(commandSender, commandName, args, guild, channel, message);
                     } else {
-                        message.reply(ConfigManager.getInstance().loadValue("replies", "missing permission")).queue();
                         Wally.getInstance().logger.log(LogLevel.INFO, commandSender.getMember().getEffectiveName()+" miss permission to use ["+label+"] U:"+commandSender.getPermissionLevel().getWeight()+"/C:"+command.getPermissionLevel().getWeight());
+                        message.reply(ConfigManager.getInstance().loadValue("replies", "missing permission")).queue();
                     }
                     return;
                 }

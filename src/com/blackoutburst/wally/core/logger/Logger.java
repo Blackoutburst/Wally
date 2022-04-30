@@ -94,9 +94,10 @@ public class Logger {
             .append("] [").append(dateFormat.format(date))
             .append("] [").append(className)
             .append("/").append(Thread.currentThread().getName())
-            .append("]: ").append(message);
+            .append("]: ").append(message)
+            .append(System.lineSeparator());
 
-        System.out.println(logBuilder);
+        System.out.print(logBuilder);
 
         try {
             Files.write(Paths.get(currentLogFile), logBuilder.toString().getBytes(), StandardOpenOption.APPEND);

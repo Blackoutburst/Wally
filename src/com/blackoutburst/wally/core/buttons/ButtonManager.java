@@ -58,8 +58,8 @@ public class ButtonManager {
         for (Button b : buttons) {
             for (String l : b.getLabels()) {
                 if (label.startsWith(l)) {
-                    b.getExecutable().onClick(event);
                     Wally.getInstance().logger.log(LogLevel.INFO, event.getMember().getEffectiveName() + " clicked [" + label + "]");
+                    b.getExecutable().onClick(event);
                 }
             }
         }
