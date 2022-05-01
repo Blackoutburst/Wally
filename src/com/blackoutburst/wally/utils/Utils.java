@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,11 +28,29 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class Utils {
 
     /**
-     * Exclude certain account from the leaderbaord by writting their
+     * Remove the leaderboard exclusion by removing the player uuid from the exclude file
+     *
+     * @param uuid the player uuid that must be removed from the file
+     */
+    public static void removeExclusion(@Nonnull String uuid) {
+        try {
+            final File file = new File("config/excluded.txt");
+            final List<String> out = Files.lines(file.toPath())
+                    .filter(line -> !line.contains(uuid))
+                    .collect(Collectors.toList());
+            Files.write(file.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+        }
+    }
+
+    /**
+     * Exclude certain account from the leaderboard by writing their
      * uuid into a special file
      *
      * Automatically create the file if it doesn't exist

@@ -96,6 +96,7 @@
     "unauthorized menu": "You can't use this menu, sorry!",
     "no exclude file": "The exclusion file doesn't exist!",
     "exclude error": "Something went wrong while generating the excluded account list!",
-    "exclude success": "%name% was added to the excluded account list"
+    "exclude success": "%name% was added to the excluded account list",
+    "remove exclude success": "%name% was removed from the excluded account list"
   }
 }
