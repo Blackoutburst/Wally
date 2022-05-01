@@ -62,6 +62,7 @@ public class CommandRemoveAlt extends CommandExecutable{
             return;
         }
 
+        Utils.removeExclusion(playerUUID);
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "remove alt success")
                 .replace("%name%", playerName)
                 .replace("%user%", "<@"+discordID+">")).queue();
