@@ -4,7 +4,6 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.utils.Utils;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -12,7 +11,6 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import javax.annotation.Nonnull;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class CommandExcludeList extends CommandExecutable{
