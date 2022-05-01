@@ -74,6 +74,7 @@ public class CommandManager {
         register(PermissionLevel.STAFF, new CommandExcludeFromLeaderboard(), "excludefromleaderboard", "excludefromlb", "excludelb", "elb");
         register(PermissionLevel.STAFF, new CommandAddToLeaderboard(), "addtoleaderboard", "addtolb", "addlb", "alb");
         register(PermissionLevel.STAFF, new CommandExcludeList(), "excludelist", "elist");
+        register(PermissionLevel.ADMIN, new CommandLogLevel(), "loglevel");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }

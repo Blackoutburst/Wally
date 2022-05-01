@@ -36,6 +36,14 @@ public class Logger {
     }
 
     /**
+     * Get the internal log level
+     * @return the log level
+     */
+    public LogLevel getInternalLogLevel() {
+        return internalLogLevel;
+    }
+
+    /**
      * Get the logger instance
      * @return the logger
      */
