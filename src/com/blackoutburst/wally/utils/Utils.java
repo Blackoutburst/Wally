@@ -17,6 +17,10 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +29,21 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
+
+    /**
+     * Exclude certain account from the leaderbaord by writting their
+     * uuid into a special file
+     *
+     * Automatically create the file if it doesn't exist
+     * @param uuid the player uuid that must be added to the file
+     */
+    public static void excludeFromLb(@Nonnull String uuid) {
+        try {
+            Files.write(Paths.get("config/excluded.txt"), uuid.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+        }
+    }
 
     /**
      * Generate the skin preview in embed

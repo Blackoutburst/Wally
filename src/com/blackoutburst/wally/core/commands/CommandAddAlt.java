@@ -66,6 +66,7 @@ public class CommandAddAlt extends CommandExecutable{
             return;
         }
 
+        Utils.excludeFromLb(playerUUID);
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "add alt success").replace("%name%", playerName)
                 .replace("%user%", "<@"+discordID+">")).queue();
         Wally.getInstance().logger.log(LogLevel.INFO, playerName + " was added as alt to " + discordID);
