@@ -27,5 +27,6 @@ public class CommandExcludeFromLeaderboard extends CommandExecutable{
         }
 
         Utils.excludeFromLb(playerUUID);
+        channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "exclude success").replace("%name%", args[0])).queue();
     }
 }

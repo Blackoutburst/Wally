@@ -39,7 +39,7 @@ public class Utils {
      */
     public static void excludeFromLb(@Nonnull String uuid) {
         try {
-            Files.write(Paths.get("config/excluded.txt"), uuid.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            Files.write(Paths.get("config/excluded.txt"), (uuid+"\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }

@@ -93,6 +93,9 @@
     "remove alt success": "%name% was removed from %user% alt account list",
     "not an alt account": "%name% is not %user% alt account use `listaccounts` to check this user accounts",
     "account list error": "Something went wrong while retrieving %user% account list",
-    "unauthorized menu": "You can't use this menu, sorry!"
+    "unauthorized menu": "You can't use this menu, sorry!",
+    "no exclude file": "The exclusion file doesn't exist!",
+    "exclude error": "Something went wrong while generating the excluded account list!",
+    "exclude success": "%name% was added to the excluded account list"
   }
 }
