@@ -71,6 +71,7 @@ public class CommandManager {
         register(PermissionLevel.STAFF, new CommandRemoveAlt(), "removealt");
         register(PermissionLevel.STAFF, new CommandListAccount(), "listaccount", "listacc", "listaccounts", "listaccs");
         register(PermissionLevel.MEMBER, new CommandSkin(), "skin");
+        register(PermissionLevel.STAFF, new CommandExcludeFromLeaderboard(), "excludefromleaderboard", "excludefromlb", "excludelb", "elb");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }
