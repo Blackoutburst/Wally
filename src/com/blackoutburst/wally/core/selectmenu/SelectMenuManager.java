@@ -32,7 +32,7 @@ public class SelectMenuManager {
     private SelectMenuManager() {
         register(new SelectMenuSkin(), "skin");
 
-        Wally.getInstance().logger.log(LogLevel.INFO, "Button registered!");
+        Wally.getInstance().logger.log(LogLevel.INFO, "Select menu registered!");
     }
 
     /**
