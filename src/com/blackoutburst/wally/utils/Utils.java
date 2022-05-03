@@ -43,6 +43,7 @@ public class Utils {
             final List<String> out = Files.lines(file.toPath())
                     .filter(line -> !line.contains(uuid))
                     .collect(Collectors.toList());
+            
             Files.write(file.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
