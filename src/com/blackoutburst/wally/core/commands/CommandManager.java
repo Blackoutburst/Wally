@@ -108,9 +108,14 @@ public class CommandManager {
             }
         }
 
-        if (lowestWeight > 50) closest = null;
+        if (lowestWeight > 20) closest = null;
         if (closest == null) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)).queue();
+            message.reply(ConfigManager.getInstance().loadValue("replies", "unknown command").replace("%command_name%", commandName)+'\n'+
+                            ConfigManager.getInstance().loadValue("replies", "run help").replace("%help%", getPrefix()+"help"))
+                    .setActionRow(
+                            Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes run help"),
+                            Button.danger(commandSender.getMember().getId()+":"+UUID.randomUUID(), "No"))
+                    .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
             return;
         }
 
