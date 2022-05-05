@@ -3,9 +3,10 @@ package com.blackoutburst.wally.core.commands;
 import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.core.database.DatabaseManager;
 import com.blackoutburst.wally.core.request.Mojang;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.CommandUtils;
+import com.blackoutburst.wally.utils.DatabaseUtils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -22,13 +23,13 @@ public class CommandListAccount extends CommandExecutable{
                     .replace("%usage%", CommandManager.getPrefix()+"listaccounts [discordID]")).queue();
             return;
         }
-        final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
+        final String discordID = CommandUtils.getDiscordIDFromTwoArgs(guild, args);
         final File folder = new File("database/linked users/" + discordID + "/accounts/");
         final String[] entries = folder.list();
-        final UserOption data = DatabaseManager.getInstance().getWallyUserData(discordID);
+        final UserOption data = DatabaseUtils.getWallyUserData(discordID);
 
         if (data == null) {
-            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "account list error"));
+            MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "account list error"));
             return;
         }
 

@@ -9,7 +9,8 @@ import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.request.PracticeServer;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.CommandUtils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -26,13 +27,13 @@ public class CommandLink extends CommandExecutable{
             return;
         }
 
-        final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
+        final String discordID = CommandUtils.getDiscordIDFromTwoArgs(guild, args);
         if (discordID == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
             return;
         }
 
-        final String playerName = Utils.getNonDiscordIDArgFromTwoArgs(guild, args);
+        final String playerName = CommandUtils.getNonDiscordIDArgFromTwoArgs(guild, args);
         if (playerName == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "could not get name")).queue();
             return;
@@ -59,7 +60,7 @@ public class CommandLink extends CommandExecutable{
         final UserOption wallyProfile = new UserOption(PermissionLevel.MEMBER, playerUUID, guild.getId());
 
         if (!DatabaseManager.getInstance().createUserData(discordID, playerUUID, hypixelData, practiceData, wallyProfile)) {
-            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "link error"));
+            MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "link error"));
             return;
         }
 

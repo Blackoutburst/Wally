@@ -4,7 +4,7 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -27,7 +27,7 @@ public class CommandSetLogLevel extends CommandExecutable{
             level = LogLevel.valueOf(args[0].toUpperCase());
         } catch (Exception e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
-            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "not a log level").replace("%level%", args[0]));
+            MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "not a log level").replace("%level%", args[0]));
 
             return;
         }

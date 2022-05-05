@@ -1,17 +1,12 @@
 package com.blackoutburst.wally.core.commands;
 
-import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.core.database.DatabaseManager;
-import com.blackoutburst.wally.core.logger.LogLevel;
-import com.blackoutburst.wally.utils.Utils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import javax.annotation.Nonnull;
-import java.io.File;
 
 public class CommandLeaderboard extends CommandExecutable{
 

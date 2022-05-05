@@ -6,7 +6,10 @@ import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.database.DatabaseManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.request.Mojang;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.CommandUtils;
+import com.blackoutburst.wally.utils.DatabaseUtils;
+import com.blackoutburst.wally.utils.FilesUtils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -27,18 +30,18 @@ public class CommandRemoveAlt extends CommandExecutable{
             return;
         }
 
-        final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
+        final String discordID = CommandUtils.getDiscordIDFromTwoArgs(guild, args);
         if (discordID == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
             return;
         }
 
-        if (!DatabaseManager.getInstance().isLinked(discordID)) {
+        if (!DatabaseUtils.isLinked(discordID)) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "not linked").replace("%user%", "<@"+discordID+">")).queue();
             return;
         }
 
-        final String playerName = Utils.getNonDiscordIDArgFromTwoArgs(guild, args);
+        final String playerName = CommandUtils.getNonDiscordIDArgFromTwoArgs(guild, args);
         if (playerName == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "could not get name")).queue();
             return;
@@ -58,11 +61,11 @@ public class CommandRemoveAlt extends CommandExecutable{
         }
 
         if (!DatabaseManager.getInstance().cleanFolder(folder)) {
-            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "removed alt error"));
+            MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "removed alt error"));
             return;
         }
 
-        Utils.removeExclusion(playerUUID);
+        FilesUtils.removeExclusion(playerUUID);
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "remove alt success")
                 .replace("%name%", playerName)
                 .replace("%user%", "<@"+discordID+">")).queue();

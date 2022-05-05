@@ -8,7 +8,10 @@ import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.request.PracticeServer;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.CommandUtils;
+import com.blackoutburst.wally.utils.DatabaseUtils;
+import com.blackoutburst.wally.utils.FilesUtils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -26,18 +29,18 @@ public class CommandAddAlt extends CommandExecutable{
      * @param message the message
      */
     private void addAlt(@Nonnull WallyUser commandSender, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
-        final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
+        final String discordID = CommandUtils.getDiscordIDFromTwoArgs(guild, args);
         if (discordID == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
             return;
         }
 
-        if (!DatabaseManager.getInstance().isLinked(discordID)) {
+        if (!DatabaseUtils.isLinked(discordID)) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "not linked").replace("%user%", "<@"+discordID+">")).queue();
             return;
         }
 
-        final String playerName = Utils.getNonDiscordIDArgFromTwoArgs(guild, args);
+        final String playerName = CommandUtils.getNonDiscordIDArgFromTwoArgs(guild, args);
         if (playerName == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "could not get name")).queue();
             return;
@@ -62,11 +65,11 @@ public class CommandAddAlt extends CommandExecutable{
         }
 
         if (!DatabaseManager.getInstance().createAltData(discordID, playerUUID, hypixelData, practiceData)) {
-            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "add alt error"));
+            MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "add alt error"));
             return;
         }
 
-        Utils.excludeFromLb(playerUUID);
+        FilesUtils.excludeFromLb(playerUUID);
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "add alt success").replace("%name%", playerName)
                 .replace("%user%", "<@"+discordID+">")).queue();
         Wally.getInstance().logger.log(LogLevel.INFO, playerName + " was added as alt to " + discordID);

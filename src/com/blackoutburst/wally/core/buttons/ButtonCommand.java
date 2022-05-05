@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.core.buttons;
 
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.CommandUtils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
 import com.blackoutburst.wally.core.config.ConfigManager;
@@ -18,7 +19,7 @@ public class ButtonCommand extends ButtonExecutable {
     protected void onClick(@Nonnull ButtonInteractionEvent event) {
         final MessageChannel messageChannel = event.getMessageChannel();
         final String messageID = event.getButton().getId().split(":")[1];
-        final Message message = Utils.getMessageFromHistory(messageChannel, messageID, 5);
+        final Message message = MessageUtils.getMessageFromHistory(messageChannel, messageID, 5);
 
         if (message == null) {
             messageChannel.sendMessage("<@"+event.getMember().getId()+">"+
@@ -33,7 +34,7 @@ public class ButtonCommand extends ButtonExecutable {
 
         final String messageString = message.getContentRaw();
         final String commandName = label;
-        final String[] commandArgs = Utils.getCommandArgs(messageString);
+        final String[] commandArgs = CommandUtils.getCommandArgs(messageString);
         final Guild guild = event.getGuild();
         final Member member = event.getMember();
         if (guild == null) return;

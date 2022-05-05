@@ -1,6 +1,6 @@
 package com.blackoutburst.wally.core.events;
 
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
 import net.dv8tion.jda.api.entities.Guild;
@@ -22,8 +22,8 @@ public class MessageReceived {
         if (!event.getMessage().getContentRaw().startsWith(CommandManager.getPrefix())) return;
 
         final String messageString = event.getMessage().getContentRaw();
-        final String commandName = Utils.getCommandName(messageString);
-        final String[] commandArgs = Utils.getCommandArgs(messageString);
+        final String commandName = CommandUtils.getCommandName(messageString);
+        final String[] commandArgs = CommandUtils.getCommandArgs(messageString);
         final Guild guild = event.getGuild();
         final MessageChannel messageChannel = event.getChannel();
         final Message message = event.getMessage();

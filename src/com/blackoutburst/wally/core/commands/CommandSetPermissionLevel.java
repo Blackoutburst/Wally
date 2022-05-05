@@ -4,8 +4,8 @@ import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.core.database.DatabaseManager;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.CommandUtils;
+import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.google.gson.Gson;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -43,7 +43,7 @@ public class CommandSetPermissionLevel extends CommandExecutable{
         }
 
         data.setPermissionLevel(level);
-        DatabaseManager.getInstance().generateWallyProfile(data, file);
+        DatabaseUtils.generateWallyProfile(data, file);
 
         return true;
     }
@@ -56,13 +56,13 @@ public class CommandSetPermissionLevel extends CommandExecutable{
             return;
         }
 
-        final String discordID = Utils.getDiscordIDFromTwoArgs(guild, args);
+        final String discordID = CommandUtils.getDiscordIDFromTwoArgs(guild, args);
         if (discordID == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
             return;
         }
 
-        final String permissionLevel = Utils.getNonDiscordIDArgFromTwoArgs(guild, args);
+        final String permissionLevel = CommandUtils.getNonDiscordIDArgFromTwoArgs(guild, args);
         if (permissionLevel == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "permission level is null")).queue();
             return;

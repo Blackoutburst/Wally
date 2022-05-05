@@ -3,9 +3,9 @@ package com.blackoutburst.wally.core.commands;
 import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.core.database.DatabaseManager;
 import com.blackoutburst.wally.core.request.Mojang;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.DatabaseUtils;
+import com.blackoutburst.wally.utils.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -26,16 +26,16 @@ public class CommandSkin extends CommandExecutable{
      * @param message the message
      */
     private void createMenu(@Nonnull WallyUser commandSender, @Nonnull String uuid, @Nonnull Message message) {
-        final boolean linked = DatabaseManager.getInstance().isLinkedUUID(uuid);
+        final boolean linked = DatabaseUtils.isLinkedUUID(uuid);
         final String playerName = Mojang.getPlayerName(uuid);
-        final EmbedBuilder embed = Utils.generateSkin(uuid, playerName);
+        final EmbedBuilder embed = EmbedUtils.generateSkin(uuid, playerName);
 
         if (!linked) {
             message.replyEmbeds(embed.build()).queue();
             return;
         }
 
-        final WallyUser wallyUser = DatabaseManager.getInstance().getWallyUserFromUUID(uuid);
+        final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
         final File folder = new File("database/linked users/" + wallyUser.getMember().getId() + "/accounts/");
         final String[] entries = folder.list();
         if (entries.length == 1) {
@@ -63,8 +63,8 @@ public class CommandSkin extends CommandExecutable{
 
         if (args.length > 0) {
             uuid = Mojang.getPlayerUUID(args[0]);
-        } else if (DatabaseManager.getInstance().isLinked(discordID)) {
-                final UserOption data = DatabaseManager.getInstance().getWallyUserData(discordID);
+        } else if (DatabaseUtils.isLinked(discordID)) {
+                final UserOption data = DatabaseUtils.getWallyUserData(discordID);
                 uuid = data.getMainAccountUUID();
         } else {
             message.reply(ConfigManager.getInstance().loadValue("replies", "invalid command usage")

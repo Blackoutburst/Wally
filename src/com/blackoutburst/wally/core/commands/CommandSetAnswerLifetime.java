@@ -3,7 +3,7 @@ package com.blackoutburst.wally.core.commands;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -51,7 +51,7 @@ public class CommandSetAnswerLifetime extends CommandExecutable {
             .replace("%seconds%", args[0])).queue();
         } catch (Exception e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
-            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "answer life error"));
+            MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "answer life error"));
         }
     }
 }

@@ -2,7 +2,8 @@ package com.blackoutburst.wally.core.commands;
 
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.EmbedUtils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -20,9 +21,9 @@ public class CommandPreviewChangelog extends CommandExecutable{
             return;
         }
 
-        final EmbedBuilder embed = Utils.generateChangelog();
+        final EmbedBuilder embed = EmbedUtils.generateChangelog();
         if (embed == null) {
-            Utils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "changelog error"));
+            MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "changelog error"));
             return;
         }
 

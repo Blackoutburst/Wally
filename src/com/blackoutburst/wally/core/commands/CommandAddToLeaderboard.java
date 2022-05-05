@@ -3,7 +3,7 @@ package com.blackoutburst.wally.core.commands;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Mojang;
-import com.blackoutburst.wally.utils.Utils;
+import com.blackoutburst.wally.utils.FilesUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -26,7 +26,7 @@ public class CommandAddToLeaderboard extends CommandExecutable{
             return;
         }
 
-        Utils.removeExclusion(playerUUID);
+        FilesUtils.removeExclusion(playerUUID);
         channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "remove exclude success").replace("%name%", args[0])).queue();
     }
 }
