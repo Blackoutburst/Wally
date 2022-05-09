@@ -19,6 +19,7 @@ public class MessageUtils {
      * if the user who generated the error message
      * does have the ADMIN permission level, extra button will be generated
      * to send the log file or cancel the action
+     *
      * @param commandSender the user who generated the error
      * @param message the discord message sent by the user
      * @param text the text used in the reply
