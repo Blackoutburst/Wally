@@ -1,16 +1,8 @@
 package com.blackoutburst.wally.core.commands;
 
-import com.blackoutburst.wally.core.UserOption;
-import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.core.database.DatabaseManager;
-import com.blackoutburst.wally.core.logger.LogLevel;
-import com.blackoutburst.wally.core.request.Hypixel;
-import com.blackoutburst.wally.core.request.Mojang;
-import com.blackoutburst.wally.core.request.PracticeServer;
 import com.blackoutburst.wally.utils.CommandUtils;
-import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -33,38 +25,6 @@ public class CommandLink extends CommandExecutable{
             return;
         }
 
-        final String playerName = CommandUtils.getNonDiscordIDArgFromTwoArgs(guild, args);
-        if (playerName == null) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "could not get name")).queue();
-            return;
-        }
-
-        final String playerUUID = Mojang.getPlayerUUID(playerName);
-        if (playerUUID == null) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "not in mojang").replace("%name%", playerName)).queue();
-            return;
-        }
-
-        final String hypixelData = Hypixel.getPlayerStats(playerUUID);
-        if (hypixelData == null) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "not in hypixel").replace("%name%", playerName)).queue();
-            return;
-        }
-
-        String practiceData = PracticeServer.getPlayerStats(playerUUID);
-        if (practiceData == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "could not load practice data").replace("%name%", playerName)).queue();
-            practiceData = "";
-        }
-
-        final UserOption wallyProfile = new UserOption(PermissionLevel.MEMBER, playerUUID, guild.getId());
-
-        if (!DatabaseManager.getInstance().createUserData(discordID, playerUUID, hypixelData, practiceData, wallyProfile)) {
-            MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "link error"));
-            return;
-        }
-
-        channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "link success").replace("%name%", playerName)).queue();
-        Wally.getInstance().logger.log(LogLevel.INFO, playerName + " was linked to " + discordID);
+        CommandUtils.createUserData(false, guild, args, message, discordID, channel, commandSender);
     }
 }
