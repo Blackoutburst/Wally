@@ -20,6 +20,18 @@ import java.util.Arrays;
 
 public class CommandUtils {
 
+    /**
+     * Create user or alt account data
+     * manage error by steps
+     *
+     * @param isAltAccount decide if the account is an alt account or a main
+     * @param guild the server running the command
+     * @param args the command args
+     * @param message the command message
+     * @param discordID the user discordID
+     * @param channel the message channel
+     * @param commandSender the command sender
+     */
     public static void createUserData(@Nonnull boolean isAltAccount, @Nonnull Guild guild, @Nonnull String[] args, @Nonnull Message message, @Nonnull String discordID, @Nonnull MessageChannel channel, @Nonnull WallyUser commandSender) {
         final String playerName = CommandUtils.getNonDiscordIDArgFromTwoArgs(guild, args);
         if (playerName == null) {
