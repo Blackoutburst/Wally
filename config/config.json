@@ -1,20 +1,16 @@
 {
-  "settings":
-  {
+  "settings": {
     "command prefix": ".",
     "answer lifetime": "120"
   },
-  "servers":
-  {
+  "servers": {
     "hitw discord": "709521394848890880",
     "dev server": "813806897542594560"
   },
-  "messages":
-  {
+  "messages": {
     "gender message": "778301653748285460"
   },
-  "roles":
-  {
+  "roles": {
     "Tournament Player": "715691790984019988",
     "Top 10 Lifetime Wins": "811610352227844097",
     "Top 10 Lifetime F": "811610764124618752",
@@ -38,13 +34,12 @@
     "Muted": "774296119726571541",
     "They/Them": "778299418876051509"
   },
-  "channels":
-  {
+  "channels": {
     "changelog channel": "739630025304703068",
     "practice tracker channel": "909117760116756570",
     "tracker channel": "709548207717220352"
   },
-  "replies" : {
+  "replies": {
     "missing permission": "I'm sorry, but you don't have the necessary permission to use this command!",
     "unknown command": "I'm sorry, I couldn't find any commands named `%command_name%`!",
     "close command": "Maybe try and use `%command_name%` instead ?",
@@ -99,6 +94,8 @@
     "exclude success": "`%name%` was added to the excluded account list",
     "remove exclude success": "`%name%` was removed from the excluded account list",
     "log level": "The log level is set to `%level%`",
-    "run help": "Use `%help%` to check the command list"
+    "run help": "Use `%help%` to check the command list",
+    "prefix update": "The new command prefix is now %prefix%",
+    "prefix update error": "There was an error while updating the command prefix"
   }
 }
