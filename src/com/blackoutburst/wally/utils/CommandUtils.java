@@ -28,14 +28,13 @@ public class CommandUtils {
 
     /**
      * Create a text with Hypixel stats information inside
-     * @param playerUUID the player uuid
+     * @param data a valid Hypixel json data
      * @return a message containing every hole in the wall stats
      */
-    public static String generateHypixelStatsMessage(@Nonnull String playerUUID) {
+    public static String generateHypixelStatsMessage(@Nonnull String data) {
         final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
         final DecimalFormat df = (DecimalFormat) nf;
 
-        final String data = Hypixel.getPlayerStats(playerUUID);
         final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
         final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
         final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));

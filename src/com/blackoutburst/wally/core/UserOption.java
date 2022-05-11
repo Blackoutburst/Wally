@@ -37,7 +37,7 @@ public class UserOption {
         this.permissionLevel = permissionLevel;
     }
 
-    public String getMainAccountUUID() {
+    public @Nonnull String getMainAccountUUID() {
         return mainAccountUUID;
     }
 
@@ -45,7 +45,7 @@ public class UserOption {
         this.mainAccountUUID = mainAccountUUID;
     }
 
-    public String getFontColor() {
+    public @Nonnull String getFontColor() {
         return fontColor;
     }
 
@@ -53,7 +53,7 @@ public class UserOption {
         this.fontColor = fontColor;
     }
 
-    public String getServerID() {
+    public @Nonnull String getServerID() {
         return serverID;
     }
 

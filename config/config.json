@@ -96,6 +96,8 @@
     "log level": "The log level is set to `%level%`",
     "run help": "Use `%help%` to check the command list",
     "prefix update": "The new command prefix is now %prefix%",
-    "prefix update error": "There was an error while updating the command prefix"
+    "prefix update error": "There was an error while updating the command prefix",
+    "command stats error": "There was an error while running the command stats",
+    "local stats": "I couldn't not fetch data from Hypixel so I'm using my local stats instead!"
   }
 }

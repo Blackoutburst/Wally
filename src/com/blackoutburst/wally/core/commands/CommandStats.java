@@ -1,8 +1,10 @@
 package com.blackoutburst.wally.core.commands;
 
 import com.blackoutburst.wally.core.UserOption;
+import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
+import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
@@ -16,6 +18,9 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class CommandStats extends CommandExecutable{
 
@@ -39,7 +44,27 @@ public class CommandStats extends CommandExecutable{
             return;
         }
 
-        String stats = CommandUtils.generateHypixelStatsMessage(uuid);
+        String data = Hypixel.getPlayerStats(uuid);
+        if (data == null) {
+            if (DatabaseUtils.isLinkedUUID(uuid)) {
+                final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
+                final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/hypixel.json");
+                try {
+                    data = new String(Files.readAllBytes(filePath));
+                    channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "local stats")).queue();
+                } catch (Exception e) {
+                    MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command stats error"));
+                    Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+                }
+            }
+        }
+        if (data == null) {
+            MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command stats error"));
+            return;
+        }
+
+        final String stats = CommandUtils.generateHypixelStatsMessage(data);
+
         final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, message, "stats");
         if (menu == null) {
             message.reply(stats).queue();
