@@ -8,16 +8,13 @@ import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
-import com.blackoutburst.wally.utils.EmbedUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 
 import javax.annotation.Nonnull;
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,17 +42,15 @@ public class CommandStats extends CommandExecutable{
         }
 
         String data = Hypixel.getPlayerStats(uuid);
-        if (data == null) {
-            if (DatabaseUtils.isLinkedUUID(uuid)) {
-                final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
-                final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/hypixel.json");
-                try {
-                    data = new String(Files.readAllBytes(filePath));
-                    channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "local stats")).queue();
-                } catch (Exception e) {
-                    MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command stats error"));
-                    Wally.getInstance().logger.logStackTrace(e.getStackTrace());
-                }
+        if (data == null && DatabaseUtils.isLinkedUUID(uuid)) {
+            final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
+            final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/hypixel.json");
+            try {
+                data = new String(Files.readAllBytes(filePath));
+                channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "local stats")).queue();
+            } catch (Exception e) {
+                MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command stats error"));
+                Wally.getInstance().logger.logStackTrace(e.getStackTrace());
             }
         }
         if (data == null) {
