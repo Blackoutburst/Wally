@@ -16,9 +16,39 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import javax.annotation.Nonnull;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class CommandUtils {
+
+    public static String generateHypixelStatsMessage(@Nonnull String playerUUID) {
+        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        final DecimalFormat df = (DecimalFormat) nf;
+
+        final String data = Hypixel.getPlayerStats(playerUUID);
+        final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
+        final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
+        final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));
+        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_q", "0"));
+        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_f", "0"));
+        final int QF = qualification + finals;
+        final int QFAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
+        final int challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
+
+        return "```yml" + System.lineSeparator() +
+                "Player name: " + name + System.lineSeparator() +
+                System.lineSeparator() +
+                "Wins: " + df.format(wins) + System.lineSeparator() +
+                "Walls: " + df.format(walls) + System.lineSeparator() +
+                "Qualification: " + df.format(qualification) + System.lineSeparator() +
+                "Finals: " + df.format(finals) + System.lineSeparator() +
+                "Q/F: " + df.format(QF) + System.lineSeparator() +
+                "Q/F API: " + df.format(QFAPI) + System.lineSeparator() +
+                "Challenges: " + df.format(challenges) + System.lineSeparator() +
+                "```";
+    }
 
     /**
      * Create user or alt account data
@@ -32,7 +62,7 @@ public class CommandUtils {
      * @param channel the message channel
      * @param commandSender the command sender
      */
-    public static void createUserData(@Nonnull boolean isAltAccount, @Nonnull Guild guild, @Nonnull String[] args, @Nonnull Message message, @Nonnull String discordID, @Nonnull MessageChannel channel, @Nonnull WallyUser commandSender) {
+    public static void createUserData(boolean isAltAccount, @Nonnull Guild guild, @Nonnull String[] args, @Nonnull Message message, @Nonnull String discordID, @Nonnull MessageChannel channel, @Nonnull WallyUser commandSender) {
         final String playerName = CommandUtils.getNonDiscordIDArgFromTwoArgs(guild, args);
         if (playerName == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "could not get name")).queue();

@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Mojang;
+import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -68,15 +69,15 @@ public class CommandStats extends CommandExecutable{
                 uuid = data.getMainAccountUUID();
         } else {
             message.reply(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
-                    .replace("%usage%", CommandManager.getPrefix()+"skin [Minecraft name]")).queue();
+                    .replace("%usage%", CommandManager.getPrefix()+"stats [Minecraft name]")).queue();
             return;
         }
-
         if (uuid == null) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "unknown player")).queue();
             return;
         }
 
-        createMenu(commandSender, uuid, message);
+        String stats = CommandUtils.generateHypixelStatsMessage(uuid);
+        message.reply(stats).queue();
     }
 }
