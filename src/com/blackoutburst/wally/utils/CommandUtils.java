@@ -11,11 +11,14 @@ import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.request.PracticeServer;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -23,6 +26,11 @@ import java.util.Locale;
 
 public class CommandUtils {
 
+    /**
+     * Create a text with Hypixel stats information inside
+     * @param playerUUID the player uuid
+     * @return a message containing every hole in the wall stats
+     */
     public static String generateHypixelStatsMessage(@Nonnull String playerUUID) {
         final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
         final DecimalFormat df = (DecimalFormat) nf;
