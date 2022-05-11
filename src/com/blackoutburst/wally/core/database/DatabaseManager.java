@@ -107,8 +107,8 @@ public class DatabaseManager {
             return false;
         }
 
-        return (DatabaseUtils.generateHypixelStats(hypixelData, playerFolderPath + "/hypixel.json") &&
-                DatabaseUtils.generatePracticeStats(practiceData, playerFolderPath + "/practice.json") &&
+        return (DatabaseUtils.generateStats(hypixelData, playerFolderPath + "/hypixel.json") &&
+                DatabaseUtils.generateStats(practiceData, playerFolderPath + "/practice.json") &&
                 DatabaseUtils.generateWallyProfile(wallyProfile, rootFolderPath + "/data.json"));
     }
 
@@ -129,7 +129,7 @@ public class DatabaseManager {
             return false;
         }
 
-        return (DatabaseUtils.generateHypixelStats(hypixelData, playerFolderPath + "/hypixel.json") &&
-                DatabaseUtils.generatePracticeStats(practiceData, playerFolderPath + "/practice.json"));
+        return (DatabaseUtils.generateStats(hypixelData, playerFolderPath + "/hypixel.json") &&
+                DatabaseUtils.generateStats(practiceData, playerFolderPath + "/practice.json"));
     }
 }
