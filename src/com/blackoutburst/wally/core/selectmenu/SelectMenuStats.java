@@ -1,5 +1,7 @@
 package com.blackoutburst.wally.core.selectmenu;
 
+import com.blackoutburst.wally.utils.CommandUtils;
+import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
@@ -10,9 +12,8 @@ public class SelectMenuStats extends SelectMenuExecutable {
     @Override
     protected void onChange(@NotNull SelectMenuInteractionEvent event) {
         final String uuid = event.getSelectedOptions().get(0).getValue();
-        final String playerName = event.getSelectedOptions().get(0).getLabel();
-        final EmbedBuilder embed = EmbedUtils.generateSkin(uuid, playerName);
+        final String stats = CommandUtils.generateHypixelStatsMessage(uuid);
 
-        event.editMessageEmbeds(embed.build()).queue();
+        event.editMessage(stats).queue();
     }
 }
