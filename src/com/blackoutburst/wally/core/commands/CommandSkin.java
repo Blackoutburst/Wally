@@ -14,7 +14,6 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 
 import javax.annotation.Nonnull;
-import java.io.File;
 
 public class CommandSkin extends CommandExecutable{
 

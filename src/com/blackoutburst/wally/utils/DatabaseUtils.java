@@ -10,9 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class DatabaseUtils {
 
@@ -62,8 +59,8 @@ public class DatabaseUtils {
 
     /**
      * Return wally user data using a discord ID
-     * @param discordID
-     * @return
+     * @param discordID the user discord ID
+     * @return the Wally user if found
      */
     public static UserOption getWallyUserData(@Nonnull String discordID) {
         final Gson gson = new Gson();
