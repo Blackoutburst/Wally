@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.EmbedUtils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -16,45 +17,6 @@ import javax.annotation.Nonnull;
 import java.io.File;
 
 public class CommandSkin extends CommandExecutable{
-
-    /**
-     * Send the skin embed message without menu if the player isn't linked
-     * If the player is linked and possess multiples account a drop menu
-     * is added below to allow the user to switch between his skin
-     * @param commandSender the command sender
-     * @param uuid the player uuid
-     * @param message the message
-     */
-    private void createMenu(@Nonnull WallyUser commandSender, @Nonnull String uuid, @Nonnull Message message) {
-        final boolean linked = DatabaseUtils.isLinkedUUID(uuid);
-        final String playerName = Mojang.getPlayerName(uuid);
-        final EmbedBuilder embed = EmbedUtils.generateSkin(uuid, playerName);
-
-        if (!linked) {
-            message.replyEmbeds(embed.build()).queue();
-            return;
-        }
-
-        final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
-        final File folder = new File("database/linked users/" + wallyUser.getMember().getId() + "/accounts/");
-        final String[] entries = folder.list();
-        if (entries.length == 1) {
-            message.replyEmbeds(embed.build()).queue();
-            return;
-        }
-
-        final SelectMenu.Builder menu = SelectMenu.create(commandSender.getMember().getId()+":skin")
-                .setRequiredRange(1, 1)
-                .setPlaceholder("Select an account");
-
-        for (String s : entries) {
-            String player = Mojang.getPlayerName(s);
-            if (player == null) continue;
-            menu.addOption(player, s);
-        }
-
-        message.replyEmbeds(embed.build()).setActionRow(menu.build()).queue();
-    }
 
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
@@ -77,6 +39,13 @@ public class CommandSkin extends CommandExecutable{
             return;
         }
 
-        createMenu(commandSender, uuid, message);
+        final String playerName = Mojang.getPlayerName(uuid);
+        final EmbedBuilder embed = EmbedUtils.generateSkin(uuid, playerName);
+        final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, message, "skin");
+        if (menu == null) {
+            message.replyEmbeds(embed.build()).queue();
+        } else {
+            message.replyEmbeds(embed.build()).setActionRow(menu).queue();
+        }
     }
 }

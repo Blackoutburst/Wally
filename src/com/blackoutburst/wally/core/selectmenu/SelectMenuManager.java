@@ -31,6 +31,7 @@ public class SelectMenuManager {
      */
     private SelectMenuManager() {
         register(new SelectMenuSkin(), "skin");
+        register(new SelectMenuStats(), "stats");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Select menu registered!");
     }

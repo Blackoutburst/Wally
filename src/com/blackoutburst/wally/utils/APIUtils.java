@@ -2,6 +2,7 @@ package com.blackoutburst.wally.utils;
 
 import com.blackoutburst.wally.core.Wally;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import javax.annotation.Nonnull;
@@ -35,7 +36,11 @@ public class APIUtils {
             for (int i = 0; i < splitPath.length - 1; i++)
                 objects.add(objects.get(i).getAsJsonObject(splitPath[i]));
 
-            final String result = objects.get(objects.size() - 1).get(splitPath[splitPath.length - 1]).getAsString();
+            final JsonElement element = objects.get(objects.size() - 1).get(splitPath[splitPath.length - 1]);
+            if (element == null)
+                return (defaultValue);
+
+            final String result = element.getAsString();
 
             return (result == null ? defaultValue : result);
         } catch (Exception e) {
