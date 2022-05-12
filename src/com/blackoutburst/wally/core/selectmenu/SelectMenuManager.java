@@ -48,6 +48,7 @@ public class SelectMenuManager {
 
     /**
      * Run the action associated with the button pressed
+     *
      * @param event the buttonInteraction event
      */
     public void runAction(@Nonnull SelectMenuInteractionEvent event) {
