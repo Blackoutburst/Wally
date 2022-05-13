@@ -21,6 +21,7 @@ public class MessageUtils {
      * Send the skin embed message without menu if the player isn't linked
      * If the player is linked and possess multiples account a drop menu
      * is added below to allow the user to switch between his skin
+     *
      * @param commandSender the command sender
      * @param uuid the player uuid
      * @param message the message
