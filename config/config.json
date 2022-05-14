@@ -100,7 +100,7 @@
     "command stats error": "There was an error while running the command stats",
     "local stats": "I couldn't not fetch data from the API so I'm using my local data instead!",
     "command practice stats error": "There was an error while running the command practice stats",
-    "user display preference updated": "Your display preference got updated!",
+    "user display preference updated": "Your display preference got updated to %preference%!",
     "select display preference": "Select how you wish some commands to be displayed",
     "sorry not linked": "I'm sorry only linked user can perform this action! Please contact any staff member to get linked!"
   }

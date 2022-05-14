@@ -28,12 +28,12 @@ public class CommandSetDisplayPreference extends CommandExecutable{
         }
 
         final UserOption option = DatabaseUtils.getWallyUserData(discordID);
-        final String id = commandSender.getMember().getId()+":"+message.getId();
+        final String id = commandSender.getMember().getId()+":";
 
         message.reply(ConfigManager.getInstance().loadValue("replies", "select display preference")).setActionRow(
-                option.getDisplayPreference().equals(DisplayPreference.CANVAS) ? Button.primary(id, "CANVAS") : Button.secondary(id, "CANVAS"),
-                option.getDisplayPreference().equals(DisplayPreference.EMBED) ? Button.primary(id, "EMBED") : Button.secondary(id, "EMBED"),
-                option.getDisplayPreference().equals(DisplayPreference.TEXT) ? Button.primary(id, "TEXT") : Button.secondary(id, "TEXT")
+                option.getDisplayPreference().equals(DisplayPreference.CANVAS) ? Button.primary(id+UUID.randomUUID(), "CANVAS") : Button.secondary(id+UUID.randomUUID(), "CANVAS"),
+                option.getDisplayPreference().equals(DisplayPreference.EMBED) ? Button.primary(id+UUID.randomUUID(), "EMBED") : Button.secondary(id+UUID.randomUUID(), "EMBED"),
+                option.getDisplayPreference().equals(DisplayPreference.TEXT) ? Button.primary(id+UUID.randomUUID(), "TEXT") : Button.secondary(id+UUID.randomUUID(), "TEXT")
         ).queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
     }
 }
