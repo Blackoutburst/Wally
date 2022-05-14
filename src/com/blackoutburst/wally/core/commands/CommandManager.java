@@ -78,6 +78,7 @@ public class CommandManager {
         register(PermissionLevel.MEMBER, new CommandLeaderboard(), "leaderboard", "leaderboards", "lead", "leads", "lb", "lbs");
         register(PermissionLevel.ADMIN, new CommandSetPrefix(), "setprefix");
         register(PermissionLevel.MEMBER, new CommandStats(), "stats", "stat", "s");
+        register(PermissionLevel.MEMBER, new CommandPracticeStats(), "practicestats", "practicestat", "ps", "pstats", "pstat");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Command registered!");
     }
