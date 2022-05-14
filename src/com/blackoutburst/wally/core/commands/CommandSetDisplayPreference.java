@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class CommandSetDisplayPreference extends CommandExecutable{
 
     /**
-     * Change someone permission
+     * Change someone display preference
      *
      * @param channel the message channel
      * @param discordID the user discord id
