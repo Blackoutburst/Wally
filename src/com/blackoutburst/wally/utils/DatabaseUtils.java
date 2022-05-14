@@ -15,6 +15,8 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class DatabaseUtils {
 
@@ -163,16 +165,13 @@ public class DatabaseUtils {
      * @return if the player is linked
      */
     public static WallyUser getWallyUserFromUUID(@Nonnull String uuid) {
-        for (WallyUser w : Wally.getInstance().users) {
-            final File folder = new File("database/linked users/" + w.getMember().getId() + "/accounts/");
+        final Optional<WallyUser> wallyUser = Wally.getInstance().users.stream().filter(user -> {
+            final File folder = new File("database/linked users/" + user.getMember().getId() + "/accounts/");
             final String[] entries = folder.list();
+            if (entries == null) return false;
+            return Arrays.asList(entries).contains(uuid);
+        }).findFirst();
 
-            for (String e : entries) {
-                if (e.equals(uuid)) {
-                    return (w);
-                }
-            }
-        }
-        return null;
+        return (wallyUser.orElse(null));
     }
 }
