@@ -22,7 +22,7 @@ public class SelectMenuPracticeStats extends SelectMenuExecutable {
 
         String data = "";
         try {
-            new String(Files.readAllBytes(filePath));
+            data = new String(Files.readAllBytes(filePath));
         } catch (Exception e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
