@@ -3,6 +3,7 @@ package com.blackoutburst.wally.utils;
 import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
+import com.blackoutburst.wally.core.commands.DisplayPreference;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.google.gson.Gson;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -33,6 +34,24 @@ public class DatabaseUtils {
         public String getName() {
             return name;
         }
+    }
+
+    /**
+     * Change someone display preference
+     *
+     * @param channel the message channel
+     * @param discordID the user discord id
+     * @param preference the new display preference
+     */
+    public static void updateUserDisplayPreference(@Nonnull MessageChannel channel, @Nonnull String discordID, @Nonnull DisplayPreference preference) {
+        final String file = "database/linked users/" + discordID + "/data.json";
+        final UserOption data = DatabaseUtils.getWallyUserData(discordID);
+        if (data == null) {
+            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not linked or corrupted")).queue();
+            return;
+        }
+        data.setDisplayPreference(preference);
+        DatabaseUtils.generateWallyProfile(data, file);
     }
 
     /**
@@ -99,6 +118,14 @@ public class DatabaseUtils {
         }
     }
 
+    /**
+     * Update a player stats
+     *
+     * @param data the api data
+     * @param type the stats type
+     * @param discordID the user discord id
+     * @param uuid the player uuid
+     */
     public static void updateStats(@Nonnull String data, @Nonnull DataType type, @Nonnull String discordID, @Nonnull String uuid) {
         if (DatabaseUtils.isLinked(discordID)) {
             final String rootFolderPath = "database/linked users/" + discordID;

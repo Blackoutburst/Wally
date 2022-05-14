@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
+import com.blackoutburst.wally.core.commands.DisplayPreference;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.database.DatabaseManager;
@@ -57,7 +58,7 @@ public class CommandUtils {
             practiceData = "";
         }
 
-        final UserOption wallyProfile = new UserOption(PermissionLevel.MEMBER, playerUUID, guild.getId());
+        final UserOption wallyProfile = new UserOption(PermissionLevel.MEMBER, DisplayPreference.CANVAS, playerUUID, guild.getId());
 
         if (isAltAccount) {
             if (!DatabaseManager.getInstance().createAltData(discordID, playerUUID, hypixelData, practiceData)) {

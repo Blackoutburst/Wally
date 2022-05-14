@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.core;
 
+import com.blackoutburst.wally.core.commands.DisplayPreference;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -32,6 +33,15 @@ public class WallyUser {
      */
     public PermissionLevel getPermissionLevel() {
         return options.getPermissionLevel();
+    }
+
+    /**
+     * Get the user display preference (for commands)
+     *
+     * @return the display preference
+     */
+    public DisplayPreference getDisplayPreference() {
+        return options.getDisplayPreference();
     }
 
     /**
