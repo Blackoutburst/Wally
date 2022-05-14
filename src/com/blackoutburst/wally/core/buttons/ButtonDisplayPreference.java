@@ -1,19 +1,13 @@
 package com.blackoutburst.wally.core.buttons;
 
-import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.commands.DisplayPreference;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.utils.DatabaseUtils;
-import com.blackoutburst.wally.utils.MessageUtils;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
-import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
