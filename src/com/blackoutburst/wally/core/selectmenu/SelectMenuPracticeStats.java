@@ -2,7 +2,6 @@ package com.blackoutburst.wally.core.selectmenu;
 
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
-import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;

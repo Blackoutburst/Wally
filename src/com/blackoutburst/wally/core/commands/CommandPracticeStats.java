@@ -1,13 +1,10 @@
 package com.blackoutburst.wally.core.commands;
 
 import com.blackoutburst.wally.core.UserOption;
-import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.request.PracticeServer;
-import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
@@ -16,9 +13,6 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 
 import javax.annotation.Nonnull;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class CommandPracticeStats extends CommandExecutable{
 
