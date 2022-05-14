@@ -99,6 +99,14 @@ public class DatabaseUtils {
         }
     }
 
+    /**
+     * Update a player stats
+     *
+     * @param data the api data
+     * @param type the stats type
+     * @param discordID the user discord id
+     * @param uuid the player uuid
+     */
     public static void updateStats(@Nonnull String data, @Nonnull DataType type, @Nonnull String discordID, @Nonnull String uuid) {
         if (DatabaseUtils.isLinked(discordID)) {
             final String rootFolderPath = "database/linked users/" + discordID;

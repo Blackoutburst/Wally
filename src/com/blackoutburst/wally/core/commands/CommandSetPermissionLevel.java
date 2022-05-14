@@ -28,23 +28,14 @@ public class CommandSetPermissionLevel extends CommandExecutable{
      * @return if the operation worked
      */
     private boolean updateUserPermissionLevel(@Nonnull MessageChannel channel, @Nonnull String discordID, @Nonnull PermissionLevel level) {
-        final Gson gson = new Gson();
         final String file = "database/linked users/" + discordID + "/data.json";
-
-        UserOption data;
-        try {
-            final FileReader reader = new FileReader(file);
-            data = gson.fromJson(reader, UserOption.class);
-            reader.close();
-        } catch (Exception e) { data = null; }
+        final UserOption data = DatabaseUtils.getWallyUserData(discordID);
         if (data == null) {
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not linked or corrupted")).queue();
             return false;
         }
-
         data.setPermissionLevel(level);
         DatabaseUtils.generateWallyProfile(data, file);
-
         return true;
     }
 

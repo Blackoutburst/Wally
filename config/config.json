@@ -64,7 +64,7 @@
     "not a permission level": "%level% is not a valid permission level",
     "not linked or corrupted": "This user is not linked or maybe his data are corrupted",
     "permission level is null": "Sorry I couldn't determine a permission level!",
-    "user permission updated": "The user permission got updated successfully, would you like to reload the user list now ?",
+    "user permission updated": "The user permission got updated successfully!",
     "missing config attachment": "You must upload the configuration file with the command!",
     "config updated": "The configuration file was updated successfully!",
     "not a json": "The file must be in JSON format",
@@ -101,7 +101,7 @@
     "local stats": "I couldn't not fetch data from the API so I'm using my local data instead!",
     "command practice stats error": "There was an error while running the command practice stats",
     "display preference is null": "Sorry I couldn't determine a display preference!",
-    "not a display preference": "%preference% is not a valid permission level",
+    "not a display preference": "%preference% is not a valid display preference!",
     "user display preference updated": "Your display preference got updated!"
   }
 }
