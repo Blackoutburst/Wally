@@ -146,17 +146,7 @@ public class DatabaseUtils {
      * @return if the player is linked
      */
     public static boolean isLinkedUUID(@Nonnull String uuid) {
-        for (WallyUser w : Wally.getInstance().users) {
-            final File folder = new File("database/linked users/" + w.getMember().getId() + "/accounts/");
-            final String[] entries = folder.list();
-
-            for (String e : entries) {
-                if (e.equals(uuid)) {
-                    return (true);
-                }
-            }
-        }
-        return false;
+        return (getWallyUserFromUUID(uuid) != null);
     }
 
     /**
