@@ -15,6 +15,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -142,12 +143,8 @@ public class MessageUtils {
      */
     public static Message getMessageFromHistory(@Nonnull MessageChannel messageChannel, @Nonnull String messageID, int historyCount) {
         final List<Message> history = messageChannel.getHistory().retrievePast(historyCount).complete();
+        final Optional<Message> message = history.stream().filter(msg -> msg.getId().equals(messageID)).findFirst();
 
-        for (Message msg : history) {
-            if (msg.getId().equals(messageID)) {
-                return msg;
-            }
-        }
-        return null;
+        return message.orElse(null);
     }
 }

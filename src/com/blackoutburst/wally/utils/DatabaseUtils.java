@@ -87,9 +87,7 @@ public class DatabaseUtils {
     public static boolean generateWallyProfile(@Nonnull UserOption wallyProfile, @Nonnull String file) {
         try {
             final Gson gson = new Gson();
-
             final Writer writer = new FileWriter(file);
-
             gson.toJson(wallyProfile, writer);
             writer.flush();
             writer.close();
