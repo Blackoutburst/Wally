@@ -100,8 +100,8 @@
     "command stats error": "There was an error while running the command stats",
     "local stats": "I couldn't not fetch data from the API so I'm using my local data instead!",
     "command practice stats error": "There was an error while running the command practice stats",
-    "display preference is null": "Sorry I couldn't determine a display preference!",
-    "not a display preference": "%preference% is not a valid display preference!",
-    "user display preference updated": "Your display preference got updated!"
+    "user display preference updated": "Your display preference got updated!",
+    "select display preference": "Select how you wish some commands to be displayed",
+    "sorry not linked": "I'm sorry only linked user can perform this action! Please contact any staff member to get linked!"
   }
 }

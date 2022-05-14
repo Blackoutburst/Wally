@@ -41,37 +41,25 @@ public class CommandSetDisplayPreference extends CommandExecutable{
 
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
-        if (args.length != 2)  {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
-                    .replace("%usage%", CommandManager.getPrefix()+"setdisplaypreference [discordID] [TEXT/EMBED/CANVAS]")).queue();
+        final String discordID = commandSender.getMember().getId();
+        if (!DatabaseUtils.isLinked(discordID)) {
+            message.reply(ConfigManager.getInstance().loadValue("replies", "sorry not linked")).queue();
             return;
         }
 
-        final String discordID = CommandUtils.getDiscordIDFromTwoArgs(guild, args);
-        if (discordID == null) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "not an user")).queue();
-            return;
-        }
+        final UserOption option = DatabaseUtils.getWallyUserData(discordID);
+        final String id = commandSender.getMember().getId()+":"+message.getId();
 
-        final String displayPreference = CommandUtils.getNonDiscordIDArgFromTwoArgs(guild, args);
-        if (displayPreference == null) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "display preference is null")).queue();
-            return;
-        }
+        message.reply(ConfigManager.getInstance().loadValue("replies", "select display preference")).setActionRow(
+                option.getDisplayPreference().equals(DisplayPreference.CANVAS) ? Button.primary(id, "CANVAS") : Button.secondary(id, "CANVAS"),
+                option.getDisplayPreference().equals(DisplayPreference.EMBED) ? Button.primary(id, "EMBED") : Button.secondary(id, "EMBED"),
+                option.getDisplayPreference().equals(DisplayPreference.TEXT) ? Button.primary(id, "TEXT") : Button.secondary(id, "TEXT")
+        ).queue();
 
-        DisplayPreference preference;
-
-        try {
-            preference = DisplayPreference.valueOf(displayPreference.toUpperCase());
-        } catch (Exception e) {
-            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
-                message.reply(ConfigManager.getInstance().loadValue("replies", "not a display preference").replace("%preference%", displayPreference)).queue();
-            return;
-        }
-
+        /*
         if (updateUserDisplayPreference(channel, discordID, preference)) {
             message.reply(ConfigManager.getInstance().loadValue("replies", "user display preference updated")).queue();
             Wally.getInstance().loadUser();
-        }
+        }*/
     }
 }
