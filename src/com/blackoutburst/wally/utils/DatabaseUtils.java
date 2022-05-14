@@ -19,6 +19,21 @@ import java.nio.file.Paths;
 
 public class DatabaseUtils {
 
+    public enum DataType {
+        HYPIXEL("hypixel"),
+        PRACTICE("practice");
+
+        private final String name;
+
+        DataType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
     /**
      * Get local data if api request fails
      * @param uuid the player uuid
@@ -26,11 +41,11 @@ public class DatabaseUtils {
      * @param channel the message channel
      * @return the local data
      */
-    public static String getBackupLocalData(@Nonnull String uuid, @Nonnull String type, @Nonnull MessageChannel channel) {
+    public static String getBackupLocalData(@Nonnull String uuid, @Nonnull DataType type, @Nonnull MessageChannel channel) {
         String data = null;
 
         final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
-        final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/"+type+".json");
+        final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/" + type.getName() + ".json");
         try {
             data = new String(Files.readAllBytes(filePath));
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "local stats")).queue();
@@ -82,6 +97,14 @@ public class DatabaseUtils {
         } catch (Exception e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
             return false;
+        }
+    }
+
+    public static void updateStats(@Nonnull String data, @Nonnull DataType type, @Nonnull String discordID, @Nonnull String uuid) {
+        if (DatabaseUtils.isLinked(discordID)) {
+            final String rootFolderPath = "database/linked users/" + discordID;
+            final String playerFolderPath = rootFolderPath + "/accounts/" + uuid;
+            DatabaseUtils.generateStats(data, playerFolderPath + "/" + type.getName() + ".json");
         }
     }
 

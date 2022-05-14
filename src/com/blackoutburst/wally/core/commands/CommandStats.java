@@ -43,12 +43,14 @@ public class CommandStats extends CommandExecutable{
 
         String data = Hypixel.getPlayerStats(uuid);
         if (data == null && DatabaseUtils.isLinkedUUID(uuid)) {
-            data = DatabaseUtils.getBackupLocalData(uuid, "hypixel", channel);
+            data = DatabaseUtils.getBackupLocalData(uuid, DatabaseUtils.DataType.HYPIXEL, channel);
         }
         if (data == null) {
             MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command stats error"));
             return;
         }
+
+        DatabaseUtils.updateStats(data, DatabaseUtils.DataType.HYPIXEL, discordID, uuid);
 
         final String stats = MessageUtils.generateHypixelStatsMessage(data);
         final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, message, "stats");

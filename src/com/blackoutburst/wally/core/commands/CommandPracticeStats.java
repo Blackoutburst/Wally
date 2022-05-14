@@ -51,12 +51,14 @@ public class CommandPracticeStats extends CommandExecutable{
 
         String data = PracticeServer.getPlayerStats(uuid);
         if (data == null && DatabaseUtils.isLinkedUUID(uuid)) {
-            data = DatabaseUtils.getBackupLocalData(uuid, "practice", channel);
+            data = DatabaseUtils.getBackupLocalData(uuid, DatabaseUtils.DataType.PRACTICE, channel);
         }
         if (data == null) {
             MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command practice stats error"));
             return;
         }
+
+        DatabaseUtils.updateStats(data, DatabaseUtils.DataType.PRACTICE, discordID, uuid);
 
         final String stats = MessageUtils.generatePracticeStatsMessage(name, data);
         final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, message, "practice stats");
