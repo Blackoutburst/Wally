@@ -98,6 +98,7 @@
     "prefix update": "The new command prefix is now %prefix%",
     "prefix update error": "There was an error while updating the command prefix",
     "command stats error": "There was an error while running the command stats",
-    "local stats": "I couldn't not fetch data from Hypixel so I'm using my local stats instead!"
+    "local stats": "I couldn't not fetch data from the API so I'm using my local data instead!",
+    "command practice stats error": "There was an error while running the command practice stats"
   }
 }
