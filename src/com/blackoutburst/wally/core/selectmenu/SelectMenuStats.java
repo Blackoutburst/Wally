@@ -16,16 +16,17 @@ public class SelectMenuStats extends SelectMenuExecutable {
 
     @Override
     protected void onChange(@NotNull SelectMenuInteractionEvent event) {
-        try {
-            final String uuid = event.getSelectedOptions().get(0).getValue();
-            final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
-            final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/hypixel.json");
-            final String data = new String(Files.readAllBytes(filePath));
-            final String stats = MessageUtils.generateHypixelStatsMessage(data);
+        final String uuid = event.getSelectedOptions().get(0).getValue();
+        final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
+        final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/hypixel.json");
 
-            event.editMessage(stats).queue();
+        String data = "";
+        try {
+            new String(Files.readAllBytes(filePath));
         } catch (Exception e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
+        final String stats = MessageUtils.generateHypixelStatsMessage(data);
+        event.editMessage(stats).queue();
     }
 }

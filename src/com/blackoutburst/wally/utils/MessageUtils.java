@@ -25,15 +25,16 @@ public class MessageUtils {
      * @param data a valid Practice json data
      * @return a message containing every hole in the wall stats
      */
-    public static String generatePracticeStatsMessage(@Nonnull String name, @Nonnull String data) {
+    public static String generatePracticeStatsMessage(@Nonnull String data) {
         final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
         final DecimalFormat df = (DecimalFormat) nf;
 
-        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"q", "0"));
-        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"f", "0"));
-        final int lobby = Integer.parseInt(APIUtils.getValuesFromAPI(data,"l", "0"));
-        final int wideQualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"wq", "0"));
-        final int wideFinals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"wf", "0"));
+        final String name = APIUtils.getValuesFromAPI(data,"name", "Unknown");
+        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.qualification", "0"));
+        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.finals", "0"));
+        final int lobby = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.lobby", "0"));
+        final int wideQualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.wide_qualification", "0"));
+        final int wideFinals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.wide_finals", "0"));
         final int total = qualification + finals + lobby + wideQualification + wideFinals;
 
         return "```yml" + System.lineSeparator() +
