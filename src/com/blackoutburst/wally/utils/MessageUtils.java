@@ -11,11 +11,73 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class MessageUtils {
+
+    /**
+     * Create a text with Practice stats information inside
+     * @param data a valid Practice json data
+     * @return a message containing every hole in the wall stats
+     */
+    public static String generatePracticeStatsMessage(@Nonnull String name, @Nonnull String data) {
+        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        final DecimalFormat df = (DecimalFormat) nf;
+
+        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"q", "0"));
+        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"f", "0"));
+        final int lobby = Integer.parseInt(APIUtils.getValuesFromAPI(data,"l", "0"));
+        final int wideQualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"wq", "0"));
+        final int wideFinals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"wf", "0"));
+        final int total = qualification + finals + lobby + wideQualification + wideFinals;
+
+        return "```yml" + System.lineSeparator() +
+                "Player name: " + name + System.lineSeparator() +
+                System.lineSeparator() +
+                "Qualification: " + df.format(qualification) + System.lineSeparator() +
+                "Finals: " + df.format(finals) + System.lineSeparator() +
+                "Lobby: " + df.format(lobby) + System.lineSeparator() +
+                "Wide Qualification: " + df.format(wideQualification) + System.lineSeparator() +
+                "Wide Finals: " + df.format(wideFinals) + System.lineSeparator() +
+                "Total Score: " + df.format(total) + System.lineSeparator() +
+                "```";
+    }
+
+    /**
+     * Create a text with Hypixel stats information inside
+     * @param data a valid Hypixel json data
+     * @return a message containing every hole in the wall stats
+     */
+    public static String generateHypixelStatsMessage(@Nonnull String data) {
+        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        final DecimalFormat df = (DecimalFormat) nf;
+
+        final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
+        final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
+        final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));
+        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_q", "0"));
+        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_f", "0"));
+        final int QF = qualification + finals;
+        final int QFAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
+        final int challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
+
+        return "```yml" + System.lineSeparator() +
+                "Player name: " + name + System.lineSeparator() +
+                System.lineSeparator() +
+                "Wins: " + df.format(wins) + System.lineSeparator() +
+                "Walls: " + df.format(walls) + System.lineSeparator() +
+                "Qualification: " + df.format(qualification) + System.lineSeparator() +
+                "Finals: " + df.format(finals) + System.lineSeparator() +
+                "Q/F: " + df.format(QF) + System.lineSeparator() +
+                "Q/F API: " + df.format(QFAPI) + System.lineSeparator() +
+                "Challenges: " + df.format(challenges) + System.lineSeparator() +
+                "```";
+    }
 
     /**
      * Send the skin embed message without menu if the player isn't linked

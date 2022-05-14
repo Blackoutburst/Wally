@@ -24,37 +24,6 @@ import java.util.Locale;
 public class CommandUtils {
 
     /**
-     * Create a text with Hypixel stats information inside
-     * @param data a valid Hypixel json data
-     * @return a message containing every hole in the wall stats
-     */
-    public static String generateHypixelStatsMessage(@Nonnull String data) {
-        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
-        final DecimalFormat df = (DecimalFormat) nf;
-
-        final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
-        final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
-        final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));
-        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_q", "0"));
-        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_f", "0"));
-        final int QF = qualification + finals;
-        final int QFAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
-        final int challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
-
-        return "```yml" + System.lineSeparator() +
-                "Player name: " + name + System.lineSeparator() +
-                System.lineSeparator() +
-                "Wins: " + df.format(wins) + System.lineSeparator() +
-                "Walls: " + df.format(walls) + System.lineSeparator() +
-                "Qualification: " + df.format(qualification) + System.lineSeparator() +
-                "Finals: " + df.format(finals) + System.lineSeparator() +
-                "Q/F: " + df.format(QF) + System.lineSeparator() +
-                "Q/F API: " + df.format(QFAPI) + System.lineSeparator() +
-                "Challenges: " + df.format(challenges) + System.lineSeparator() +
-                "```";
-    }
-
-    /**
      * Create user or alt account data
      * manage error by steps
      *

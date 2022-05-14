@@ -43,23 +43,14 @@ public class CommandStats extends CommandExecutable{
 
         String data = Hypixel.getPlayerStats(uuid);
         if (data == null && DatabaseUtils.isLinkedUUID(uuid)) {
-            final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
-            final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/hypixel.json");
-            try {
-                data = new String(Files.readAllBytes(filePath));
-                channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "local stats")).queue();
-            } catch (Exception e) {
-                MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command stats error"));
-                Wally.getInstance().logger.logStackTrace(e.getStackTrace());
-            }
+            data = DatabaseUtils.getBackupLocalData(uuid, "hypixel", channel);
         }
         if (data == null) {
             MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command stats error"));
             return;
         }
 
-        final String stats = CommandUtils.generateHypixelStatsMessage(data);
-
+        final String stats = MessageUtils.generateHypixelStatsMessage(data);
         final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, message, "stats");
         if (menu == null) {
             message.reply(stats).queue();
