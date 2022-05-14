@@ -79,11 +79,8 @@ public class CommandSetPermissionLevel extends CommandExecutable{
         }
 
         if (updateUserPermissionLevel(channel, discordID, level)) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "user permission updated"))
-                    .setActionRow(
-                    Button.primary(commandSender.getMember().getId()+":"+message.getId(), "Yes reload the users"),
-                    Button.danger(commandSender.getMember().getId()+":"+ UUID.randomUUID(), "No"))
-                    .queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
+            message.reply(ConfigManager.getInstance().loadValue("replies", "user permission updated")).queue();
+            Wally.getInstance().loadUser();
         }
     }
 }
