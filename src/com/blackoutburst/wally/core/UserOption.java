@@ -34,7 +34,7 @@ public class UserOption {
         this.serverID = serverID;
     }
 
-    public PermissionLevel getPermissionLevel() {
+    public @Nonnull PermissionLevel getPermissionLevel() {
         return permissionLevel;
     }
 
@@ -42,7 +42,7 @@ public class UserOption {
         this.permissionLevel = permissionLevel;
     }
 
-    public DisplayPreference getDisplayPreference() {
+    public @Nonnull DisplayPreference getDisplayPreference() {
         return displayPreference;
     }
 

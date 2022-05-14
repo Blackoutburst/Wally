@@ -19,26 +19,6 @@ import java.util.concurrent.TimeUnit;
 
 public class CommandSetDisplayPreference extends CommandExecutable{
 
-    /**
-     * Change someone display preference
-     *
-     * @param channel the message channel
-     * @param discordID the user discord id
-     * @param preference the new display preference
-     * @return if the operation worked
-     */
-    private boolean updateUserDisplayPreference(@Nonnull MessageChannel channel, @Nonnull String discordID, @Nonnull DisplayPreference preference) {
-        final String file = "database/linked users/" + discordID + "/data.json";
-        final UserOption data = DatabaseUtils.getWallyUserData(discordID);
-        if (data == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not linked or corrupted")).queue();
-            return false;
-        }
-        data.setDisplayPreference(preference);
-        DatabaseUtils.generateWallyProfile(data, file);
-        return true;
-    }
-
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
         final String discordID = commandSender.getMember().getId();
@@ -54,12 +34,6 @@ public class CommandSetDisplayPreference extends CommandExecutable{
                 option.getDisplayPreference().equals(DisplayPreference.CANVAS) ? Button.primary(id, "CANVAS") : Button.secondary(id, "CANVAS"),
                 option.getDisplayPreference().equals(DisplayPreference.EMBED) ? Button.primary(id, "EMBED") : Button.secondary(id, "EMBED"),
                 option.getDisplayPreference().equals(DisplayPreference.TEXT) ? Button.primary(id, "TEXT") : Button.secondary(id, "TEXT")
-        ).queue();
-
-        /*
-        if (updateUserDisplayPreference(channel, discordID, preference)) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "user display preference updated")).queue();
-            Wally.getInstance().loadUser();
-        }*/
+        ).queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
     }
 }
