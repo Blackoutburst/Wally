@@ -25,9 +25,9 @@ public class ButtonDisplayPreference extends ButtonExecutable {
                 .replace("%preference%", displayPreference.toString().toLowerCase())).setEphemeral(true).queue();
 
         event.getMessage().editMessage(ConfigManager.getInstance().loadValue("replies", "select display preference")).setActionRow(
-                displayPreference.equals(DisplayPreference.CANVAS) ? net.dv8tion.jda.api.interactions.components.buttons.Button.primary(id+ UUID.randomUUID(), "CANVAS") : Button.secondary(id+UUID.randomUUID(), "CANVAS"),
-                displayPreference.equals(DisplayPreference.EMBED) ? net.dv8tion.jda.api.interactions.components.buttons.Button.primary(id+UUID.randomUUID(), "EMBED") : Button.secondary(id+UUID.randomUUID(), "EMBED"),
-                displayPreference.equals(DisplayPreference.TEXT) ? net.dv8tion.jda.api.interactions.components.buttons.Button.primary(id+UUID.randomUUID(), "TEXT") : Button.secondary(id+UUID.randomUUID(), "TEXT")
+                displayPreference.equals(DisplayPreference.CANVAS) ? Button.primary(id+ UUID.randomUUID(), "CANVAS") : Button.secondary(id+UUID.randomUUID(), "CANVAS"),
+                displayPreference.equals(DisplayPreference.EMBED) ? Button.primary(id+UUID.randomUUID(), "EMBED") : Button.secondary(id+UUID.randomUUID(), "EMBED"),
+                displayPreference.equals(DisplayPreference.TEXT) ? Button.primary(id+UUID.randomUUID(), "TEXT") : Button.secondary(id+UUID.randomUUID(), "TEXT")
         ).queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
         Wally.getInstance().loadUser();
     }
