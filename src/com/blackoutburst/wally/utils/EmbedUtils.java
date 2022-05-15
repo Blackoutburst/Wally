@@ -2,6 +2,7 @@ package com.blackoutburst.wally.utils;
 
 import com.blackoutburst.wally.core.Wally;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -10,6 +11,24 @@ import java.io.FileReader;
 import java.time.LocalDate;
 
 public class EmbedUtils {
+
+    /**
+     * Create an embed with Hypixel stats information inside
+     * @param data a valid Hypixel json data
+     * @return an embed containing every hole in the wall stats
+     */
+    public static MessageEmbed generateHypixelStatsEmbed(@Nonnull String data) {
+        final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
+        final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
+        final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));
+        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_q", "0"));
+        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_f", "0"));
+        final int QF = qualification + finals;
+        final int QFAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
+        final int challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
+
+        return new EmbedBuilder().build();
+    }
 
     /**
      * Generate the skin preview in embed

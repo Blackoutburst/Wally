@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.utils.DatabaseUtils;
+import com.blackoutburst.wally.utils.EmbedUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -51,7 +52,7 @@ public class CommandStats extends CommandExecutable{
 
         switch (commandSender.getDisplayPreference()) {
             case TEXT: message.reply(MessageUtils.generateHypixelStatsMessage(data)).setActionRow(menu).queue(); break;
-            case EMBED: message.replyEmbeds(MessageUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue(); break;
+            case EMBED: message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue(); break;
             default: message.reply("").setActionRow(menu).queue(); break;
         }
     }
