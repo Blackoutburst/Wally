@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.core.selectmenu;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 
@@ -52,14 +53,14 @@ public class SelectMenuManager {
      *
      * @param event the buttonInteraction event
      */
-    public void runAction(@Nonnull SelectMenuInteractionEvent event) {
+    public void runAction(@Nonnull WallyUser buttonUser, @Nonnull SelectMenuInteractionEvent event) {
         final String label = event.getSelectMenu().getId().split(":")[1];
 
         for (SelectMenu b : selectMenus) {
             for (String l : b.getLabels()) {
                 if (label.startsWith(l)) {
                     Wally.getInstance().logger.log(LogLevel.INFO, event.getMember().getEffectiveName() + " used menu [" + label + "]");
-                    b.getExecutable().onChange(event);
+                    b.getExecutable().onChange(buttonUser, event);
                 }
             }
         }

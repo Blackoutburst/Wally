@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.request.PracticeServer;
 import com.blackoutburst.wally.utils.DatabaseUtils;
+import com.blackoutburst.wally.utils.EmbedUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -54,12 +55,12 @@ public class CommandPracticeStats extends CommandExecutable{
 
         DatabaseUtils.updateStats(data, DatabaseUtils.DataType.PRACTICE, discordID, uuid);
 
-        final String stats = MessageUtils.generatePracticeStatsMessage(data);
         final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "practice stats");
-        if (menu == null) {
-            message.reply(stats).queue();
-        } else {
-            message.reply(stats).setActionRow(menu).queue();
+
+        switch (commandSender.getDisplayPreference()) {
+            case TEXT: if (menu != null){message.reply(MessageUtils.generatePracticeStatsMessage(data)).setActionRow(menu).queue();} else {message.reply(MessageUtils.generatePracticeStatsMessage(data)).queue();} break;
+            case EMBED: if (menu != null){message.replyEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).setActionRow(menu).queue();} else {message.replyEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).queue();} break;
+            default:  if (menu != null){message.reply("Soon...").setActionRow(menu).queue();} else {message.reply("Soon...").queue();} break;
         }
     }
 }

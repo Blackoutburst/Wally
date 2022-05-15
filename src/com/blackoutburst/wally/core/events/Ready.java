@@ -21,7 +21,7 @@ public class Ready {
 
         if (Wally.hitwDiscord == null) {
             Wally.getInstance().logger.log(LogLevel.ERROR, "Couldn't retrieve the Hole in the Wall discord server!");
-            System.exit(84);
+            System.exit(0);
         } else {
             Wally.getInstance().logger.log(LogLevel.INFO, "Hole in the Wall discord retrieved successfully");
         }
