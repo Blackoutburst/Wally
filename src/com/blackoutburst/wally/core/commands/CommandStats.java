@@ -51,9 +51,9 @@ public class CommandStats extends CommandExecutable{
         final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "stats");
 
         switch (commandSender.getDisplayPreference()) {
-            case TEXT: message.reply(MessageUtils.generateHypixelStatsMessage(data)).setActionRow(menu).queue(); break;
-            case EMBED: message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue(); break;
-            default: message.reply("Soon...").setActionRow(menu).queue(); break;
+            case TEXT: if (menu != null){message.reply(MessageUtils.generateHypixelStatsMessage(data)).setActionRow(menu).queue();} else {message.reply(MessageUtils.generateHypixelStatsMessage(data)).queue();} break;
+            case EMBED: if (menu != null){message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue();} else {message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).queue();} break;
+            default:  if (menu != null){message.reply("Soon...").setActionRow(menu).queue();} else {message.reply("Soon...").queue();} break;
         }
     }
 }
