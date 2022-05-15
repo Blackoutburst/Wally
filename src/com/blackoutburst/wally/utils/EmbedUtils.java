@@ -62,9 +62,9 @@ public class EmbedUtils {
                 .addField("Qualification", Wally.getInstance().decimalFormat.format(stats.qualification), true)
                 .addBlankField(true)
                 .addField("Finals", Wally.getInstance().decimalFormat.format(stats.finals), true)
-                .addField("QF", Wally.getInstance().decimalFormat.format(stats.QF), true)
+                .addField("QF", Wally.getInstance().decimalFormat.format(stats.total), true)
                 .addBlankField(true)
-                .addField("QF (according to the API)", Wally.getInstance().decimalFormat.format(stats.QFAPI), true)
+                .addField("QF (according to the API)", Wally.getInstance().decimalFormat.format(stats.totalAPI), true)
                 .addField("Challenges", Wally.getInstance().decimalFormat.format(stats.challenges), true)
                 .setFooter(LocalDate.now() + " | " + stats.uuid)
                 .build();

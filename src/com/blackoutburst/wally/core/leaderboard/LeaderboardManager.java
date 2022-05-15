@@ -1,0 +1,116 @@
+package com.blackoutburst.wally.core.leaderboard;
+
+import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.leaderboard.comparators.*;
+import com.blackoutburst.wally.core.logger.LogLevel;
+import com.blackoutburst.wally.core.statsobject.HypixelStats;
+import com.blackoutburst.wally.core.statsobject.PracticeStats;
+import com.blackoutburst.wally.core.statsobject.StatsObject;
+import com.blackoutburst.wally.utils.DatabaseUtils.DataType;
+
+import javax.annotation.Nonnull;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+
+public class LeaderboardManager {
+
+    public final List<StatsObject> winsLeaderboardHypixel = new ArrayList<>();
+    public final List<StatsObject> wallLeaderboardHypixel = new ArrayList<>();
+    public final List<StatsObject> qualificationLeaderboardHypixel = new ArrayList<>();
+    public final List<StatsObject> finalsLeaderboardHypixel = new ArrayList<>();
+    public final List<StatsObject> qfLeaderboardHypixel = new ArrayList<>();
+    public final List<StatsObject> qfApiLeaderboardHypixel = new ArrayList<>();
+    public final List<StatsObject> challengesLeaderboardHypixel = new ArrayList<>();
+
+    public final List<StatsObject> qualificationLeaderboardPractice = new ArrayList<>();
+    public final List<StatsObject> finalsLeaderboardPractice = new ArrayList<>();
+    public final List<StatsObject> lobbyLeaderboardPractice = new ArrayList<>();
+    public final List<StatsObject> wideQualificationLeaderboardPractice = new ArrayList<>();
+    public final List<StatsObject> wideFinalsLeaderboardPractice = new ArrayList<>();
+    public final List<StatsObject> totalLeaderboardPractice = new ArrayList<>();
+
+    private static LeaderboardManager instance = null;
+
+    /**
+     * Give a leaderboard manager instance
+     *
+     * @return the leaderboard manager instance
+     */
+    public static @Nonnull LeaderboardManager getInstance() {
+        if (instance == null)
+            instance = new LeaderboardManager();
+        return instance;
+    }
+
+    /**
+     * Populate a leaderboard list using player data from the database
+     *
+     * @param leaderboard the leaderboard that must be populated
+     * @param type the data type
+     */
+    private void populate(@Nonnull List<StatsObject> leaderboard, DataType type) {
+        final File rootFolder = new File("/database/leaderboards/" + type.getName());
+        final String[] entries = rootFolder.list();
+        if (entries == null) return;
+
+        for (String s : entries) {
+            final File userFolder = new File(rootFolder.getPath(), s);
+
+            final Path filePath = Paths.get(userFolder.getPath()+"/data.json");
+            try {
+                final String data = new String(Files.readAllBytes(filePath));
+
+                leaderboard.add(type.equals(DataType.HYPIXEL) ? new HypixelStats(data) : new PracticeStats(data));
+            } catch (Exception e) {
+                Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+            }
+        }
+    }
+
+    /**
+     * Sort a leaderboard using a custom comparator
+     *
+     * @param leaderboard the leaderboard that must be sorted
+     * @param comparator the comparator
+     */
+    public void sort(@Nonnull List<StatsObject> leaderboard, @Nonnull Comparator<StatsObject> comparator) {
+        leaderboard.sort(comparator);
+    }
+
+    private LeaderboardManager() {
+        Wally.getInstance().logger.log(LogLevel.INFO, "Initializing leaderboard");
+        long time = System.currentTimeMillis();
+        populate(winsLeaderboardHypixel, DataType.HYPIXEL);
+        populate(wallLeaderboardHypixel, DataType.HYPIXEL);
+        populate(qualificationLeaderboardHypixel, DataType.HYPIXEL);
+        populate(finalsLeaderboardHypixel, DataType.HYPIXEL);
+        populate(qfLeaderboardHypixel, DataType.HYPIXEL);
+        populate(qfApiLeaderboardHypixel, DataType.HYPIXEL);
+        populate(challengesLeaderboardHypixel, DataType.HYPIXEL);
+        populate(qualificationLeaderboardPractice, DataType.PRACTICE);
+        populate(finalsLeaderboardPractice, DataType.PRACTICE);
+        populate(lobbyLeaderboardPractice, DataType.PRACTICE);
+        populate(wideQualificationLeaderboardPractice, DataType.PRACTICE);
+        populate(wideFinalsLeaderboardPractice, DataType.PRACTICE);
+        populate(totalLeaderboardPractice, DataType.PRACTICE);
+
+        sort(winsLeaderboardHypixel, new HypixelWinsComparator());
+        sort(wallLeaderboardHypixel, new HypixelWallsComparator());
+        sort(qualificationLeaderboardHypixel, new QualificationComparator());
+        sort(finalsLeaderboardHypixel, new FinalsComparator());
+        sort(qfLeaderboardHypixel, new TotalComparator());
+        sort(qfApiLeaderboardHypixel,new HypixelTotalAPIComparator());
+        sort(challengesLeaderboardHypixel, new HypixelChallengesComparator());
+        sort(qualificationLeaderboardPractice, new QualificationComparator());
+        sort(finalsLeaderboardPractice, new FinalsComparator());
+        sort(lobbyLeaderboardPractice, new PracticeLobbyComparator());
+        sort(wideQualificationLeaderboardPractice, new PracticeWideQualificationComparator());
+        sort(wideFinalsLeaderboardPractice, new PracticeWideFinalsComparator());
+        sort(totalLeaderboardPractice, new TotalComparator());
+
+        Wally.getInstance().logger.log(LogLevel.INFO, "Leaderboard initialized in " + (System.currentTimeMillis() - time) + "ms");
+    }
+}

@@ -56,8 +56,8 @@ public class MessageUtils {
                 "Walls: " + Wally.getInstance().decimalFormat.format(stats.walls) + System.lineSeparator() +
                 "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + System.lineSeparator() +
                 "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + System.lineSeparator() +
-                "Q/F: " + Wally.getInstance().decimalFormat.format(stats.QF) + System.lineSeparator() +
-                "Q/F API: " + Wally.getInstance().decimalFormat.format(stats.QFAPI) + System.lineSeparator() +
+                "Q/F: " + Wally.getInstance().decimalFormat.format(stats.total) + System.lineSeparator() +
+                "Q/F API: " + Wally.getInstance().decimalFormat.format(stats.totalAPI) + System.lineSeparator() +
                 "Challenges: " + Wally.getInstance().decimalFormat.format(stats.challenges) + System.lineSeparator() +
                 "```";
     }
