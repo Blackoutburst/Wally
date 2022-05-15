@@ -53,7 +53,7 @@ public class CommandStats extends CommandExecutable{
         switch (commandSender.getDisplayPreference()) {
             case TEXT: message.reply(MessageUtils.generateHypixelStatsMessage(data)).setActionRow(menu).queue(); break;
             case EMBED: message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue(); break;
-            default: message.reply("").setActionRow(menu).queue(); break;
+            default: message.reply("Soon...").setActionRow(menu).queue(); break;
         }
     }
 }

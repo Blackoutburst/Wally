@@ -1,7 +1,9 @@
 package com.blackoutburst.wally.utils;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.roles.RolesManager;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import javax.annotation.Nonnull;
@@ -18,6 +20,8 @@ public class EmbedUtils {
      * @return an embed containing every hole in the wall stats
      */
     public static MessageEmbed generateHypixelStatsEmbed(@Nonnull String data) {
+        final long time = System.currentTimeMillis();
+        final String uuid = APIUtils.getValuesFromAPI(data, "player.uuid", "unknown");
         final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
         final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
         final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));
@@ -27,7 +31,11 @@ public class EmbedUtils {
         final int QFAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
         final int challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
 
-        return new EmbedBuilder().build();
+        return new EmbedBuilder()
+                .setAuthor(name, "https://hypixel.net/player/"+uuid, "https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
+                .setTitle("Hypixel stats", "https://hypixel.net/player/"+uuid)
+                .setColor(Utils.getColorFromScore(Integer.max(qualification, finals)))
+                .build();
     }
 
     /**

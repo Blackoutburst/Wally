@@ -28,13 +28,6 @@ public class RolesManager {
         }
     }
 
-    public static @Nonnull Color getClubRoleColor(@Nonnull Member member) {
-        final List<Role> roles = member.getRoles();
-        Optional<Role> role = roles.stream().filter(r -> r.getName().contains("Club")).findFirst();
-
-        return role.isPresent() && role.get().getColor() != null ? role.get().getColor() : Color.GRAY;
-    }
-
     /**
      * Add a role to a member
      *
