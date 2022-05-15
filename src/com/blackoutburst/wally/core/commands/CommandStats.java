@@ -49,10 +49,11 @@ public class CommandStats extends CommandExecutable{
 
         final String stats = MessageUtils.generateHypixelStatsMessage(data);
         final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "stats");
-        if (menu == null) {
-            message.reply(stats).queue();
-        } else {
-            message.reply(stats).setActionRow(menu).queue();
+
+        switch (commandSender.getDisplayPreference()) {
+            case TEXT: message.reply(stats).setActionRow(menu).queue(); break;
+            case EMBED: message.reply(stats).setActionRow(menu).queue(); break;
+            default: message.reply(stats).setActionRow(menu).queue(); break;
         }
     }
 }
