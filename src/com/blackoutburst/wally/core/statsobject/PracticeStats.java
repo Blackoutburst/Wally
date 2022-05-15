@@ -2,7 +2,7 @@ package com.blackoutburst.wally.core.statsobject;
 
 import com.blackoutburst.wally.utils.APIUtils;
 
-public class PracticeStats implements StatObject {
+public class PracticeStats implements StatsObject {
 
     public final String uuid;
     public final String name;
@@ -27,5 +27,20 @@ public class PracticeStats implements StatObject {
     @Override
     public String getUUID() {
         return uuid;
+    }
+
+    @Override
+    public int getFinals() {
+        return finals;
+    }
+
+    @Override
+    public int getQualification() {
+        return qualification;
+    }
+
+    @Override
+    public int getTotal() {
+        return total;
     }
 }

@@ -1,6 +1,6 @@
 package com.blackoutburst.wally.utils;
 
-import com.blackoutburst.wally.core.statsobject.StatObject;
+import com.blackoutburst.wally.core.statsobject.StatsObject;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
@@ -13,10 +13,10 @@ public class LeaderboardUtils {
      * @param leaderboard the leaderboard
      * @return the player position inside the leaderboard
      */
-    public static int getPlayerPosition(@Nonnull String uuid, Set<StatObject> leaderboard) {
+    public static int getPlayerPosition(@Nonnull String uuid, Set<StatsObject> leaderboard) {
         int position = 1;
 
-        for (StatObject stats : leaderboard) {
+        for (StatsObject stats : leaderboard) {
             if (uuid.equals(stats.getUUID())) break;
             position++;
         }

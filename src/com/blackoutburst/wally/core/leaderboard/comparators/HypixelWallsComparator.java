@@ -1,12 +1,13 @@
 package com.blackoutburst.wally.core.leaderboard.comparators;
 
 import com.blackoutburst.wally.core.statsobject.HypixelStats;
+import com.blackoutburst.wally.core.statsobject.StatsObject;
 
 import java.util.Comparator;
 
-public class HypixelWallsComparator implements Comparator<HypixelStats> {
-    public int compare(HypixelStats b, HypixelStats a) {
-        int comparator = Integer.compare(a.walls, b.walls);
-        return comparator == 0 ? Integer.compare(a.walls, b.walls) : comparator;
+public class HypixelWallsComparator implements Comparator<StatsObject> {
+    public int compare(StatsObject b, StatsObject a) {
+        int comparator = Integer.compare(((HypixelStats)a).walls, ((HypixelStats)b).walls);
+        return comparator == 0 ? Integer.compare(((HypixelStats)a).walls, ((HypixelStats)b).walls) : comparator;
     }
 }
