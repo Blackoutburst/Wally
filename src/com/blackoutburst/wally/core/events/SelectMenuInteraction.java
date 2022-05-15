@@ -1,9 +1,11 @@
 package com.blackoutburst.wally.core.events;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import com.blackoutburst.wally.core.selectmenu.SelectMenuManager;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 
 import javax.annotation.Nonnull;
@@ -27,7 +29,10 @@ public class SelectMenuInteraction {
                     " couldn't use the menu ["+event.getSelectMenu().getId()+"]");
             return;
         }
+        final Member member = event.getMember();
+        if (member == null) return;
 
-        SelectMenuManager.getInstance().runAction(event);
+        final WallyUser buttonUser = WallyUser.getUser(member);
+        SelectMenuManager.getInstance().runAction(buttonUser, event);
     }
 }

@@ -30,7 +30,7 @@ public class MessageReceived {
         final Member member = event.getMember();
         if (member == null) return;
 
-        WallyUser commandSender = WallyUser.getUser(member);
+        final WallyUser commandSender = WallyUser.getUser(member);
         CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
     }
 }
