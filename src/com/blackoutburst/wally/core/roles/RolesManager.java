@@ -8,6 +8,9 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
 import javax.annotation.Nonnull;
+import java.awt.Color;
+import java.util.List;
+import java.util.Optional;
 
 public class RolesManager {
 
@@ -23,6 +26,13 @@ public class RolesManager {
             case "RE:U+1f1f8" : return ("She/Her");
             default: return ("They/Them");
         }
+    }
+
+    public static @Nonnull Color getClubRoleColor(@Nonnull Member member) {
+        final List<Role> roles = member.getRoles();
+        Optional<Role> role = roles.stream().filter(r -> r.getName().contains("Club")).findFirst();
+
+        return role.isPresent() && role.get().getColor() != null ? role.get().getColor() : Color.GRAY;
     }
 
     /**

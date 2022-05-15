@@ -47,13 +47,12 @@ public class CommandStats extends CommandExecutable{
 
         DatabaseUtils.updateStats(data, DatabaseUtils.DataType.HYPIXEL, discordID, uuid);
 
-        final String stats = MessageUtils.generateHypixelStatsMessage(data);
         final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "stats");
 
         switch (commandSender.getDisplayPreference()) {
-            case TEXT: message.reply(stats).setActionRow(menu).queue(); break;
-            case EMBED: message.reply(stats).setActionRow(menu).queue(); break;
-            default: message.reply(stats).setActionRow(menu).queue(); break;
+            case TEXT: message.reply(MessageUtils.generateHypixelStatsMessage(data)).setActionRow(menu).queue(); break;
+            case EMBED: message.replyEmbeds(MessageUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue(); break;
+            default: message.reply("").setActionRow(menu).queue(); break;
         }
     }
 }

@@ -1,11 +1,14 @@
 package com.blackoutburst.wally.utils;
 
+import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Mojang;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 
@@ -27,8 +30,6 @@ public class MessageUtils {
      * @return a message containing every hole in the wall stats
      */
     public static String generatePracticeStatsMessage(@Nonnull String data) {
-        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
-        final DecimalFormat df = (DecimalFormat) nf;
 
         final String name = APIUtils.getValuesFromAPI(data,"name", "Unknown");
         final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.qualification", "0"));
@@ -41,12 +42,12 @@ public class MessageUtils {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + name + System.lineSeparator() +
                 System.lineSeparator() +
-                "Qualification: " + df.format(qualification) + System.lineSeparator() +
-                "Finals: " + df.format(finals) + System.lineSeparator() +
-                "Lobby: " + df.format(lobby) + System.lineSeparator() +
-                "Wide Qualification: " + df.format(wideQualification) + System.lineSeparator() +
-                "Wide Finals: " + df.format(wideFinals) + System.lineSeparator() +
-                "Total Score: " + df.format(total) + System.lineSeparator() +
+                "Qualification: " + Wally.getInstance().decimalFormat.format(qualification) + System.lineSeparator() +
+                "Finals: " + Wally.getInstance().decimalFormat.format(finals) + System.lineSeparator() +
+                "Lobby: " + Wally.getInstance().decimalFormat.format(lobby) + System.lineSeparator() +
+                "Wide Qualification: " + Wally.getInstance().decimalFormat.format(wideQualification) + System.lineSeparator() +
+                "Wide Finals: " + Wally.getInstance().decimalFormat.format(wideFinals) + System.lineSeparator() +
+                "Total Score: " + Wally.getInstance().decimalFormat.format(total) + System.lineSeparator() +
                 "```";
     }
 
@@ -55,10 +56,25 @@ public class MessageUtils {
      * @param data a valid Hypixel json data
      * @return a message containing every hole in the wall stats
      */
-    public static String generateHypixelStatsMessage(@Nonnull String data) {
-        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
-        final DecimalFormat df = (DecimalFormat) nf;
+    public static MessageEmbed generateHypixelStatsEmbed(@Nonnull String data) {
+        final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
+        final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
+        final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));
+        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_q", "0"));
+        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_f", "0"));
+        final int QF = qualification + finals;
+        final int QFAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
+        final int challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
 
+        return new EmbedBuilder().build();
+    }
+
+    /**
+     * Create a text with Hypixel stats information inside
+     * @param data a valid Hypixel json data
+     * @return a message containing every hole in the wall stats
+     */
+    public static String generateHypixelStatsMessage(@Nonnull String data) {
         final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
         final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
         final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));
@@ -71,13 +87,13 @@ public class MessageUtils {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + name + System.lineSeparator() +
                 System.lineSeparator() +
-                "Wins: " + df.format(wins) + System.lineSeparator() +
-                "Walls: " + df.format(walls) + System.lineSeparator() +
-                "Qualification: " + df.format(qualification) + System.lineSeparator() +
-                "Finals: " + df.format(finals) + System.lineSeparator() +
-                "Q/F: " + df.format(QF) + System.lineSeparator() +
-                "Q/F API: " + df.format(QFAPI) + System.lineSeparator() +
-                "Challenges: " + df.format(challenges) + System.lineSeparator() +
+                "Wins: " + Wally.getInstance().decimalFormat.format(wins) + System.lineSeparator() +
+                "Walls: " + Wally.getInstance().decimalFormat.format(walls) + System.lineSeparator() +
+                "Qualification: " + Wally.getInstance().decimalFormat.format(qualification) + System.lineSeparator() +
+                "Finals: " + Wally.getInstance().decimalFormat.format(finals) + System.lineSeparator() +
+                "Q/F: " + Wally.getInstance().decimalFormat.format(QF) + System.lineSeparator() +
+                "Q/F API: " + Wally.getInstance().decimalFormat.format(QFAPI) + System.lineSeparator() +
+                "Challenges: " + Wally.getInstance().decimalFormat.format(challenges) + System.lineSeparator() +
                 "```";
     }
 

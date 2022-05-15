@@ -19,7 +19,10 @@ import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.io.File;
 import java.io.FileReader;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 
@@ -34,6 +37,8 @@ public class Wally {
     public static Guild hitwDiscord;
 
     private static Wally instance = null;
+
+    public final DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
 
     /**
      * Get the Wally instance
