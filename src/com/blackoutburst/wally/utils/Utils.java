@@ -11,6 +11,21 @@ import java.util.Optional;
 public class Utils {
 
     /**
+     * Input as many scores as you want and it will return the highest one
+     * @param scores the scores
+     * @return the highest score
+     */
+    public static int getHighestScore(int... scores) {
+        int highest = 0;
+
+        for (int score : scores)
+            if (score > highest)
+                highest = score;
+
+        return highest;
+    }
+
+    /**
      * Get a club role color based on score
      * The input number is rounded to the lower 50 div
      * @param score the player score
