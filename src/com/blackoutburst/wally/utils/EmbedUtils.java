@@ -33,8 +33,20 @@ public class EmbedUtils {
 
         return new EmbedBuilder()
                 .setAuthor(name, "https://hypixel.net/player/"+uuid, "https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
+                .setThumbnail("https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
                 .setTitle("Hypixel stats", "https://hypixel.net/player/"+uuid)
-                .setColor(Utils.getColorFromScore(Integer.max(qualification, finals)))
+                .setColor(Utils.getColorFromScore(Utils.getHighestScore(qualification, finals)))
+                .addField("Wins", Wally.getInstance().decimalFormat.format(wins), true)
+                .addBlankField(true)
+                .addField("Walls", Wally.getInstance().decimalFormat.format(walls), true)
+                .addField("Qualification", Wally.getInstance().decimalFormat.format(qualification), true)
+                .addBlankField(true)
+                .addField("Finals", Wally.getInstance().decimalFormat.format(finals), true)
+                .addField("QF", Wally.getInstance().decimalFormat.format(QF), true)
+                .addBlankField(true)
+                .addField("QF (according to the API)", Wally.getInstance().decimalFormat.format(QFAPI), true)
+                .addField("Challenges", Wally.getInstance().decimalFormat.format(challenges), true)
+                .setFooter(LocalDate.now() + " | " + uuid)
                 .build();
     }
 
