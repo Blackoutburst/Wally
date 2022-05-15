@@ -1,6 +1,5 @@
 package com.blackoutburst.wally.core.leaderboard.comparators;
 
-import com.blackoutburst.wally.core.statsobject.HypixelStats;
 import com.blackoutburst.wally.core.statsobject.StatsObject;
 
 import java.util.Comparator;
