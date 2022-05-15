@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.statsobject.HypixelStats;
+import com.blackoutburst.wally.core.statsobject.PracticeStats;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
@@ -26,23 +27,17 @@ public class MessageUtils {
      * @return a message containing every hole in the wall stats
      */
     public static String generatePracticeStatsMessage(@Nonnull String data) {
-        final String name = APIUtils.getValuesFromAPI(data,"name", "Unknown");
-        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.qualification", "0"));
-        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.finals", "0"));
-        final int lobby = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.lobby", "0"));
-        final int wideQualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.wide_qualification", "0"));
-        final int wideFinals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.wide_finals", "0"));
-        final int total = qualification + finals + lobby + wideQualification + wideFinals;
+        final PracticeStats stats = new PracticeStats(data);
 
         return "```yml" + System.lineSeparator() +
-                "Player name: " + name + System.lineSeparator() +
+                "Player name: " + stats.name + System.lineSeparator() +
                 System.lineSeparator() +
-                "Qualification: " + Wally.getInstance().decimalFormat.format(qualification) + System.lineSeparator() +
-                "Finals: " + Wally.getInstance().decimalFormat.format(finals) + System.lineSeparator() +
-                "Lobby: " + Wally.getInstance().decimalFormat.format(lobby) + System.lineSeparator() +
-                "Wide Qualification: " + Wally.getInstance().decimalFormat.format(wideQualification) + System.lineSeparator() +
-                "Wide Finals: " + Wally.getInstance().decimalFormat.format(wideFinals) + System.lineSeparator() +
-                "Total Score: " + Wally.getInstance().decimalFormat.format(total) + System.lineSeparator() +
+                "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + System.lineSeparator() +
+                "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + System.lineSeparator() +
+                "Lobby: " + Wally.getInstance().decimalFormat.format(stats.lobby) + System.lineSeparator() +
+                "Wide Qualification: " + Wally.getInstance().decimalFormat.format(stats.wideQualification) + System.lineSeparator() +
+                "Wide Finals: " + Wally.getInstance().decimalFormat.format(stats.wideFinals) + System.lineSeparator() +
+                "Total Score: " + Wally.getInstance().decimalFormat.format(stats.total) + System.lineSeparator() +
                 "```";
     }
 

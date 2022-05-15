@@ -2,6 +2,7 @@ package com.blackoutburst.wally.utils;
 
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.statsobject.HypixelStats;
+import com.blackoutburst.wally.core.statsobject.PracticeStats;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
@@ -20,31 +21,24 @@ public class EmbedUtils {
      */
     public static MessageEmbed generatePracticeStatsEmbed(@Nonnull String data) {
         final long time = System.currentTimeMillis();
-        final String uuid = APIUtils.getValuesFromAPI(data, "uuid", "unknown");
-        final String name = APIUtils.getValuesFromAPI(data,"name", "Unknown");
-        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.qualification", "0"));
-        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.finals", "0"));
-        final int lobby = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.lobby", "0"));
-        final int wideQualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.wide_qualification", "0"));
-        final int wideFinals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.wide_finals", "0"));
-        final int total = qualification + finals + lobby + wideQualification + wideFinals;
+        final PracticeStats stats = new PracticeStats(data);
 
         return new EmbedBuilder()
-                .setAuthor(name, "https://hypixel.net/player/"+uuid, "https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
-                .setThumbnail("https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
-                .setTitle("Practice stats", "https://hypixel.net/player/"+uuid)
-                .setColor(Utils.getColorFromScore(Utils.getHighestScore(qualification, finals, lobby, wideQualification, wideFinals)))
-                .addField("Qualification", Wally.getInstance().decimalFormat.format(qualification), true)
+                .setAuthor(stats.name, "https://hypixel.net/player/" + stats.uuid, "https://visage.surgeplay.com/face/512/" + stats.uuid + "?&time=" + time)
+                .setThumbnail("https://visage.surgeplay.com/face/512/" + stats.uuid + "?&time=" + time)
+                .setTitle("Practice stats", "https://hypixel.net/player/" + stats.uuid)
+                .setColor(Utils.getColorFromScore(Utils.getHighestScore(stats.qualification, stats.finals, stats.lobby, stats.wideQualification, stats.wideFinals)))
+                .addField("Qualification", Wally.getInstance().decimalFormat.format(stats.qualification), true)
                 .addBlankField(true)
-                .addField("Finals", Wally.getInstance().decimalFormat.format(finals), true)
-                .addField("Lobby", Wally.getInstance().decimalFormat.format(lobby), true)
+                .addField("Finals", Wally.getInstance().decimalFormat.format(stats.finals), true)
+                .addField("Lobby", Wally.getInstance().decimalFormat.format(stats.lobby), true)
                 .addBlankField(true)
                 .addBlankField(true)
-                .addField("Wide Qualification", Wally.getInstance().decimalFormat.format(wideQualification), true)
+                .addField("Wide Qualification", Wally.getInstance().decimalFormat.format(stats.wideQualification), true)
                 .addBlankField(true)
-                .addField("Wide Finals", Wally.getInstance().decimalFormat.format(wideFinals), true)
-                .addField("Total score", Wally.getInstance().decimalFormat.format(total), true)
-                .setFooter(LocalDate.now() + " | " + uuid)
+                .addField("Wide Finals", Wally.getInstance().decimalFormat.format(stats.wideFinals), true)
+                .addField("Total score", Wally.getInstance().decimalFormat.format(stats.total), true)
+                .setFooter(LocalDate.now() + " | " + stats.uuid)
                 .build();
     }
 
@@ -58,9 +52,9 @@ public class EmbedUtils {
         final HypixelStats stats = new HypixelStats(data);
 
         return new EmbedBuilder()
-                .setAuthor(stats.name, "https://hypixel.net/player/"+stats.uuid, "https://visage.surgeplay.com/face/512/" + stats.uuid + "?&time=" + time)
+                .setAuthor(stats.name, "https://hypixel.net/player/" + stats.uuid, "https://visage.surgeplay.com/face/512/" + stats.uuid + "?&time=" + time)
                 .setThumbnail("https://visage.surgeplay.com/face/512/" + stats.uuid + "?&time=" + time)
-                .setTitle("Hypixel stats", "https://hypixel.net/player/"+stats.uuid)
+                .setTitle("Hypixel stats", "https://hypixel.net/player/" + stats.uuid)
                 .setColor(Utils.getColorFromScore(Utils.getHighestScore(stats.qualification, stats.finals)))
                 .addField("Wins", Wally.getInstance().decimalFormat.format(stats.wins), true)
                 .addBlankField(true)
