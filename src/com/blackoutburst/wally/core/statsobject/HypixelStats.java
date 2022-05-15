@@ -2,7 +2,7 @@ package com.blackoutburst.wally.core.statsobject;
 
 import com.blackoutburst.wally.utils.APIUtils;
 
-public class HypixelStats {
+public class HypixelStats implements StatObject {
 
     public final String uuid;
     public final String name;

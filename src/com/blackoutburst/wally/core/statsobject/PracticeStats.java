@@ -2,7 +2,7 @@ package com.blackoutburst.wally.core.statsobject;
 
 import com.blackoutburst.wally.utils.APIUtils;
 
-public class PracticeStats {
+public class PracticeStats implements StatObject {
 
     public final String uuid;
     public final String name;
