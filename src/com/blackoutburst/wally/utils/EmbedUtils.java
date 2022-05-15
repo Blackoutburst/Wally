@@ -15,6 +15,41 @@ import java.time.LocalDate;
 public class EmbedUtils {
 
     /**
+     * Create an embed with Practice stats information inside
+     * @param data a valid Practice json data
+     * @return an embed containing every hole in the wall stats
+     */
+    public static MessageEmbed generatePracticeStatsEmbed(@Nonnull String data) {
+        final long time = System.currentTimeMillis();
+        final String uuid = APIUtils.getValuesFromAPI(data, "uuid", "unknown");
+        final String name = APIUtils.getValuesFromAPI(data,"name", "Unknown");
+        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.qualification", "0"));
+        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.finals", "0"));
+        final int lobby = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.lobby", "0"));
+        final int wideQualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.wide_qualification", "0"));
+        final int wideFinals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.wide_finals", "0"));
+        final int total = qualification + finals + lobby + wideQualification + wideFinals;
+
+        return new EmbedBuilder()
+                .setAuthor(name, "https://hypixel.net/player/"+uuid, "https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
+                .setThumbnail("https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
+                .setTitle("Practice stats", "https://hypixel.net/player/"+uuid)
+                .setColor(Utils.getColorFromScore(Utils.getHighestScore(qualification, finals, lobby, wideQualification, wideFinals)))
+                .addField("Qualification", Wally.getInstance().decimalFormat.format(qualification), true)
+                .addBlankField(true)
+                .addField("Finals", Wally.getInstance().decimalFormat.format(finals), true)
+                .addField("Lobby", Wally.getInstance().decimalFormat.format(lobby), true)
+                .addBlankField(true)
+                .addBlankField(true)
+                .addField("Wide Qualification", Wally.getInstance().decimalFormat.format(wideQualification), true)
+                .addBlankField(true)
+                .addField("Wide Finals", Wally.getInstance().decimalFormat.format(wideFinals), true)
+                .addField("Total score", Wally.getInstance().decimalFormat.format(total), true)
+                .setFooter(LocalDate.now() + " | " + uuid)
+                .build();
+    }
+
+    /**
      * Create an embed with Hypixel stats information inside
      * @param data a valid Hypixel json data
      * @return an embed containing every hole in the wall stats

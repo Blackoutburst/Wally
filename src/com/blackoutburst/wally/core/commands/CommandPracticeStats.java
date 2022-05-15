@@ -55,12 +55,12 @@ public class CommandPracticeStats extends CommandExecutable{
 
         DatabaseUtils.updateStats(data, DatabaseUtils.DataType.PRACTICE, discordID, uuid);
 
-        final String stats = MessageUtils.generatePracticeStatsMessage(data);
         final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "practice stats");
+
         switch (commandSender.getDisplayPreference()) {
-            case TEXT: message.reply(MessageUtils.generateHypixelStatsMessage(data)).setActionRow(menu).queue(); break;
-            case EMBED: message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue(); break;
-            default: message.reply("Soon...").setActionRow(menu).queue(); break;
+            case TEXT: if (menu != null){message.reply(MessageUtils.generatePracticeStatsMessage(data)).setActionRow(menu).queue();} else {message.reply(MessageUtils.generatePracticeStatsMessage(data)).queue();} break;
+            case EMBED: if (menu != null){message.replyEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).setActionRow(menu).queue();} else {message.replyEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).queue();} break;
+            default:  if (menu != null){message.reply("Soon...").setActionRow(menu).queue();} else {message.reply("Soon...").queue();} break;
         }
     }
 }

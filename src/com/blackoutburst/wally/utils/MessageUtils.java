@@ -30,7 +30,6 @@ public class MessageUtils {
      * @return a message containing every hole in the wall stats
      */
     public static String generatePracticeStatsMessage(@Nonnull String data) {
-
         final String name = APIUtils.getValuesFromAPI(data,"name", "Unknown");
         final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.qualification", "0"));
         final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.finals", "0"));
