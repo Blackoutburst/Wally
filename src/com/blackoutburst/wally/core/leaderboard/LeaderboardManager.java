@@ -37,7 +37,7 @@ public class LeaderboardManager {
 
     /**
      * Give a leaderboard manager instance
-     * 
+     *
      * @return the leaderboard manager instance
      */
     public static @Nonnull LeaderboardManager getInstance() {
