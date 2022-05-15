@@ -32,7 +32,8 @@ public class Utils {
      * @return the role color
      */
     public static @Nonnull Color getColorFromScore(int score) {
-        final int lowRound = ((score + 49) / 50 * 50) - 50;
+        final int lowRound = ((score > 500 ? score : 500 + 49) / 50 * 50) - 50;
+
         final List<Role> roles = Wally.hitwDiscord.getRoles();
         final Optional<Role> role = roles.stream().filter(r -> r.getName().equals(lowRound + "+ Club")).findFirst();
 
