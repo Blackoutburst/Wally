@@ -1,6 +1,5 @@
 package com.blackoutburst.wally.core.statsobject;
 
-import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.utils.APIUtils;
 
 public class HypixelStats {
