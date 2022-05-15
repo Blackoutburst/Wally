@@ -35,12 +35,23 @@ public class LeaderboardManager {
 
     private static LeaderboardManager instance = null;
 
+    /**
+     * Give a leaderboard manager instance
+     * 
+     * @return the leaderboard manager instance
+     */
     public static @Nonnull LeaderboardManager getInstance() {
         if (instance == null)
             instance = new LeaderboardManager();
         return instance;
     }
 
+    /**
+     * Populate a leaderboard set using player data from the database
+     *
+     * @param leaderboard the leaderboard that must be populated
+     * @param type the data type
+     */
     private void populate(@Nonnull Set<StatObject> leaderboard, DataType type) {
         final File rootFolder = new File("/database/leaderboards/" + type.getName());
         final String[] entries = rootFolder.list();
