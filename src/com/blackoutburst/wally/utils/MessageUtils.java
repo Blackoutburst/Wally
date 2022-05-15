@@ -5,6 +5,7 @@ import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Mojang;
+import com.blackoutburst.wally.core.statsobject.HypixelStats;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
@@ -51,25 +52,18 @@ public class MessageUtils {
      * @return a message containing every hole in the wall stats
      */
     public static String generateHypixelStatsMessage(@Nonnull String data) {
-        final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
-        final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
-        final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));
-        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_q", "0"));
-        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_f", "0"));
-        final int QF = qualification + finals;
-        final int QFAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
-        final int challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
+        final HypixelStats stats = new HypixelStats(data);
 
         return "```yml" + System.lineSeparator() +
-                "Player name: " + name + System.lineSeparator() +
+                "Player name: " + stats.name + System.lineSeparator() +
                 System.lineSeparator() +
-                "Wins: " + Wally.getInstance().decimalFormat.format(wins) + System.lineSeparator() +
-                "Walls: " + Wally.getInstance().decimalFormat.format(walls) + System.lineSeparator() +
-                "Qualification: " + Wally.getInstance().decimalFormat.format(qualification) + System.lineSeparator() +
-                "Finals: " + Wally.getInstance().decimalFormat.format(finals) + System.lineSeparator() +
-                "Q/F: " + Wally.getInstance().decimalFormat.format(QF) + System.lineSeparator() +
-                "Q/F API: " + Wally.getInstance().decimalFormat.format(QFAPI) + System.lineSeparator() +
-                "Challenges: " + Wally.getInstance().decimalFormat.format(challenges) + System.lineSeparator() +
+                "Wins: " + Wally.getInstance().decimalFormat.format(stats.wins) + System.lineSeparator() +
+                "Walls: " + Wally.getInstance().decimalFormat.format(stats.walls) + System.lineSeparator() +
+                "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + System.lineSeparator() +
+                "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + System.lineSeparator() +
+                "Q/F: " + Wally.getInstance().decimalFormat.format(stats.QF) + System.lineSeparator() +
+                "Q/F API: " + Wally.getInstance().decimalFormat.format(stats.QFAPI) + System.lineSeparator() +
+                "Challenges: " + Wally.getInstance().decimalFormat.format(stats.challenges) + System.lineSeparator() +
                 "```";
     }
 

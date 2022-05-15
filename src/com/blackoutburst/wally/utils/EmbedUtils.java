@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.utils;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.statsobject.HypixelStats;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
@@ -54,32 +55,24 @@ public class EmbedUtils {
      */
     public static MessageEmbed generateHypixelStatsEmbed(@Nonnull String data) {
         final long time = System.currentTimeMillis();
-        final String uuid = APIUtils.getValuesFromAPI(data, "player.uuid", "unknown");
-        final String name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
-        final int wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
-        final int walls = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.rounds_hole_in_the_wall", "0"));
-        final int qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_q", "0"));
-        final int finals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.hitw_record_f", "0"));
-        final int QF = qualification + finals;
-        final int QFAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
-        final int challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
+        final HypixelStats stats = new HypixelStats(data);
 
         return new EmbedBuilder()
-                .setAuthor(name, "https://hypixel.net/player/"+uuid, "https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
-                .setThumbnail("https://visage.surgeplay.com/face/512/" + uuid + "?&time=" + time)
-                .setTitle("Hypixel stats", "https://hypixel.net/player/"+uuid)
-                .setColor(Utils.getColorFromScore(Utils.getHighestScore(qualification, finals)))
-                .addField("Wins", Wally.getInstance().decimalFormat.format(wins), true)
+                .setAuthor(stats.name, "https://hypixel.net/player/"+stats.uuid, "https://visage.surgeplay.com/face/512/" + stats.uuid + "?&time=" + time)
+                .setThumbnail("https://visage.surgeplay.com/face/512/" + stats.uuid + "?&time=" + time)
+                .setTitle("Hypixel stats", "https://hypixel.net/player/"+stats.uuid)
+                .setColor(Utils.getColorFromScore(Utils.getHighestScore(stats.qualification, stats.finals)))
+                .addField("Wins", Wally.getInstance().decimalFormat.format(stats.wins), true)
                 .addBlankField(true)
-                .addField("Walls", Wally.getInstance().decimalFormat.format(walls), true)
-                .addField("Qualification", Wally.getInstance().decimalFormat.format(qualification), true)
+                .addField("Walls", Wally.getInstance().decimalFormat.format(stats.walls), true)
+                .addField("Qualification", Wally.getInstance().decimalFormat.format(stats.qualification), true)
                 .addBlankField(true)
-                .addField("Finals", Wally.getInstance().decimalFormat.format(finals), true)
-                .addField("QF", Wally.getInstance().decimalFormat.format(QF), true)
+                .addField("Finals", Wally.getInstance().decimalFormat.format(stats.finals), true)
+                .addField("QF", Wally.getInstance().decimalFormat.format(stats.QF), true)
                 .addBlankField(true)
-                .addField("QF (according to the API)", Wally.getInstance().decimalFormat.format(QFAPI), true)
-                .addField("Challenges", Wally.getInstance().decimalFormat.format(challenges), true)
-                .setFooter(LocalDate.now() + " | " + uuid)
+                .addField("QF (according to the API)", Wally.getInstance().decimalFormat.format(stats.QFAPI), true)
+                .addField("Challenges", Wally.getInstance().decimalFormat.format(stats.challenges), true)
+                .setFooter(LocalDate.now() + " | " + stats.uuid)
                 .build();
     }
 
