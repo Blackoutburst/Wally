@@ -4,11 +4,8 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
-import com.blackoutburst.wally.utils.EmbedUtils;
-import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.nio.file.Files;
