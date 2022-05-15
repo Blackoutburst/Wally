@@ -5,6 +5,7 @@ import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Hypixel;
 import com.blackoutburst.wally.core.request.Mojang;
+import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.EmbedUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
@@ -41,19 +42,13 @@ public class CommandStats extends CommandExecutable{
         if (data == null && DatabaseUtils.isLinkedUUID(uuid)) {
             data = DatabaseUtils.getBackupLocalData(uuid, DatabaseUtils.DataType.HYPIXEL, channel);
         }
+
         if (data == null) {
             MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command stats error"));
             return;
         }
 
         DatabaseUtils.updateStats(data, DatabaseUtils.DataType.HYPIXEL, discordID, uuid);
-
-        final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "stats");
-
-        switch (commandSender.getDisplayPreference()) {
-            case TEXT: if (menu != null){message.reply(MessageUtils.generateHypixelStatsMessage(data)).setActionRow(menu).queue();} else {message.reply(MessageUtils.generateHypixelStatsMessage(data)).queue();} break;
-            case EMBED: if (menu != null){message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue();} else {message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).queue();} break;
-            default:  if (menu != null){message.reply("Soon...").setActionRow(menu).queue();} else {message.reply("Soon...").queue();} break;
-        }
+        CommandUtils.sendHypixelStats(commandSender, message, data, uuid, false);
     }
 }

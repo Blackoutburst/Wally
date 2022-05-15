@@ -3,6 +3,7 @@ package com.blackoutburst.wally.core.selectmenu;
 import com.blackoutburst.wally.core.UserOption;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
+import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.EmbedUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
@@ -30,10 +31,6 @@ public class SelectMenuStats extends SelectMenuExecutable {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
 
-        switch (buttonUser.getDisplayPreference()) {
-            case TEXT: event.editMessage(MessageUtils.generateHypixelStatsMessage(data)).queue(); break;
-            case EMBED:  event.editMessageEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).queue(); break;
-            default: event.editMessage("Soon...").queue(); break;
-        }
+        CommandUtils.sendHypixelStats(buttonUser, event.getMessage(), data, uuid, true);
     }
 }

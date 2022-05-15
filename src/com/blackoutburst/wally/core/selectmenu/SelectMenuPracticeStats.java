@@ -2,6 +2,7 @@ package com.blackoutburst.wally.core.selectmenu;
 
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
+import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.EmbedUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
@@ -29,10 +30,6 @@ public class SelectMenuPracticeStats extends SelectMenuExecutable {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
 
-        switch (buttonUser.getDisplayPreference()) {
-            case TEXT: event.editMessage(MessageUtils.generatePracticeStatsMessage(data)).queue(); break;
-            case EMBED:  event.editMessageEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).queue(); break;
-            default: event.editMessage("Soon...").queue(); break;
-        }
+        CommandUtils.sendPracticeStats(buttonUser, event.getMessage(), data, uuid, true);
     }
 }

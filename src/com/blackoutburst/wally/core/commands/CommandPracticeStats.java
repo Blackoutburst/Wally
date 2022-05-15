@@ -5,6 +5,7 @@ import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.request.PracticeServer;
+import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.EmbedUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
@@ -48,19 +49,13 @@ public class CommandPracticeStats extends CommandExecutable{
         if (data == null && DatabaseUtils.isLinkedUUID(uuid)) {
             data = DatabaseUtils.getBackupLocalData(uuid, DatabaseUtils.DataType.PRACTICE, channel);
         }
+
         if (data == null) {
             MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.getInstance().loadValue("replies", "command practice stats error"));
             return;
         }
 
         DatabaseUtils.updateStats(data, DatabaseUtils.DataType.PRACTICE, discordID, uuid);
-
-        final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "practice stats");
-
-        switch (commandSender.getDisplayPreference()) {
-            case TEXT: if (menu != null){message.reply(MessageUtils.generatePracticeStatsMessage(data)).setActionRow(menu).queue();} else {message.reply(MessageUtils.generatePracticeStatsMessage(data)).queue();} break;
-            case EMBED: if (menu != null){message.replyEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).setActionRow(menu).queue();} else {message.replyEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).queue();} break;
-            default:  if (menu != null){message.reply("Soon...").setActionRow(menu).queue();} else {message.reply("Soon...").queue();} break;
-        }
+        CommandUtils.sendPracticeStats(commandSender, message, data, uuid, false);
     }
 }
