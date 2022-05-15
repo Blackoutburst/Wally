@@ -24,4 +24,8 @@ public class PracticeStats implements StatObject {
         total = qualification + finals + lobby + wideQualification + wideFinals;
     }
 
+    @Override
+    public String getUUID() {
+        return uuid;
+    }
 }

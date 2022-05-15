@@ -26,4 +26,8 @@ public class HypixelStats implements StatObject {
         challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
     }
 
+    @Override
+    public String getUUID() {
+        return uuid;
+    }
 }
