@@ -40,7 +40,7 @@ public class CommandSkin extends CommandExecutable{
 
         final String playerName = Mojang.getPlayerName(uuid);
         final EmbedBuilder embed = EmbedUtils.generateSkin(uuid, playerName);
-        final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, message, "skin");
+        final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "skin");
         if (menu == null) {
             message.replyEmbeds(embed.build()).queue();
         } else {

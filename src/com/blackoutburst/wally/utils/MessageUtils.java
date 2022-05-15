@@ -88,16 +88,15 @@ public class MessageUtils {
      *
      * @param commandSender the command sender
      * @param uuid the player uuid
-     * @param message the message
      */
-    public static SelectMenu createAccountMenu(@Nonnull WallyUser commandSender, @Nonnull String uuid, @Nonnull Message message, @Nonnull String menuName) {
+    public static SelectMenu createAccountMenu(@Nonnull WallyUser commandSender, @Nonnull String uuid, @Nonnull String menuName) {
         final boolean linked = DatabaseUtils.isLinkedUUID(uuid);
         if (!linked) return null;
 
         final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
         final File folder = new File("database/linked users/" + wallyUser.getMember().getId() + "/accounts/");
         final String[] entries = folder.list();
-        if (entries.length == 1) return null;
+        if (entries == null || entries.length == 1) return null;
 
         final SelectMenu.Builder menu = SelectMenu.create(commandSender.getMember().getId()+":"+menuName)
                 .setRequiredRange(1, 1)

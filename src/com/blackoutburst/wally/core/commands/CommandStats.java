@@ -48,7 +48,7 @@ public class CommandStats extends CommandExecutable{
         DatabaseUtils.updateStats(data, DatabaseUtils.DataType.HYPIXEL, discordID, uuid);
 
         final String stats = MessageUtils.generateHypixelStatsMessage(data);
-        final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, message, "stats");
+        final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "stats");
         if (menu == null) {
             message.reply(stats).queue();
         } else {

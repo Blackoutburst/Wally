@@ -55,7 +55,7 @@ public class CommandPracticeStats extends CommandExecutable{
         DatabaseUtils.updateStats(data, DatabaseUtils.DataType.PRACTICE, discordID, uuid);
 
         final String stats = MessageUtils.generatePracticeStatsMessage(data);
-        final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, message, "practice stats");
+        final SelectMenu menu = MessageUtils.createAccountMenu(commandSender, uuid, "practice stats");
         if (menu == null) {
             message.reply(stats).queue();
         } else {
