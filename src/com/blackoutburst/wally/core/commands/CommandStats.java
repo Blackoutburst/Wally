@@ -46,7 +46,7 @@ public class CommandStats extends CommandExecutable{
             return;
         }
 
-        DatabaseUtils.updateStats(data, DatabaseUtils.DataType.HYPIXEL, discordID, uuid);
+        DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, discordID, uuid);
         CommandUtils.sendHypixelStats(commandSender, message, data, uuid, false);
     }
 }

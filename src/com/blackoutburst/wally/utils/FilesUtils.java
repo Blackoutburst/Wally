@@ -14,6 +14,22 @@ import java.util.stream.Collectors;
 public class FilesUtils {
 
     /**
+     * Check if a player is excluded from leaderboard
+     * @param uuid the player uuid
+     * @return if the player is excluded
+     */
+    public static boolean isExcluded(@Nonnull String uuid) {
+        try {
+        final File file = new File("config/excluded.txt");
+
+        return Files.lines(file.toPath()).anyMatch(line -> line.contains(uuid));
+        } catch (IOException e) {
+            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+        }
+        return false;
+    }
+
+    /**
      * Remove the leaderboard exclusion by removing the player uuid from the exclude file
      *
      * @param uuid the player uuid that must be removed from the file

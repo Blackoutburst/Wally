@@ -126,11 +126,28 @@ public class DatabaseUtils {
      * @param discordID the user discord id
      * @param uuid the player uuid
      */
-    public static void updateStats(@Nonnull String data, @Nonnull DataType type, @Nonnull String discordID, @Nonnull String uuid) {
+    public static void updateLinkedPlayerStats(@Nonnull String data, @Nonnull DataType type, @Nonnull String discordID, @Nonnull String uuid) {
         if (DatabaseUtils.isLinked(discordID)) {
             final String rootFolderPath = "database/linked users/" + discordID;
             final String playerFolderPath = rootFolderPath + "/accounts/" + uuid;
             DatabaseUtils.generateStats(data, playerFolderPath + "/" + type.getName() + ".json");
+        }
+    }
+
+    /**
+     * Update a player stats
+     *
+     * @param data the api data
+     * @param type the stats type
+     * @param uuid the player uuid
+     */
+    public static void updateLeaderboardStats(@Nonnull String data, @Nonnull DataType type, @Nonnull String uuid) {
+        if (!FilesUtils.isExcluded(uuid)) {
+            final String rootFolderPath = "database/leaderboards/" + type.getName();
+            final String playerFolderPath = rootFolderPath + "/" + uuid;
+
+            new File(playerFolderPath).mkdirs();
+            DatabaseUtils.generateStats(data, playerFolderPath + "/data.json");
         }
     }
 
