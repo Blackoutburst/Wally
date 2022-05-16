@@ -65,7 +65,6 @@ public class DatabaseUtils {
     public static String getBackupLocalData(@Nonnull String uuid, @Nonnull DataType type, @Nonnull MessageChannel channel) {
         String data = null;
 
-
         try {
             final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
             final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/" + type.getName() + ".json");
@@ -156,9 +155,12 @@ public class DatabaseUtils {
         if (!FilesUtils.isExcluded(uuid)) {
             final String rootFolderPath = "database/leaderboards/" + type.getName();
             final String playerFolderPath = rootFolderPath + "/" + uuid;
+            final File playerFolder = new File(playerFolderPath);
 
-            if (!new File(playerFolderPath).mkdirs()) {
-                Wally.getInstance().logger.log(LogLevel.ERROR, "Player leaderboard folder creation failed");
+            if (!playerFolder.exists()) {
+                if (!playerFolder.mkdirs()) {
+                    Wally.getInstance().logger.log(LogLevel.WARN, "Player leaderboard folder creation failed");
+                }
             }
             DatabaseUtils.generateStats(data, playerFolderPath + "/data.json");
         }
