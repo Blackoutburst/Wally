@@ -157,10 +157,8 @@ public class DatabaseUtils {
             final String playerFolderPath = rootFolderPath + "/" + uuid;
             final File playerFolder = new File(playerFolderPath);
 
-            if (!playerFolder.exists()) {
-                if (!playerFolder.mkdirs()) {
-                    Wally.getInstance().logger.log(LogLevel.WARN, "Player leaderboard folder creation failed");
-                }
+            if (!playerFolder.exists() && !playerFolder.mkdirs()) {
+                Wally.getInstance().logger.log(LogLevel.WARN, "Player leaderboard folder creation failed");
             }
             DatabaseUtils.generateStats(data, playerFolderPath + "/data.json");
         }

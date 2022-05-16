@@ -4,7 +4,11 @@ import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.database.DatabaseManager;
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
+import com.blackoutburst.wally.core.request.Hypixel;
+import com.blackoutburst.wally.core.request.PracticeServer;
+import com.blackoutburst.wally.utils.DatabaseUtils;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
