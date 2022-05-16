@@ -52,7 +52,7 @@ public class LeaderboardManager {
      * @param type the data type
      */
     private void populate(@Nonnull List<StatsObject> leaderboard, DataType type) {
-        final File rootFolder = new File("/database/leaderboards/" + type.getName());
+        final File rootFolder = new File("database/leaderboards/" + type.getName());
         final String[] entries = rootFolder.list();
         if (entries == null) return;
 
@@ -84,18 +84,19 @@ public class LeaderboardManager {
         Wally.getInstance().logger.log(LogLevel.INFO, "Initializing leaderboard");
         long time = System.currentTimeMillis();
         populate(winsLeaderboardHypixel, DataType.HYPIXEL);
-        populate(wallLeaderboardHypixel, DataType.HYPIXEL);
-        populate(qualificationLeaderboardHypixel, DataType.HYPIXEL);
-        populate(finalsLeaderboardHypixel, DataType.HYPIXEL);
-        populate(qfLeaderboardHypixel, DataType.HYPIXEL);
-        populate(qfApiLeaderboardHypixel, DataType.HYPIXEL);
-        populate(challengesLeaderboardHypixel, DataType.HYPIXEL);
+        wallLeaderboardHypixel.addAll(winsLeaderboardHypixel);
+        qualificationLeaderboardHypixel.addAll(winsLeaderboardHypixel);
+        finalsLeaderboardHypixel.addAll(winsLeaderboardHypixel);
+        qfLeaderboardHypixel.addAll(winsLeaderboardHypixel);
+        qfApiLeaderboardHypixel.addAll(winsLeaderboardHypixel);
+        challengesLeaderboardHypixel.addAll(winsLeaderboardHypixel);
+
         populate(qualificationLeaderboardPractice, DataType.PRACTICE);
-        populate(finalsLeaderboardPractice, DataType.PRACTICE);
-        populate(lobbyLeaderboardPractice, DataType.PRACTICE);
-        populate(wideQualificationLeaderboardPractice, DataType.PRACTICE);
-        populate(wideFinalsLeaderboardPractice, DataType.PRACTICE);
-        populate(totalLeaderboardPractice, DataType.PRACTICE);
+        finalsLeaderboardPractice.addAll(qualificationLeaderboardPractice);
+        lobbyLeaderboardPractice.addAll(qualificationLeaderboardPractice);
+        wideQualificationLeaderboardPractice.addAll(qualificationLeaderboardPractice);
+        wideFinalsLeaderboardPractice.addAll(qualificationLeaderboardPractice);
+        totalLeaderboardPractice.addAll(qualificationLeaderboardPractice);
 
         sort(winsLeaderboardHypixel, new HypixelWinsComparator());
         sort(wallLeaderboardHypixel, new HypixelWallsComparator());

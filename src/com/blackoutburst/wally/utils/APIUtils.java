@@ -44,7 +44,6 @@ public class APIUtils {
 
             return (result == null ? defaultValue : result);
         } catch (Exception e) {
-            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
             return (defaultValue);
         }
     }

@@ -4,7 +4,7 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.statsobject.StatsObject;
 
 import javax.annotation.Nonnull;
-import java.util.Set;
+import java.util.List;
 
 public class LeaderboardUtils {
 
@@ -14,15 +14,15 @@ public class LeaderboardUtils {
      * @param leaderboard the leaderboard
      * @return the player position inside the leaderboard
      */
-    public static int getPlayerPosition(@Nonnull String uuid, Set<StatsObject> leaderboard) {
+    public static int getPlayerPosition(@Nonnull String uuid, List<StatsObject> leaderboard) {
         int position = 0;
 
         for (StatsObject stats : leaderboard) {
             position++;
-            if (uuid.equals(stats.getUUID())) break;
+            if (uuid.equals(stats.getUUID())) return (position);
         }
 
-        return (position);
+        return (0);
     }
 
     /**
@@ -31,14 +31,14 @@ public class LeaderboardUtils {
      * @param leaderboard the leaderboard
      * @return the player position inside the leaderboard
      */
-    public static String getPlayerPositionFormatted(@Nonnull String uuid, Set<StatsObject> leaderboard) {
+    public static String getPlayerPositionFormatted(@Nonnull String uuid, List<StatsObject> leaderboard) {
         int position = 0;
 
         for (StatsObject stats : leaderboard) {
             position++;
-            if (uuid.equals(stats.getUUID())) break;
+            if (uuid.equals(stats.getUUID())) return "(#" + Wally.getInstance().decimalFormat.format(position) + ")";
         }
 
-        return position == 0 ? "" : Wally.getInstance().decimalFormat.format(position);
+        return "";
     }
 }

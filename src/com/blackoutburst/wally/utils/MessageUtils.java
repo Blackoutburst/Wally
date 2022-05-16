@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
+import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.statsobject.HypixelStats;
 import com.blackoutburst.wally.core.statsobject.PracticeStats;
@@ -52,7 +53,7 @@ public class MessageUtils {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + stats.name + System.lineSeparator() +
                 System.lineSeparator() +
-                "Wins: " + Wally.getInstance().decimalFormat.format(stats.wins) + System.lineSeparator() +
+                "Wins: " + Wally.getInstance().decimalFormat.format(stats.wins) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().winsLeaderboardHypixel) + System.lineSeparator() +
                 "Walls: " + Wally.getInstance().decimalFormat.format(stats.walls) + System.lineSeparator() +
                 "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + System.lineSeparator() +
                 "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + System.lineSeparator() +
