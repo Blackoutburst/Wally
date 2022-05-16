@@ -53,6 +53,7 @@ public class CommandPracticeStats extends CommandExecutable{
             return;
         }
 
+        DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, uuid);
         DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.PRACTICE, discordID, uuid);
         CommandUtils.sendPracticeStats(commandSender, message, data, uuid, false);
     }
