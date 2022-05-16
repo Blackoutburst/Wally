@@ -5,6 +5,7 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.DisplayPreference;
 import com.blackoutburst.wally.core.config.ConfigManager;
+import com.blackoutburst.wally.core.logger.LogLevel;
 import com.google.gson.Gson;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
@@ -64,13 +65,23 @@ public class DatabaseUtils {
     public static String getBackupLocalData(@Nonnull String uuid, @Nonnull DataType type, @Nonnull MessageChannel channel) {
         String data = null;
 
-        final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
-        final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/" + type.getName() + ".json");
+
         try {
+            final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
+            final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/" + type.getName() + ".json");
+
             data = new String(Files.readAllBytes(filePath));
             channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "local stats")).queue();
         } catch (Exception e) {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
+            try {
+                final Path filePath = Paths.get("database/leaderboards/" + type.getName()+ "/" + uuid + "/data.json");
+
+                data = new String(Files.readAllBytes(filePath));
+                channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "local stats")).queue();
+            } catch (Exception e2) {
+                Wally.getInstance().logger.logStackTrace(e2.getStackTrace());
+            }
         }
 
         return data;
@@ -146,7 +157,9 @@ public class DatabaseUtils {
             final String rootFolderPath = "database/leaderboards/" + type.getName();
             final String playerFolderPath = rootFolderPath + "/" + uuid;
 
-            new File(playerFolderPath).mkdirs();
+            if (!new File(playerFolderPath).mkdirs()) {
+                Wally.getInstance().logger.log(LogLevel.ERROR, "Player leaderboard folder creation failed");
+            }
             DatabaseUtils.generateStats(data, playerFolderPath + "/data.json");
         }
     }
