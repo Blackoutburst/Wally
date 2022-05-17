@@ -39,6 +39,7 @@ public class MessageUtils {
                 "Wide Qualification: " + Wally.getInstance().decimalFormat.format(stats.wideQualification) + " " + LeaderboardUtils.formatPosition(stats.wideQualificationPosition) + System.lineSeparator() +
                 "Wide Finals: " + Wally.getInstance().decimalFormat.format(stats.wideFinals) + " " + LeaderboardUtils.formatPosition(stats.wideFinalsPosition) + System.lineSeparator() +
                 "Total Score: " + Wally.getInstance().decimalFormat.format(stats.total) + " " + LeaderboardUtils.formatPosition(stats.totalPosition) + System.lineSeparator() +
+                "Overall rank: " + Wally.getInstance().decimalFormat.format(stats.overall) + " " + LeaderboardUtils.formatPosition(stats.overallPosition) + System.lineSeparator() +
                 "```";
     }
 
