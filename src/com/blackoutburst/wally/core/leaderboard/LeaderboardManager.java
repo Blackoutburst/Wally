@@ -58,6 +58,7 @@ public class LeaderboardManager {
             instance = new LeaderboardManager();
             instance.calculateOverallLeaderboards();
             Wally.getInstance().logger.log(LogLevel.INFO, "Leaderboard initialized in " + (System.currentTimeMillis() - time) + "ms");
+            Wally.getInstance().isReady = true;
         }
         return instance;
     }

@@ -1,5 +1,7 @@
 package com.blackoutburst.wally.core.events;
 
+import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.CommandManager;
@@ -20,6 +22,10 @@ public class MessageReceived {
      */
     public static void run(@Nonnull MessageReceivedEvent event) {
         if (!event.getMessage().getContentRaw().startsWith(CommandManager.getPrefix())) return;
+        if (!Wally.getInstance().isReady) {
+            event.getMessage().reply(ConfigManager.getInstance().loadValue("replies", "still loading")).queue();
+            return;
+        }
 
         final String messageString = event.getMessage().getContentRaw();
         final String commandName = CommandUtils.getCommandName(messageString);

@@ -36,6 +36,8 @@ public class Wally {
 
     public static Guild hitwDiscord;
 
+    public boolean isReady = false;
+
     private static Wally instance = null;
 
     public final DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
