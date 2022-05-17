@@ -40,6 +40,8 @@ public class LeaderboardManager {
 
     /**
      * Populate and sort the overall rank leaderboard
+     * They must be processed after everything is set
+     * because they need every other leaderboard to actually calculate the overall
      */
     private void calculateOverallLeaderboards() {
         populate(overallLeaderboardHypixel, DataType.HYPIXEL, false);
