@@ -60,7 +60,7 @@ public class LeaderboardManager {
 
             instance = new LeaderboardManager();
             instance.calculateOverallLeaderboards();
-            
+
             Wally.getInstance().logger.log(LogLevel.INFO, "Leaderboard initialized in " + Wally.getInstance().decimalFormat.format((Duration.between(begin, Instant.now()).toMillis() / 1000.0f)) + "s");
             Wally.getInstance().isReady = true;
         }
