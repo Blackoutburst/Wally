@@ -9,4 +9,6 @@ public interface StatsObject {
     int getQualification();
 
     int getTotal();
+
+    float getOverall();
 }

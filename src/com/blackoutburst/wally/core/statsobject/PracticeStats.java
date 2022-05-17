@@ -60,4 +60,9 @@ public class PracticeStats implements StatsObject {
     public int getTotal() {
         return total;
     }
+
+    @Override
+    public float getOverall() {
+        return overall;
+    }
 }
