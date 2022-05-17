@@ -33,12 +33,12 @@ public class MessageUtils {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + stats.name + System.lineSeparator() +
                 System.lineSeparator() +
-                "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().qualificationLeaderboardPractice) + System.lineSeparator() +
-                "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().finalsLeaderboardPractice) + System.lineSeparator() +
-                "Lobby: " + Wally.getInstance().decimalFormat.format(stats.lobby) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().lobbyLeaderboardPractice) + System.lineSeparator() +
-                "Wide Qualification: " + Wally.getInstance().decimalFormat.format(stats.wideQualification) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().wideQualificationLeaderboardPractice) + System.lineSeparator() +
-                "Wide Finals: " + Wally.getInstance().decimalFormat.format(stats.wideFinals) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().wideFinalsLeaderboardPractice) + System.lineSeparator() +
-                "Total Score: " + Wally.getInstance().decimalFormat.format(stats.total) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().totalLeaderboardPractice) + System.lineSeparator() +
+                "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + " " + LeaderboardUtils.formatPosition(stats.qualificationPosition) + System.lineSeparator() +
+                "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + " " + LeaderboardUtils.formatPosition(stats.finalsPosition) + System.lineSeparator() +
+                "Lobby: " + Wally.getInstance().decimalFormat.format(stats.lobby) + " " + LeaderboardUtils.formatPosition(stats.lobbyPosition) + System.lineSeparator() +
+                "Wide Qualification: " + Wally.getInstance().decimalFormat.format(stats.wideQualification) + " " + LeaderboardUtils.formatPosition(stats.wideQualificationPosition) + System.lineSeparator() +
+                "Wide Finals: " + Wally.getInstance().decimalFormat.format(stats.wideFinals) + " " + LeaderboardUtils.formatPosition(stats.wideFinalsPosition) + System.lineSeparator() +
+                "Total Score: " + Wally.getInstance().decimalFormat.format(stats.total) + " " + LeaderboardUtils.formatPosition(stats.totalPosition) + System.lineSeparator() +
                 "```";
     }
 

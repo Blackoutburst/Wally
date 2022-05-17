@@ -41,4 +41,13 @@ public class LeaderboardUtils {
 
         return "";
     }
+
+    /**
+     * Format the leaderboard position (or any int) to (#x)
+     * @param position the leaderboard position
+     * @return a formatted version of the leaderboard position
+     */
+    public static String formatPosition(int position) {
+        return "(#" + Wally.getInstance().decimalFormat.format(position) + ")";
+    }
 }
