@@ -24,7 +24,7 @@ public class HypixelStats implements StatsObject {
     public final int totalAPIPosition;
     public final int challengesPosition;
 
-    public HypixelStats(String data) {
+    public HypixelStats(String data, boolean... noLeaderboard) {
         uuid = APIUtils.getValuesFromAPI(data, "player.uuid", "unknown");
         name = APIUtils.getValuesFromAPI(data,"player.displayname", "Unknown");
         wins = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.stats.Arcade.wins_hole_in_the_wall", "0"));
@@ -35,14 +35,14 @@ public class HypixelStats implements StatsObject {
         totalAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
         challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
 
-        winsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().winsLeaderboardHypixel);
-        wallsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wallLeaderboardHypixel);
-        qualificationPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qualificationLeaderboardHypixel);
-        finalsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().finalsLeaderboardHypixel);
-        totalPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfLeaderboardHypixel);
-        totalAPIPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfApiLeaderboardHypixel);
-        challengesPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().challengesLeaderboardHypixel);
-        overall = (winsPosition + wallsPosition + qualificationPosition + finalsPosition + totalPosition + totalAPIPosition + challengesPosition) / 7.0f;
+        winsPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().winsLeaderboardHypixel);
+        wallsPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wallLeaderboardHypixel);
+        qualificationPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qualificationLeaderboardHypixel);
+        finalsPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().finalsLeaderboardHypixel);
+        totalPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfLeaderboardHypixel);
+        totalAPIPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfApiLeaderboardHypixel);
+        challengesPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().challengesLeaderboardHypixel);
+        overall = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : (winsPosition + wallsPosition + qualificationPosition + finalsPosition + totalPosition + totalAPIPosition + challengesPosition) / 7.0f;
     }
 
     @Override

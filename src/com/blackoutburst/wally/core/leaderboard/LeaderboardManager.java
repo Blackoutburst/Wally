@@ -63,7 +63,7 @@ public class LeaderboardManager {
             try {
                 final String data = new String(Files.readAllBytes(filePath));
 
-                leaderboard.add(type.equals(DataType.HYPIXEL) ? new HypixelStats(data) : new PracticeStats(data));
+                leaderboard.add(type.equals(DataType.HYPIXEL) ? new HypixelStats(data, true) : new PracticeStats(data, true));
             } catch (Exception e) {
                 Wally.getInstance().logger.logStackTrace(e.getStackTrace());
             }
@@ -83,7 +83,9 @@ public class LeaderboardManager {
     private LeaderboardManager() {
         Wally.getInstance().logger.log(LogLevel.INFO, "Initializing leaderboard");
         long time = System.currentTimeMillis();
+
         populate(winsLeaderboardHypixel, DataType.HYPIXEL);
+        sort(winsLeaderboardHypixel, new HypixelWinsComparator());
         wallLeaderboardHypixel.addAll(winsLeaderboardHypixel);
         qualificationLeaderboardHypixel.addAll(winsLeaderboardHypixel);
         finalsLeaderboardHypixel.addAll(winsLeaderboardHypixel);
@@ -92,20 +94,20 @@ public class LeaderboardManager {
         challengesLeaderboardHypixel.addAll(winsLeaderboardHypixel);
 
         populate(qualificationLeaderboardPractice, DataType.PRACTICE);
+        sort(qualificationLeaderboardPractice, new QualificationComparator());
         finalsLeaderboardPractice.addAll(qualificationLeaderboardPractice);
         lobbyLeaderboardPractice.addAll(qualificationLeaderboardPractice);
         wideQualificationLeaderboardPractice.addAll(qualificationLeaderboardPractice);
         wideFinalsLeaderboardPractice.addAll(qualificationLeaderboardPractice);
         totalLeaderboardPractice.addAll(qualificationLeaderboardPractice);
 
-        sort(winsLeaderboardHypixel, new HypixelWinsComparator());
         sort(wallLeaderboardHypixel, new HypixelWallsComparator());
         sort(qualificationLeaderboardHypixel, new QualificationComparator());
         sort(finalsLeaderboardHypixel, new FinalsComparator());
         sort(qfLeaderboardHypixel, new TotalComparator());
         sort(qfApiLeaderboardHypixel,new HypixelTotalAPIComparator());
         sort(challengesLeaderboardHypixel, new HypixelChallengesComparator());
-        sort(qualificationLeaderboardPractice, new QualificationComparator());
+
         sort(finalsLeaderboardPractice, new FinalsComparator());
         sort(lobbyLeaderboardPractice, new PracticeLobbyComparator());
         sort(wideQualificationLeaderboardPractice, new PracticeWideQualificationComparator());

@@ -22,7 +22,7 @@ public class PracticeStats implements StatsObject {
     public final int wideFinalsPosition;
     public final int totalPosition;
 
-    public PracticeStats(String data) {
+    public PracticeStats(String data, boolean... noLeaderboard) {
         uuid = APIUtils.getValuesFromAPI(data, "uuid", "unknown");
         name = APIUtils.getValuesFromAPI(data,"name", "Unknown");
         qualification = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.qualification", "0"));
@@ -32,13 +32,13 @@ public class PracticeStats implements StatsObject {
         wideFinals = Integer.parseInt(APIUtils.getValuesFromAPI(data,"scores.wide_finals", "0"));
         total = qualification + finals + lobby + wideQualification + wideFinals;
 
-        qualificationPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qualificationLeaderboardPractice);
-        finalsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().finalsLeaderboardPractice);
-        lobbyPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().lobbyLeaderboardPractice);
-        wideQualificationPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wideQualificationLeaderboardPractice);
-        wideFinalsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wideFinalsLeaderboardPractice);
-        totalPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().totalLeaderboardPractice);
-        overall = (qualificationPosition + finalsPosition + wideQualificationPosition + wideFinalsPosition + totalPosition) / 5.0f;
+        qualificationPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qualificationLeaderboardPractice);
+        finalsPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().finalsLeaderboardPractice);
+        lobbyPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().lobbyLeaderboardPractice);
+        wideQualificationPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wideQualificationLeaderboardPractice);
+        wideFinalsPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wideFinalsLeaderboardPractice);
+        totalPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().totalLeaderboardPractice);
+        overall = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : (qualificationPosition + finalsPosition + wideQualificationPosition + wideFinalsPosition + totalPosition) / 5.0f;
     }
 
     @Override
