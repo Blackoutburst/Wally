@@ -4,7 +4,6 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
-import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.statsobject.HypixelStats;
 import com.blackoutburst.wally.core.statsobject.PracticeStats;
