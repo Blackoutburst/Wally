@@ -23,6 +23,7 @@ public class HypixelStats implements StatsObject {
     public final int totalPosition;
     public final int totalAPIPosition;
     public final int challengesPosition;
+    public final int overallPosition;
 
     public HypixelStats(String data, boolean... noLeaderboard) {
         uuid = APIUtils.getValuesFromAPI(data, "player.uuid", "unknown");
@@ -42,7 +43,10 @@ public class HypixelStats implements StatsObject {
         totalPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfLeaderboardHypixel);
         totalAPIPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfApiLeaderboardHypixel);
         challengesPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().challengesLeaderboardHypixel);
+
         overall = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : (winsPosition + wallsPosition + qualificationPosition + finalsPosition + totalPosition + totalAPIPosition + challengesPosition) / 7.0f;
+
+        overallPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().overallLeaderboardHypixel);
     }
 
     @Override
