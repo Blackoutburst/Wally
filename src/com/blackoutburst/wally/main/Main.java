@@ -37,6 +37,5 @@ public class Main {
 		ConfigManager.getInstance();
 		DatabaseManager.getInstance();
 		LeaderboardManager.getInstance();
-		Wally.getInstance();
 	}
 }
