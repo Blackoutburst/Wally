@@ -37,7 +37,8 @@ public class EmbedUtils {
                 .addField("Wide Qualification", Wally.getInstance().decimalFormat.format(stats.wideQualification) + " " + LeaderboardUtils.formatPosition(stats.wideQualificationPosition), true)
                 .addField("Wide Finals", Wally.getInstance().decimalFormat.format(stats.wideFinals) + " " + LeaderboardUtils.formatPosition(stats.wideFinalsPosition), true)
                 .addBlankField(true)
-                .addField("Total score", Wally.getInstance().decimalFormat.format(stats.total) + " " + LeaderboardUtils.formatPosition(stats.totalPosition), true)
+                .addField("Total Score", Wally.getInstance().decimalFormat.format(stats.total) + " " + LeaderboardUtils.formatPosition(stats.totalPosition), true)
+                .addField("Overall Rank", Wally.getInstance().decimalFormat.format(stats.overall) + " " + LeaderboardUtils.formatPosition(stats.overallPosition), true)
                 .setFooter(LocalDate.now() + " | " + stats.uuid)
                 .build();
     }
