@@ -27,6 +27,7 @@ public class SelectMenuPracticeStats extends SelectMenuExecutable {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
 
+        event.deferEdit().queue();
         CommandUtils.sendPracticeStats(buttonUser, event.getMessage(), data, uuid, true);
     }
 }

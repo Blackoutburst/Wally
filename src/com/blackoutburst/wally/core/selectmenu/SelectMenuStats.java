@@ -27,6 +27,7 @@ public class SelectMenuStats extends SelectMenuExecutable {
             Wally.getInstance().logger.logStackTrace(e.getStackTrace());
         }
 
+        event.deferEdit().queue();
         CommandUtils.sendHypixelStats(buttonUser, event.getMessage(), data, uuid, true);
     }
 }
