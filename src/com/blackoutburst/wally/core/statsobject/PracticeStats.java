@@ -21,6 +21,7 @@ public class PracticeStats implements StatsObject {
     public final int wideQualificationPosition;
     public final int wideFinalsPosition;
     public final int totalPosition;
+    public final int overallPosition;
 
     public PracticeStats(String data, boolean... noLeaderboard) {
         uuid = APIUtils.getValuesFromAPI(data, "uuid", "unknown");
@@ -38,7 +39,10 @@ public class PracticeStats implements StatsObject {
         wideQualificationPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wideQualificationLeaderboardPractice);
         wideFinalsPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wideFinalsLeaderboardPractice);
         totalPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().totalLeaderboardPractice);
+
         overall = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : (qualificationPosition + finalsPosition + wideQualificationPosition + wideFinalsPosition + totalPosition) / 5.0f;
+
+        overallPosition = noLeaderboard.length > 0 && noLeaderboard[0] ? 0 : LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().overallLeaderboardPractice);
     }
 
     @Override
