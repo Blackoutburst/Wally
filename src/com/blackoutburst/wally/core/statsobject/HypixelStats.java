@@ -1,6 +1,8 @@
 package com.blackoutburst.wally.core.statsobject;
 
+import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
 import com.blackoutburst.wally.utils.APIUtils;
+import com.blackoutburst.wally.utils.LeaderboardUtils;
 
 public class HypixelStats implements StatsObject {
 
@@ -13,6 +15,14 @@ public class HypixelStats implements StatsObject {
     public final int total;
     public final int totalAPI;
     public final int challenges;
+    public final float overall;
+    public final int winsPosition;
+    public final int wallsPosition;
+    public final int qualificationPosition;
+    public final int finalsPosition;
+    public final int totalPosition;
+    public final int totalAPIPosition;
+    public final int challengesPosition;
 
     public HypixelStats(String data) {
         uuid = APIUtils.getValuesFromAPI(data, "player.uuid", "unknown");
@@ -24,6 +34,15 @@ public class HypixelStats implements StatsObject {
         total = qualification + finals;
         totalAPI = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.achievements.arcade_hitw_practice_makes_perfect", "0"));
         challenges = Integer.parseInt(APIUtils.getValuesFromAPI(data,"player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0"));
+
+        winsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().winsLeaderboardHypixel);
+        wallsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wallLeaderboardHypixel);
+        qualificationPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qualificationLeaderboardHypixel);
+        finalsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().finalsLeaderboardHypixel);
+        totalPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfLeaderboardHypixel);
+        totalAPIPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfApiLeaderboardHypixel);
+        challengesPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().challengesLeaderboardHypixel);
+        overall = (winsPosition + wallsPosition + qualificationPosition + finalsPosition + totalPosition + totalAPIPosition + challengesPosition) / 7.0f;
     }
 
     @Override
