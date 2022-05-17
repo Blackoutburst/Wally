@@ -40,7 +40,8 @@ public class Wally {
 
     private static Wally instance = null;
 
-    public final DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+    public final DecimalFormat numberFormat = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+    public final DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     /**
      * Get the Wally instance

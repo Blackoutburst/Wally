@@ -36,7 +36,7 @@ public class LeaderboardUtils {
 
         for (StatsObject stats : leaderboard) {
             position++;
-            if (uuid.equals(stats.getUUID())) return "(#" + Wally.getInstance().decimalFormat.format(position) + ")";
+            if (uuid.equals(stats.getUUID())) return "(#" + Wally.getInstance().numberFormat.format(position) + ")";
         }
 
         return "";
@@ -48,6 +48,6 @@ public class LeaderboardUtils {
      * @return a formatted version of the leaderboard position
      */
     public static String formatPosition(int position) {
-        return "(#" + Wally.getInstance().decimalFormat.format(position) + ")";
+        return "(#" + Wally.getInstance().numberFormat.format(position) + ")";
     }
 }

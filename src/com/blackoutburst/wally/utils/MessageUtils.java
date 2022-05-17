@@ -33,12 +33,12 @@ public class MessageUtils {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + stats.name + System.lineSeparator() +
                 System.lineSeparator() +
-                "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + " " + LeaderboardUtils.formatPosition(stats.qualificationPosition) + System.lineSeparator() +
-                "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + " " + LeaderboardUtils.formatPosition(stats.finalsPosition) + System.lineSeparator() +
-                "Lobby: " + Wally.getInstance().decimalFormat.format(stats.lobby) + " " + LeaderboardUtils.formatPosition(stats.lobbyPosition) + System.lineSeparator() +
-                "Wide Qualification: " + Wally.getInstance().decimalFormat.format(stats.wideQualification) + " " + LeaderboardUtils.formatPosition(stats.wideQualificationPosition) + System.lineSeparator() +
-                "Wide Finals: " + Wally.getInstance().decimalFormat.format(stats.wideFinals) + " " + LeaderboardUtils.formatPosition(stats.wideFinalsPosition) + System.lineSeparator() +
-                "Total Score: " + Wally.getInstance().decimalFormat.format(stats.total) + " " + LeaderboardUtils.formatPosition(stats.totalPosition) + System.lineSeparator() +
+                "Qualification: " + Wally.getInstance().numberFormat.format(stats.qualification) + " " + LeaderboardUtils.formatPosition(stats.qualificationPosition) + System.lineSeparator() +
+                "Finals: " + Wally.getInstance().numberFormat.format(stats.finals) + " " + LeaderboardUtils.formatPosition(stats.finalsPosition) + System.lineSeparator() +
+                "Lobby: " + Wally.getInstance().numberFormat.format(stats.lobby) + " " + LeaderboardUtils.formatPosition(stats.lobbyPosition) + System.lineSeparator() +
+                "Wide Qualification: " + Wally.getInstance().numberFormat.format(stats.wideQualification) + " " + LeaderboardUtils.formatPosition(stats.wideQualificationPosition) + System.lineSeparator() +
+                "Wide Finals: " + Wally.getInstance().numberFormat.format(stats.wideFinals) + " " + LeaderboardUtils.formatPosition(stats.wideFinalsPosition) + System.lineSeparator() +
+                "Total Score: " + Wally.getInstance().numberFormat.format(stats.total) + " " + LeaderboardUtils.formatPosition(stats.totalPosition) + System.lineSeparator() +
                 "Overall Rank: " + Wally.getInstance().decimalFormat.format(stats.overall) + " " + LeaderboardUtils.formatPosition(stats.overallPosition) + System.lineSeparator() +
                 "```";
     }
@@ -54,13 +54,13 @@ public class MessageUtils {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + stats.name + System.lineSeparator() +
                 System.lineSeparator() +
-                "Wins: " + Wally.getInstance().decimalFormat.format(stats.wins) + " " + LeaderboardUtils.formatPosition(stats.winsPosition) + System.lineSeparator() +
-                "Walls: " + Wally.getInstance().decimalFormat.format(stats.walls) + " " + LeaderboardUtils.formatPosition(stats.wallsPosition) + System.lineSeparator() +
-                "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + " " + LeaderboardUtils.formatPosition(stats.qualificationPosition) + System.lineSeparator() +
-                "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + " " + LeaderboardUtils.formatPosition(stats.finalsPosition) + System.lineSeparator() +
-                "Q/F: " + Wally.getInstance().decimalFormat.format(stats.total) + " " + LeaderboardUtils.formatPosition(stats.totalPosition) + System.lineSeparator() +
-                "Q/F API: " + Wally.getInstance().decimalFormat.format(stats.totalAPI) + " " + LeaderboardUtils.formatPosition(stats.totalAPIPosition) + System.lineSeparator() +
-                "Challenges: " + Wally.getInstance().decimalFormat.format(stats.challenges) + " " + LeaderboardUtils.formatPosition(stats.challengesPosition) + System.lineSeparator() +
+                "Wins: " + Wally.getInstance().numberFormat.format(stats.wins) + " " + LeaderboardUtils.formatPosition(stats.winsPosition) + System.lineSeparator() +
+                "Walls: " + Wally.getInstance().numberFormat.format(stats.walls) + " " + LeaderboardUtils.formatPosition(stats.wallsPosition) + System.lineSeparator() +
+                "Qualification: " + Wally.getInstance().numberFormat.format(stats.qualification) + " " + LeaderboardUtils.formatPosition(stats.qualificationPosition) + System.lineSeparator() +
+                "Finals: " + Wally.getInstance().numberFormat.format(stats.finals) + " " + LeaderboardUtils.formatPosition(stats.finalsPosition) + System.lineSeparator() +
+                "Q/F: " + Wally.getInstance().numberFormat.format(stats.total) + " " + LeaderboardUtils.formatPosition(stats.totalPosition) + System.lineSeparator() +
+                "Q/F API: " + Wally.getInstance().numberFormat.format(stats.totalAPI) + " " + LeaderboardUtils.formatPosition(stats.totalAPIPosition) + System.lineSeparator() +
+                "Challenges: " + Wally.getInstance().numberFormat.format(stats.challenges) + " " + LeaderboardUtils.formatPosition(stats.challengesPosition) + System.lineSeparator() +
                 "Overall Rank: " + Wally.getInstance().decimalFormat.format(stats.overall) + " " + LeaderboardUtils.formatPosition(stats.overallPosition) + System.lineSeparator() +
                 "```";
     }

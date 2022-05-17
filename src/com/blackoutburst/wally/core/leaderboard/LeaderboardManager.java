@@ -13,6 +13,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 
 public class LeaderboardManager {
@@ -54,10 +56,12 @@ public class LeaderboardManager {
     public static @Nonnull LeaderboardManager getInstance() {
         if (instance == null) {
             Wally.getInstance().logger.log(LogLevel.INFO, "Initializing leaderboard");
-            long time = System.currentTimeMillis();
+            final Instant begin = Instant.now();
+
             instance = new LeaderboardManager();
             instance.calculateOverallLeaderboards();
-            Wally.getInstance().logger.log(LogLevel.INFO, "Leaderboard initialized in " + (System.currentTimeMillis() - time) + "ms");
+            
+            Wally.getInstance().logger.log(LogLevel.INFO, "Leaderboard initialized in " + Wally.getInstance().decimalFormat.format((Duration.between(begin, Instant.now()).toMillis() / 1000.0f)) + "s");
             Wally.getInstance().isReady = true;
         }
         return instance;
