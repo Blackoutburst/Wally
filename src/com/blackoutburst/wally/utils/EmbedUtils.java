@@ -66,6 +66,7 @@ public class EmbedUtils {
                 .addField("QF (according to the API)", Wally.getInstance().decimalFormat.format(stats.totalAPI) + " " + LeaderboardUtils.formatPosition(stats.totalAPIPosition), true)
                 .addBlankField(true)
                 .addField("Challenges", Wally.getInstance().decimalFormat.format(stats.challenges) + " " + LeaderboardUtils.formatPosition(stats.challengesPosition), true)
+                .addField("Overall Rank", Wally.getInstance().decimalFormat.format(stats.overall) + " " + LeaderboardUtils.formatPosition(stats.overallPosition), true)
                 .setFooter(LocalDate.now() + " | " + stats.uuid)
                 .build();
     }
