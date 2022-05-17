@@ -53,13 +53,13 @@ public class MessageUtils {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + stats.name + System.lineSeparator() +
                 System.lineSeparator() +
-                "Wins: " + Wally.getInstance().decimalFormat.format(stats.wins) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().winsLeaderboardHypixel) + System.lineSeparator() +
-                "Walls: " + Wally.getInstance().decimalFormat.format(stats.walls) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().wallLeaderboardHypixel) + System.lineSeparator() +
-                "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().qualificationLeaderboardHypixel) + System.lineSeparator() +
-                "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().finalsLeaderboardHypixel) + System.lineSeparator() +
-                "Q/F: " + Wally.getInstance().decimalFormat.format(stats.total) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().qfLeaderboardHypixel) + System.lineSeparator() +
-                "Q/F API: " + Wally.getInstance().decimalFormat.format(stats.totalAPI) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().qfApiLeaderboardHypixel) + System.lineSeparator() +
-                "Challenges: " + Wally.getInstance().decimalFormat.format(stats.challenges) + " " + LeaderboardUtils.getPlayerPositionFormatted(stats.uuid, LeaderboardManager.getInstance().challengesLeaderboardHypixel) + System.lineSeparator() +
+                "Wins: " + Wally.getInstance().decimalFormat.format(stats.wins) + " " + LeaderboardUtils.formatPosition(stats.winsPosition) + System.lineSeparator() +
+                "Walls: " + Wally.getInstance().decimalFormat.format(stats.walls) + " " + LeaderboardUtils.formatPosition(stats.wallsPosition) + System.lineSeparator() +
+                "Qualification: " + Wally.getInstance().decimalFormat.format(stats.qualification) + " " + LeaderboardUtils.formatPosition(stats.qualificationPosition) + System.lineSeparator() +
+                "Finals: " + Wally.getInstance().decimalFormat.format(stats.finals) + " " + LeaderboardUtils.formatPosition(stats.finalsPosition) + System.lineSeparator() +
+                "Q/F: " + Wally.getInstance().decimalFormat.format(stats.total) + " " + LeaderboardUtils.formatPosition(stats.totalPosition) + System.lineSeparator() +
+                "Q/F API: " + Wally.getInstance().decimalFormat.format(stats.totalAPI) + " " + LeaderboardUtils.formatPosition(stats.totalAPIPosition) + System.lineSeparator() +
+                "Challenges: " + Wally.getInstance().decimalFormat.format(stats.challenges) + " " + LeaderboardUtils.formatPosition(stats.challengesPosition) + System.lineSeparator() +
                 "```";
     }
 
