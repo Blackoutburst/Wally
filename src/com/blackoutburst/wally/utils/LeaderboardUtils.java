@@ -44,10 +44,11 @@ public class LeaderboardUtils {
 
     /**
      * Format the leaderboard position (or any int) to (#x)
+     * return nothing is the position is 0 (not on leaderboard)
      * @param position the leaderboard position
      * @return a formatted version of the leaderboard position
      */
     public static String formatPosition(int position) {
-        return "(#" + Wally.getInstance().numberFormat.format(position) + ")";
+        return position == 0 ? "" : "(#" + Wally.getInstance().numberFormat.format(position) + ")";
     }
 }
