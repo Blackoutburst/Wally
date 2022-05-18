@@ -173,9 +173,22 @@ public class MessageUtils {
                 .append(leaderboard.name).append(System.lineSeparator())
                 .append(System.lineSeparator());
 
-        for (int i = (page - 1) * 10; i < ((page - 1) * 10 + 10); i++) {
+        int leaderboardPage = (page - 1) * 10;
 
-            builder.append().append(": ").append(" 0").append(System.lineSeparator());
+        if (leaderboard.players.size() <= leaderboardPage) {
+            leaderboardPage = leaderboard.players.size() - 10;
+        }
+
+        if (leaderboard.dataType.equals(DatabaseUtils.DataType.HYPIXEL)) {
+            for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
+                final HypixelStats stats = (HypixelStats) leaderboard.players.get(i);
+                builder.append(stats.name).append(": ").append(" 0").append(System.lineSeparator());
+            }
+        } else {
+            for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
+                final PracticeStats stats = (PracticeStats) leaderboard.players.get(i);
+                builder.append(stats.name).append(": ").append(" 0").append(System.lineSeparator());
+            }
         }
 
         return builder.toString();

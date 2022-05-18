@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.core.statsobject;
 
+import com.blackoutburst.wally.core.leaderboard.Leaderboard;
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
 import com.blackoutburst.wally.utils.APIUtils;
 import com.blackoutburst.wally.utils.LeaderboardUtils;
@@ -77,5 +78,18 @@ public class PracticeStats implements StatsObject {
     @Override
     public float getOverall() {
         return overall;
+    }
+
+    @Override
+    public int getDataFromType(Leaderboard.Type type) {
+        switch (type) {
+            case QUALIFICATION: return qualification;
+            case FINALS: return finals;
+            case LOBBY: return lobby;
+            case WIDE_QUALIFICATION: return wideQualification;
+            case WIDE_FINALS: return wideFinals;
+            case TOTAL: return total;
+            default: return 0;
+        }
     }
 }
