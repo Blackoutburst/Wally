@@ -168,7 +168,17 @@ public class MessageUtils {
      * @return a message containing leaderboard page information
      */
     public static @Nonnull String generateLeaderboardMessage(@Nonnull Leaderboard leaderboard, int page) {
-        return "";
+        final StringBuilder builder = new StringBuilder();
+        builder.append("```yml").append(System.lineSeparator())
+                .append(leaderboard.name).append(System.lineSeparator())
+                .append(System.lineSeparator());
+
+        for (int i = (page - 1) * 10; i < ((page - 1) * 10 + 10); i++) {
+
+            builder.append().append(": ").append(" 0").append(System.lineSeparator());
+        }
+
+        return builder.toString();
     }
 
     /**
