@@ -27,10 +27,12 @@ public class Leaderboard {
     public final String name;
     public final Comparator<StatsObject> comparator;
     public final Type type;
+    public final int index;
 
-    public Leaderboard(@Nonnull String name, @Nonnull Comparator<StatsObject> comparator, Type type) {
+    public Leaderboard(@Nonnull String name, @Nonnull Comparator<StatsObject> comparator, Type type, int index) {
         this.name = name;
         this.comparator = comparator;
         this.type = type;
+        this.index = index;
     }
 }

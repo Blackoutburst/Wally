@@ -50,7 +50,10 @@ public class MessageUtils {
 
             switch (commandSender.getDisplayPreference()) {
                 case TEXT:
-                    message.reply(generateLeaderboardMessage(leaderboard, page, true)).setActionRow(menu).queue();
+                    message.reply(generateLeaderboardMessage(leaderboard, page, true)).setActionRow(
+                            Button.primary(commandSender.getMember().getId()+":"+message.getId()+":"+leaderboard.index+":"+page, "<"),
+                            menu,
+                            Button.primary(commandSender.getMember().getId()+":"+message.getId()+":"+leaderboard.index+":"+page, ">")).queue();
                 break;
                 case EMBED:
                     message.replyEmbeds(EmbedUtils.generateLeaderboardEmbed(leaderboard, page)).setActionRow(menu).queue();
