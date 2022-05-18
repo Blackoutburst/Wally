@@ -55,14 +55,14 @@ public class SelectMenuManager {
      *
      * @param event the buttonInteraction event
      */
-    public void runAction(@Nonnull WallyUser buttonUser, @Nonnull SelectMenuInteractionEvent event) {
+    public void runAction(@Nonnull WallyUser menuUser, @Nonnull SelectMenuInteractionEvent event) {
         final String label = event.getSelectMenu().getId().split(":")[1];
 
         for (SelectMenu b : selectMenus) {
             for (String l : b.getLabels()) {
                 if (label.startsWith(l)) {
                     Wally.getInstance().logger.log(LogLevel.INFO, event.getMember().getEffectiveName() + " used menu [" + label + "]");
-                    b.getExecutable().onChange(buttonUser, event);
+                    b.getExecutable().onChange(menuUser, event);
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.core.buttons;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.logger.LogLevel;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
@@ -35,6 +36,8 @@ public class ButtonManager {
         register(new ButtonReloadUsers(), "Yes reload the users");
         register(new ButtonSendLog(), "Send me the log");
         register(new ButtonDisplayPreference(), "TEXT", "EMBED", "CANVAS");
+        register(new ButtonPreviousPage(), "<");
+        register(new ButtonNextPage(), ">");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Button registered!");
     }
@@ -54,14 +57,14 @@ public class ButtonManager {
      * Run the action associated with the button pressed
      * @param event the buttonInteraction event
      */
-    public void runAction(@Nonnull ButtonInteractionEvent event) {
+    public void runAction(@Nonnull WallyUser buttonUser, @Nonnull ButtonInteractionEvent event) {
         final String label = event.getButton().getLabel();
 
         for (Button b : buttons) {
             for (String l : b.getLabels()) {
                 if (label.startsWith(l)) {
                     Wally.getInstance().logger.log(LogLevel.INFO, event.getMember().getEffectiveName() + " clicked [" + label + "]");
-                    b.getExecutable().onClick(event);
+                    b.getExecutable().onClick(buttonUser, event);
                 }
             }
         }

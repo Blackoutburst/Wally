@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.core.events;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.buttons.ButtonManager;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.logger.LogLevel;
@@ -28,7 +29,10 @@ public class ButtonInteraction {
                     " couldn't use the button ["+event.getButton().getLabel()+"]");
             return;
         }
+        final Member member = event.getMember();
+        if (member == null) return;
 
-        ButtonManager.getInstance().runAction(event);
+        final WallyUser buttonUser = WallyUser.getUser(member);
+        ButtonManager.getInstance().runAction(buttonUser, event);
     }
 }

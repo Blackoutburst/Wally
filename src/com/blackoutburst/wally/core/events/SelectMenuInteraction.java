@@ -32,7 +32,7 @@ public class SelectMenuInteraction {
         final Member member = event.getMember();
         if (member == null) return;
 
-        final WallyUser buttonUser = WallyUser.getUser(member);
-        SelectMenuManager.getInstance().runAction(buttonUser, event);
+        final WallyUser menuUser = WallyUser.getUser(member);
+        SelectMenuManager.getInstance().runAction(menuUser, event);
     }
 }

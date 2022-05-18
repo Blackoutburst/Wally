@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public class ButtonCommand extends ButtonExecutable {
 
     @Override
-    protected void onClick(@Nonnull ButtonInteractionEvent event) {
+    protected void onClick(@Nonnull WallyUser buttonUser, @Nonnull ButtonInteractionEvent event) {
         final MessageChannel messageChannel = event.getMessageChannel();
         final String messageID = event.getButton().getId().split(":")[1];
         final Message message = MessageUtils.getMessageFromHistory(messageChannel, messageID, 5);
@@ -40,8 +40,7 @@ public class ButtonCommand extends ButtonExecutable {
         if (guild == null) return;
         if (member == null) return;
 
-        WallyUser commandSender = WallyUser.getUser(member);
-        CommandManager.getInstance().runCommand(commandSender, commandName, commandArgs, guild, messageChannel, message);
+        CommandManager.getInstance().runCommand(buttonUser, commandName, commandArgs, guild, messageChannel, message);
 
         event.getMessage().delete().queue();
     }

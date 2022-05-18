@@ -7,6 +7,6 @@ import javax.annotation.Nonnull;
 
 public abstract class SelectMenuExecutable {
 
-    protected abstract void onChange(@Nonnull WallyUser buttonUser, @Nonnull SelectMenuInteractionEvent event);
+    protected abstract void onChange(@Nonnull WallyUser menuUser, @Nonnull SelectMenuInteractionEvent event);
 
 }

@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 public class SelectMenuLeaderboard extends SelectMenuExecutable {
 
     @Override
-    protected void onChange(@Nonnull WallyUser buttonUser, @NonNull SelectMenuInteractionEvent event) {
+    protected void onChange(@Nonnull WallyUser menuUser, @NonNull SelectMenuInteractionEvent event) {
         final int index = Integer.parseInt(event.getSelectedOptions().get(0).getValue().split(":")[0]);
         final int page = Integer.parseInt(event.getSelectedOptions().get(0).getValue().split(":")[1]);
 
@@ -23,6 +23,6 @@ public class SelectMenuLeaderboard extends SelectMenuExecutable {
 
 
         event.deferEdit().queue();
-        MessageUtils.sendLeaderboard(buttonUser, event.getMessage(), leaderboard,  page,true);
+        MessageUtils.sendLeaderboard(menuUser, event.getMessage(), leaderboard,  page,true);
     }
 }

@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 public class SelectMenuPracticeStats extends SelectMenuExecutable {
 
     @Override
-    protected void onChange(@Nonnull WallyUser buttonUser, @NonNull SelectMenuInteractionEvent event) {
+    protected void onChange(@Nonnull WallyUser menuUser, @NonNull SelectMenuInteractionEvent event) {
         final String uuid = event.getSelectedOptions().get(0).getValue();
         final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
         final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/practice.json");
@@ -29,6 +29,6 @@ public class SelectMenuPracticeStats extends SelectMenuExecutable {
         }
 
         event.deferEdit().queue();
-        MessageUtils.sendPracticeStats(buttonUser, event.getMessage(), data, uuid, true);
+        MessageUtils.sendPracticeStats(menuUser, event.getMessage(), data, uuid, true);
     }
 }

@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.core.buttons;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.DisplayPreference;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.utils.DatabaseUtils;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class ButtonDisplayPreference extends ButtonExecutable {
 
     @Override
-    protected void onClick(@Nonnull ButtonInteractionEvent event) {
+    protected void onClick(@Nonnull WallyUser buttonUser, @Nonnull ButtonInteractionEvent event) {
         final String discordID = event.getMember().getId();
         final DisplayPreference displayPreference = DisplayPreference.valueOf(event.getButton().getLabel());
 

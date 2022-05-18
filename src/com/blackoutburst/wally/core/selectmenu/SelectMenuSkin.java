@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 public class SelectMenuSkin extends SelectMenuExecutable {
 
     @Override
-    protected void onChange(@Nonnull WallyUser buttonUser, @NonNull SelectMenuInteractionEvent event) {
+    protected void onChange(@Nonnull WallyUser menuUser, @NonNull SelectMenuInteractionEvent event) {
         final String uuid = event.getSelectedOptions().get(0).getValue();
         final String playerName = event.getSelectedOptions().get(0).getLabel();
         final EmbedBuilder embed = EmbedUtils.generateSkin(uuid, playerName);
