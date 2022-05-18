@@ -1,8 +1,10 @@
 package com.blackoutburst.wally.utils;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.leaderboard.Leaderboard;
 import com.blackoutburst.wally.core.statsobject.HypixelStats;
 import com.blackoutburst.wally.core.statsobject.PracticeStats;
+import com.blackoutburst.wally.core.statsobject.StatsObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
@@ -13,6 +15,40 @@ import java.io.FileReader;
 import java.time.LocalDate;
 
 public class EmbedUtils {
+
+    /**
+     * Create an embed with leaderboard information inside
+     * @param leaderboard the leaderboard
+     * @param page the leaderboard page
+     * @return an embed containing every hole in the wall stats
+     */
+    public static MessageEmbed generateLeaderboardEmbed(@Nonnull Leaderboard leaderboard, int page) {
+        int leaderboardPage = (page - 1) * 10;
+        if (leaderboard.players.size() <= leaderboardPage) {
+            leaderboardPage = leaderboard.players.size() - 10;
+        }
+        StatsObject topPlayer = leaderboard.players.get(leaderboardPage);
+
+        final StringBuilder builder = new StringBuilder();
+        for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
+            if (leaderboard.players.size() <= i) break;
+            final StatsObject stats = leaderboard.players.get(i);
+            builder.append("`(#").append(i + 1).append(")` `")
+                    .append(stats.getName()).append("` **:** `")
+                    .append(
+                            leaderboard.type.equals(Leaderboard.Type.OVERALL) ?
+                                    Wally.getInstance().decimalFormat.format(stats.getOverall()) :
+                                    Wally.getInstance().numberFormat.format(stats.getDataFromType(leaderboard.type)))
+                    .append("`").append(System.lineSeparator());
+        }
+
+        return new EmbedBuilder()
+                .setAuthor(leaderboard.name, "https://hypixel.net/arcade-games/leaderboard/hole_in_the_wall", "https://www.blackoutburst.com/img/wally.png")
+                .setColor(Utils.getColorFromScore(Utils.getHighestScore(topPlayer.getScores())))
+                .setDescription(builder.toString())
+                .setFooter(LocalDate.now() + " | " + leaderboard.type)
+                .build();
+    }
 
     /**
      * Create an embed with Practice stats information inside
@@ -96,7 +132,7 @@ public class EmbedUtils {
     public static EmbedBuilder generateChangelog() {
         try {
             final String wallyURL = "https://github.com/Blackoutburst/Wally";
-            final String wallyPfp = "https://cdn.discordapp.com/avatars/806086240427966484/72a4fc1ef53f7b729b9b54184e631b88.png?size=128";
+            final String wallyPfp = "https://www.blackoutburst.com/img/wally.png";
             final BufferedReader reader = new BufferedReader(new FileReader("config/changelog.txt"));
             final StringBuilder changelog = new StringBuilder();
             final String title = reader.readLine();

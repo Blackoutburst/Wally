@@ -39,7 +39,7 @@ public class MessageUtils {
                     message.editMessage(generateLeaderboardMessage(leaderboard, page)).queue();
                 break;
                 case EMBED:
-                 //   message.editMessageEmbeds(EmbedUtils.generateHypixelStatsEmbed(leaderboard, page)).queue();
+                    message.editMessageEmbeds(EmbedUtils.generateLeaderboardEmbed(leaderboard, page)).queue();
                 break;
                 default:
                     message.editMessage("Soon...").queue();
@@ -53,7 +53,7 @@ public class MessageUtils {
                     message.reply(generateLeaderboardMessage(leaderboard, page)).setActionRow(menu).queue();
                 break;
                 case EMBED:
-                    //message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(leaderboard, page)).setActionRow(menu).queue();
+                    message.replyEmbeds(EmbedUtils.generateLeaderboardEmbed(leaderboard, page)).setActionRow(menu).queue();
                 break;
                 default:
                     message.reply("Soon...").setActionRow(menu).queue();

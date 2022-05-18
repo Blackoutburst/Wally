@@ -98,4 +98,9 @@ public class PracticeStats implements StatsObject {
             default: return 0;
         }
     }
+
+    @Override
+    public int[] getScores() {
+        return new int[] {qualification, finals, lobby, wideQualification, wideFinals};
+    }
 }

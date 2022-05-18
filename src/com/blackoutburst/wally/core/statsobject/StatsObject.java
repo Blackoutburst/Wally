@@ -19,4 +19,6 @@ public interface StatsObject {
     float getOverall();
 
     int getDataFromType(Leaderboard.Type type);
+
+    int[] getScores();
 }
