@@ -1,8 +1,10 @@
 package com.blackoutburst.wally.core.statsobject;
 
+import com.blackoutburst.wally.core.leaderboard.Leaderboard;
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
 import com.blackoutburst.wally.utils.APIUtils;
 import com.blackoutburst.wally.utils.LeaderboardUtils;
+import org.jetbrains.annotations.NotNull;
 
 public class HypixelStats implements StatsObject {
 
@@ -51,8 +53,8 @@ public class HypixelStats implements StatsObject {
             wallsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().wallLeaderboardHypixel);
             qualificationPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qualificationLeaderboardHypixel);
             finalsPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().finalsLeaderboardHypixel);
-            totalPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfLeaderboardHypixel);
-            totalAPIPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().qfApiLeaderboardHypixel);
+            totalPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().totalLeaderboardHypixel);
+            totalAPIPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().totalApiLeaderboardHypixel);
             challengesPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().challengesLeaderboardHypixel);
             overall = (winsPosition + wallsPosition + qualificationPosition + finalsPosition + totalPosition + challengesPosition) / 6.0f;
             overallPosition = LeaderboardUtils.getPlayerPosition(uuid, LeaderboardManager.getInstance().overallLeaderboardHypixel);
@@ -60,13 +62,18 @@ public class HypixelStats implements StatsObject {
     }
 
     @Override
-    public String getUUID() {
+    public @NotNull String getName() {
+        return name;
+    }
+
+    @Override
+    public @NotNull String getUUID() {
         return uuid;
     }
 
     @Override
     public int getFinals() {
-        return 0;
+        return finals;
     }
 
     @Override
@@ -82,5 +89,24 @@ public class HypixelStats implements StatsObject {
     @Override
     public float getOverall() {
         return overall;
+    }
+
+    @Override
+    public int getDataFromType(Leaderboard.Type type) {
+        switch (type) {
+            case WINS: return wins;
+            case WALLS: return walls;
+            case QUALIFICATION: return qualification;
+            case FINALS: return finals;
+            case TOTAL: return total;
+            case TOTAL_API: return totalAPI;
+            case CHALLENGES: return challenges;
+            default: return 0;
+        }
+    }
+
+    @Override
+    public int[] getScores() {
+        return new int[] {qualification, finals};
     }
 }

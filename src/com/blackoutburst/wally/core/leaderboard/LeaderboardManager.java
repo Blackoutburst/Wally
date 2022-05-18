@@ -19,22 +19,22 @@ import java.util.*;
 
 public class LeaderboardManager {
 
-    public final List<StatsObject> winsLeaderboardHypixel = new ArrayList<>();
-    public final List<StatsObject> wallLeaderboardHypixel = new ArrayList<>();
-    public final List<StatsObject> qualificationLeaderboardHypixel = new ArrayList<>();
-    public final List<StatsObject> finalsLeaderboardHypixel = new ArrayList<>();
-    public final List<StatsObject> qfLeaderboardHypixel = new ArrayList<>();
-    public final List<StatsObject> qfApiLeaderboardHypixel = new ArrayList<>();
-    public final List<StatsObject> challengesLeaderboardHypixel = new ArrayList<>();
-    public final List<StatsObject> overallLeaderboardHypixel = new ArrayList<>();
+    public final Leaderboard winsLeaderboardHypixel = new Leaderboard("Hypixel Wins", new HypixelWinsComparator(), Leaderboard.Type.WINS, 0);
+    public final Leaderboard wallLeaderboardHypixel = new Leaderboard("Hypixel Walls", new HypixelWallsComparator(), Leaderboard.Type.WALLS, 1);
+    public final Leaderboard qualificationLeaderboardHypixel = new Leaderboard("Hypixel Qualification", new QualificationComparator(), Leaderboard.Type.QUALIFICATION, 2);
+    public final Leaderboard finalsLeaderboardHypixel = new Leaderboard("Hypixel Finals", new FinalsComparator(), Leaderboard.Type.FINALS, 3);
+    public final Leaderboard totalLeaderboardHypixel = new Leaderboard("Hypixel Total Score", new TotalComparator(), Leaderboard.Type.TOTAL, 4);
+    public final Leaderboard totalApiLeaderboardHypixel = new Leaderboard("Hypixel Total Score (API)", new HypixelTotalAPIComparator(), Leaderboard.Type.TOTAL_API, 4);
+    public final Leaderboard challengesLeaderboardHypixel = new Leaderboard("Hypixel Daily Challenges", new HypixelChallengesComparator(), Leaderboard.Type.CHALLENGES, 6);
+    public final Leaderboard overallLeaderboardHypixel = new Leaderboard("Hypixel Overall rank", new OverallComparator(), Leaderboard.Type.OVERALL, 7);
 
-    public final List<StatsObject> qualificationLeaderboardPractice = new ArrayList<>();
-    public final List<StatsObject> finalsLeaderboardPractice = new ArrayList<>();
-    public final List<StatsObject> lobbyLeaderboardPractice = new ArrayList<>();
-    public final List<StatsObject> wideQualificationLeaderboardPractice = new ArrayList<>();
-    public final List<StatsObject> wideFinalsLeaderboardPractice = new ArrayList<>();
-    public final List<StatsObject> totalLeaderboardPractice = new ArrayList<>();
-    public final List<StatsObject> overallLeaderboardPractice = new ArrayList<>();
+    public final Leaderboard qualificationLeaderboardPractice = new Leaderboard("Practice Qualification", new QualificationComparator(), Leaderboard.Type.QUALIFICATION, 8);
+    public final Leaderboard finalsLeaderboardPractice = new Leaderboard("Practice Finals", new FinalsComparator(), Leaderboard.Type.FINALS, 9);
+    public final Leaderboard lobbyLeaderboardPractice = new Leaderboard("Practice Lobby", new PracticeLobbyComparator(), Leaderboard.Type.LOBBY, 10);
+    public final Leaderboard wideQualificationLeaderboardPractice = new Leaderboard("Practice Wide Qualification", new PracticeWideQualificationComparator(), Leaderboard.Type.WIDE_QUALIFICATION, 11);
+    public final Leaderboard wideFinalsLeaderboardPractice = new Leaderboard("Practice Wide Finals", new PracticeWideFinalsComparator(), Leaderboard.Type.WIDE_FINALS, 12);
+    public final Leaderboard totalLeaderboardPractice = new Leaderboard("Practice Total Score", new TotalComparator(), Leaderboard.Type.TOTAL, 13);
+    public final Leaderboard overallLeaderboardPractice = new Leaderboard("Practice Overall rank", new OverallComparator(), Leaderboard.Type.OVERALL, 14);
 
     private static LeaderboardManager instance = null;
 
@@ -44,10 +44,10 @@ public class LeaderboardManager {
      * because they need every other leaderboard to actually calculate the overall
      */
     private void calculateOverallLeaderboards() {
-        populate(overallLeaderboardHypixel, DataType.HYPIXEL, false);
-        overallLeaderboardHypixel.sort(new OverallComparator());
-        populate(overallLeaderboardPractice, DataType.PRACTICE, false);
-        overallLeaderboardPractice.sort(new OverallComparator());
+        populate(overallLeaderboardHypixel.players, DataType.HYPIXEL, false);
+        sort(overallLeaderboardHypixel);
+        populate(overallLeaderboardPractice.players, DataType.PRACTICE, false);
+        sort(overallLeaderboardPractice);
     }
 
     /**
@@ -98,41 +98,40 @@ public class LeaderboardManager {
      * Sort a leaderboard using a custom comparator
      *
      * @param leaderboard the leaderboard that must be sorted
-     * @param comparator the comparator
      */
-    public void sort(@Nonnull List<StatsObject> leaderboard, @Nonnull Comparator<StatsObject> comparator) {
-        leaderboard.sort(comparator);
+    public void sort(@Nonnull Leaderboard leaderboard) {
+        leaderboard.players.sort(leaderboard.comparator);
     }
 
     private LeaderboardManager() {
-        populate(winsLeaderboardHypixel, DataType.HYPIXEL, true);
-        sort(winsLeaderboardHypixel, new HypixelWinsComparator());
-        wallLeaderboardHypixel.addAll(winsLeaderboardHypixel);
-        qualificationLeaderboardHypixel.addAll(winsLeaderboardHypixel);
-        finalsLeaderboardHypixel.addAll(winsLeaderboardHypixel);
-        qfLeaderboardHypixel.addAll(winsLeaderboardHypixel);
-        qfApiLeaderboardHypixel.addAll(winsLeaderboardHypixel);
-        challengesLeaderboardHypixel.addAll(winsLeaderboardHypixel);
+        populate(winsLeaderboardHypixel.players, DataType.HYPIXEL, true);
+        sort(winsLeaderboardHypixel);
+        wallLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
+        qualificationLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
+        finalsLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
+        totalLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
+        totalApiLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
+        challengesLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
 
-        populate(qualificationLeaderboardPractice, DataType.PRACTICE, true);
-        sort(qualificationLeaderboardPractice, new QualificationComparator());
-        finalsLeaderboardPractice.addAll(qualificationLeaderboardPractice);
-        lobbyLeaderboardPractice.addAll(qualificationLeaderboardPractice);
-        wideQualificationLeaderboardPractice.addAll(qualificationLeaderboardPractice);
-        wideFinalsLeaderboardPractice.addAll(qualificationLeaderboardPractice);
-        totalLeaderboardPractice.addAll(qualificationLeaderboardPractice);
+        populate(qualificationLeaderboardPractice.players, DataType.PRACTICE, true);
+        sort(qualificationLeaderboardPractice);
+        finalsLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players);
+        lobbyLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players);
+        wideQualificationLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players);
+        wideFinalsLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players);
+        totalLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players);
 
-        sort(wallLeaderboardHypixel, new HypixelWallsComparator());
-        sort(qualificationLeaderboardHypixel, new QualificationComparator());
-        sort(finalsLeaderboardHypixel, new FinalsComparator());
-        sort(qfLeaderboardHypixel, new TotalComparator());
-        sort(qfApiLeaderboardHypixel,new HypixelTotalAPIComparator());
-        sort(challengesLeaderboardHypixel, new HypixelChallengesComparator());
+        sort(wallLeaderboardHypixel);
+        sort(qualificationLeaderboardHypixel);
+        sort(finalsLeaderboardHypixel);
+        sort(totalLeaderboardHypixel);
+        sort(totalApiLeaderboardHypixel);
+        sort(challengesLeaderboardHypixel);
 
-        sort(finalsLeaderboardPractice, new FinalsComparator());
-        sort(lobbyLeaderboardPractice, new PracticeLobbyComparator());
-        sort(wideQualificationLeaderboardPractice, new PracticeWideQualificationComparator());
-        sort(wideFinalsLeaderboardPractice, new PracticeWideFinalsComparator());
-        sort(totalLeaderboardPractice, new TotalComparator());
+        sort(finalsLeaderboardPractice);
+        sort(lobbyLeaderboardPractice);
+        sort(wideQualificationLeaderboardPractice);
+        sort(wideFinalsLeaderboardPractice);
+        sort(totalLeaderboardPractice);
     }
 }

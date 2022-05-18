@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -15,7 +16,7 @@ import java.nio.file.Paths;
 public class SelectMenuStats extends SelectMenuExecutable {
 
     @Override
-    protected void onChange(@Nonnull WallyUser buttonUser, @NonNull SelectMenuInteractionEvent event) {
+    protected void onChange(@Nonnull WallyUser menuUser, @NonNull SelectMenuInteractionEvent event) {
         final String uuid = event.getSelectedOptions().get(0).getValue();
         final WallyUser wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid);
         final Path filePath = Paths.get("database/linked users/" + wallyUser.getMember().getId() + "/accounts/" + uuid + "/hypixel.json");
@@ -28,6 +29,6 @@ public class SelectMenuStats extends SelectMenuExecutable {
         }
 
         event.deferEdit().queue();
-        CommandUtils.sendHypixelStats(buttonUser, event.getMessage(), data, uuid, true);
+        MessageUtils.sendHypixelStats(menuUser, event.getMessage(), data, uuid, true);
     }
 }

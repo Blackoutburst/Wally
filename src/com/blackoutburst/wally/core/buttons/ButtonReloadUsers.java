@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.core.buttons;
 
 import com.blackoutburst.wally.core.Wally;
+import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
@@ -10,7 +11,7 @@ import java.io.File;
 public class ButtonReloadUsers extends ButtonExecutable {
 
     @Override
-    protected void onClick(@Nonnull ButtonInteractionEvent event) {
+    protected void onClick(@Nonnull WallyUser buttonUser, @Nonnull ButtonInteractionEvent event) {
         final File rootFolder = new File("database/linked users/");
         if (!rootFolder.exists()) {
             event.getChannel().sendMessage(ConfigManager.getInstance().loadValue("replies", "no user db")).queue();

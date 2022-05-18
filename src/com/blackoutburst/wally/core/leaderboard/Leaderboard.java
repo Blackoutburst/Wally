@@ -1,0 +1,38 @@
+package com.blackoutburst.wally.core.leaderboard;
+
+import com.blackoutburst.wally.core.statsobject.StatsObject;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class Leaderboard {
+
+    public enum Type {
+        WINS,
+        WALLS,
+        QUALIFICATION,
+        FINALS,
+        TOTAL,
+        TOTAL_API,
+        CHALLENGES,
+        OVERALL,
+        LOBBY,
+        WIDE_QUALIFICATION,
+        WIDE_FINALS
+    }
+
+    public final List<StatsObject> players = new ArrayList<>();
+    public final String name;
+    public final Comparator<StatsObject> comparator;
+    public final Type type;
+    public final int index;
+
+    public Leaderboard(@Nonnull String name, @Nonnull Comparator<StatsObject> comparator, Type type, int index) {
+        this.name = name;
+        this.comparator = comparator;
+        this.type = type;
+        this.index = index;
+    }
+}

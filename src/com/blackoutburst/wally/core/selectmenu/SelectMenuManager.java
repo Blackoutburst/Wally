@@ -34,6 +34,7 @@ public class SelectMenuManager {
         register(new SelectMenuSkin(), "skin");
         register(new SelectMenuStats(), "stats");
         register(new SelectMenuPracticeStats(), "practice stats");
+        register(new SelectMenuLeaderboard(), "leaderboard");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Select menu registered!");
     }
@@ -46,6 +47,7 @@ public class SelectMenuManager {
      */
     private void register(@Nonnull SelectMenuExecutable executable, @Nonnull String... labels) {
         selectMenus.add(new SelectMenu(executable, labels));
+        Wally.getInstance().logger.log(LogLevel.INFO, "Menu ["+labels[0]+"] is registered");
     }
 
     /**
@@ -53,14 +55,14 @@ public class SelectMenuManager {
      *
      * @param event the buttonInteraction event
      */
-    public void runAction(@Nonnull WallyUser buttonUser, @Nonnull SelectMenuInteractionEvent event) {
+    public void runAction(@Nonnull WallyUser menuUser, @Nonnull SelectMenuInteractionEvent event) {
         final String label = event.getSelectMenu().getId().split(":")[1];
 
         for (SelectMenu b : selectMenus) {
             for (String l : b.getLabels()) {
                 if (label.startsWith(l)) {
                     Wally.getInstance().logger.log(LogLevel.INFO, event.getMember().getEffectiveName() + " used menu [" + label + "]");
-                    b.getExecutable().onChange(buttonUser, event);
+                    b.getExecutable().onChange(menuUser, event);
                 }
             }
         }
