@@ -36,8 +36,6 @@ public class ButtonManager {
         register(new ButtonReloadUsers(), "Yes reload the users");
         register(new ButtonSendLog(), "Send me the log");
         register(new ButtonDisplayPreference(), "TEXT", "EMBED", "CANVAS");
-        register(new ButtonPreviousPage(), "<");
-        register(new ButtonNextPage(), ">");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Button registered!");
     }
