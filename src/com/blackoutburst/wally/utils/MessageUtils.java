@@ -182,12 +182,16 @@ public class MessageUtils {
         if (leaderboard.dataType.equals(DatabaseUtils.DataType.HYPIXEL)) {
             for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
                 final HypixelStats stats = (HypixelStats) leaderboard.players.get(i);
-                builder.append(stats.name).append(": ").append(" 0").append(System.lineSeparator());
+                builder.append(stats.name).append(": ")
+                        .append(leaderboard.type.equals(Leaderboard.Type.OVERALL) ? stats.overall : stats.getDataFromType(leaderboard.type))
+                        .append(System.lineSeparator());
             }
         } else {
             for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
                 final PracticeStats stats = (PracticeStats) leaderboard.players.get(i);
-                builder.append(stats.name).append(": ").append(" 0").append(System.lineSeparator());
+                builder.append(stats.name).append(": ")
+                        .append(leaderboard.type.equals(Leaderboard.Type.OVERALL) ? stats.overall : stats.getDataFromType(leaderboard.type))
+                        .append(System.lineSeparator());
             }
         }
 

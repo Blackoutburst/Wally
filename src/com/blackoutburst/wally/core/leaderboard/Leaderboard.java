@@ -26,11 +26,11 @@ public class Leaderboard {
 
     public final List<StatsObject> players = new ArrayList<>();
     public final String name;
-    public final Comparator comparator;
+    public final Comparator<StatsObject> comparator;
     public final DatabaseUtils.DataType dataType;
     public final Type type;
 
-    public Leaderboard(@Nonnull String name, @Nonnull Comparator comparator, DatabaseUtils.DataType dataType, Type type) {
+    public Leaderboard(@Nonnull String name, @Nonnull Comparator<StatsObject> comparator, DatabaseUtils.DataType dataType, Type type) {
         this.name = name;
         this.comparator = comparator;
         this.dataType = dataType;
