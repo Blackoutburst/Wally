@@ -181,6 +181,7 @@ public class MessageUtils {
 
         if (leaderboard.dataType.equals(DatabaseUtils.DataType.HYPIXEL)) {
             for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
+                if (leaderboard.players.size() <= i) break;
                 final HypixelStats stats = (HypixelStats) leaderboard.players.get(i);
                 builder.append(stats.name).append(": ")
                         .append(leaderboard.type.equals(Leaderboard.Type.OVERALL) ? stats.overall : stats.getDataFromType(leaderboard.type))
@@ -188,6 +189,7 @@ public class MessageUtils {
             }
         } else {
             for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
+                if (leaderboard.players.size() <= i) break;
                 final PracticeStats stats = (PracticeStats) leaderboard.players.get(i);
                 builder.append(stats.name).append(": ")
                         .append(leaderboard.type.equals(Leaderboard.Type.OVERALL) ? stats.overall : stats.getDataFromType(leaderboard.type))
