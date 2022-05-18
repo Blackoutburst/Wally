@@ -73,7 +73,7 @@ public class HypixelStats implements StatsObject {
 
     @Override
     public int getFinals() {
-        return 0;
+        return finals;
     }
 
     @Override

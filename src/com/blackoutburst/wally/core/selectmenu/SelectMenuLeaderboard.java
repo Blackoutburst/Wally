@@ -39,6 +39,6 @@ public class SelectMenuLeaderboard extends SelectMenuExecutable {
         }
 
         event.deferEdit().queue();
-        MessageUtils.sendLeaderboard(buttonUser, event.getMessage(),leaderboard,  page,true);
+        MessageUtils.sendLeaderboard(buttonUser, event.getMessage(), leaderboard,  page,true);
     }
 }
