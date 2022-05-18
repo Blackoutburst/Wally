@@ -182,7 +182,8 @@ public class MessageUtils {
         for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
             if (leaderboard.players.size() <= i) break;
             final StatsObject stats = leaderboard.players.get(i);
-            builder.append(stats.getName()).append(": ")
+            builder.append("(#").append(i).append(") ")
+                    .append(stats.getName()).append(": ")
                     .append(
                             leaderboard.type.equals(Leaderboard.Type.OVERALL) ?
                                     Wally.getInstance().decimalFormat.format(stats.getOverall()) :
