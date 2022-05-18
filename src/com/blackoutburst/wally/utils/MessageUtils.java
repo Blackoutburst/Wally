@@ -4,9 +4,11 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
+import com.blackoutburst.wally.core.leaderboard.Leaderboard;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.statsobject.HypixelStats;
 import com.blackoutburst.wally.core.statsobject.PracticeStats;
+import com.blackoutburst.wally.core.statsobject.StatsObject;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
@@ -25,48 +27,36 @@ public class MessageUtils {
      * Send the leaderboard message
      * @param commandSender the command sender
      * @param message the message
-     * @param data the api data
-     * @param uuid the player uuid
+     * @param leaderboard the leaderboard
+     * @param page the leaderboard page
      * @param edit if the message should be edited instead of send
      */
-    public static void sendLeaderboard(@Nonnull WallyUser commandSender, @Nonnull Message message, @Nonnull String data, @Nonnull String uuid, boolean edit) {
+    public static void sendLeaderboard(@Nonnull WallyUser commandSender, @Nonnull Message message, @Nonnull Leaderboard leaderboard, int page, boolean edit) {
         if (edit) {
             switch (commandSender.getDisplayPreference()) {
                 case TEXT:
-                    message.editMessage(generateHypixelStatsMessage(data)).queue();
-                    break;
+                    message.editMessage(generateLeaderboardMessage(leaderboard, page)).queue();
+                break;
                 case EMBED:
-                    message.editMessageEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).queue();
-                    break;
+                 //   message.editMessageEmbeds(EmbedUtils.generateHypixelStatsEmbed(leaderboard, page)).queue();
+                break;
                 default:
                     message.editMessage("Soon...").queue();
-                    break;
+                break;
             }
         } else {
-            final SelectMenu menu = createAccountMenu(commandSender, uuid, "stats");
+            //final SelectMenu menu = createAccountMenu(commandSender, uuid, "stats");
 
             switch (commandSender.getDisplayPreference()) {
                 case TEXT:
-                    if (menu != null) {
-                        message.reply(generateHypixelStatsMessage(data)).setActionRow(menu).queue();
-                    } else {
-                        message.reply(generateHypixelStatsMessage(data)).queue();
-                    }
-                    break;
+                    message.reply(generateLeaderboardMessage(leaderboard, page)).queue();//.setActionRow(menu).queue();
+                break;
                 case EMBED:
-                    if (menu != null) {
-                        message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue();
-                    } else {
-                        message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).queue();
-                    }
-                    break;
+                    //message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(leaderboard, page)).setActionRow(menu).queue();
+                break;
                 default:
-                    if (menu != null) {
-                        message.reply("Soon...").setActionRow(menu).queue();
-                    } else {
-                        message.reply("Soon...").queue();
-                    }
-                    break;
+                    message.reply("Soon...");//.setActionRow(menu);.queue();
+                break;
             }
         }
     }
@@ -172,11 +162,21 @@ public class MessageUtils {
     }
 
     /**
+     * Create text with leaderboard information inside
+     * @param leaderboard the leaderboard
+     * @param page the leaderboard page
+     * @return a message containing leaderboard page information
+     */
+    public static @Nonnull String generateLeaderboardMessage(@Nonnull Leaderboard leaderboard, int page) {
+        return "";
+    }
+
+    /**
      * Create a text with Practice stats information inside
      * @param data a valid Practice json data
      * @return a message containing every hole in the wall stats
      */
-    public static String generatePracticeStatsMessage(@Nonnull String data) {
+    public static @Nonnull String generatePracticeStatsMessage(@Nonnull String data) {
         final PracticeStats stats = new PracticeStats(data);
 
         return "```yml" + System.lineSeparator() +
@@ -197,7 +197,7 @@ public class MessageUtils {
      * @param data a valid Hypixel json data
      * @return a message containing every hole in the wall stats
      */
-    public static String generateHypixelStatsMessage(@Nonnull String data) {
+    public static @Nonnull String generateHypixelStatsMessage(@Nonnull String data) {
         final HypixelStats stats = new HypixelStats(data);
 
         return "```yml" + System.lineSeparator() +
