@@ -6,7 +6,6 @@ import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
 import com.blackoutburst.wally.core.statsobject.StatsObject;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 public class LeaderboardUtils {
 

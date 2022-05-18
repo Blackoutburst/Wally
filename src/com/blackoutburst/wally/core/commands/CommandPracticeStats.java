@@ -5,7 +5,6 @@ import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.request.PracticeServer;
-import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
