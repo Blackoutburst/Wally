@@ -179,23 +179,17 @@ public class MessageUtils {
             leaderboardPage = leaderboard.players.size() - 10;
         }
 
-        if (leaderboard.dataType.equals(DatabaseUtils.DataType.HYPIXEL)) {
-            for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
-                if (leaderboard.players.size() <= i) break;
-                final HypixelStats stats = (HypixelStats) leaderboard.players.get(i);
-                builder.append(stats.name).append(": ")
-                        .append(leaderboard.type.equals(Leaderboard.Type.OVERALL) ? stats.overall : stats.getDataFromType(leaderboard.type))
-                        .append(System.lineSeparator());
-            }
-        } else {
-            for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
-                if (leaderboard.players.size() <= i) break;
-                final PracticeStats stats = (PracticeStats) leaderboard.players.get(i);
-                builder.append(stats.name).append(": ")
-                        .append(leaderboard.type.equals(Leaderboard.Type.OVERALL) ? stats.overall : stats.getDataFromType(leaderboard.type))
-                        .append(System.lineSeparator());
-            }
+        for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
+            if (leaderboard.players.size() <= i) break;
+            final StatsObject stats = leaderboard.players.get(i);
+            builder.append(stats.getName()).append(": ")
+                    .append(
+                            leaderboard.type.equals(Leaderboard.Type.OVERALL) ?
+                                    Wally.getInstance().decimalFormat.format(stats.getOverall()) :
+                                    Wally.getInstance().numberFormat.format(stats.getDataFromType(leaderboard.type)))
+                    .append(System.lineSeparator());
         }
+        builder.append("```");
 
         return builder.toString();
     }

@@ -19,22 +19,22 @@ import java.util.*;
 
 public class LeaderboardManager {
 
-    public final Leaderboard winsLeaderboardHypixel = new Leaderboard("Hypixel Wins", new HypixelWinsComparator(), DataType.HYPIXEL, Leaderboard.Type.WINS);
-    public final Leaderboard wallLeaderboardHypixel = new Leaderboard("Hypixel Walls", new HypixelWallsComparator(), DataType.HYPIXEL, Leaderboard.Type.WALLS);
-    public final Leaderboard qualificationLeaderboardHypixel = new Leaderboard("Hypixel Qualification", new QualificationComparator(), DataType.HYPIXEL, Leaderboard.Type.QUALIFICATION);
-    public final Leaderboard finalsLeaderboardHypixel = new Leaderboard("Hypixel Finals", new FinalsComparator(), DataType.HYPIXEL, Leaderboard.Type.FINALS);
-    public final Leaderboard qfLeaderboardHypixel = new Leaderboard("Hypixel Total Score", new TotalComparator(), DataType.HYPIXEL, Leaderboard.Type.TOTAL);
-    public final Leaderboard qfApiLeaderboardHypixel = new Leaderboard("Hypixel Total Score (API)", new HypixelTotalAPIComparator(), DataType.HYPIXEL, Leaderboard.Type.TOTAL_API);
-    public final Leaderboard challengesLeaderboardHypixel = new Leaderboard("Hypixel HitW Daily Challenges", new HypixelChallengesComparator(), DataType.HYPIXEL, Leaderboard.Type.CHALLENGES);
-    public final Leaderboard overallLeaderboardHypixel = new Leaderboard("Hypixel Overall HitW rank", new OverallComparator(), DataType.HYPIXEL, Leaderboard.Type.OVERALL);
+    public final Leaderboard winsLeaderboardHypixel = new Leaderboard("Hypixel Wins", new HypixelWinsComparator(), Leaderboard.Type.WINS);
+    public final Leaderboard wallLeaderboardHypixel = new Leaderboard("Hypixel Walls", new HypixelWallsComparator(), Leaderboard.Type.WALLS);
+    public final Leaderboard qualificationLeaderboardHypixel = new Leaderboard("Hypixel Qualification", new QualificationComparator(), Leaderboard.Type.QUALIFICATION);
+    public final Leaderboard finalsLeaderboardHypixel = new Leaderboard("Hypixel Finals", new FinalsComparator(), Leaderboard.Type.FINALS);
+    public final Leaderboard qfLeaderboardHypixel = new Leaderboard("Hypixel Total Score", new TotalComparator(), Leaderboard.Type.TOTAL);
+    public final Leaderboard qfApiLeaderboardHypixel = new Leaderboard("Hypixel Total Score (API)", new HypixelTotalAPIComparator(), Leaderboard.Type.TOTAL_API);
+    public final Leaderboard challengesLeaderboardHypixel = new Leaderboard("Hypixel HitW Daily Challenges", new HypixelChallengesComparator(), Leaderboard.Type.CHALLENGES);
+    public final Leaderboard overallLeaderboardHypixel = new Leaderboard("Hypixel Overall HitW rank", new OverallComparator(), Leaderboard.Type.OVERALL);
 
-    public final Leaderboard qualificationLeaderboardPractice = new Leaderboard("Practice Qualification", new QualificationComparator(), DataType.PRACTICE, Leaderboard.Type.QUALIFICATION);
-    public final Leaderboard finalsLeaderboardPractice = new Leaderboard("Practice Finals", new FinalsComparator(), DataType.PRACTICE, Leaderboard.Type.FINALS);
-    public final Leaderboard lobbyLeaderboardPractice = new Leaderboard("Practice Lobby", new PracticeLobbyComparator(), DataType.PRACTICE, Leaderboard.Type.LOBBY);
-    public final Leaderboard wideQualificationLeaderboardPractice = new Leaderboard("Practice Wide Qualification", new PracticeWideQualificationComparator(), DataType.PRACTICE, Leaderboard.Type.WIDE_QUALIFICATION);
-    public final Leaderboard wideFinalsLeaderboardPractice = new Leaderboard("Practice Wide Finals", new PracticeWideFinalsComparator(), DataType.PRACTICE, Leaderboard.Type.WIDE_FINALS);
-    public final Leaderboard totalLeaderboardPractice = new Leaderboard("Practice Total Score", new TotalComparator(), DataType.PRACTICE, Leaderboard.Type.TOTAL);
-    public final Leaderboard overallLeaderboardPractice = new Leaderboard("Practice Overall HitW rank", new OverallComparator(), DataType.PRACTICE, Leaderboard.Type.OVERALL);
+    public final Leaderboard qualificationLeaderboardPractice = new Leaderboard("Practice Qualification", new QualificationComparator(), Leaderboard.Type.QUALIFICATION);
+    public final Leaderboard finalsLeaderboardPractice = new Leaderboard("Practice Finals", new FinalsComparator(), Leaderboard.Type.FINALS);
+    public final Leaderboard lobbyLeaderboardPractice = new Leaderboard("Practice Lobby", new PracticeLobbyComparator(), Leaderboard.Type.LOBBY);
+    public final Leaderboard wideQualificationLeaderboardPractice = new Leaderboard("Practice Wide Qualification", new PracticeWideQualificationComparator(), Leaderboard.Type.WIDE_QUALIFICATION);
+    public final Leaderboard wideFinalsLeaderboardPractice = new Leaderboard("Practice Wide Finals", new PracticeWideFinalsComparator(), Leaderboard.Type.WIDE_FINALS);
+    public final Leaderboard totalLeaderboardPractice = new Leaderboard("Practice Total Score", new TotalComparator(), Leaderboard.Type.TOTAL);
+    public final Leaderboard overallLeaderboardPractice = new Leaderboard("Practice Overall HitW rank", new OverallComparator(), Leaderboard.Type.OVERALL);
 
     private static LeaderboardManager instance = null;
 

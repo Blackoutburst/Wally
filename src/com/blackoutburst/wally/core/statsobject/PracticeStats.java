@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.leaderboard.Leaderboard;
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
 import com.blackoutburst.wally.utils.APIUtils;
 import com.blackoutburst.wally.utils.LeaderboardUtils;
+import org.jetbrains.annotations.NotNull;
 
 public class PracticeStats implements StatsObject {
 
@@ -56,7 +57,12 @@ public class PracticeStats implements StatsObject {
     }
 
     @Override
-    public String getUUID() {
+    public @NotNull String getName() {
+        return name;
+    }
+
+    @Override
+    public @NotNull String getUUID() {
         return uuid;
     }
 
