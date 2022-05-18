@@ -93,6 +93,7 @@ public class CommandManager {
      */
     private void register(@Nonnull PermissionLevel level, @Nonnull CommandExecutable executable, @Nonnull String... labels) {
         commands.add(new Command(level, executable, labels));
+        Wally.getInstance().logger.log(LogLevel.INFO, "Command ["+labels[0]+"] is registered");
     }
 
     private void checkForCloseCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull Message message) {

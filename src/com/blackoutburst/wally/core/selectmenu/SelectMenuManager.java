@@ -34,6 +34,7 @@ public class SelectMenuManager {
         register(new SelectMenuSkin(), "skin");
         register(new SelectMenuStats(), "stats");
         register(new SelectMenuPracticeStats(), "practice stats");
+        register(new SelectMenuLeaderboard(), "leaderboard");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Select menu registered!");
     }
@@ -46,6 +47,7 @@ public class SelectMenuManager {
      */
     private void register(@Nonnull SelectMenuExecutable executable, @Nonnull String... labels) {
         selectMenus.add(new SelectMenu(executable, labels));
+        Wally.getInstance().logger.log(LogLevel.INFO, "Menu ["+labels[0]+"] is registered");
     }
 
     /**

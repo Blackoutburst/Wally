@@ -248,7 +248,7 @@ public class MessageUtils {
     public static SelectMenu createLeaderboardMenu(@Nonnull WallyUser commandSender, @Nonnull String menuName, int page) {
         final SelectMenu.Builder menu = SelectMenu.create(commandSender.getMember().getId()+":"+menuName)
                 .setRequiredRange(1, 1)
-                .setPlaceholder("Select an account")
+                .setPlaceholder("Select a leaderboard")
                 .addOption(LeaderboardManager.getInstance().winsLeaderboardHypixel.name, "0:" + page)
                 .addOption(LeaderboardManager.getInstance().wallLeaderboardHypixel.name, "1:" + page)
                 .addOption(LeaderboardManager.getInstance().qualificationLeaderboardHypixel.name, "2:" + page)

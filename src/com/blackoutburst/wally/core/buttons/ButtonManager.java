@@ -47,6 +47,7 @@ public class ButtonManager {
      */
     private void register(@Nonnull ButtonExecutable executable, @Nonnull String... labels) {
         buttons.add(new Button(executable, labels));
+        Wally.getInstance().logger.log(LogLevel.INFO, "Button ["+labels[0]+"] is registered");
     }
 
     /**
