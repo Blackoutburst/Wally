@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
+import com.blackoutburst.wally.utils.MessageUtils;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -28,6 +29,6 @@ public class SelectMenuPracticeStats extends SelectMenuExecutable {
         }
 
         event.deferEdit().queue();
-        CommandUtils.sendPracticeStats(buttonUser, event.getMessage(), data, uuid, true);
+        MessageUtils.sendPracticeStats(buttonUser, event.getMessage(), data, uuid, true);
     }
 }

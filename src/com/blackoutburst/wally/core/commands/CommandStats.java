@@ -48,6 +48,6 @@ public class CommandStats extends CommandExecutable{
 
         DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, uuid);
         DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, discordID, uuid);
-        CommandUtils.sendHypixelStats(commandSender, message, data, uuid, false);
+        MessageUtils.sendHypixelStats(commandSender, message, data, uuid, false);
     }
 }

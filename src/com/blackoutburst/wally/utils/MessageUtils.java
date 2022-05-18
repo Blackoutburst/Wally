@@ -22,6 +22,156 @@ import java.util.concurrent.TimeUnit;
 public class MessageUtils {
 
     /**
+     * Send the leaderboard message
+     * @param commandSender the command sender
+     * @param message the message
+     * @param data the api data
+     * @param uuid the player uuid
+     * @param edit if the message should be edited instead of send
+     */
+    public static void sendLeaderboard(@Nonnull WallyUser commandSender, @Nonnull Message message, @Nonnull String data, @Nonnull String uuid, boolean edit) {
+        if (edit) {
+            switch (commandSender.getDisplayPreference()) {
+                case TEXT:
+                    message.editMessage(generateHypixelStatsMessage(data)).queue();
+                    break;
+                case EMBED:
+                    message.editMessageEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).queue();
+                    break;
+                default:
+                    message.editMessage("Soon...").queue();
+                    break;
+            }
+        } else {
+            final SelectMenu menu = createAccountMenu(commandSender, uuid, "stats");
+
+            switch (commandSender.getDisplayPreference()) {
+                case TEXT:
+                    if (menu != null) {
+                        message.reply(generateHypixelStatsMessage(data)).setActionRow(menu).queue();
+                    } else {
+                        message.reply(generateHypixelStatsMessage(data)).queue();
+                    }
+                    break;
+                case EMBED:
+                    if (menu != null) {
+                        message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue();
+                    } else {
+                        message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).queue();
+                    }
+                    break;
+                default:
+                    if (menu != null) {
+                        message.reply("Soon...").setActionRow(menu).queue();
+                    } else {
+                        message.reply("Soon...").queue();
+                    }
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Send the stats message
+     * @param commandSender the command sender
+     * @param message the message
+     * @param data the api data
+     * @param uuid the player uuid
+     * @param edit if the message should be edited instead of send
+     */
+    public static void sendPracticeStats(@Nonnull WallyUser commandSender, @Nonnull Message message, @Nonnull String data, @Nonnull String uuid, boolean edit) {
+        if (edit) {
+            switch (commandSender.getDisplayPreference()) {
+                case TEXT:
+                    message.editMessage(generatePracticeStatsMessage(data)).queue();
+                    break;
+                case EMBED:
+                    message.editMessageEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).queue();
+                    break;
+                default:
+                    message.editMessage("Soon...").queue();
+                    break;
+            }
+        } else {
+            final SelectMenu menu = createAccountMenu(commandSender, uuid, "practice stats");
+
+            switch (commandSender.getDisplayPreference()) {
+                case TEXT:
+                    if (menu != null) {
+                        message.reply(generatePracticeStatsMessage(data)).setActionRow(menu).queue();
+                    } else {
+                        message.reply(generatePracticeStatsMessage(data)).queue();
+                    }
+                    break;
+                case EMBED:
+                    if (menu != null) {
+                        message.replyEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).setActionRow(menu).queue();
+                    } else {
+                        message.replyEmbeds(EmbedUtils.generatePracticeStatsEmbed(data)).queue();
+                    }
+                    break;
+                default:
+                    if (menu != null) {
+                        message.reply("Soon...").setActionRow(menu).queue();
+                    } else {
+                        message.reply("Soon...").queue();
+                    }
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Send the stats message
+     * @param commandSender the command sender
+     * @param message the message
+     * @param data the api data
+     * @param uuid the player uuid
+     * @param edit if the message should be edited instead of send
+     */
+    public static void sendHypixelStats(@Nonnull WallyUser commandSender, @Nonnull Message message, @Nonnull String data, @Nonnull String uuid, boolean edit) {
+        if (edit) {
+            switch (commandSender.getDisplayPreference()) {
+                case TEXT:
+                    message.editMessage(generateHypixelStatsMessage(data)).queue();
+                    break;
+                case EMBED:
+                    message.editMessageEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).queue();
+                    break;
+                default:
+                    message.editMessage("Soon...").queue();
+                    break;
+            }
+        } else {
+            final SelectMenu menu = createAccountMenu(commandSender, uuid, "stats");
+
+            switch (commandSender.getDisplayPreference()) {
+                case TEXT:
+                    if (menu != null) {
+                        message.reply(generateHypixelStatsMessage(data)).setActionRow(menu).queue();
+                    } else {
+                        message.reply(generateHypixelStatsMessage(data)).queue();
+                    }
+                    break;
+                case EMBED:
+                    if (menu != null) {
+                        message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).setActionRow(menu).queue();
+                    } else {
+                        message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(data)).queue();
+                    }
+                    break;
+                default:
+                    if (menu != null) {
+                        message.reply("Soon...").setActionRow(menu).queue();
+                    } else {
+                        message.reply("Soon...").queue();
+                    }
+                    break;
+            }
+        }
+    }
+
+    /**
      * Create a text with Practice stats information inside
      * @param data a valid Practice json data
      * @return a message containing every hole in the wall stats
