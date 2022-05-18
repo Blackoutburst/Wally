@@ -23,10 +23,10 @@ public class LeaderboardManager {
     public final Leaderboard wallLeaderboardHypixel = new Leaderboard("Hypixel Walls", new HypixelWallsComparator(), Leaderboard.Type.WALLS);
     public final Leaderboard qualificationLeaderboardHypixel = new Leaderboard("Hypixel Qualification", new QualificationComparator(), Leaderboard.Type.QUALIFICATION);
     public final Leaderboard finalsLeaderboardHypixel = new Leaderboard("Hypixel Finals", new FinalsComparator(), Leaderboard.Type.FINALS);
-    public final Leaderboard qfLeaderboardHypixel = new Leaderboard("Hypixel Total Score", new TotalComparator(), Leaderboard.Type.TOTAL);
-    public final Leaderboard qfApiLeaderboardHypixel = new Leaderboard("Hypixel Total Score (API)", new HypixelTotalAPIComparator(), Leaderboard.Type.TOTAL_API);
-    public final Leaderboard challengesLeaderboardHypixel = new Leaderboard("Hypixel HitW Daily Challenges", new HypixelChallengesComparator(), Leaderboard.Type.CHALLENGES);
-    public final Leaderboard overallLeaderboardHypixel = new Leaderboard("Hypixel Overall HitW rank", new OverallComparator(), Leaderboard.Type.OVERALL);
+    public final Leaderboard totalLeaderboardHypixel = new Leaderboard("Hypixel Total Score", new TotalComparator(), Leaderboard.Type.TOTAL);
+    public final Leaderboard totalApiLeaderboardHypixel = new Leaderboard("Hypixel Total Score (API)", new HypixelTotalAPIComparator(), Leaderboard.Type.TOTAL_API);
+    public final Leaderboard challengesLeaderboardHypixel = new Leaderboard("Hypixel Daily Challenges", new HypixelChallengesComparator(), Leaderboard.Type.CHALLENGES);
+    public final Leaderboard overallLeaderboardHypixel = new Leaderboard("Hypixel Overall rank", new OverallComparator(), Leaderboard.Type.OVERALL);
 
     public final Leaderboard qualificationLeaderboardPractice = new Leaderboard("Practice Qualification", new QualificationComparator(), Leaderboard.Type.QUALIFICATION);
     public final Leaderboard finalsLeaderboardPractice = new Leaderboard("Practice Finals", new FinalsComparator(), Leaderboard.Type.FINALS);
@@ -34,7 +34,7 @@ public class LeaderboardManager {
     public final Leaderboard wideQualificationLeaderboardPractice = new Leaderboard("Practice Wide Qualification", new PracticeWideQualificationComparator(), Leaderboard.Type.WIDE_QUALIFICATION);
     public final Leaderboard wideFinalsLeaderboardPractice = new Leaderboard("Practice Wide Finals", new PracticeWideFinalsComparator(), Leaderboard.Type.WIDE_FINALS);
     public final Leaderboard totalLeaderboardPractice = new Leaderboard("Practice Total Score", new TotalComparator(), Leaderboard.Type.TOTAL);
-    public final Leaderboard overallLeaderboardPractice = new Leaderboard("Practice Overall HitW rank", new OverallComparator(), Leaderboard.Type.OVERALL);
+    public final Leaderboard overallLeaderboardPractice = new Leaderboard("Practice Overall rank", new OverallComparator(), Leaderboard.Type.OVERALL);
 
     private static LeaderboardManager instance = null;
 
@@ -109,8 +109,8 @@ public class LeaderboardManager {
         wallLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
         qualificationLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
         finalsLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
-        qfLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
-        qfApiLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
+        totalLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
+        totalApiLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
         challengesLeaderboardHypixel.players.addAll(winsLeaderboardHypixel.players);
 
         populate(qualificationLeaderboardPractice.players, DataType.PRACTICE, true);
@@ -124,8 +124,8 @@ public class LeaderboardManager {
         sort(wallLeaderboardHypixel);
         sort(qualificationLeaderboardHypixel);
         sort(finalsLeaderboardHypixel);
-        sort(qfLeaderboardHypixel);
-        sort(qfApiLeaderboardHypixel);
+        sort(totalLeaderboardHypixel);
+        sort(totalApiLeaderboardHypixel);
         sort(challengesLeaderboardHypixel);
 
         sort(finalsLeaderboardPractice);

@@ -5,6 +5,7 @@ import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.commands.PermissionLevel;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.leaderboard.Leaderboard;
+import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
 import com.blackoutburst.wally.core.request.Mojang;
 import com.blackoutburst.wally.core.statsobject.HypixelStats;
 import com.blackoutburst.wally.core.statsobject.PracticeStats;
@@ -45,17 +46,17 @@ public class MessageUtils {
                 break;
             }
         } else {
-            //final SelectMenu menu = createAccountMenu(commandSender, uuid, "stats");
+            final SelectMenu menu = createLeaderboardMenu(commandSender, "leaderboard");
 
             switch (commandSender.getDisplayPreference()) {
                 case TEXT:
-                    message.reply(generateLeaderboardMessage(leaderboard, page)).queue();//.setActionRow(menu).queue();
+                    message.reply(generateLeaderboardMessage(leaderboard, page)).setActionRow(menu).queue();
                 break;
                 case EMBED:
                     //message.replyEmbeds(EmbedUtils.generateHypixelStatsEmbed(leaderboard, page)).setActionRow(menu).queue();
                 break;
                 default:
-                    message.reply("Soon...");//.setActionRow(menu);.queue();
+                    message.reply("Soon...").setActionRow(menu).queue();
                 break;
             }
         }
@@ -239,12 +240,40 @@ public class MessageUtils {
     }
 
     /**
-     * Send the skin embed message without menu if the player isn't linked
-     * If the player is linked and possess multiples account a drop menu
-     * is added below to allow the user to switch between his skin
-     *
+     * Create a select menu to switch between a leaderboards
+     * @param commandSender the command sender
+     * @param menuName the menu name
+     * @return a select menu ready to be used on a message
+     */
+    public static SelectMenu createLeaderboardMenu(@Nonnull WallyUser commandSender, @Nonnull String menuName) {
+        final SelectMenu.Builder menu = SelectMenu.create(commandSender.getMember().getId()+":"+menuName)
+                .setRequiredRange(1, 1)
+                .setPlaceholder("Select an account")
+                .addOption(LeaderboardManager.getInstance().winsLeaderboardHypixel.name, Leaderboard.Type.WINS.toString())
+                .addOption(LeaderboardManager.getInstance().wallLeaderboardHypixel.name, Leaderboard.Type.WALLS.toString())
+                .addOption(LeaderboardManager.getInstance().qualificationLeaderboardHypixel.name, Leaderboard.Type.QUALIFICATION.toString())
+                .addOption(LeaderboardManager.getInstance().finalsLeaderboardHypixel.name, Leaderboard.Type.FINALS.toString())
+                .addOption(LeaderboardManager.getInstance().totalLeaderboardHypixel.name, Leaderboard.Type.TOTAL.toString())
+                .addOption(LeaderboardManager.getInstance().totalApiLeaderboardHypixel.name, Leaderboard.Type.TOTAL_API.toString())
+                .addOption(LeaderboardManager.getInstance().challengesLeaderboardHypixel.name, Leaderboard.Type.CHALLENGES.toString())
+                .addOption(LeaderboardManager.getInstance().overallLeaderboardHypixel.name, Leaderboard.Type.OVERALL.toString())
+                .addOption(LeaderboardManager.getInstance().qualificationLeaderboardPractice.name, Leaderboard.Type.QUALIFICATION.toString())
+                .addOption(LeaderboardManager.getInstance().finalsLeaderboardPractice.name, Leaderboard.Type.FINALS.toString())
+                .addOption(LeaderboardManager.getInstance().lobbyLeaderboardPractice.name, Leaderboard.Type.LOBBY.toString())
+                .addOption(LeaderboardManager.getInstance().wideQualificationLeaderboardPractice.name, Leaderboard.Type.WIDE_QUALIFICATION.toString())
+                .addOption(LeaderboardManager.getInstance().wideFinalsLeaderboardPractice.name, Leaderboard.Type.WIDE_FINALS.toString())
+                .addOption(LeaderboardManager.getInstance().totalLeaderboardPractice.name, Leaderboard.Type.TOTAL.toString())
+                .addOption(LeaderboardManager.getInstance().overallLeaderboardPractice.name, Leaderboard.Type.OVERALL.toString());
+
+        return (menu.build());
+    }
+
+    /**
+     * Create a select menu to switch between a user accounts
      * @param commandSender the command sender
      * @param uuid the player uuid
+     * @param menuName the menu name
+     * @return a select menu ready to be used on a message
      */
     public static SelectMenu createAccountMenu(@Nonnull WallyUser commandSender, @Nonnull String uuid, @Nonnull String menuName) {
         final boolean linked = DatabaseUtils.isLinkedUUID(uuid);
