@@ -36,7 +36,7 @@ public class MessageUtils {
         if (edit) {
             switch (commandSender.getDisplayPreference()) {
                 case TEXT:
-                    message.editMessage(generateLeaderboardMessage(leaderboard, page)).queue();
+                    message.editMessage(generateLeaderboardMessage(leaderboard, page, true)).queue();
                 break;
                 case EMBED:
                     message.editMessageEmbeds(EmbedUtils.generateLeaderboardEmbed(leaderboard, page)).queue();
@@ -50,7 +50,7 @@ public class MessageUtils {
 
             switch (commandSender.getDisplayPreference()) {
                 case TEXT:
-                    message.reply(generateLeaderboardMessage(leaderboard, page)).setActionRow(menu).queue();
+                    message.reply(generateLeaderboardMessage(leaderboard, page, true)).setActionRow(menu).queue();
                 break;
                 case EMBED:
                     message.replyEmbeds(EmbedUtils.generateLeaderboardEmbed(leaderboard, page)).setActionRow(menu).queue();
@@ -168,11 +168,12 @@ public class MessageUtils {
      * @param page the leaderboard page
      * @return a message containing leaderboard page information
      */
-    public static @Nonnull String generateLeaderboardMessage(@Nonnull Leaderboard leaderboard, int page) {
+    public static @Nonnull String generateLeaderboardMessage(@Nonnull Leaderboard leaderboard, int page, boolean title) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("```yml").append(System.lineSeparator())
-                .append(leaderboard.name).append(System.lineSeparator())
-                .append(System.lineSeparator());
+        builder.append("```yml").append(System.lineSeparator());
+
+        if (title)
+            builder.append(leaderboard.name).append(System.lineSeparator()).append(System.lineSeparator());
 
         int leaderboardPage = (page - 1) * 10;
 

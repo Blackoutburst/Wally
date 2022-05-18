@@ -29,23 +29,10 @@ public class EmbedUtils {
         }
         StatsObject topPlayer = leaderboard.players.get(leaderboardPage);
 
-        final StringBuilder builder = new StringBuilder();
-        for (int i = leaderboardPage; i < leaderboardPage + 10; i++) {
-            if (leaderboard.players.size() <= i) break;
-            final StatsObject stats = leaderboard.players.get(i);
-            builder.append("`(#").append(i + 1).append(")` `")
-                    .append(stats.getName()).append("` **:** `")
-                    .append(
-                            leaderboard.type.equals(Leaderboard.Type.OVERALL) ?
-                                    Wally.getInstance().decimalFormat.format(stats.getOverall()) :
-                                    Wally.getInstance().numberFormat.format(stats.getDataFromType(leaderboard.type)))
-                    .append("`").append(System.lineSeparator());
-        }
-
         return new EmbedBuilder()
                 .setAuthor(leaderboard.name, "https://hypixel.net/arcade-games/leaderboard/hole_in_the_wall", "https://www.blackoutburst.com/img/wally.png")
                 .setColor(Utils.getColorFromScore(Utils.getHighestScore(topPlayer.getScores())))
-                .setDescription(builder.toString())
+                .setDescription(MessageUtils.generateLeaderboardMessage(leaderboard, page, false))
                 .setFooter(LocalDate.now() + " | " + leaderboard.type)
                 .build();
     }
