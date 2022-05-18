@@ -46,7 +46,7 @@ public class MessageUtils {
                 break;
             }
         } else {
-            final SelectMenu menu = createLeaderboardMenu(commandSender, "leaderboard");
+            final SelectMenu menu = createLeaderboardMenu(commandSender, "leaderboard", page);
 
             switch (commandSender.getDisplayPreference()) {
                 case TEXT:
@@ -245,25 +245,25 @@ public class MessageUtils {
      * @param menuName the menu name
      * @return a select menu ready to be used on a message
      */
-    public static SelectMenu createLeaderboardMenu(@Nonnull WallyUser commandSender, @Nonnull String menuName) {
+    public static SelectMenu createLeaderboardMenu(@Nonnull WallyUser commandSender, @Nonnull String menuName, int page) {
         final SelectMenu.Builder menu = SelectMenu.create(commandSender.getMember().getId()+":"+menuName)
                 .setRequiredRange(1, 1)
                 .setPlaceholder("Select an account")
-                .addOption(LeaderboardManager.getInstance().winsLeaderboardHypixel.name, Leaderboard.Type.WINS.toString())
-                .addOption(LeaderboardManager.getInstance().wallLeaderboardHypixel.name, Leaderboard.Type.WALLS.toString())
-                .addOption(LeaderboardManager.getInstance().qualificationLeaderboardHypixel.name, Leaderboard.Type.QUALIFICATION.toString())
-                .addOption(LeaderboardManager.getInstance().finalsLeaderboardHypixel.name, Leaderboard.Type.FINALS.toString())
-                .addOption(LeaderboardManager.getInstance().totalLeaderboardHypixel.name, Leaderboard.Type.TOTAL.toString())
-                .addOption(LeaderboardManager.getInstance().totalApiLeaderboardHypixel.name, Leaderboard.Type.TOTAL_API.toString())
-                .addOption(LeaderboardManager.getInstance().challengesLeaderboardHypixel.name, Leaderboard.Type.CHALLENGES.toString())
-                .addOption(LeaderboardManager.getInstance().overallLeaderboardHypixel.name, Leaderboard.Type.OVERALL.toString())
-                .addOption(LeaderboardManager.getInstance().qualificationLeaderboardPractice.name, Leaderboard.Type.QUALIFICATION.toString())
-                .addOption(LeaderboardManager.getInstance().finalsLeaderboardPractice.name, Leaderboard.Type.FINALS.toString())
-                .addOption(LeaderboardManager.getInstance().lobbyLeaderboardPractice.name, Leaderboard.Type.LOBBY.toString())
-                .addOption(LeaderboardManager.getInstance().wideQualificationLeaderboardPractice.name, Leaderboard.Type.WIDE_QUALIFICATION.toString())
-                .addOption(LeaderboardManager.getInstance().wideFinalsLeaderboardPractice.name, Leaderboard.Type.WIDE_FINALS.toString())
-                .addOption(LeaderboardManager.getInstance().totalLeaderboardPractice.name, Leaderboard.Type.TOTAL.toString())
-                .addOption(LeaderboardManager.getInstance().overallLeaderboardPractice.name, Leaderboard.Type.OVERALL.toString());
+                .addOption(LeaderboardManager.getInstance().winsLeaderboardHypixel.name, "0:" + page)
+                .addOption(LeaderboardManager.getInstance().wallLeaderboardHypixel.name, "1:" + page)
+                .addOption(LeaderboardManager.getInstance().qualificationLeaderboardHypixel.name, "2:" + page)
+                .addOption(LeaderboardManager.getInstance().finalsLeaderboardHypixel.name, "3:" + page)
+                .addOption(LeaderboardManager.getInstance().totalLeaderboardHypixel.name, "4:" + page)
+                .addOption(LeaderboardManager.getInstance().totalApiLeaderboardHypixel.name, "5:" + page)
+                .addOption(LeaderboardManager.getInstance().challengesLeaderboardHypixel.name, "6:" + page)
+                .addOption(LeaderboardManager.getInstance().overallLeaderboardHypixel.name, "7:" + page)
+                .addOption(LeaderboardManager.getInstance().qualificationLeaderboardPractice.name, "8:" + page)
+                .addOption(LeaderboardManager.getInstance().finalsLeaderboardPractice.name, "9:" + page)
+                .addOption(LeaderboardManager.getInstance().lobbyLeaderboardPractice.name, "10:" + page)
+                .addOption(LeaderboardManager.getInstance().wideQualificationLeaderboardPractice.name, "11:" + page)
+                .addOption(LeaderboardManager.getInstance().wideFinalsLeaderboardPractice.name, "12:" + page)
+                .addOption(LeaderboardManager.getInstance().totalLeaderboardPractice.name, "13:" + page)
+                .addOption(LeaderboardManager.getInstance().overallLeaderboardPractice.name, "14:" + page);
 
         return (menu.build());
     }
