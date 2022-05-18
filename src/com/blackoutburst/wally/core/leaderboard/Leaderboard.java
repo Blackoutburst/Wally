@@ -1,7 +1,6 @@
 package com.blackoutburst.wally.core.leaderboard;
 
 import com.blackoutburst.wally.core.statsobject.StatsObject;
-import com.blackoutburst.wally.utils.DatabaseUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
