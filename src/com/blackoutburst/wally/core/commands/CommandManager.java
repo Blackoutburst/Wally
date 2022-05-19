@@ -74,9 +74,9 @@ public class CommandManager {
         register(PermissionLevel.STAFF, new CommandExcludeFromLeaderboard(), "excludefromleaderboard", "excludefromlb", "excludelb", "elb");
         register(PermissionLevel.STAFF, new CommandAddToLeaderboard(), "addtoleaderboard", "addtolb", "addlb", "alb");
         register(PermissionLevel.STAFF, new CommandExcludeList(), "excludelist", "elist");
-        register(PermissionLevel.ADMIN, new CommandLogLevel(), "loglevel");
+        register(PermissionLevel.ADMIN, new CommandLogLevel(), "loglevel", "showloglevel", "displayloglevel");
         register(PermissionLevel.MEMBER, new CommandLeaderboard(), "leaderboard", "leaderboards", "lead", "leads", "lb", "lbs");
-        register(PermissionLevel.ADMIN, new CommandSetPrefix(), "setprefix");
+        register(PermissionLevel.ADMIN, new CommandSetPrefix(), "setprefix", "setcommandprefix");
         register(PermissionLevel.MEMBER, new CommandStats(), "stats", "stat", "s");
         register(PermissionLevel.MEMBER, new CommandPracticeStats(), "practicestats", "practicestat", "ps", "pstats", "pstat");
         register(PermissionLevel.MEMBER, new CommandSetDisplayPreference(), "setdisplaypreference", "sdp");

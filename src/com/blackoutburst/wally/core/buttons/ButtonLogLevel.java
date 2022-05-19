@@ -24,7 +24,7 @@ public class ButtonLogLevel extends ButtonExecutable {
         Wally.getInstance().logger.setInternalLogLevel(level);
 
         event.reply(ConfigManager.getInstance().loadValue("replies", "log level updated")
-                .replace("%level%", level.toString().toLowerCase())).setEphemeral(true).queue();
+                .replace("%level%", level.toString())).setEphemeral(true).queue();
 
         event.getMessage().editMessage(ConfigManager.getInstance().loadValue("replies", "select display preference")).setActionRow(
                 Wally.getInstance().logger.getInternalLogLevel().equals(LogLevel.INFO) ? Button.primary(id+UUID.randomUUID(), "INFO") : Button.secondary(id+UUID.randomUUID(), "INFO"),
