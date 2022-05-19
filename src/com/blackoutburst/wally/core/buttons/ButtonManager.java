@@ -37,6 +37,7 @@ public class ButtonManager {
         register(new ButtonSendLog(), "Send me the log");
         register(new ButtonDisplayPreference(), "TEXT", "EMBED", "CANVAS");
         register(new ButtonLogLevel(), "INFO", "WARN", "ERROR", "NONE");
+        register(new ButtonPermissionLevel(), "MEMBER", "STAFF", "ADMIN");
 
         Wally.getInstance().logger.log(LogLevel.INFO, "Button registered!");
     }
