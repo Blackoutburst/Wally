@@ -17,27 +17,7 @@ import javax.annotation.Nonnull;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class CommandSetPermissionLevel extends CommandExecutable{
-
-    /**
-     * Change someone permission
-     *
-     * @param channel the message channel
-     * @param discordID the user discord id
-     * @param level the new permission level
-     * @return if the operation worked
-     */
-    private void updateUserPermissionLevel(@Nonnull MessageChannel channel, @Nonnull String discordID, @Nonnull PermissionLevel level) {
-        final String file = "database/linked users/" + discordID + "/data.json";
-        final UserOption data = DatabaseUtils.getWallyUserData(discordID);
-        if (data == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not linked or corrupted")).queue();
-            return;
-        }
-        data.setPermissionLevel(level);
-        DatabaseUtils.generateWallyProfile(data, file);
-        Wally.getInstance().loadUser();
-    }
+public class CommandSetPermissionLevel extends CommandExecutable {
 
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
