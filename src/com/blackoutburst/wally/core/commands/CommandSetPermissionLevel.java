@@ -1,44 +1,27 @@
 package com.blackoutburst.wally.core.commands;
 
 import com.blackoutburst.wally.core.UserOption;
-import com.blackoutburst.wally.core.Wally;
 import com.blackoutburst.wally.core.WallyUser;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.utils.CommandUtils;
 import com.blackoutburst.wally.utils.DatabaseUtils;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import javax.annotation.Nonnull;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
-public class CommandSetPermissionLevel extends CommandExecutable{
-
-    /**
-     * Change someone permission
-     *
-     * @param channel the message channel
-     * @param discordID the user discord id
-     * @param level the new permission level
-     * @return if the operation worked
-     */
-    private boolean updateUserPermissionLevel(@Nonnull MessageChannel channel, @Nonnull String discordID, @Nonnull PermissionLevel level) {
-        final String file = "database/linked users/" + discordID + "/data.json";
-        final UserOption data = DatabaseUtils.getWallyUserData(discordID);
-        if (data == null) {
-            channel.sendMessage(ConfigManager.getInstance().loadValue("replies", "not linked or corrupted")).queue();
-            return false;
-        }
-        data.setPermissionLevel(level);
-        DatabaseUtils.generateWallyProfile(data, file);
-        return true;
-    }
+public class CommandSetPermissionLevel extends CommandExecutable {
 
     @Override
     protected void onCommand(@Nonnull WallyUser commandSender, @Nonnull String commandName, @Nonnull String[] args, @Nonnull Guild guild, @Nonnull MessageChannel channel, @Nonnull Message message) {
-        if (args.length != 2)  {
+        if (args.length < 1)  {
             message.reply(ConfigManager.getInstance().loadValue("replies", "invalid command usage")
-                    .replace("%usage%", CommandManager.getPrefix()+"setpermissionlevel [discordID] [MEMBER/STAFF/ADMIN]")).queue();
+                    .replace("%usage%", CommandManager.getPrefix()+"setpermissionlevel [discordID]")).queue();
             return;
         }
 
@@ -48,25 +31,15 @@ public class CommandSetPermissionLevel extends CommandExecutable{
             return;
         }
 
-        final String permissionLevel = CommandUtils.getNonDiscordIDArgFromTwoArgs(guild, args);
-        if (permissionLevel == null) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "permission level is null")).queue();
-            return;
-        }
+        final Member member = guild.getMemberById(discordID);
 
-        PermissionLevel level;
+        final UserOption data = DatabaseUtils.getWallyUserData(discordID);
+        final String id = commandSender.getMember().getId()+":"+discordID+":";
 
-        try {
-            level = PermissionLevel.valueOf(permissionLevel.toUpperCase());
-        } catch (Exception e) {
-            Wally.getInstance().logger.logStackTrace(e.getStackTrace());
-                message.reply(ConfigManager.getInstance().loadValue("replies", "not a permission level").replace("%level%", permissionLevel)).queue();
-            return;
-        }
-
-        if (updateUserPermissionLevel(channel, discordID, level)) {
-            message.reply(ConfigManager.getInstance().loadValue("replies", "user permission updated")).queue();
-            Wally.getInstance().loadUser();
-        }
+        message.reply(ConfigManager.getInstance().loadValue("replies", "select permission level").replace("%user%", member.getEffectiveName())).setActionRow(
+                data.getPermissionLevel().equals(PermissionLevel.MEMBER) ? Button.primary(id+ UUID.randomUUID(), "MEMBER") : Button.secondary(id+UUID.randomUUID(), "MEMBER"),
+                data.getPermissionLevel().equals(PermissionLevel.STAFF) ? Button.primary(id+UUID.randomUUID(), "STAFF") : Button.secondary(id+UUID.randomUUID(), "STAFF"),
+                data.getPermissionLevel().equals(PermissionLevel.ADMIN) ? Button.primary(id+UUID.randomUUID(), "ADMIN") : Button.secondary(id+UUID.randomUUID(), "ADMIN")
+        ).queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
     }
 }
