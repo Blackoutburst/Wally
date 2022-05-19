@@ -42,7 +42,7 @@ public class ButtonPermissionLevel extends ButtonExecutable {
     protected void onClick(@Nonnull WallyUser buttonUser, @Nonnull ButtonInteractionEvent event) {
         final String discordID = event.getMember().getId();
         final String editedUserID = event.getButton().getId().split(":")[1];
-        final String id = discordID+":"+event.getMessage().getId()+":"+editedUserID+":";
+        final String id = buttonUser.getMember().getId()+":"+editedUserID+":";
         final PermissionLevel level = PermissionLevel.valueOf(event.getButton().getLabel());
 
         final UserOption data = DatabaseUtils.getWallyUserData(editedUserID);
@@ -52,9 +52,9 @@ public class ButtonPermissionLevel extends ButtonExecutable {
         }
 
         event.getMessage().editMessage(ConfigManager.getInstance().loadValue("replies", "select display preference")).setActionRow(
-                data.getPermissionLevel().equals(PermissionLevel.MEMBER) ? Button.primary(id+ UUID.randomUUID(), "MEMBER") : Button.secondary(id+UUID.randomUUID(), "MEMBER"),
-                data.getPermissionLevel().equals(PermissionLevel.STAFF) ? Button.primary(id+UUID.randomUUID(), "STAFF") : Button.secondary(id+UUID.randomUUID(), "STAFF"),
-                data.getPermissionLevel().equals(PermissionLevel.ADMIN) ? Button.primary(id+UUID.randomUUID(), "ADMIN") : Button.secondary(id+UUID.randomUUID(), "ADMIN")
+                level.equals(PermissionLevel.MEMBER) ? Button.primary(id+ UUID.randomUUID(), "MEMBER") : Button.secondary(id+UUID.randomUUID(), "MEMBER"),
+                level.equals(PermissionLevel.STAFF) ? Button.primary(id+UUID.randomUUID(), "STAFF") : Button.secondary(id+UUID.randomUUID(), "STAFF"),
+                level.equals(PermissionLevel.ADMIN) ? Button.primary(id+UUID.randomUUID(), "ADMIN") : Button.secondary(id+UUID.randomUUID(), "ADMIN")
         ).queue(r -> r.delete().queueAfter(Long.parseLong(ConfigManager.getInstance().loadValue("settings", "answer lifetime")), TimeUnit.SECONDS));
 
         if (updateUserPermissionLevel(event, discordID, level)) {
