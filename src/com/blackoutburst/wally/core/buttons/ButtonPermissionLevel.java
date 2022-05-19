@@ -41,11 +41,15 @@ public class ButtonPermissionLevel extends ButtonExecutable {
     @Override
     protected void onClick(@Nonnull WallyUser buttonUser, @Nonnull ButtonInteractionEvent event) {
         final String discordID = event.getMember().getId();
-        final String editedUserID = event.getButton().getId().split(":")[2];
+        final String editedUserID = event.getButton().getId().split(":")[1];
         final String id = discordID+":"+event.getMessage().getId()+":"+editedUserID+":";
         final PermissionLevel level = PermissionLevel.valueOf(event.getButton().getLabel());
 
         final UserOption data = DatabaseUtils.getWallyUserData(editedUserID);
+        if (data == null) {
+            event.reply(ConfigManager.getInstance().loadValue("replies", "not linked or corrupted")).setEphemeral(true).queue();
+            return;
+        }
 
         event.getMessage().editMessage(ConfigManager.getInstance().loadValue("replies", "select display preference")).setActionRow(
                 data.getPermissionLevel().equals(PermissionLevel.MEMBER) ? Button.primary(id+ UUID.randomUUID(), "MEMBER") : Button.secondary(id+UUID.randomUUID(), "MEMBER"),

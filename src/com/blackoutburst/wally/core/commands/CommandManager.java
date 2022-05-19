@@ -53,7 +53,7 @@ public class CommandManager {
         register(PermissionLevel.STAFF, new CommandUnlink(), "unlink");
         register(PermissionLevel.ADMIN, new CommandSetLogLevel(), "setloglevel");
         register(PermissionLevel.ADMIN, new CommandReloadUser(), "reloaduser", "reloadusers");
-        register(PermissionLevel.ADMIN, new CommandSetPermissionLevel(), "setpermissionlevel", "setperms");
+        register(PermissionLevel.ADMIN, new CommandSetPermissionLevel(), "setpermissionlevel", "setperms", "setpermission");
         register(PermissionLevel.ADMIN, new CommandGetConfig(), "getconfig", "getconfiguration");
         register(PermissionLevel.ADMIN, new CommandSetConfig(), "setconfig", "setconfiguration");
         register(PermissionLevel.MEMBER, new CommandPoll(), "poll");
