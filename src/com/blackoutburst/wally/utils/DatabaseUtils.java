@@ -166,6 +166,7 @@ public class DatabaseUtils {
 
     /**
      * Return wally user data using a discord ID
+     *
      * @param discordID the user discord ID
      * @return the Wally user if found
      */
