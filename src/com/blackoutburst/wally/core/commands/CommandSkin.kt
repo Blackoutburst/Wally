@@ -22,12 +22,12 @@ class CommandSkin : CommandExecutable() {
             val data = getWallyUserData(discordID)
             data!!.mainAccountUUID
         } else {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage").replace("%usage%", CommandManager.prefix + "skin [Minecraft name]")).queue()
+            message.reply(ConfigManager.loadMessage( "invalid command usage").replace("%usage%", CommandManager.prefix + "skin [Minecraft name]")).queue()
             return
         }
 
         if (uuid == null) {
-            message.reply(ConfigManager.loadValue("replies", "unknown player")).queue()
+            message.reply(ConfigManager.loadMessage( "unknown player")).queue()
             return
         }
 

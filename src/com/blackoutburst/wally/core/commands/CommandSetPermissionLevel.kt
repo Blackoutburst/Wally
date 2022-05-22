@@ -15,14 +15,14 @@ class CommandSetPermissionLevel : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.isEmpty()) {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage")
+            message.reply(ConfigManager.loadMessage( "invalid command usage")
                     .replace("%usage%", CommandManager.prefix + "setPermissionLevel [discordID]")).queue()
             return
         }
 
         val discordID = getDiscordIDFromTwoArgs(guild, args)
         if (discordID == null) {
-            message.reply(ConfigManager.loadValue("replies", "not an user")).queue()
+            message.reply(ConfigManager.loadMessage( "not an user")).queue()
             return
         }
 
@@ -30,7 +30,7 @@ class CommandSetPermissionLevel : CommandExecutable() {
         val data = getWallyUserData(discordID)
         val id = commandSender.member.id + ":" + discordID + ":"
 
-        message.reply(ConfigManager.loadValue("replies", "select permission level")
+        message.reply(ConfigManager.loadMessage( "select permission level")
             .replace("%user%", member!!.effectiveName)).setActionRow(
             if (data!!.permissionLevel == PermissionLevel.MEMBER) Button.primary(id + UUID.randomUUID(),"MEMBER") else Button.secondary(id + UUID.randomUUID(), "MEMBER"),
             if (data.permissionLevel == PermissionLevel.STAFF) Button.primary(id + UUID.randomUUID(),"STAFF") else Button.secondary(id + UUID.randomUUID(), "STAFF"),

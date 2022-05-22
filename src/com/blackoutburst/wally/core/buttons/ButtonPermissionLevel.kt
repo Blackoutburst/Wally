@@ -27,7 +27,7 @@ class ButtonPermissionLevel : ButtonExecutable() {
         val data = getWallyUserData(discordID)
 
         if (data == null) {
-            event.reply(ConfigManager.loadValue("replies", "not linked or corrupted")).setEphemeral(true).queue()
+            event.reply(ConfigManager.loadMessage( "not linked or corrupted")).setEphemeral(true).queue()
             return false
         }
 
@@ -45,12 +45,12 @@ class ButtonPermissionLevel : ButtonExecutable() {
         val data = getWallyUserData(editedUserID)
 
         if (data == null) {
-            event.reply(ConfigManager.loadValue("replies", "not linked or corrupted")).setEphemeral(true)
+            event.reply(ConfigManager.loadMessage( "not linked or corrupted")).setEphemeral(true)
                 .queue()
             return
         }
 
-        event.message.editMessage(ConfigManager.loadValue("replies", "select display preference"))
+        event.message.editMessage(ConfigManager.loadMessage( "select display preference"))
             .setActionRow(
                 if (level == PermissionLevel.MEMBER) Button.primary(id + UUID.randomUUID(),"MEMBER") else Button.secondary(id + UUID.randomUUID(), "MEMBER"),
                 if (level == PermissionLevel.STAFF) Button.primary(id + UUID.randomUUID(),"STAFF" ) else Button.secondary(id + UUID.randomUUID(), "STAFF"),
@@ -60,7 +60,7 @@ class ButtonPermissionLevel : ButtonExecutable() {
             }
 
         if (updateUserPermissionLevel(event, discordID, level)) {
-            event.reply(ConfigManager.loadValue("replies", "user permission updated")).setEphemeral(true).queue()
+            event.reply(ConfigManager.loadMessage( "user permission updated")).setEphemeral(true).queue()
             Wally.loadUser()
         }
     }

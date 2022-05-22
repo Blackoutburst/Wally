@@ -13,18 +13,18 @@ class CommandReloadUser : CommandExecutable() {
         val rootFolder = File("database/linked users/")
 
         if (!rootFolder.exists()) {
-            message.reply(ConfigManager.loadValue("replies", "no user db")).queue()
+            message.reply(ConfigManager.loadMessage( "no user db")).queue()
             return
         }
 
         val entries = rootFolder.list()
         if (entries == null) {
-            message.reply(ConfigManager.loadValue("replies", "no user db")).queue()
+            message.reply(ConfigManager.loadMessage( "no user db")).queue()
             return
         }
 
         Wally.loadUser()
-        channel.sendMessage(ConfigManager.loadValue("replies", "user reloaded")
+        channel.sendMessage(ConfigManager.loadMessage( "user reloaded")
                 .replace("%users%", java.lang.String.valueOf(Wally.users.size))
                 .replace("%total%", entries.size.toString())).queue()
     }

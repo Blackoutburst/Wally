@@ -32,11 +32,11 @@ class CommandSetPracticeTracker : CommandExecutable() {
             writer.write(gson.toJson(json))
             writer.flush()
             writer.close()
-            channel.sendMessage(ConfigManager.loadValue("replies", "practice tracker channel updated")
+            channel.sendMessage(ConfigManager.loadMessage( "practice tracker channel updated")
                     .replace("%channel%", "<#" + channel.id + ">")).queue()
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
-            sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "channel update error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "channel update error"))
         }
     }
 }

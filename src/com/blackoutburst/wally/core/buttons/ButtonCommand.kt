@@ -15,7 +15,7 @@ class ButtonCommand : ButtonExecutable() {
         val message = getMessageFromHistory(messageChannel, messageID, 5)
 
         if (message == null) {
-            messageChannel.sendMessage("<@" + event.member!!.id + ">" + ConfigManager.loadValue("replies", "message deleted")).queue()
+            messageChannel.sendMessage("<@" + event.member!!.id + ">" + ConfigManager.loadMessage( "message deleted")).queue()
             return
         }
 

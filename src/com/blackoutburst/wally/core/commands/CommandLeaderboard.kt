@@ -19,13 +19,13 @@ class CommandLeaderboard : CommandExecutable() {
                 args[0].toInt()
             } catch (e: Exception) {
                 Wally.logger.logStackTrace(e.stackTrace)
-                message.reply(loadValue("replies", "invalid page").replace("%page%", args[0])).queue()
+                message.reply(loadMessage( "invalid page").replace("%page%", args[0])).queue()
                 return
             }
         }
 
         if (page < 1) {
-            message.reply(loadValue("replies", "invalid page").replace("%page%", args[0])).queue()
+            message.reply(loadMessage( "invalid page").replace("%page%", args[0])).queue()
             return
         }
         sendLeaderboard(commandSender, message, LeaderboardManager.winsLeaderboardHypixel, page, false)

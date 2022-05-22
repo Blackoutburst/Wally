@@ -13,18 +13,18 @@ class CommandExcludeFromLeaderboard : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 1) {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage")
+            message.reply(ConfigManager.loadMessage( "invalid command usage")
                 .replace("%usage%", prefix + "excludeFromLeaderboard [Minecraft Name]")).queue()
             return
         }
 
         val playerUUID = getPlayerUUID(args[0])
         if (playerUUID == null) {
-            message.reply(ConfigManager.loadValue("replies", "not in mojang").replace("%name%", args[0])).queue()
+            message.reply(ConfigManager.loadMessage( "not in mojang").replace("%name%", args[0])).queue()
             return
         }
 
         excludeFromLb(playerUUID)
-        channel.sendMessage(ConfigManager.loadValue("replies", "exclude success").replace("%name%", args[0])).queue()
+        channel.sendMessage(ConfigManager.loadMessage( "exclude success").replace("%name%", args[0])).queue()
     }
 }

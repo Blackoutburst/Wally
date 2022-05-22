@@ -17,7 +17,7 @@ object MessageReceived {
     fun run(event: MessageReceivedEvent) {
         if (!event.message.contentRaw.startsWith(CommandManager.prefix)) return
         if (!Wally.isReady) {
-            event.message.reply(ConfigManager.loadValue("replies", "still loading")).queue()
+            event.message.reply(ConfigManager.loadMessage( "still loading")).queue()
             return
         }
 

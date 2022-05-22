@@ -28,12 +28,12 @@ class CommandStats : CommandExecutable() {
             val data = getWallyUserData(discordID)
             data!!.mainAccountUUID
         } else {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage").replace("%usage%", CommandManager.prefix + "stats [Minecraft name]")).queue()
+            message.reply(ConfigManager.loadMessage( "invalid command usage").replace("%usage%", CommandManager.prefix + "stats [Minecraft name]")).queue()
             return
         }
 
         if (uuid == null) {
-            message.reply(ConfigManager.loadValue("replies", "unknown player")).queue()
+            message.reply(ConfigManager.loadMessage( "unknown player")).queue()
             return
         }
 
@@ -43,7 +43,7 @@ class CommandStats : CommandExecutable() {
         }
 
         if (data == null) {
-            sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "command stats error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "command stats error"))
             return
         }
         updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, uuid)

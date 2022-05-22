@@ -18,7 +18,7 @@ class CommandSetAnswerLifetime : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 1) {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage")
+            message.reply(ConfigManager.loadMessage( "invalid command usage")
                     .replace("%usage%", CommandManager.prefix + "setAnswerLifetime [seconds]")).queue()
             return
         }
@@ -27,7 +27,7 @@ class CommandSetAnswerLifetime : CommandExecutable() {
             args[0].toLong()
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
-            message.reply(ConfigManager.loadValue("replies", "not a number")
+            message.reply(ConfigManager.loadMessage( "not a number")
                     .replace("%num%", args[0])).queue()
             return
         }
@@ -43,11 +43,11 @@ class CommandSetAnswerLifetime : CommandExecutable() {
             writer.write(gson.toJson(json))
             writer.flush()
             writer.close()
-            channel.sendMessage(ConfigManager.loadValue("replies", "answer life update")
+            channel.sendMessage(ConfigManager.loadMessage( "answer life update")
                     .replace("%seconds%", args[0])).queue()
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
-            sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "answer life error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "answer life error"))
         }
     }
 }

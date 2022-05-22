@@ -35,7 +35,7 @@ object DatabaseUtils {
         val data = getWallyUserData(discordID)
 
         if (data == null) {
-            channel.sendMessage(ConfigManager.loadValue("replies", "not linked or corrupted")).queue()
+            channel.sendMessage(ConfigManager.loadMessage( "not linked or corrupted")).queue()
             return
         }
 
@@ -60,13 +60,13 @@ object DatabaseUtils {
             val filePath = Paths.get("database/linked users/$memberId/accounts/$uuid/$typeName.json")
 
             data = String(Files.readAllBytes(filePath))
-            channel.sendMessage(ConfigManager.loadValue("replies", "local stats")).queue()
+            channel.sendMessage(ConfigManager.loadMessage( "local stats")).queue()
         } catch (e: Exception) {
             try {
                 val filePath = Paths.get("database/leaderboards/$typeName/$uuid/data.json")
 
                 data = String(Files.readAllBytes(filePath))
-                channel.sendMessage(ConfigManager.loadValue("replies", "local stats")).queue()
+                channel.sendMessage(ConfigManager.loadMessage( "local stats")).queue()
             } catch (e2: Exception) {
                 Wally.logger.logStackTrace(e2.stackTrace)
             }

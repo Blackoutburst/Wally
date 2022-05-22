@@ -34,44 +34,44 @@ object CommandUtils {
     fun createUserData(isAltAccount: Boolean, guild: Guild, args: Array<String>, message: Message, discordID: String, channel: MessageChannel, commandSender: WallyUser) {
         val playerName = getNonDiscordIDArgFromTwoArgs(guild, args)
         if (playerName == null) {
-            message.reply(ConfigManager.loadValue("replies", "could not get name")).queue()
+            message.reply(ConfigManager.loadMessage( "could not get name")).queue()
             return
         }
 
         val playerUUID = Mojang.getPlayerUUID(playerName)
         if (playerUUID == null) {
-            message.reply(ConfigManager.loadValue("replies", "not in mojang").replace("%name%", playerName)).queue()
+            message.reply(ConfigManager.loadMessage( "not in mojang").replace("%name%", playerName)).queue()
             return
         }
 
         val hypixelData = Hypixel.getPlayerStats(playerUUID)
         if (hypixelData == null) {
-            message.reply(ConfigManager.loadValue("replies", "not in hypixel").replace("%name%", playerName)).queue()
+            message.reply(ConfigManager.loadMessage( "not in hypixel").replace("%name%", playerName)).queue()
             return
         }
 
         var practiceData = PracticeServer.getPlayerStats(playerUUID)
         if (practiceData == null) {
-            channel.sendMessage(ConfigManager.loadValue("replies", "could not load practice data").replace("%name%", playerName)).queue()
+            channel.sendMessage(ConfigManager.loadMessage( "could not load practice data").replace("%name%", playerName)).queue()
             practiceData = ""
         }
 
         val wallyProfile = UserOption(PermissionLevel.MEMBER, DisplayPreference.CANVAS, playerUUID, guild.id)
         if (isAltAccount) {
             if (!DatabaseManager.createAltData(discordID, playerUUID, hypixelData, practiceData)) {
-                MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "add alt error"))
+                MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "add alt error"))
                 return
             }
             FilesUtils.excludeFromLb(playerUUID)
-            channel.sendMessage(ConfigManager.loadValue("replies", "add alt success").replace("%name%", playerName)
+            channel.sendMessage(ConfigManager.loadMessage( "add alt success").replace("%name%", playerName)
                 .replace("%user%", "<@$discordID>")).queue()
             Wally.logger.log(LogLevel.INFO, "$playerName was added as alt to $discordID")
         } else {
             if (!DatabaseManager.createUserData(discordID, playerUUID, hypixelData, practiceData, wallyProfile)) {
-                MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "link error"))
+                MessageUtils.sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "link error"))
                 return
             }
-            channel.sendMessage(ConfigManager.loadValue("replies", "link success").replace("%name%", playerName)).queue()
+            channel.sendMessage(ConfigManager.loadMessage( "link success").replace("%name%", playerName)).queue()
             Wally.logger.log(LogLevel.INFO, "$playerName was linked to $discordID")
         }
     }

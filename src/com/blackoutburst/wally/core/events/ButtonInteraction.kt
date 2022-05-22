@@ -20,7 +20,7 @@ object ButtonInteraction {
         val ownerID = event.button.id!!.split(":").toTypedArray()[0]
 
         if (event.member!!.id != ownerID) {
-            event.reply(ConfigManager.loadValue("replies", "unauthorized button")).setEphemeral(true).queue()
+            event.reply(ConfigManager.loadMessage( "unauthorized button")).setEphemeral(true).queue()
             Wally.logger.log(LogLevel.INFO, event.member!!.effectiveName + " couldn't use the button [" + event.button.label + "]")
             return
         }

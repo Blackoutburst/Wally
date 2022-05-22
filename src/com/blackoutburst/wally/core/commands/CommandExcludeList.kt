@@ -18,7 +18,7 @@ class CommandExcludeList : CommandExecutable() {
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
 
         if (!File("config/excluded.txt").exists()) {
-            message.reply(ConfigManager.loadValue("replies", "no exclude file")).queue()
+            message.reply(ConfigManager.loadMessage( "no exclude file")).queue()
             return
         }
 
@@ -35,7 +35,7 @@ class CommandExcludeList : CommandExecutable() {
             channel.sendMessage(builder).queue()
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
-            sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "exclude error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "exclude error"))
         }
     }
 }

@@ -16,7 +16,7 @@ class CommandSetLogLevel : CommandExecutable() {
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         val id = commandSender.member.id + ":"
 
-        message.reply(ConfigManager.loadValue("replies", "select log level")).setActionRow(
+        message.reply(ConfigManager.loadMessage( "select log level")).setActionRow(
             if (Wally.logger.internalLogLevel == LogLevel.INFO) Button.primary(id + UUID.randomUUID(), "INFO") else Button.secondary(id + UUID.randomUUID(), "INFO"),
             if (Wally.logger.internalLogLevel == LogLevel.WARN) Button.primary(id + UUID.randomUUID(), "WARN") else Button.secondary(id + UUID.randomUUID(), "WARN"),
             if (Wally.logger.internalLogLevel == LogLevel.ERROR) Button.primary(id + UUID.randomUUID(), "ERROR") else Button.secondary(id + UUID.randomUUID(), "ERROR"),

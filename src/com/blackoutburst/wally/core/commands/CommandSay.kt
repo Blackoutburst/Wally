@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Message
 class CommandSay : CommandExecutable() {
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.isEmpty()) {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage")
+            message.reply(ConfigManager.loadMessage( "invalid command usage")
                     .replace("%usage%", CommandManager.prefix + "say [message]")).queue()
             return
         }

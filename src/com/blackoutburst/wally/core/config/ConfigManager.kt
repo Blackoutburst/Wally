@@ -39,4 +39,18 @@ object ConfigManager {
 
         return json.getAsJsonObject(key)[value].asString
     }
+
+    /**
+     * Load a value from the config.json
+     *
+     * @param key the key name
+     * @param value the object name
+     * @return the object value as String
+     */
+    fun loadMessage(value: String): String {
+        val gson = Gson()
+        val json = gson.fromJson(FileReader(configurationFile), JsonObject::class.java)
+
+        return json.getAsJsonObject("replies")[value].asString
+    }
 }

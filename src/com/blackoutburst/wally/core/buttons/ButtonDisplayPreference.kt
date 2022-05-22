@@ -22,9 +22,9 @@ class ButtonDisplayPreference : ButtonExecutable() {
 
         val id = discordID + ":" + event.message.id
 
-        event.reply(ConfigManager.loadValue("replies", "user display preference updated").replace("%preference%", displayPreference.toString().lowercase(Locale.getDefault()))).setEphemeral(true).queue()
+        event.reply(ConfigManager.loadMessage( "user display preference updated").replace("%preference%", displayPreference.toString().lowercase(Locale.getDefault()))).setEphemeral(true).queue()
 
-        event.message.editMessage(ConfigManager.loadValue("replies", "select display preference")).setActionRow(
+        event.message.editMessage(ConfigManager.loadMessage( "select display preference")).setActionRow(
                 if (displayPreference == DisplayPreference.CANVAS) Button.primary(id + UUID.randomUUID(),"CANVAS") else Button.secondary(id + UUID.randomUUID(), "CANVAS"),
                 if (displayPreference == DisplayPreference.EMBED) Button.primary(id + UUID.randomUUID(),"EMBED") else Button.secondary(id + UUID.randomUUID(), "EMBED"),
                 if (displayPreference == DisplayPreference.TEXT) Button.primary(id + UUID.randomUUID(),"TEXT") else Button.secondary(id + UUID.randomUUID(), "TEXT")

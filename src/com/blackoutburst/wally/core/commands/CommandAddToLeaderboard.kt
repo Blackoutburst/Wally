@@ -9,22 +9,26 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 
+/**
+ * This command remove a Minecraft account from the exclusion list
+ * Allow it to be on the leaderboard again
+ */
 class CommandAddToLeaderboard : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 1) {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage")
+            message.reply(ConfigManager.loadMessage( "invalid command usage")
                 .replace("%usage%", prefix + "addToLeaderboard [Minecraft Name]")).queue()
             return
         }
 
         val playerUUID = getPlayerUUID(args[0])
         if (playerUUID == null) {
-            message.reply(ConfigManager.loadValue("replies", "not in mojang").replace("%name%", args[0])).queue()
+            message.reply(ConfigManager.loadMessage( "not in mojang").replace("%name%", args[0])).queue()
             return
         }
 
         removeExclusion(playerUUID)
-        channel.sendMessage(ConfigManager.loadValue("replies", "remove exclude success").replace("%name%", args[0])).queue()
+        channel.sendMessage(ConfigManager.loadMessage( "remove exclude success").replace("%name%", args[0])).queue()
     }
 }

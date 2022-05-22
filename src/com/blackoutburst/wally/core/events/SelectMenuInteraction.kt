@@ -20,7 +20,7 @@ object SelectMenuInteraction {
         val ownerID = event.selectMenu.id!!.split(":").toTypedArray()[0]
 
         if (event.member!!.id != ownerID) {
-            event.reply(ConfigManager.loadValue("replies", "unauthorized menu")).setEphemeral(true).queue()
+            event.reply(ConfigManager.loadMessage( "unauthorized menu")).setEphemeral(true).queue()
             Wally.logger.log(LogLevel.INFO, event.member!!.effectiveName +" couldn't use the menu [" + event.selectMenu.id + "]")
             return
         }

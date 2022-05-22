@@ -13,14 +13,14 @@ class CommandLink : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 2) {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage")
+            message.reply(ConfigManager.loadMessage( "invalid command usage")
                 .replace("%usage%", prefix + "link [discordID] [Minecraft Name]")).queue()
             return
         }
 
         val discordID = getDiscordIDFromTwoArgs(guild, args)
         if (discordID == null) {
-            message.reply(ConfigManager.loadValue("replies", "not an user")).queue()
+            message.reply(ConfigManager.loadMessage( "not an user")).queue()
             return
         }
         createUserData(false, guild, args, message, discordID, channel, commandSender)

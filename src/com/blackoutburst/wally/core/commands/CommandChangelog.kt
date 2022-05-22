@@ -15,20 +15,20 @@ class CommandChangelog : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (!File("config/changelog.txt").exists()) {
-            message.reply(ConfigManager.loadValue("replies", "no changelog")).queue()
+            message.reply(ConfigManager.loadMessage( "no changelog")).queue()
             return
         }
 
         val embed = generateChangelog()
         if (embed == null) {
-            sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "changelog error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "changelog error"))
             return
         }
 
         val changelogChanel: TextChannel? = Wally.hitwDiscord?.getTextChannelById(ConfigManager.loadValue("channels", "changelog channel"))
 
         if (changelogChanel == null) {
-            message.reply(ConfigManager.loadValue("replies", "no changelog channel")).queue()
+            message.reply(ConfigManager.loadMessage( "no changelog channel")).queue()
             return
         }
 

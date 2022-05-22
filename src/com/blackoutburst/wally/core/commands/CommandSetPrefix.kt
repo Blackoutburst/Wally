@@ -18,7 +18,7 @@ class CommandSetPrefix : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 1) {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage")
+            message.reply(ConfigManager.loadMessage( "invalid command usage")
                 .replace("%usage%", CommandManager.prefix + "setPrefix [anything]")).queue()
             return
         }
@@ -32,11 +32,11 @@ class CommandSetPrefix : CommandExecutable() {
             writer.write(gson.toJson(json))
             writer.flush()
             writer.close()
-            channel.sendMessage(ConfigManager.loadValue("replies", "prefix update").replace("%prefix%", args[0])).queue()
+            channel.sendMessage(ConfigManager.loadMessage( "prefix update").replace("%prefix%", args[0])).queue()
             CommandManager.prefix = args[0]
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
-            sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "prefix update error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "prefix update error"))
         }
     }
 }

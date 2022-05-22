@@ -10,12 +10,15 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 
+/**
+ * This command add new alternative account to a linked player
+ */
 class CommandAddAlt : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 2) {
             message.reply(
-                ConfigManager.loadValue("replies", "invalid command usage")
+                ConfigManager.loadMessage( "invalid command usage")
                     .replace("%usage%", prefix + "addAlt [discordID] [Minecraft Name]")
             ).queue()
             return
@@ -23,12 +26,12 @@ class CommandAddAlt : CommandExecutable() {
 
         val discordID = getDiscordIDFromTwoArgs(guild, args)
         if (discordID == null) {
-            message.reply(ConfigManager.loadValue("replies", "not an user")).queue()
+            message.reply(ConfigManager.loadMessage( "not an user")).queue()
             return
         }
 
         if (!isLinked(discordID)) {
-            message.reply(ConfigManager.loadValue("replies", "not linked").replace("%user%", "<@$discordID>")).queue()
+            message.reply(ConfigManager.loadMessage( "not linked").replace("%user%", "<@$discordID>")).queue()
             return
         }
 

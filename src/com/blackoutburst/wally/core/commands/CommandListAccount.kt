@@ -17,7 +17,7 @@ class CommandListAccount : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.isEmpty()) {
-            message.reply(loadValue("replies", "invalid command usage")
+            message.reply(loadMessage( "invalid command usage")
                 .replace("%usage%", prefix + "listAccounts [discordID]")).queue()
             return
         }
@@ -28,7 +28,7 @@ class CommandListAccount : CommandExecutable() {
         val data = getWallyUserData(discordID!!)
 
         if (data == null) {
-            sendLogButtonReply(commandSender, message, loadValue("replies", "account list error"))
+            sendLogButtonReply(commandSender, message, loadMessage( "account list error"))
             return
         }
 

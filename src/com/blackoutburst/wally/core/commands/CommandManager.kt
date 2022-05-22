@@ -92,12 +92,14 @@ object CommandManager {
                 }
             }
         }
-        
+
+        val unknownCommand = ConfigManager.loadMessage( "unknown command")
+
         if (lowestWeight > 20) closest = null
         if (closest == null) {
-            message.reply(ConfigManager.loadValue("replies", "unknown command")
+            message.reply(unknownCommand
                 .replace("%command_name%", commandName) + '\n' +
-                    ConfigManager.loadValue("replies", "run help").replace("%help%", prefix + "help")
+                    ConfigManager.loadMessage( "run help").replace("%help%", prefix + "help")
             ).setActionRow(
                 Button.primary(commandSender.member.id + ":" + message.id, "Yes run help"),
                 Button.danger(commandSender.member.id + ":" + UUID.randomUUID(), "No"))
@@ -106,9 +108,9 @@ object CommandManager {
             }
             return
         }
-        message.reply(ConfigManager.loadValue("replies", "unknown command")
+        message.reply(unknownCommand
             .replace("%command_name%", commandName) + '\n' +
-                ConfigManager.loadValue("replies", "close command").replace("%command_name%", closest)
+                ConfigManager.loadMessage( "close command").replace("%command_name%", closest)
         ).setActionRow(
             Button.primary(commandSender.member.id + ":" + message.id, "Yes run $closest"),
             Button.danger(commandSender.member.id + ":" + UUID.randomUUID(), "No"))
@@ -136,7 +138,7 @@ object CommandManager {
                         command.executable.onCommand(commandSender, commandName, args, guild!!, channel, message)
                     } else {
                         Wally.logger.log(LogLevel.INFO,commandSender.member.effectiveName + " miss permission to use [" + label + "] U:" + commandSender.permissionLevel.weight + "/C:" + command.permissionLevel.weight)
-                        message.reply(ConfigManager.loadValue("replies", "missing permission")).queue()
+                        message.reply(ConfigManager.loadMessage( "missing permission")).queue()
                     }
                     return
                 }

@@ -19,12 +19,15 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button
 import java.io.File
 import java.util.concurrent.TimeUnit
 
+/**
+ * Remove an alternative Minecraft account from a linked user
+ */
 class CommandRemoveAlt : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 2) {
             message.reply(
-                ConfigManager.loadValue("replies", "invalid command usage")
+                ConfigManager.loadMessage( "invalid command usage")
                     .replace("%usage%", CommandManager.prefix + "removeAlt [discordID]")
             ).queue()
             return
@@ -32,20 +35,22 @@ class CommandRemoveAlt : CommandExecutable() {
 
         val discordID = getDiscordIDFromTwoArgs(guild, args)
         if (discordID == null) {
-            message.reply(ConfigManager.loadValue("replies", "not an user")).queue()
+            message.reply(ConfigManager.loadMessage( "not an user")).queue()
             return
         }
 
+        val formattedId = "<@$discordID>"
+
         if (!isLinked(discordID)) {
             message.reply(
-                ConfigManager.loadValue("replies", "not linked").replace("%user%", "<@$discordID>")
+                ConfigManager.loadMessage( "not linked").replace("%user%", formattedId)
             ).queue()
             return
         }
 
         val playerName = getNonDiscordIDArgFromTwoArgs(guild, args)
         if (playerName == null) {
-            message.reply(ConfigManager.loadValue("replies", "could not get name")).queue()
+            message.reply(ConfigManager.loadMessage( "could not get name")).queue()
             return
         }
 
@@ -53,9 +58,9 @@ class CommandRemoveAlt : CommandExecutable() {
         val folder = File("database/linked users/$discordID/accounts/$playerUUID")
 
         if (!folder.exists()) {
-            message.reply(ConfigManager.loadValue("replies", "not an alt account")
+            message.reply(ConfigManager.loadMessage( "not an alt account")
                     .replace("%name%", playerName)
-                    .replace("%user%", "<@$discordID>"))
+                    .replace("%user%", formattedId))
                 .setActionRow(
                     Button.primary(commandSender.member.id + ":" + message.id, "Yes run listAccounts"),
                     Button.danger(commandSender.member.id + ":" + UUID.randomUUID(), "No"))
@@ -69,13 +74,13 @@ class CommandRemoveAlt : CommandExecutable() {
         }
 
         if (!DatabaseManager.cleanFolder(folder)) {
-            sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "removed alt error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "removed alt error"))
             return
         }
 
         removeExclusion(playerUUID)
         channel.sendMessage(
-            ConfigManager.loadValue("replies", "remove alt success")
+            ConfigManager.loadMessage( "remove alt success")
                 .replace("%name%", playerName)
                 .replace("%user%", "<@$discordID>")
         ).queue()

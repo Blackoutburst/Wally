@@ -28,19 +28,19 @@ class CommandPracticeStats : CommandExecutable() {
             val data = getWallyUserData(discordID)
             data!!.mainAccountUUID
         } else {
-            message.reply(ConfigManager.loadValue("replies", "invalid command usage")
+            message.reply(ConfigManager.loadMessage( "invalid command usage")
                     .replace("%usage%", CommandManager.prefix + "practiceStats [Minecraft name]")).queue()
             return
         }
 
         if (uuid == null) {
-            message.reply(ConfigManager.loadValue("replies", "unknown player")).queue()
+            message.reply(ConfigManager.loadMessage( "unknown player")).queue()
             return
         }
 
         val name: String? = getPlayerName(uuid)
         if (name == null) {
-            message.reply(ConfigManager.loadValue("replies", "unknown player")).queue()
+            message.reply(ConfigManager.loadMessage( "unknown player")).queue()
             return
         }
 
@@ -50,7 +50,7 @@ class CommandPracticeStats : CommandExecutable() {
         }
 
         if (data == null) {
-            sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "command practice stats error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "command practice stats error"))
             return
         }
 

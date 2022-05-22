@@ -26,10 +26,10 @@ class CommandSetTracker : CommandExecutable() {
             writer.write(gson.toJson(json))
             writer.flush()
             writer.close()
-            channel.sendMessage(ConfigManager.loadValue("replies", "tracker channel updated").replace("%channel%", "<#" + channel.id + ">")).queue()
+            channel.sendMessage(ConfigManager.loadMessage( "tracker channel updated").replace("%channel%", "<#" + channel.id + ">")).queue()
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
-            sendLogButtonReply(commandSender, message, ConfigManager.loadValue("replies", "channel update error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "channel update error"))
         }
     }
 }
