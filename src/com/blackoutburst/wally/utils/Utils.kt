@@ -23,7 +23,7 @@ object Utils {
      * @param scores the scores
      * @return the highest score
      */
-    fun getHighestScore(vararg scores: Int): Int {
+    fun getHighestScore(scores: IntArray): Int {
         var highest = 0
 
         for (score in scores) if (score > highest) highest = score

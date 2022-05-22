@@ -33,10 +33,10 @@ object MessageUtils {
      */
     fun concatArgs(message: Message): String {
         val tmp = message.contentRaw.trim { it <= ' ' }.split(" ").toTypedArray()
-        val words = listOf(*tmp.copyOfRange(1, tmp.size))
+        val words = tmp.copyOfRange(1, tmp.size)
         val builder = StringBuilder()
 
-        words.forEach(Consumer { w: String? -> builder.append(w).append(' ') })
+        words.forEach { w: String? -> builder.append(w).append(' ') }
         return builder.toString()
     }
 

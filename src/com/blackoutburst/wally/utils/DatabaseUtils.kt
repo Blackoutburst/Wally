@@ -209,7 +209,7 @@ object DatabaseUtils {
             val folder = File("database/linked users/$memberId/accounts/")
             val entries = folder.list() ?: return@filter false
 
-            listOf(*entries).contains(uuid)
+            entries.contains(uuid)
         }.findFirst()
         return wallyUser.orElse(null)
     }
