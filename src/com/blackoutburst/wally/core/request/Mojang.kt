@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.logger.LogLevel
-import com.google.gson.JsonSyntaxException
 
 object Mojang {
 
@@ -16,7 +15,7 @@ object Mojang {
 
             Wally.logger.log(LogLevel.INFO, "New Mojang request sent for [$playerName]")
             json["id"].asString
-        } catch (e: JsonSyntaxException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
             null
         }
@@ -30,7 +29,7 @@ object Mojang {
 
             Wally.logger.log(LogLevel.INFO, "New Mojang request sent for [$uuid]")
             json["name"].asString
-        } catch (e: JsonSyntaxException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
             null
         }

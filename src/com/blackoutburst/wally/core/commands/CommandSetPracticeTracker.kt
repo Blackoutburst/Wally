@@ -11,7 +11,6 @@ import java.io.FileWriter
 import com.blackoutburst.wally.core.Wally
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
-import java.io.FileNotFoundException
 import java.io.Writer
 
 class CommandSetPracticeTracker : CommandExecutable() {
@@ -34,7 +33,7 @@ class CommandSetPracticeTracker : CommandExecutable() {
             writer.close()
             channel.sendMessage(ConfigManager.loadMessage( "practice tracker channel updated")
                     .replace("%channel%", "<#" + channel.id + ">")).queue()
-        } catch (e: FileNotFoundException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "channel update error"))
         }

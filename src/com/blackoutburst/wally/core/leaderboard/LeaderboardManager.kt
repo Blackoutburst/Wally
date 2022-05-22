@@ -18,7 +18,6 @@ import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.utils.DatabaseUtils
-import okio.IOException
 import java.io.File
 import java.nio.file.Files
 import java.time.Duration
@@ -65,7 +64,7 @@ object LeaderboardManager {
                         skipPosition
                     ) else PracticeStats(data, skipPosition)
                 )
-            } catch (e: IOException) {
+            } catch (e: Exception) {
                 Wally.logger.logStackTrace(e.stackTrace)
             }
         }

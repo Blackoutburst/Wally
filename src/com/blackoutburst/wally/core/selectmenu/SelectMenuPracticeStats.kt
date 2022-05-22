@@ -6,7 +6,6 @@ import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent
 import java.nio.file.Paths
 import com.blackoutburst.wally.core.Wally
-import okio.IOException
 import java.nio.file.Files
 
 class SelectMenuPracticeStats : SelectMenuExecutable() {
@@ -20,7 +19,7 @@ class SelectMenuPracticeStats : SelectMenuExecutable() {
 
         try {
             data = String(Files.readAllBytes(filePath))
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
         }
 

@@ -9,7 +9,6 @@ import java.nio.file.Paths
 import com.blackoutburst.wally.core.Wally
 import com.google.gson.Gson
 import com.blackoutburst.wally.core.logger.LogLevel
-import okio.IOException
 import java.io.*
 import java.nio.file.Files
 
@@ -44,13 +43,13 @@ object DatabaseUtils {
 
             data = String(Files.readAllBytes(filePath))
             channel.sendMessage(ConfigManager.loadMessage( "local stats")).queue()
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             try {
                 val filePath = Paths.get("database/leaderboards/$typeName/$uuid/data.json")
 
                 data = String(Files.readAllBytes(filePath))
                 channel.sendMessage(ConfigManager.loadMessage( "local stats")).queue()
-            } catch (e2: IOException) {
+            } catch (e2: Exception) {
                 Wally.logger.logStackTrace(e2.stackTrace)
             }
         }
@@ -64,7 +63,7 @@ object DatabaseUtils {
             writer.flush()
             writer.close()
             true
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
             false
         }
@@ -79,7 +78,7 @@ object DatabaseUtils {
             writer.flush()
             writer.close()
             true
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
             false
         }
@@ -118,7 +117,7 @@ object DatabaseUtils {
 
             reader.close()
             data
-        } catch (e: FileNotFoundException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
             null
         }

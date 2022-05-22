@@ -1,6 +1,5 @@
 package com.blackoutburst.wally.utils
 
-import java.io.IOException
 import com.blackoutburst.wally.core.Wally
 import java.io.File
 import java.nio.file.Files
@@ -17,7 +16,7 @@ object FilesUtils {
             return Files.lines(file.toPath()).anyMatch { line: String ->
                 line.contains(uuid!!)
             }
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
         }
         return false
@@ -30,7 +29,7 @@ object FilesUtils {
                 .filter { line: String -> !line.contains(uuid!!) }
                 .collect(Collectors.toList())
             Files.write(file.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
         }
     }
@@ -38,7 +37,7 @@ object FilesUtils {
     fun excludeFromLb(uuid: String) {
         try {
             Files.write(Paths.get("config/excluded.txt"), uuid.toByteArray(), StandardOpenOption.CREATE, StandardOpenOption.APPEND)
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
         }
     }

@@ -2,7 +2,6 @@ package com.blackoutburst.wally.core.logger
 
 import java.text.SimpleDateFormat
 import java.lang.StackTraceElement
-import java.io.IOException
 import com.blackoutburst.wally.core.Wally
 import org.slf4j.helpers.Util
 import java.io.File
@@ -36,7 +35,7 @@ object Logger {
             if (!logFile.exists() && !logFile.createNewFile()) {
                 log(LogLevel.WARN, "Logs file creation failed!")
             }
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
         }
     }
@@ -58,7 +57,7 @@ object Logger {
 
         try {
             Files.write(Paths.get(currentLogFile), logBuilder.toString().toByteArray(), StandardOpenOption.APPEND)
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }

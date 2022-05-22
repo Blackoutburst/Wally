@@ -16,7 +16,7 @@ class CommandLeaderboard : CommandExecutable() {
         if (args.isNotEmpty()) {
             page = try {
                 args[0].toInt()
-            } catch (e: NumberFormatException) {
+            } catch (e: Exception) {
                 Wally.logger.logStackTrace(e.stackTrace)
                 message.reply(ConfigManager.loadMessage( "invalid page").replace("%page%", args[0])).queue()
                 return

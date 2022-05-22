@@ -10,7 +10,6 @@ import com.blackoutburst.wally.core.Wally
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 import java.io.File
-import java.io.FileNotFoundException
 import java.lang.StringBuilder
 
 class CommandExcludeList : CommandExecutable() {
@@ -32,7 +31,7 @@ class CommandExcludeList : CommandExecutable() {
             reader.close()
 
             channel.sendMessage(builder).queue()
-        } catch (e: FileNotFoundException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "exclude error"))
         }

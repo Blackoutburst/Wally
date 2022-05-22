@@ -11,7 +11,6 @@ import java.io.FileWriter
 import com.blackoutburst.wally.core.Wally
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
-import java.io.FileNotFoundException
 import java.io.Writer
 
 class CommandSetPrefix : CommandExecutable() {
@@ -34,7 +33,7 @@ class CommandSetPrefix : CommandExecutable() {
             writer.close()
             channel.sendMessage(ConfigManager.loadMessage( "prefix update").replace("%prefix%", args[0])).queue()
             CommandManager.prefix = args[0]
-        } catch (e: FileNotFoundException) {
+        } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "prefix update error"))
         }

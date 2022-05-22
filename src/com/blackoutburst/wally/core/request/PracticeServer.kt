@@ -8,7 +8,6 @@ import java.io.BufferedReader
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.logger.LogLevel
 import java.io.OutputStream
-import java.net.UnknownHostException
 import java.nio.charset.StandardCharsets
 
 object PracticeServer {
@@ -27,7 +26,7 @@ object PracticeServer {
             reader.close()
             Wally.logger.log(LogLevel.INFO, "Practice server request sent for [$uuid]")
             dataReceived
-        } catch (e: UnknownHostException) {
+        } catch (e: Exception) {
             e.printStackTrace()
             Wally.logger.logStackTrace(e.stackTrace)
             null
