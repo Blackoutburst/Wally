@@ -104,21 +104,25 @@ object CommandManager {
         }
     }
 
-    fun runCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild?, channel: MessageChannel, message: Message) {
+    fun runCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         channel.sendTyping().queue()
-        for (command in commands) {
-            for (label in command.labels) {
-                if (commandName.equals(label, ignoreCase = true)) {
-                    if (commandSender.permissionLevel.weight >= command.permissionLevel.weight) {
-                        Wally.logger.log(LogLevel.INFO,commandSender.member.effectiveName + " used [" + label + "]")
-                        command.executable.onCommand(commandSender, commandName, args, guild!!, channel, message)
-                    } else {
-                        Wally.logger.log(LogLevel.INFO,commandSender.member.effectiveName + " miss permission to use [" + label + "] U:" + commandSender.permissionLevel.weight + "/C:" + command.permissionLevel.weight)
-                        message.reply(ConfigManager.loadMessage( "missing permission")).queue()
-                    }
-                    return
-                }
+
+        val userName = commandSender.member.effectiveName
+        val userPermission = commandSender.permissionLevel.weight
+        val command = commands.find { c ->
+           c.labels.any{ it.equals(commandName, ignoreCase = true) }
+        }
+
+        command?.let {
+            val commandPermission = command.permissionLevel.weight
+            if (commandSender.permissionLevel.weight >= command.permissionLevel.weight) {
+                Wally.logger.log(LogLevel.INFO,  "$userName used [$commandName]")
+                command.executable.onCommand(commandSender, commandName, args, guild, channel, message)
+            } else {
+                Wally.logger.log(LogLevel.INFO,"$userName miss permission to use [$commandName] U:$userPermission/C:$commandPermission")
+                message.reply(ConfigManager.loadMessage("missing permission")).queue()
             }
+            return
         }
         checkForCloseCommand(commandSender, commandName, message)
     }
