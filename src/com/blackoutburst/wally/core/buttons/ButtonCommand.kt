@@ -1,18 +1,18 @@
 package com.blackoutburst.wally.core.buttons
 
-import com.blackoutburst.wally.utils.MessageUtils.getMessageFromHistory
 import com.blackoutburst.wally.utils.CommandUtils.getCommandArgs
 import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.commands.CommandManager
+import com.blackoutburst.wally.utils.APIUtils
 
 class ButtonCommand : ButtonExecutable() {
 
     override fun onClick(buttonUser: WallyUser, event: ButtonInteractionEvent) {
         val messageChannel = event.messageChannel
         val messageID = event.button.id!!.split(":").toTypedArray()[1]
-        val message = getMessageFromHistory(messageChannel, messageID, 5)
+        val message = APIUtils.getMessageFromHistory(messageChannel, messageID, 5)
 
         if (message == null) {
             messageChannel.sendMessage("<@" + event.member!!.id + ">" + ConfigManager.loadMessage( "message deleted")).queue()

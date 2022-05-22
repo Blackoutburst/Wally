@@ -17,24 +17,13 @@ import com.blackoutburst.wally.core.commands.PermissionLevel
 import java.util.UUID
 import com.blackoutburst.wally.core.config.ConfigManager
 import net.dv8tion.jda.api.entities.Message
-import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.interactions.components.buttons.Button
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenu
 import java.io.File
 import java.lang.StringBuilder
 import java.util.concurrent.TimeUnit
-import java.util.function.Consumer
 
 object MessageUtils {
-
-    fun concatArgs(message: Message): String {
-        val tmp = message.contentRaw.trim { it <= ' ' }.split(" ").toTypedArray()
-        val words = tmp.copyOfRange(1, tmp.size)
-        val builder = StringBuilder()
-
-        words.forEach { w: String? -> builder.append(w).append(' ') }
-        return builder.toString()
-    }
 
     fun sendLeaderboard(commandSender: WallyUser, message: Message, leaderboard: Leaderboard, page: Int, edit: Boolean) {
         if (edit) {
@@ -226,12 +215,5 @@ object MessageUtils {
         } else {
             message.reply(text).queue()
         }
-    }
-
-    fun getMessageFromHistory(messageChannel: MessageChannel,messageID: String, historyCount: Int): Message? {
-        val history = messageChannel.history.retrievePast(historyCount).complete()
-        val message = history.stream().filter { msg: Message? -> msg!!.id == messageID }
-            .findFirst()
-        return message.orElse(null)
     }
 }

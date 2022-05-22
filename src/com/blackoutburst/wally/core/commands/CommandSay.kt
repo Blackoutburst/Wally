@@ -3,7 +3,7 @@ package com.blackoutburst.wally.core.commands
 import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.core.config.ConfigManager
-import com.blackoutburst.wally.utils.MessageUtils.concatArgs
+import com.blackoutburst.wally.utils.CommandUtils.concatArgs
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 

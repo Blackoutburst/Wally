@@ -137,9 +137,9 @@ object DatabaseUtils {
         val wallyUser = Wally.users.stream().filter { user: WallyUser ->
             val memberId = user.member.id
             val folder = File("database/linked users/$memberId/accounts/")
-            val entries = folder.list() ?: return@filter false
+            val entries = folder.list()
 
-            entries.contains(uuid)
+            entries!!.contains(uuid)
         }.findFirst()
         return wallyUser.orElse(null)
     }

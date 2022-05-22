@@ -2,9 +2,18 @@ package com.blackoutburst.wally.utils
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 import java.util.ArrayList
 
 object APIUtils {
+
+    fun getMessageFromHistory(messageChannel: MessageChannel, messageID: String, historyCount: Int): Message? {
+        val history = messageChannel.history.retrievePast(historyCount).complete()
+        val message = history.stream().filter { msg: Message? -> msg!!.id == messageID }
+            .findFirst()
+        return message.orElse(null)
+    }
 
     fun getValuesFromAPI(apiData: String, path: String, defaultValue: String): String {
         return try {

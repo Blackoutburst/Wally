@@ -15,9 +15,19 @@ import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.commands.CommandManager
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import java.lang.StringBuilder
 import java.util.Locale
 
 object CommandUtils {
+
+    fun concatArgs(message: Message): String {
+        val tmp = message.contentRaw.trim { it <= ' ' }.split(" ").toTypedArray()
+        val words = tmp.copyOfRange(1, tmp.size)
+        val builder = StringBuilder()
+
+        words.forEach { w: String? -> builder.append(w).append(' ') }
+        return builder.toString()
+    }
 
     fun createUserData(isAltAccount: Boolean, guild: Guild, args: Array<String>, message: Message, discordID: String, channel: MessageChannel, commandSender: WallyUser) {
         val playerName = getNonDiscordIDArgFromTwoArgs(guild, args)
