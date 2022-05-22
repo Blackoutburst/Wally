@@ -36,12 +36,9 @@ class CommandRemoveAlt : CommandExecutable() {
             return
         }
 
-        val formattedId = "<@$discordID>"
-        val userFlag = "%user%"
-
         if (!isLinked(discordID)) {
             message.reply(
-                ConfigManager.loadMessage( "not linked").replace(userFlag, formattedId)
+                ConfigManager.loadMessage( "not linked").replace("%user%", "<@$discordID>")
             ).queue()
             return
         }
@@ -58,7 +55,7 @@ class CommandRemoveAlt : CommandExecutable() {
         if (!folder.exists()) {
             message.reply(ConfigManager.loadMessage( "not an alt account")
                     .replace("%name%", playerName)
-                    .replace(userFlag, formattedId))
+                    .replace("%user%", "<@$discordID>"))
                 .setActionRow(
                     Button.primary(commandSender.member.id + ":" + message.id, "Yes run listAccounts"),
                     Button.danger(commandSender.member.id + ":" + UUID.randomUUID(), "No"))

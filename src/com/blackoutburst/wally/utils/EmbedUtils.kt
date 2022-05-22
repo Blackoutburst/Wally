@@ -37,9 +37,11 @@ object EmbedUtils {
         val time = System.currentTimeMillis()
         val stats = PracticeStats(data)
         val uuid = stats.uuid
+        val faceLink = "https://visage.surgeplay.com/face/512/$uuid?&time=$time"
+
         return EmbedBuilder()
-            .setAuthor(stats.name,"https://hypixel.net/player/$uuid","https://visage.surgeplay.com/face/512/$uuid?&time=$time")
-            .setThumbnail("https://visage.surgeplay.com/face/512/$uuid?&time=$time")
+            .setAuthor(stats.name,"https://hypixel.net/player/$uuid",faceLink)
+            .setThumbnail(faceLink)
             .setTitle("Practice stats", "https://hypixel.net/player/$uuid")
             .setColor(getColorFromScore(getHighestScore(stats.scores)))
             .addField("Qualification", Utils.formatLine(stats.qualification, stats.qualificationPosition),true)
@@ -62,10 +64,11 @@ object EmbedUtils {
         val stats = HypixelStats(data)
         val uuid = stats.uuid
         val date = LocalDate.now().toString()
+        val faceLink = "https://visage.surgeplay.com/face/512/$uuid?&time=$time"
 
         return EmbedBuilder()
-            .setAuthor(stats.name,"https://hypixel.net/player/$uuid","https://visage.surgeplay.com/face/512/$uuid?&time=$time")
-            .setThumbnail("https://visage.surgeplay.com/face/512/" + stats.uuid + "?&time=" + time)
+            .setAuthor(stats.name,"https://hypixel.net/player/$uuid",faceLink)
+            .setThumbnail(faceLink)
             .setTitle("Hypixel stats", "https://hypixel.net/player/" + stats.uuid)
             .setColor(getColorFromScore(getHighestScore(stats.scores)))
             .addField("Wins", Utils.formatLine(stats.wins, stats.winsPosition),true)
