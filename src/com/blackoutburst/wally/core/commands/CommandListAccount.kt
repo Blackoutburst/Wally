@@ -1,12 +1,12 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.core.config.ConfigManager.loadValue
 import com.blackoutburst.wally.core.commands.CommandManager.prefix
 import com.blackoutburst.wally.utils.CommandUtils.getDiscordIDFromTwoArgs
 import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
 import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
 import com.blackoutburst.wally.core.request.Mojang.getPlayerName
 import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.config.ConfigManager
 import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
@@ -17,7 +17,7 @@ class CommandListAccount : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.isEmpty()) {
-            message.reply(loadMessage( "invalid command usage")
+            message.reply(ConfigManager.loadMessage( "invalid command usage")
                 .replace("%usage%", prefix + "listAccounts [discordID]")).queue()
             return
         }
@@ -28,7 +28,7 @@ class CommandListAccount : CommandExecutable() {
         val data = getWallyUserData(discordID!!)
 
         if (data == null) {
-            sendLogButtonReply(commandSender, message, loadMessage( "account list error"))
+            sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "account list error"))
             return
         }
 
