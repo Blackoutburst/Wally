@@ -49,20 +49,20 @@ object MessageUtils {
      * @param edit if the message should be edited instead of send
      */
     fun sendLeaderboard(commandSender: WallyUser, message: Message, leaderboard: Leaderboard, page: Int, edit: Boolean) {
-            if (edit) {
-                when (commandSender.displayPreference) {
-                    DisplayPreference.TEXT -> message.editMessage(generateLeaderboardMessage(leaderboard, page, true)).queue()
-                    DisplayPreference.EMBED -> message.editMessageEmbeds(generateLeaderboardEmbed(leaderboard, page)).queue()
-                    else -> message.editMessage("Soon...").queue()
-                }
-            } else {
-                val menu = createLeaderboardMenu(commandSender, page)
-                when (commandSender.displayPreference) {
-                    DisplayPreference.TEXT -> message.reply(generateLeaderboardMessage(leaderboard, page, true)).setActionRow(menu).queue()
-                    DisplayPreference.EMBED -> message.replyEmbeds(generateLeaderboardEmbed(leaderboard, page)).setActionRow(menu).queue()
-                    else -> message.reply("Soon...").setActionRow(menu).queue()
-                }
+        if (edit) {
+            when (commandSender.displayPreference) {
+                DisplayPreference.TEXT -> message.editMessage(generateLeaderboardMessage(leaderboard, page, true)).queue()
+                DisplayPreference.EMBED -> message.editMessageEmbeds(generateLeaderboardEmbed(leaderboard, page)).queue()
+                else -> message.editMessage("Soon...").queue()
             }
+        } else {
+            val menu = createLeaderboardMenu(commandSender, page)
+            when (commandSender.displayPreference) {
+                DisplayPreference.TEXT -> message.reply(generateLeaderboardMessage(leaderboard, page, true)).setActionRow(menu).queue()
+                DisplayPreference.EMBED -> message.replyEmbeds(generateLeaderboardEmbed(leaderboard, page)).setActionRow(menu).queue()
+                else -> message.reply("Soon...").setActionRow(menu).queue()
+            }
+        }
     }
 
     /**
