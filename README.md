@@ -1,7 +1,7 @@
 ![splash](https://user-images.githubusercontent.com/30992311/133887063-18df67a6-6f68-40ab-b74f-5c3b8d51e376.png)
 
 [![Codacy Badge](https://img.shields.io/codacy/grade/aa829b4c324a4e5f85b98afe85030317?logo=codacy)](https://www.codacy.com/gh/Blackoutburst/Wally/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Blackoutburst/Wally&amp;utm_campaign=Badge_Grade)
-![Language](https://img.shields.io/github/languages/top/Blackoutburst/Wally?&logo=java&color=orange)
+![Language](https://img.shields.io/github/languages/top/Blackoutburst/Wally?&logo=kotlin&color=purple)
 [![Release](https://img.shields.io/github/release/Blackoutburst/Wally.svg)](https://github.com/Blackoutburst/Wally/releases)
 ![Size](https://img.shields.io/github/repo-size/Blackoutburst/Wally)
 [![Patreon](https://img.shields.io/badge/Support-Patreon-orange?&logo=patreon)](https://www.patreon.com/Blackoutburst)
