@@ -11,6 +11,7 @@ import java.awt.Color
 import java.time.LocalDate
 
 class CommandPoll : CommandExecutable() {
+
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.isEmpty()) {
             message.reply(

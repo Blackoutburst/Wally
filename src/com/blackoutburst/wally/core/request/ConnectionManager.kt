@@ -9,12 +9,6 @@ import java.net.URL
 
 object ConnectionManager {
 
-    /**
-     * Perform an URL request
-     *
-     * @param urlString the url that should be explored
-     * @return the read result
-     */
     fun readFromURL( urlString: String?): String? {
         return try {
             val url = URL(urlString)

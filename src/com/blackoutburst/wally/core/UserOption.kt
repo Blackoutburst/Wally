@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.commands.PermissionLevel
 import com.blackoutburst.wally.core.commands.DisplayPreference
 
 class UserOption {
+
     var permissionLevel: PermissionLevel
     var displayPreference: DisplayPreference
     var mainAccountUUID: String

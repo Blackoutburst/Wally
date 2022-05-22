@@ -14,14 +14,6 @@ import java.util.concurrent.TimeUnit
 
 class ButtonPermissionLevel : ButtonExecutable() {
     
-    /**
-     * Change someone permission
-     *
-     * @param event the button event
-     * @param discordID the user discord id
-     * @param level the new permission level
-     * @return if the operation worked
-     */
     private fun updateUserPermissionLevel(event: ButtonInteractionEvent, discordID: String, level: PermissionLevel): Boolean {
         val file = "database/linked users/$discordID/data.json"
         val data = getWallyUserData(discordID)

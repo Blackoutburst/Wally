@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
 import com.blackoutburst.wally.core.leaderboard.Leaderboard
 
 class PracticeStats(data: String?, vararg noLeaderboard: Boolean) : StatsObject {
+
     override val uuid: String
     override val name: String
     override val qualification: Int

@@ -22,23 +22,15 @@ import net.dv8tion.jda.api.utils.Compression
 import java.io.File
 
 object Wally {
-    @JvmField
+
     var jda: JDA? = null
-    @JvmField
     val users: MutableSet<WallyUser> = HashSet()
-    @JvmField
     val logger = Logger
-    @JvmField
     var isReady = false
     val numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH) as DecimalFormat
-    @JvmField
     val decimalFormat = DecimalFormat("#.##")
-    @JvmField
     var hitwDiscord: Guild? = null
 
-    /**
-     * Load wally user list from database
-     */
     fun loadUser() {
         users.clear()
 
@@ -74,9 +66,6 @@ object Wally {
         logger.log(LogLevel.INFO, "Loaded " + users.size + " users out of " + entries.size)
     }
 
-    /**
-     * Initialize JDA and log the bot on discord
-     */
     init {
         val builder = JDABuilder.createDefault(DISCORD_TOKEN)
             .setCompression(Compression.NONE)

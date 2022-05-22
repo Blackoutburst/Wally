@@ -20,18 +20,10 @@ object Logger {
 
     var internalLogLevel = LogLevel.INFO
 
-    /**
-     * Log a full stacktrace
-     * @param stacktrace the stacktrace
-     */
     fun logStackTrace(stacktrace: Array<StackTraceElement>) {
         for (stack in stacktrace) log(LogLevel.ERROR, stack.toString())
     }
 
-    /**
-     * Create and initialize the logger
-     * Create the log folder if missing and generate a new log file
-     */
     init {
         val fileFormat = SimpleDateFormat("dd-MM-yyyy HH-mm-ss")
         val logFolder = File("logs")
@@ -50,11 +42,6 @@ object Logger {
         }
     }
 
-    /**
-     * Log message to the console and inside a log file
-     * @param level the log level
-     * @param message the log message
-     */
     fun log(level: LogLevel, message: String?) {
         if (level == LogLevel.NONE) return
         if (level.weight < internalLogLevel.weight) return

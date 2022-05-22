@@ -10,9 +10,6 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 
-/**
- * This command add new alternative account to a linked player
- */
 class CommandAddAlt : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {

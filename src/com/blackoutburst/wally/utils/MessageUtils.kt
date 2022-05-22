@@ -27,10 +27,6 @@ import java.util.function.Consumer
 
 object MessageUtils {
 
-    /**
-     * Concat every command args into a single string
-     * @param message the message
-     */
     fun concatArgs(message: Message): String {
         val tmp = message.contentRaw.trim { it <= ' ' }.split(" ").toTypedArray()
         val words = tmp.copyOfRange(1, tmp.size)
@@ -40,14 +36,6 @@ object MessageUtils {
         return builder.toString()
     }
 
-    /**
-     * Send the leaderboard message
-     * @param commandSender the command sender
-     * @param message the message
-     * @param leaderboard the leaderboard
-     * @param page the leaderboard page
-     * @param edit if the message should be edited instead of send
-     */
     fun sendLeaderboard(commandSender: WallyUser, message: Message, leaderboard: Leaderboard, page: Int, edit: Boolean) {
         if (edit) {
             when (commandSender.displayPreference) {
@@ -65,14 +53,6 @@ object MessageUtils {
         }
     }
 
-    /**
-     * Send the stats message
-     * @param commandSender the command sender
-     * @param message the message
-     * @param data the api data
-     * @param uuid the player uuid
-     * @param edit if the message should be edited instead of send
-     */
     fun sendPracticeStats(commandSender: WallyUser, message: Message, data: String, uuid: String, edit: Boolean) {
         if (edit) {
             when (commandSender.displayPreference) {
@@ -102,14 +82,6 @@ object MessageUtils {
         }
     }
 
-    /**
-     * Send the stats message
-     * @param commandSender the command sender
-     * @param message the message
-     * @param data the api data
-     * @param uuid the player uuid
-     * @param edit if the message should be edited instead of send
-     */
     fun sendHypixelStats(commandSender: WallyUser, message: Message, data: String, uuid: String, edit: Boolean) {
        if (edit) {
             when (commandSender.displayPreference) {
@@ -140,12 +112,6 @@ object MessageUtils {
         }
     }
 
-    /**
-     * Create text with leaderboard information inside
-     * @param leaderboard the leaderboard
-     * @param page the leaderboard page
-     * @return a message containing leaderboard page information
-     */
     fun generateLeaderboardMessage(leaderboard: Leaderboard, page: Int, title: Boolean): String {
         val builder = StringBuilder()
         builder.append("```yml").append(System.lineSeparator())
@@ -174,11 +140,6 @@ object MessageUtils {
         return builder.toString()
     }
 
-    /**
-     * Create a text with Practice stats information inside
-     * @param data a valid Practice json data
-     * @return a message containing every hole in the wall stats
-     */
     private fun generatePracticeStatsMessage(data: String): String {
         val stats = PracticeStats(data)
 
@@ -194,11 +155,6 @@ object MessageUtils {
                 "```"
     }
 
-    /**
-     * Create a text with Hypixel stats information inside
-     * @param data a valid Hypixel json data
-     * @return a message containing every hole in the wall stats
-     */
     private fun generateHypixelStatsMessage(data: String): String {
         val stats = HypixelStats(data)
         return "```yml" + System.lineSeparator() +
@@ -214,11 +170,6 @@ object MessageUtils {
                 "```"
     }
 
-    /**
-     * Create a select menu to switch between a leaderboards
-     * @param commandSender the command sender
-     * @return a select menu ready to be used on a message
-     */
     private fun createLeaderboardMenu(commandSender: WallyUser, page: Int): SelectMenu {
         val menu = SelectMenu.create(commandSender.member.id + ":leaderboard")
             .setRequiredRange(1, 1)
@@ -241,13 +192,6 @@ object MessageUtils {
         return menu.build()
     }
 
-    /**
-     * Create a select menu to switch between a user accounts
-     * @param commandSender the command sender
-     * @param uuid the player uuid
-     * @param menuName the menu name
-     * @return a select menu ready to be used on a message
-     */
     fun createAccountMenu(commandSender: WallyUser, uuid: String, menuName: String): SelectMenu? {
         val linked = isLinkedUUID(uuid)
         if (!linked) return null
@@ -268,16 +212,6 @@ object MessageUtils {
         return menu.build()
     }
 
-    /**
-     * Send an error reply,
-     * if the user who generated the error message
-     * does have the ADMIN permission level, extra button will be generated
-     * to send the log file or cancel the action
-     *
-     * @param commandSender the user who generated the error
-     * @param message the discord message sent by the user
-     * @param text the text used in the reply
-     */
     fun sendLogButtonReply(commandSender: WallyUser, message: Message, text: String) {
         if (commandSender.permissionLevel == PermissionLevel.ADMIN) {
             message.reply(text).setActionRow(
@@ -294,14 +228,6 @@ object MessageUtils {
         }
     }
 
-    /**
-     * Retrieve a message from a message channel history
-     *
-     * @param messageChannel the message channel
-     * @param messageID the message id
-     * @param historyCount the number of message we need to go through
-     * @return the message if found null otherwise
-     */
     fun getMessageFromHistory(messageChannel: MessageChannel,messageID: String, historyCount: Int): Message? {
         val history = messageChannel.history.retrievePast(historyCount).complete()
         val message = history.stream().filter { msg: Message? -> msg!!.id == messageID }

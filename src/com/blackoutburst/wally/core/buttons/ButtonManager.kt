@@ -10,9 +10,6 @@ object ButtonManager {
 
     private val buttons: MutableSet<Button> = HashSet()
     
-    /**
-     * Register Wally button
-     */
     init {
         register(ButtonCommand(), "Yes run")
         register(ButtonCancel(), "No", "Nevermind")
@@ -24,21 +21,11 @@ object ButtonManager {
         Wally.logger.log(LogLevel.INFO, "Button registered!")
     }
 
-    /**
-     * Register new button
-     *
-     * @param executable the button executable
-     * @param labels the button label
-     */
     private fun register(executable: ButtonExecutable, vararg labels: String) {
         buttons.add(Button(executable, labels))
         Wally.logger.log(LogLevel.INFO, "Button [" + labels[0] + "] is registered")
     }
 
-    /**
-     * Run the action associated with the button pressed
-     * @param event the buttonInteraction event
-     */
     fun runAction(buttonUser: WallyUser?, event: ButtonInteractionEvent) {
         val label = event.button.label
         for (b in buttons) {

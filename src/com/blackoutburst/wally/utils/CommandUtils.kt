@@ -19,18 +19,6 @@ import java.util.Locale
 
 object CommandUtils {
 
-    /**
-     * Create user or alt account data
-     * manage error by steps
-     *
-     * @param isAltAccount decide if the account is an alt account or a main
-     * @param guild the server running the command
-     * @param args the command args
-     * @param message the command message
-     * @param discordID the user discordID
-     * @param channel the message channel
-     * @param commandSender the command sender
-     */
     fun createUserData(isAltAccount: Boolean, guild: Guild, args: Array<String>, message: Message, discordID: String, channel: MessageChannel, commandSender: WallyUser) {
         val playerName = getNonDiscordIDArgFromTwoArgs(guild, args)
         if (playerName == null) {
@@ -76,50 +64,24 @@ object CommandUtils {
         }
     }
 
-    /**
-     * Return the discord ID from the command args
-     *
-     * @param guild the guild used to run the command
-     * @param args the command args
-     * @return the discord id
-     */
     fun getDiscordIDFromTwoArgs(guild: Guild, args: Array<String>): String? {
         if (guild.getMemberById(args[0]) != null) return args[0]
         if (guild.getMemberById(args[1]) != null) return args[1]
         return null
     }
 
-    /**
-     * Get the args which isn't a discord id
-     *
-     * @param guild the guild used to run the command
-     * @param args the command args
-     * @return the second arg
-     */
     fun getNonDiscordIDArgFromTwoArgs(guild: Guild, args: Array<String>): String? {
         if (guild.getMemberById(args[0]) != null) return args[1]
         if (guild.getMemberById(args[1]) != null) return args[0]
         return null
     }
 
-    /**
-     * Get command arguments
-     *
-     * @param message the message as string
-     * @return the command arguments
-     */
     fun getCommandArgs(message: String): Array<String> {
         val tmp = message.trim { it <= ' ' }.split(" ").toTypedArray()
 
         return tmp.copyOfRange(1, tmp.size)
     }
 
-    /**
-     * Get the command name
-     *
-     * @param message the message as string
-     * @return the command name
-     */
     fun getCommandName(message: String): String {
         val tmp = message.trim { it <= ' ' }.split(" ").toTypedArray()
 

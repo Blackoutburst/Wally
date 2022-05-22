@@ -11,6 +11,7 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 class ButtonLogLevel : ButtonExecutable() {
+
     override fun onClick(buttonUser: WallyUser, event: ButtonInteractionEvent) {
         val discordID = event.member!!.id
         val id = discordID + ":" + event.message.id

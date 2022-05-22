@@ -25,7 +25,7 @@ import java.time.Duration
 import java.time.Instant
 
 object LeaderboardManager {
-    @JvmField
+
     val winsLeaderboardHypixel = Leaderboard("Hypixel Wins", HypixelWinsComparator(), Leaderboard.Type.WINS)
     val wallLeaderboardHypixel = Leaderboard("Hypixel Walls", HypixelWallsComparator(), Leaderboard.Type.WALLS)
     val qualificationLeaderboardHypixel = Leaderboard("Hypixel Qualification", QualificationComparator(), Leaderboard.Type.QUALIFICATION)
@@ -42,11 +42,6 @@ object LeaderboardManager {
     val totalLeaderboardPractice = Leaderboard("Practice Total Score", TotalComparator(), Leaderboard.Type.TOTAL)
     val overallLeaderboardPractice = Leaderboard("Practice Overall rank", OverallComparator(), Leaderboard.Type.OVERALL)
 
-    /**
-     * Populate and sort the overall rank leaderboard
-     * They must be processed after everything is set
-     * because they need every other leaderboard to actually calculate the overall
-     */
     private fun calculateOverallLeaderboards() {
         populate(overallLeaderboardHypixel.players, DatabaseUtils.DataType.HYPIXEL, false)
         sort(overallLeaderboardHypixel)
@@ -54,12 +49,6 @@ object LeaderboardManager {
         sort(overallLeaderboardPractice)
     }
 
-    /**
-     * Populate a leaderboard list using player data from the database
-     *
-     * @param leaderboard the leaderboard that must be populated
-     * @param type the data type
-     */
     private fun populate(leaderboard: MutableList<StatsObject>, type: DatabaseUtils.DataType, skipPosition: Boolean) {
         val rootFolder = File("database/leaderboards/" + type.dataName)
         val entries = rootFolder.list() ?: return
@@ -82,12 +71,7 @@ object LeaderboardManager {
         }
     }
 
-    /**
-     * Sort a leaderboard using a custom comparator
-     *
-     * @param leaderboard the leaderboard that must be sorted
-     */
-    fun sort(leaderboard: Leaderboard) {
+    private fun sort(leaderboard: Leaderboard) {
         leaderboard.players.sortWith(leaderboard.comparator)
     }
 

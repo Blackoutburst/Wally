@@ -16,7 +16,6 @@ import java.lang.StringBuilder
 class CommandExcludeList : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
-
         if (!File("config/excluded.txt").exists()) {
             message.reply(ConfigManager.loadMessage( "no exclude file")).queue()
             return

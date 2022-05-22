@@ -7,18 +7,6 @@ import java.util.ArrayList
 
 object APIUtils {
 
-    /**
-     * Return the API value of the specified data<br></br>
-     *
-     * Usage:
-     *
-     * val value = getValuesFromAPI(apiData, "player.stats.Arcade.hitw_record_q")
-     *
-     * @param apiData the apiData as JSON string
-     * @param path the value path in the JSON
-     * @param defaultValue is a value used if the object returned is null
-     * @return the value if found
-     */
     fun getValuesFromAPI(apiData: String, path: String, defaultValue: String): String {
         return try {
             val gson = Gson()

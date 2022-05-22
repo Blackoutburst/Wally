@@ -6,11 +6,6 @@ import java.awt.Color
 
 object Utils {
 
-    /**
-     * @param score the score
-     * @param position the position
-     * @return a formatted line
-     */
     fun formatLine(score: Number, position: Int): String {
         return if (score is Int)
             Wally.numberFormat.format(score.toLong()) + " " + LeaderboardUtils.formatPosition(position)
@@ -18,11 +13,6 @@ object Utils {
             Wally.decimalFormat.format(score.toLong()) + " " + LeaderboardUtils.formatPosition(position)
     }
 
-    /**
-     * Input as many scores as you want, and it will return the highest one
-     * @param scores the scores
-     * @return the highest score
-     */
     fun getHighestScore(scores: IntArray): Int {
         var highest = 0
 
@@ -30,12 +20,6 @@ object Utils {
         return highest
     }
 
-    /**
-     * Get a club role color based on score
-     * The input number is rounded to the lower 50 div
-     * @param score the player score
-     * @return the role color
-     */
     fun getColorFromScore(score: Int): Color {
         if (Wally.hitwDiscord == null) {
             return Color.GRAY

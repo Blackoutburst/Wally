@@ -9,11 +9,7 @@ import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.config.ConfigManager
 
 object MessageReceived {
-    /**
-     * Read incoming messages and turn them into potential commands
-     *
-     * @param event The message event
-     */
+
     fun run(event: MessageReceivedEvent) {
         if (!event.message.contentRaw.startsWith(CommandManager.prefix)) return
         if (!Wally.isReady) {

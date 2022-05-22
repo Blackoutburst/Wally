@@ -10,11 +10,6 @@ import java.nio.file.Paths
 
 object FilesUtils {
 
-    /**
-     * Check if a player is excluded from leaderboard
-     * @param uuid the player uuid
-     * @return if the player is excluded
-     */
     fun isExcluded(uuid: String?): Boolean {
         try {
             val file = File("config/excluded.txt")
@@ -28,11 +23,6 @@ object FilesUtils {
         return false
     }
 
-    /**
-     * Remove the leaderboard exclusion by removing the player uuid from the exclude file
-     *
-     * @param uuid the player uuid that must be removed from the file
-     */
     fun removeExclusion(uuid: String?) {
         try {
             val file = File("config/excluded.txt")
@@ -45,13 +35,6 @@ object FilesUtils {
         }
     }
 
-    /**
-     * Exclude certain account from the leaderboard by writing their
-     * uuid into a special file
-     *
-     * Automatically create the file if it doesn't exist
-     * @param uuid the player uuid that must be added to the file
-     */
     fun excludeFromLb(uuid: String) {
         try {
             Files.write(Paths.get("config/excluded.txt"), uuid.toByteArray(), StandardOpenOption.CREATE, StandardOpenOption.APPEND)

@@ -13,12 +13,6 @@ import java.nio.charset.StandardCharsets
 
 object PracticeServer {
 
-    /**
-     * Get a player score from the Practice server
-     *
-     * @param uuid the player uuid
-     * @return the player stats as string (JSON)
-     */
     fun getPlayerStats( uuid: String): String? {
         return try {
             val socket = Socket(PRACTICE_SERVER_IP, PRACTICE_SERVER_PORT.toInt())

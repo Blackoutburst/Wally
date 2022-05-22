@@ -8,11 +8,7 @@ import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.selectmenu.SelectMenuManager
 
 object SelectMenuInteraction {
-    /**
-     * Check when someone interacts with a button
-     *
-     * @param event The reaction event
-     */
+
     fun run(event: SelectMenuInteractionEvent) {
         if (event.member == null) return
         if (event.selectMenu.id == null) return

@@ -8,11 +8,6 @@ import kotlin.system.exitProcess
 
 object Ready {
 
-    /**
-     * This even fire when JDA finish loading
-     * We use it to get the Hole in the Wall discord server
-     * @param event the JDA event
-     */
     fun run(event: ReadyEvent) {
         Wally.jda = event.jda
         Wally.loadUser()

@@ -15,20 +15,9 @@ import kotlin.math.abs
 
 object CommandManager {
 
-    /**
-     * Get the command prefix
-     * We could use a static variable but the goal is to
-     * have the configuration refreshed automatically
-     *
-     * @return the command prefix
-     */
     var prefix: String = ConfigManager.loadValue("settings", "command prefix")
-
     val commands: MutableSet<Command> = HashSet()
 
-    /**
-     * Register Wally commands
-     */
     init {
         register(PermissionLevel.MEMBER, CommandPing(), "ping")
         register(PermissionLevel.STAFF, CommandSay(), "say")
@@ -66,13 +55,6 @@ object CommandManager {
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 
-    /**
-     * Register new commands
-     *
-     * @param level command execution permission level
-     * @param executable command executable
-     * @param labels command label / alias
-     */
     private fun register( level: PermissionLevel, executable: CommandExecutable, vararg labels: String) {
         commands.add(Command(level, executable, labels))
         Wally.logger.log(LogLevel.INFO, "Command [" + labels[0] + "] is registered")
@@ -122,12 +104,6 @@ object CommandManager {
         }
     }
 
-    /**
-     * Execute a command
-     *
-     * This is art, but you do not have to touch this function at all
-     * If you find yourself in the need to edit this then you probably did something wrong
-     */
     fun runCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild?, channel: MessageChannel, message: Message) {
         channel.sendTyping().queue()
         for (command in commands) {

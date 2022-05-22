@@ -8,12 +8,6 @@ import java.lang.Exception
 
 object Mojang {
 
-    /**
-     * Get a player UUID using his current username
-     *
-     * @param playerName the player name
-     * @return the player uuid
-     */
     fun getPlayerUUID( playerName: String): String? {
         return try {
             val result = ConnectionManager.readFromURL("https://api.mojang.com/users/profiles/minecraft/$playerName")
@@ -28,12 +22,6 @@ object Mojang {
         }
     }
 
-    /**
-     * Get a player username using his UUID
-     *
-     * @param uuid the player name
-     * @return the player name
-     */
     fun getPlayerName( uuid: String): String? {
         return try {
             val result = ConnectionManager.readFromURL("https://sessionserver.mojang.com/session/minecraft/profile/$uuid")

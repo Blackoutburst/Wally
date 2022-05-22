@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
 import com.blackoutburst.wally.core.leaderboard.Leaderboard
 
 class HypixelStats(data: String, vararg noLeaderboard: Boolean) : StatsObject {
+
     override val uuid: String
     override val name: String
     val wins: Int
@@ -49,14 +50,12 @@ class HypixelStats(data: String, vararg noLeaderboard: Boolean) : StatsObject {
         } else {
             winsPosition = getPlayerPosition(uuid, LeaderboardManager.winsLeaderboardHypixel)
             wallsPosition = getPlayerPosition(uuid, LeaderboardManager.wallLeaderboardHypixel)
-            qualificationPosition =
-                getPlayerPosition(uuid, LeaderboardManager.qualificationLeaderboardHypixel)
+            qualificationPosition = getPlayerPosition(uuid, LeaderboardManager.qualificationLeaderboardHypixel)
             finalsPosition = getPlayerPosition(uuid, LeaderboardManager.finalsLeaderboardHypixel)
             totalPosition = getPlayerPosition(uuid, LeaderboardManager.totalLeaderboardHypixel)
             totalAPIPosition = getPlayerPosition(uuid, LeaderboardManager.totalApiLeaderboardHypixel)
             challengesPosition = getPlayerPosition(uuid, LeaderboardManager.challengesLeaderboardHypixel)
-            overall =
-                (winsPosition + wallsPosition + qualificationPosition + finalsPosition + totalPosition + challengesPosition) / 6.0f
+            overall = (winsPosition + wallsPosition + qualificationPosition + finalsPosition + totalPosition + challengesPosition) / 6.0f
             overallPosition = getPlayerPosition(uuid, LeaderboardManager.overallLeaderboardHypixel)
         }
     }

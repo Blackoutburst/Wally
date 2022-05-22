@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 
 class CommandPracticeStats : CommandExecutable() {
+
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         val discordID = commandSender.member.id
 

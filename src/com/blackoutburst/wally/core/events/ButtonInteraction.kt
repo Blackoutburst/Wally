@@ -9,12 +9,7 @@ import com.blackoutburst.wally.core.buttons.ButtonManager
 
 object ButtonInteraction {
 
-    /**
-     * Check when someone interacts with a button
-     *
-     * @param event The reaction event
-     */
-    internal fun run(event: ButtonInteractionEvent) {
+    fun run(event: ButtonInteractionEvent) {
         if (event.member == null) return
         if (event.button.id == null) return
         val ownerID = event.button.id!!.split(":").toTypedArray()[0]

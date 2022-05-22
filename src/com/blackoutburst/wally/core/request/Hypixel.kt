@@ -6,12 +6,7 @@ import com.blackoutburst.wally.core.logger.LogLevel
 import java.lang.Exception
 
 object Hypixel {
-    /**
-     * Get a player Hypixel stats using the Hypixel API
-     *
-     * @param uuid the player uuid
-     * @return the player stats as string (JSON)
-     */
+
     fun getPlayerStats(uuid: String): String? {
         return try {
             val result =

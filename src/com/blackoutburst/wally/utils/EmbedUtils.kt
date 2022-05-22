@@ -16,12 +16,7 @@ import java.lang.Exception
 import java.lang.StringBuilder
 
 object EmbedUtils {
-    /**
-     * Create an embed with leaderboard information inside
-     * @param leaderboard the leaderboard
-     * @param page the leaderboard page
-     * @return an embed containing every hole in the wall stats
-     */
+
     fun generateLeaderboardEmbed(leaderboard: Leaderboard, page: Int): MessageEmbed {
         var leaderboardPage = (page - 1) * 10
 
@@ -39,11 +34,6 @@ object EmbedUtils {
             .build()
     }
 
-    /**
-     * Create an embed with Practice stats information inside
-     * @param data a valid Practice json data
-     * @return an embed containing every hole in the wall stats
-     */
     fun generatePracticeStatsEmbed(data: String): MessageEmbed {
         val time = System.currentTimeMillis()
         val stats = PracticeStats(data)
@@ -68,11 +58,6 @@ object EmbedUtils {
             .build()
     }
 
-    /**
-     * Create an embed with Hypixel stats information inside
-     * @param data a valid Hypixel json data
-     * @return an embed containing every hole in the wall stats
-     */
     fun generateHypixelStatsEmbed(data: String): MessageEmbed {
         val time = System.currentTimeMillis()
         val stats = HypixelStats(data)
@@ -99,13 +84,6 @@ object EmbedUtils {
             .build()
     }
 
-    /**
-     * Generate the skin preview in embed
-     *
-     * @param uuid the player uuid
-     * @param playerName the player name
-     * @return the skin embed
-     */
     fun generateSkin(uuid: String, playerName: String): EmbedBuilder {
         val time = System.currentTimeMillis()
         return EmbedBuilder()
@@ -115,10 +93,6 @@ object EmbedUtils {
             .setImage("https://visage.surgeplay.com/full/512/$uuid?&time=$time")
     }
 
-    /**
-     * Generate the changelog embed message
-     * @return the changelog embed
-     */
     fun generateChangelog(): EmbedBuilder? {
         return try {
             val wallyURL = "https://github.com/Blackoutburst/Wally"

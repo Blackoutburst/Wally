@@ -3,6 +3,7 @@ package com.blackoutburst.wally.core.statsobject
 import com.blackoutburst.wally.core.leaderboard.Leaderboard
 
 interface StatsObject {
+
     val name: String
     val uuid: String
     val finals: Int

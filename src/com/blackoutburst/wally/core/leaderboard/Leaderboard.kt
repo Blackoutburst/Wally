@@ -5,6 +5,7 @@ import java.util.ArrayList
 import java.util.Comparator
 
 class Leaderboard(val name: String, val comparator: Comparator<StatsObject>, val type: Type) {
+
     enum class Type {
         WINS,
         WALLS,

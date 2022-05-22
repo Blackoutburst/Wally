@@ -19,9 +19,6 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-/**
- * Remove an alternative Minecraft account from a linked user
- */
 class CommandRemoveAlt : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
