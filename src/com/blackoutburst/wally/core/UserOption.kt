@@ -3,6 +3,9 @@ package com.blackoutburst.wally.core
 import com.blackoutburst.wally.core.commands.PermissionLevel
 import com.blackoutburst.wally.core.commands.DisplayPreference
 
+/**
+ * Manage Wally users settings
+ */
 class UserOption {
     var permissionLevel: PermissionLevel
     var displayPreference: DisplayPreference
