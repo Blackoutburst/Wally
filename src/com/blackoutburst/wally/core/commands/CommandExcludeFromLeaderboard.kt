@@ -6,8 +6,10 @@ import com.blackoutburst.wally.utils.FilesUtils.excludeFromLb
 import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.database.DatabaseManager.cleanFolder
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import java.io.File
 
 class CommandExcludeFromLeaderboard : CommandExecutable() {
 
@@ -25,6 +27,8 @@ class CommandExcludeFromLeaderboard : CommandExecutable() {
         }
 
         excludeFromLb(playerUUID)
+        cleanFolder(File("database/leaderboards/hypixel/$playerUUID"))
+        cleanFolder(File("database/leaderboards/practice/$playerUUID"))
         channel.sendMessage(ConfigManager.loadMessage( "exclude success").replace("%name%", args[0])).queue()
     }
 }

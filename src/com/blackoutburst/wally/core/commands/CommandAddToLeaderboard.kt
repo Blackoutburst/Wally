@@ -6,6 +6,10 @@ import com.blackoutburst.wally.utils.FilesUtils.removeExclusion
 import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.request.Hypixel
+import com.blackoutburst.wally.core.request.PracticeServer
+import com.blackoutburst.wally.utils.DatabaseUtils
+import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 
@@ -25,6 +29,12 @@ class CommandAddToLeaderboard : CommandExecutable() {
         }
 
         removeExclusion(playerUUID)
+
+        val hypixelData = Hypixel.getPlayerStats(playerUUID)
+        val practiceData = PracticeServer.getPlayerStats(playerUUID)
+        updateLeaderboardStats(hypixelData!!, DatabaseUtils.DataType.HYPIXEL, playerUUID)
+        updateLeaderboardStats(practiceData!!, DatabaseUtils.DataType.HYPIXEL, playerUUID)
+
         channel.sendMessage(ConfigManager.loadMessage( "remove exclude success").replace("%name%", args[0])).queue()
     }
 }
