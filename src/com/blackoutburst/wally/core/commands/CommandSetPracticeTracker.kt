@@ -8,10 +8,10 @@ import com.google.gson.JsonObject
 import java.io.FileReader
 import com.blackoutburst.wally.core.config.ConfigManager
 import java.io.FileWriter
-import java.lang.Exception
 import com.blackoutburst.wally.core.Wally
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import java.io.FileNotFoundException
 import java.io.Writer
 
 class CommandSetPracticeTracker : CommandExecutable() {
@@ -34,7 +34,7 @@ class CommandSetPracticeTracker : CommandExecutable() {
             writer.close()
             channel.sendMessage(ConfigManager.loadMessage( "practice tracker channel updated")
                     .replace("%channel%", "<#" + channel.id + ">")).queue()
-        } catch (e: Exception) {
+        } catch (e: FileNotFoundException) {
             Wally.logger.logStackTrace(e.stackTrace)
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "channel update error"))
         }

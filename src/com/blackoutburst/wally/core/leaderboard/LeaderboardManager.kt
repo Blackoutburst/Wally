@@ -15,10 +15,10 @@ import com.blackoutburst.wally.core.statsobject.StatsObject
 import java.nio.file.Paths
 import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats
-import java.lang.Exception
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.utils.DatabaseUtils
+import okio.IOException
 import java.io.File
 import java.nio.file.Files
 import java.time.Duration
@@ -65,7 +65,7 @@ object LeaderboardManager {
                         skipPosition
                     ) else PracticeStats(data, skipPosition)
                 )
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 Wally.logger.logStackTrace(e.stackTrace)
             }
         }

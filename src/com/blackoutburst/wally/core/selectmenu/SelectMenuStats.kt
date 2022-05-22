@@ -5,8 +5,8 @@ import com.blackoutburst.wally.utils.MessageUtils.sendHypixelStats
 import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent
 import java.nio.file.Paths
-import java.lang.Exception
 import com.blackoutburst.wally.core.Wally
+import okio.IOException
 import java.nio.file.Files
 
 class SelectMenuStats : SelectMenuExecutable() {
@@ -20,7 +20,7 @@ class SelectMenuStats : SelectMenuExecutable() {
 
         try {
             data = String(Files.readAllBytes(filePath))
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             Wally.logger.logStackTrace(e.stackTrace)
         }
 

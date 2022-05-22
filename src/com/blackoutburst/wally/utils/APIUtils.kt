@@ -2,7 +2,7 @@ package com.blackoutburst.wally.utils
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import java.lang.Exception
+import com.google.gson.JsonSyntaxException
 import java.util.ArrayList
 
 object APIUtils {
@@ -21,7 +21,7 @@ object APIUtils {
             val result = element.asString
 
             result ?: defaultValue
-        } catch (e: Exception) {
+        } catch (e: JsonSyntaxException) {
             defaultValue
         }
     }

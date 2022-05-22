@@ -9,7 +9,6 @@ import java.util.Locale
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.google.gson.Gson
 import java.io.FileReader
-import java.lang.Exception
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Activity
 import net.dv8tion.jda.api.utils.ChunkingFilter
@@ -17,6 +16,7 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy
 import net.dv8tion.jda.api.requests.GatewayIntent
 import com.blackoutburst.wally.core.events.EventListener
 import com.blackoutburst.wally.core.logger.Logger
+import com.google.gson.JsonSyntaxException
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.utils.Compression
 import java.io.File
@@ -55,7 +55,7 @@ object Wally {
                 val reader = FileReader(userFolder.path + "/data.json")
                 data = gson.fromJson(reader, UserOption::class.java)
                 reader.close()
-            } catch (e: Exception) {
+            } catch (e: JsonSyntaxException) {
                 data = null
             }
             if (data == null) continue

@@ -8,7 +8,6 @@ import org.slf4j.helpers.Util
 import java.io.File
 import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
-import java.lang.Exception
 import java.lang.StringBuilder
 import java.nio.file.Files
 import java.util.*
@@ -59,7 +58,7 @@ object Logger {
 
         try {
             Files.write(Paths.get(currentLogFile), logBuilder.toString().toByteArray(), StandardOpenOption.APPEND)
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             e.printStackTrace()
         }
     }

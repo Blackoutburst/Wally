@@ -4,12 +4,12 @@ import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
 import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.core.config.ConfigManager
-import java.lang.Exception
 import com.blackoutburst.wally.core.Wally
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import okio.IOException
 import java.io.FileReader
 import java.io.FileWriter
 import java.io.Writer
@@ -25,7 +25,7 @@ class CommandSetAnswerLifetime : CommandExecutable() {
 
         val value: Long = try {
             args[0].toLong()
-        } catch (e: Exception) {
+        } catch (e: NumberFormatException) {
             Wally.logger.logStackTrace(e.stackTrace)
             message.reply(ConfigManager.loadMessage( "not a number")
                     .replace("%num%", args[0])).queue()
@@ -45,7 +45,7 @@ class CommandSetAnswerLifetime : CommandExecutable() {
             writer.close()
             channel.sendMessage(ConfigManager.loadMessage( "answer life update")
                     .replace("%seconds%", args[0])).queue()
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             Wally.logger.logStackTrace(e.stackTrace)
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "answer life error"))
         }

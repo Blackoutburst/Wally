@@ -6,14 +6,11 @@ import com.blackoutburst.wally.core.UserOption
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.WallyUser
 import java.nio.file.Paths
-import java.lang.Exception
 import com.blackoutburst.wally.core.Wally
-import java.io.FileWriter
 import com.google.gson.Gson
 import com.blackoutburst.wally.core.logger.LogLevel
-import java.io.File
-import java.io.FileReader
-import java.io.Writer
+import okio.IOException
+import java.io.*
 import java.nio.file.Files
 
 object DatabaseUtils {
@@ -47,13 +44,13 @@ object DatabaseUtils {
 
             data = String(Files.readAllBytes(filePath))
             channel.sendMessage(ConfigManager.loadMessage( "local stats")).queue()
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             try {
                 val filePath = Paths.get("database/leaderboards/$typeName/$uuid/data.json")
 
                 data = String(Files.readAllBytes(filePath))
                 channel.sendMessage(ConfigManager.loadMessage( "local stats")).queue()
-            } catch (e2: Exception) {
+            } catch (e2: IOException) {
                 Wally.logger.logStackTrace(e2.stackTrace)
             }
         }
@@ -67,7 +64,7 @@ object DatabaseUtils {
             writer.flush()
             writer.close()
             true
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             Wally.logger.logStackTrace(e.stackTrace)
             false
         }
@@ -82,7 +79,7 @@ object DatabaseUtils {
             writer.flush()
             writer.close()
             true
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             Wally.logger.logStackTrace(e.stackTrace)
             false
         }
@@ -121,7 +118,7 @@ object DatabaseUtils {
 
             reader.close()
             data
-        } catch (e: Exception) {
+        } catch (e: FileNotFoundException) {
             Wally.logger.logStackTrace(e.stackTrace)
             null
         }

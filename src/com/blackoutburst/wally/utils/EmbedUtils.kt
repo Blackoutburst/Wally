@@ -9,10 +9,10 @@ import java.time.LocalDate
 import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.statsobject.HypixelStats
+import okio.IOException
 import java.awt.Color
 import java.io.BufferedReader
 import java.io.FileReader
-import java.lang.Exception
 import java.lang.StringBuilder
 
 object EmbedUtils {
@@ -115,7 +115,7 @@ object EmbedUtils {
                 .addField("", "[Patreon](https://www.patreon.com/Blackoutburst)", true)
                 .setColor(Color(71, 165, 255))
                 .setFooter("Made with love by Blackoutburst", "https://www.blackoutburst.com/img/pfp.jpg")
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             Wally.logger.logStackTrace(e.stackTrace)
             null
         }

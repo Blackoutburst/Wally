@@ -3,6 +3,7 @@ package com.blackoutburst.wally.main
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.database.DatabaseManager
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
+import okio.IOException
 import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.system.exitProcess
@@ -19,7 +20,7 @@ class Main {
             return try {
                 val lines = Files.readAllLines(Paths.get("config/.env"))
                 lines[index].split("=").toTypedArray()[1].replace("\"", "")
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 println("Invalid .env file")
                 exitProcess(0)
             }
