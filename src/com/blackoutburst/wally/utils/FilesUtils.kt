@@ -28,6 +28,7 @@ object FilesUtils {
             val out = Files.lines(file.toPath())
                 .filter { line: String -> !line.contains(uuid!!) }
                 .collect(Collectors.toList())
+
             Files.write(file.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e.stackTrace)
