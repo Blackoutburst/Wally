@@ -16,7 +16,7 @@ object Mojang {
             Wally.logger.log(LogLevel.INFO, "New Mojang request sent for [$playerName]")
             json["id"].asString
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             null
         }
     }
@@ -30,7 +30,7 @@ object Mojang {
             Wally.logger.log(LogLevel.INFO, "New Mojang request sent for [$uuid]")
             json["name"].asString
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             null
         }
     }

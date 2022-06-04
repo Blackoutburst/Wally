@@ -10,7 +10,21 @@ object Utils {
         return if (score is Int)
             Wally.numberFormat.format(score.toLong()) + " " + LeaderboardUtils.formatPosition(position)
         else
-            Wally.decimalFormat.format(score.toLong()) + " " + LeaderboardUtils.formatPosition(position)
+            Wally.decimalFormat.format(score.toDouble()) + " " + LeaderboardUtils.formatPosition(position)
+    }
+
+    fun formatLineReverse(score: Number, position: Int): String {
+        return if (score is Int)
+             LeaderboardUtils.formatPosition(position) + " " + Wally.numberFormat.format(score.toLong())
+        else
+            LeaderboardUtils.formatPosition(position) + " " + Wally.decimalFormat.format(score.toDouble())
+    }
+
+    fun formatScoreCompare(score1: Number, score2: Number) : String {
+        return String.format("%8s || %-8s",
+            if (score1 is Int) Wally.numberFormat.format(score1.toLong() - score2.toLong()) else Wally.decimalFormat.format(score1.toDouble() - score2.toDouble()),
+            if (score1 is Int) Wally.numberFormat.format(score2.toLong() - score1.toLong()) else Wally.decimalFormat.format(score2.toDouble() - score1.toDouble())
+        )
     }
 
     fun getHighestScore(scores: IntArray): Int {

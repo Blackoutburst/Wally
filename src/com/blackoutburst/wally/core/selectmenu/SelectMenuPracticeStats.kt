@@ -20,7 +20,7 @@ class SelectMenuPracticeStats : SelectMenuExecutable() {
         try {
             data = String(Files.readAllBytes(filePath))
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
         }
 
         event.deferEdit().queue()

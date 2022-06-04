@@ -24,7 +24,7 @@ object ConnectionManager {
             reader.close()
             builder.toString()
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             null
         }
     }

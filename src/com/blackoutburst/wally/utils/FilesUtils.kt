@@ -17,7 +17,7 @@ object FilesUtils {
                 line.contains(uuid!!)
             }
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
         }
         return false
     }
@@ -31,7 +31,7 @@ object FilesUtils {
 
             Files.write(file.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
         }
     }
 
@@ -40,7 +40,7 @@ object FilesUtils {
             if (!isExcluded(uuid))
                 Files.write(Paths.get("config/excluded.txt"), "$uuid\n".toByteArray(), StandardOpenOption.CREATE, StandardOpenOption.APPEND)
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
         }
     }
 }

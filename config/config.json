@@ -105,6 +105,7 @@
     "still loading": "Hey sorry I\u0027m still loading some important data, try again in a minute!",
     "invalid page": "The page %page% is not valid please use a valid number",
     "select log level": "Select the new log level",
-    "select permission level": "Select %user% new permission level"
+    "select permission level": "Select %user% new permission level",
+    "command compare error": "There was an error while running the command compare"
   }
 }
