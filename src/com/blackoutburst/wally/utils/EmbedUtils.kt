@@ -143,7 +143,7 @@ object EmbedUtils {
                 .setColor(Color(71, 165, 255))
                 .setFooter("Made with love by Blackoutburst", "https://www.blackoutburst.com/img/pfp.jpg")
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             null
         }
     }

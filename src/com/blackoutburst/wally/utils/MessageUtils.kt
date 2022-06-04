@@ -75,9 +75,9 @@ object MessageUtils {
 
     fun sendHypixelCompare(commandSender: WallyUser, message: Message, player1data: String, player2data: String) {
         when (commandSender.displayPreference) {
-            DisplayPreference.TEXT -> message.editMessage(generateHypixelCompareMessage(player1data, player2data)).queue()
-            DisplayPreference.EMBED -> message.editMessageEmbeds(generateHypixelCompareEmbed(player1data, player2data)).queue()
-            else -> message.editMessage("Soon...").queue()
+            DisplayPreference.TEXT -> message.reply(generateHypixelCompareMessage(player1data, player2data)).queue()
+            DisplayPreference.EMBED -> message.replyEmbeds(generateHypixelCompareEmbed(player1data, player2data)).queue()
+            else -> message.reply("Soon...").queue()
         }
     }
 
@@ -174,7 +174,7 @@ object MessageUtils {
         val player2 = HypixelStats(player2Data)
 
         return "```yml" + System.lineSeparator() +
-                "Player name: " + player1.name + " \t " + player2.name + " :Player name" + System.lineSeparator() + System.lineSeparator() +
+                String.format("%-20s %-15s %-8s [VS] %8s %15s", "Player name:", player1.name, "", "", player2.name) + System.lineSeparator() + System.lineSeparator() +
                 comparisonLine("Wins", player1.wins, player1.winsPosition, player2.wins, player2.winsPosition) +
                 comparisonLine("Walls", player1.walls, player1.wallsPosition, player2.walls, player2.wallsPosition) +
                 comparisonLine("Qualification", player1.qualification, player1.qualificationPosition, player2.qualification, player2.qualificationPosition) +

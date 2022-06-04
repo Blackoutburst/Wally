@@ -50,7 +50,7 @@ object DatabaseUtils {
                 data = String(Files.readAllBytes(filePath))
                 channel.sendMessage(ConfigManager.loadMessage( "local stats")).queue()
             } catch (e2: Exception) {
-                Wally.logger.logStackTrace(e2.stackTrace)
+                Wally.logger.logStackTrace(e2)
             }
         }
         return data
@@ -64,7 +64,7 @@ object DatabaseUtils {
             writer.close()
             true
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             false
         }
     }
@@ -79,7 +79,7 @@ object DatabaseUtils {
             writer.close()
             true
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             false
         }
     }
@@ -118,7 +118,7 @@ object DatabaseUtils {
             reader.close()
             data
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             null
         }
     }

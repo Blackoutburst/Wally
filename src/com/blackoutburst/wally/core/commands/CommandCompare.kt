@@ -61,10 +61,7 @@ class CommandCompare : CommandExecutable() {
             return
         }
         updateLeaderboardStats(player1Data, DatabaseUtils.DataType.HYPIXEL, player1Uuid)
-        updateLinkedPlayerStats(player1Data, DatabaseUtils.DataType.HYPIXEL, discordID, player1Uuid)
         updateLeaderboardStats(player2Data, DatabaseUtils.DataType.HYPIXEL, player2Uuid)
-        updateLinkedPlayerStats(player2Data, DatabaseUtils.DataType.HYPIXEL, discordID, player2Uuid)
-
         sendHypixelCompare(commandSender, message, player1Data, player2Data)
     }
 }

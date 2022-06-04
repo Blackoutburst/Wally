@@ -1,7 +1,6 @@
 package com.blackoutburst.wally.core.logger
 
 import java.text.SimpleDateFormat
-import java.lang.StackTraceElement
 import com.blackoutburst.wally.core.Wally
 import org.slf4j.helpers.Util
 import java.io.File
@@ -18,8 +17,9 @@ object Logger {
 
     var internalLogLevel = LogLevel.INFO
 
-    fun logStackTrace(stacktrace: Array<StackTraceElement>) {
-        for (stack in stacktrace) log(LogLevel.ERROR, stack.toString())
+    fun logStackTrace(exception: Exception) {
+        log(LogLevel.ERROR, exception.message)
+        for (stack in exception.stackTrace) log(LogLevel.ERROR, stack.toString())
     }
 
     init {
@@ -36,7 +36,7 @@ object Logger {
                 log(LogLevel.WARN, "Logs file creation failed!")
             }
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
         }
     }
 

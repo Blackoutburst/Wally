@@ -28,7 +28,7 @@ object PracticeServer {
             dataReceived
         } catch (e: Exception) {
             e.printStackTrace()
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             null
         }
     }
