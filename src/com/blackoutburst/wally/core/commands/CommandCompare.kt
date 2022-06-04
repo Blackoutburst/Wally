@@ -27,14 +27,14 @@ class CommandCompare : CommandExecutable() {
             return
         }
 
-        val player1Uuid :String? = if (isLinked(discordID)) {
+        val player1Uuid :String? = if (isLinked(discordID) && args.size == 1) {
             val data = getWallyUserData(discordID)
             data!!.mainAccountUUID
         } else {
             getPlayerUUID(args[0])
         }
 
-        val player2Uuid :String? = if (!isLinked(discordID)) {
+        val player2Uuid :String? = if (!isLinked(discordID) || args.size == 2) {
             getPlayerUUID(args[1])
         } else {
             getPlayerUUID(args[0])
