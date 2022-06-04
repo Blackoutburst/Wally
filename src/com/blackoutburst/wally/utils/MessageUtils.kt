@@ -17,6 +17,7 @@ import com.blackoutburst.wally.core.commands.PermissionLevel
 import java.util.UUID
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.utils.EmbedUtils.generateHypixelCompareEmbed
+import com.blackoutburst.wally.utils.EmbedUtils.generatePracticeCompareEmbed
 import com.blackoutburst.wally.utils.LineUtils.comparisonLine
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.interactions.components.buttons.Button
@@ -77,6 +78,14 @@ object MessageUtils {
         when (commandSender.displayPreference) {
             DisplayPreference.TEXT -> message.reply(generateHypixelCompareMessage(player1data, player2data)).queue()
             DisplayPreference.EMBED -> message.replyEmbeds(generateHypixelCompareEmbed(player1data, player2data)).queue()
+            else -> message.reply("Soon...").queue()
+        }
+    }
+
+    fun sendPracticeCompare(commandSender: WallyUser, message: Message, player1data: String, player2data: String) {
+        when (commandSender.displayPreference) {
+            DisplayPreference.TEXT -> message.reply(generatePracticeCompareMessage(player1data, player2data)).queue()
+            DisplayPreference.EMBED -> message.replyEmbeds(generatePracticeCompareEmbed(player1data, player2data)).queue()
             else -> message.reply("Soon...").queue()
         }
     }
@@ -182,6 +191,22 @@ object MessageUtils {
                 comparisonLine("Q/F", player1.total, player1.totalPosition, player2.total, player2.totalPosition) +
                 comparisonLine("Q/F API", player1.totalAPI, player1.totalAPIPosition, player2.totalAPI, player2.totalAPIPosition) +
                 comparisonLine("Challenges", player1.challenges, player1.challengesPosition, player2.challenges, player2.challengesPosition) +
+                comparisonLine("Overall Rank", player1.overall, player1.overallPosition, player2.overall, player2.overallPosition) +
+                "```"
+    }
+
+    private fun generatePracticeCompareMessage(player1Data: String, player2Data: String): String {
+        val player1 = PracticeStats(player1Data)
+        val player2 = PracticeStats(player2Data)
+
+        return "```yml" + System.lineSeparator() +
+                String.format("%-20s %-15s %-8s [VS] %8s %15s", "Player name:", player1.name, "", "", player2.name) + System.lineSeparator() + System.lineSeparator() +
+                comparisonLine("Qualification", player1.qualification, player1.qualificationPosition, player2.qualification, player2.qualificationPosition) +
+                comparisonLine("Finals", player1.finals, player1.finalsPosition, player2.finals, player2.finalsPosition) +
+                comparisonLine("Lobby", player1.lobby, player1.lobbyPosition, player2.lobby, player2.lobbyPosition) +
+                comparisonLine("Wide Qualification", player1.wideQualification, player1.wideQualification, player2.wideQualification, player2.wideQualificationPosition) +
+                comparisonLine("Wide Finals", player1.wideFinals, player1.wideFinalsPosition, player2.wideFinals, player2.wideFinalsPosition) +
+                comparisonLine("Total Score", player1.total, player1.totalPosition, player2.total, player2.totalPosition) +
                 comparisonLine("Overall Rank", player1.overall, player1.overallPosition, player2.overall, player2.overallPosition) +
                 "```"
     }
