@@ -86,6 +86,31 @@ object EmbedUtils {
             .build()
     }
 
+    fun generateHypixelCompareEmbed(player1Data: String, player2Data: String): MessageEmbed {
+        val player1 = HypixelStats(player1Data)
+        val player2 = HypixelStats(player2Data)
+        val date = LocalDate.now().toString()
+
+        return EmbedBuilder()
+            .setAuthor(player1.name + " VS " + player2.name,"", "https://www.blackoutburst.com/img/wally.png")
+            .setTitle("Hypixel compare", "")
+            .setColor(getColorFromScore(getHighestScore(player1.scores.plus(player2.scores))))
+            .addField("Wins", Utils.formatLine(player1.wins, player1.winsPosition),true)
+            .addField("Walls", Utils.formatLine(player1.walls, player1.wallsPosition),true)
+            .addBlankField(true)
+            .addField("Qualification", Utils.formatLine(player1.qualification, player1.qualificationPosition),true)
+            .addField("Finals", Utils.formatLine(player1.finals, player1.finalsPosition),true)
+            .addBlankField(true)
+            .addField("QF", Utils.formatLine(player1.total, player1.totalPosition),true)
+            .addField("QF (according to the API)", Utils.formatLine(player1.totalAPI, player1.totalAPIPosition),true)
+            .addBlankField(true)
+            .addField("Challenges", Utils.formatLine(player1.challenges, player1.challengesPosition),true)
+            .addField("Overall Rank", Utils.formatLine(player1.overall, player1.overallPosition),true)
+            .setFooter(date)
+            .build()
+    }
+
+
     fun generateSkin(uuid: String, playerName: String): EmbedBuilder {
         val time = System.currentTimeMillis()
         return EmbedBuilder()

@@ -16,6 +16,8 @@ import com.blackoutburst.wally.core.request.Mojang
 import com.blackoutburst.wally.core.commands.PermissionLevel
 import java.util.UUID
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.utils.EmbedUtils.generateHypixelCompareEmbed
+import com.blackoutburst.wally.utils.LineUtils.comparisonLine
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.interactions.components.buttons.Button
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenu
@@ -68,6 +70,14 @@ object MessageUtils {
                     message.reply("Soon...").queue()
                 }
             }
+        }
+    }
+
+    fun sendHypixelCompare(commandSender: WallyUser, message: Message, player1data: String, player2data: String) {
+        when (commandSender.displayPreference) {
+            DisplayPreference.TEXT -> message.editMessage(generateHypixelCompareMessage(player1data, player2data)).queue()
+            DisplayPreference.EMBED -> message.editMessageEmbeds(generateHypixelCompareEmbed(player1data, player2data)).queue()
+            else -> message.editMessage("Soon...").queue()
         }
     }
 
@@ -156,6 +166,23 @@ object MessageUtils {
                 "Q/F API: " + Utils.formatLine(stats.totalAPI, stats.totalAPIPosition) + System.lineSeparator() +
                 "Challenges: " + Utils.formatLine(stats.challenges, stats.challengesPosition) + System.lineSeparator() +
                 "Overall Rank: " + Utils.formatLine(stats.overall, stats.overallPosition) + System.lineSeparator() +
+                "```"
+    }
+
+    private fun generateHypixelCompareMessage(player1Data: String, player2Data: String): String {
+        val player1 = HypixelStats(player1Data)
+        val player2 = HypixelStats(player2Data)
+
+        return "```yml" + System.lineSeparator() +
+                "Player name: " + player1.name + " \t " + player2.name + " :Player name" + System.lineSeparator() + System.lineSeparator() +
+                comparisonLine("Wins", player1.wins, player1.winsPosition, player2.wins, player2.winsPosition) +
+                comparisonLine("Walls", player1.walls, player1.wallsPosition, player2.walls, player2.wallsPosition) +
+                comparisonLine("Qualification", player1.qualification, player1.qualificationPosition, player2.qualification, player2.qualificationPosition) +
+                comparisonLine("Finals", player1.finals, player1.finalsPosition, player2.finals, player2.finalsPosition) +
+                comparisonLine("Q/F", player1.total, player1.totalPosition, player2.total, player2.totalPosition) +
+                comparisonLine("Q/F API", player1.totalAPI, player1.totalAPIPosition, player2.totalAPI, player2.totalAPIPosition) +
+                comparisonLine("Challenges", player1.challenges, player1.challengesPosition, player2.challenges, player2.challengesPosition) +
+                comparisonLine("Overall Rank", player1.overall, player1.overallPosition, player2.overall, player2.overallPosition) +
                 "```"
     }
 
