@@ -9,6 +9,9 @@ import java.time.LocalDate
 import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.statsobject.HypixelStats
+import com.blackoutburst.wally.utils.LineUtils.comparisonLineLeft
+import com.blackoutburst.wally.utils.LineUtils.comparisonLineMiddle
+import com.blackoutburst.wally.utils.LineUtils.comparisonLineRight
 import java.awt.Color
 import java.io.BufferedReader
 import java.io.FileReader
@@ -92,20 +95,45 @@ object EmbedUtils {
         val date = LocalDate.now().toString()
 
         return EmbedBuilder()
-            .setAuthor(player1.name + " VS " + player2.name,"", "https://www.blackoutburst.com/img/wally.png")
-            .setTitle("Hypixel compare", "")
+            .setAuthor(player1.name + " VS " + player2.name,"https://hypixel.net/arcade-games/leaderboard/hole_in_the_wall", "https://www.blackoutburst.com/img/wally.png")
+            .setTitle("Hypixel stats compare", "https://hypixel.net/arcade-games/leaderboard/hole_in_the_wall")
             .setColor(getColorFromScore(getHighestScore(player1.scores.plus(player2.scores))))
-            .addField("Wins", Utils.formatLine(player1.wins, player1.winsPosition),true)
-            .addField("Walls", Utils.formatLine(player1.walls, player1.wallsPosition),true)
-            .addBlankField(true)
-            .addField("Qualification", Utils.formatLine(player1.qualification, player1.qualificationPosition),true)
-            .addField("Finals", Utils.formatLine(player1.finals, player1.finalsPosition),true)
-            .addBlankField(true)
-            .addField("QF", Utils.formatLine(player1.total, player1.totalPosition),true)
-            .addField("QF (according to the API)", Utils.formatLine(player1.totalAPI, player1.totalAPIPosition),true)
-            .addBlankField(true)
-            .addField("Challenges", Utils.formatLine(player1.challenges, player1.challengesPosition),true)
-            .addField("Overall Rank", Utils.formatLine(player1.overall, player1.overallPosition),true)
+            .addField("**${player1.name}**",
+            "```\n"+
+                  comparisonLineLeft("Wins", player1.wins, player1.winsPosition)+
+                  comparisonLineLeft("Walls", player1.walls, player1.wallsPosition)+
+                  comparisonLineLeft("Qualification", player1.qualification, player1.qualificationPosition)+
+                  comparisonLineLeft("Finals", player1.finals, player1.finalsPosition)+
+                  comparisonLineLeft("Q/F", player1.total, player1.totalPosition)+
+                  comparisonLineLeft("Q/F API", player1.totalAPI, player1.totalAPIPosition)+
+                  comparisonLineLeft("Challenges", player1.challenges, player1.challengesPosition)+
+                  comparisonLineLeft("Overall Rank", player1.overall, player1.overallPosition)+
+                  "```",
+                true)
+            .addField("**[VS]**",
+            "```\n"+
+                  comparisonLineMiddle(player1.wins, player2.wins)+
+                  comparisonLineMiddle(player1.walls, player2.walls)+
+                  comparisonLineMiddle(player1.qualification, player2.qualification)+
+                  comparisonLineMiddle(player1.finals, player2.finals)+
+                  comparisonLineMiddle(player1.total, player2.total)+
+                  comparisonLineMiddle(player1.totalAPI, player2.totalAPI)+
+                  comparisonLineMiddle(player1.challenges, player2.challenges)+
+                  comparisonLineMiddle(player1.overall, player2.overall)+
+                  "```",
+                true)
+            .addField(player2.name,
+            "```\n"+
+                  comparisonLineRight("Wins", player2.wins, player2.winsPosition) +
+                  comparisonLineRight("Walls", player2.walls, player2.wallsPosition)+
+                  comparisonLineRight("Qualification", player2.qualification, player2.qualificationPosition)+
+                  comparisonLineRight("Finals", player2.finals, player2.finalsPosition)+
+                  comparisonLineRight("Q/F", player2.total, player2.totalPosition)+
+                  comparisonLineRight("Q/F API", player2.totalAPI, player2.totalAPIPosition)+
+                  comparisonLineRight("Challenges", player2.challenges, player2.challengesPosition)+
+                  comparisonLineRight("Overall Rank", player2.overall, player2.overallPosition)+
+                  "```"
+                ,true)
             .setFooter(date)
             .build()
     }
