@@ -34,7 +34,7 @@ class CommandSetPrefix : CommandExecutable() {
             channel.sendMessage(ConfigManager.loadMessage( "prefix update").replace("%prefix%", args[0])).queue()
             CommandManager.prefix = args[0]
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "prefix update error"))
         }
     }

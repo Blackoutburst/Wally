@@ -32,7 +32,7 @@ class CommandExcludeList : CommandExecutable() {
 
             channel.sendMessage(builder).queue()
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "exclude error"))
         }
     }

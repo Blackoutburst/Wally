@@ -34,7 +34,7 @@ class CommandSetPracticeTracker : CommandExecutable() {
             channel.sendMessage(ConfigManager.loadMessage( "practice tracker channel updated")
                     .replace("%channel%", "<#" + channel.id + ">")).queue()
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "channel update error"))
         }
     }

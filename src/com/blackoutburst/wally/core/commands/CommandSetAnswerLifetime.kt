@@ -25,7 +25,7 @@ class CommandSetAnswerLifetime : CommandExecutable() {
         val value: Long = try {
             args[0].toLong()
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             message.reply(ConfigManager.loadMessage( "not a number")
                     .replace("%num%", args[0])).queue()
             return
@@ -45,7 +45,7 @@ class CommandSetAnswerLifetime : CommandExecutable() {
             channel.sendMessage(ConfigManager.loadMessage( "answer life update")
                     .replace("%seconds%", args[0])).queue()
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e.stackTrace)
+            Wally.logger.logStackTrace(e)
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "answer life error"))
         }
     }
