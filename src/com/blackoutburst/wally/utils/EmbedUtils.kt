@@ -138,6 +138,51 @@ object EmbedUtils {
             .build()
     }
 
+    fun generatePracticeCompareEmbed(player1Data: String, player2Data: String): MessageEmbed {
+        val player1 = PracticeStats(player1Data)
+        val player2 = PracticeStats(player2Data)
+        val date = LocalDate.now().toString()
+
+        return EmbedBuilder()
+            .setAuthor(player1.name + " VS " + player2.name,"https://hypixel.net/arcade-games/leaderboard/hole_in_the_wall", "https://www.blackoutburst.com/img/wally.png")
+            .setTitle("Hypixel stats compare", "https://hypixel.net/arcade-games/leaderboard/hole_in_the_wall")
+            .setColor(getColorFromScore(getHighestScore(player1.scores.plus(player2.scores))))
+            .addField("**${player1.name}**",
+                "```\n"+
+                        comparisonLineLeft("Qualification", player1.qualification, player1.qualificationPosition)+
+                        comparisonLineLeft("Finals", player1.finals, player1.finalsPosition)+
+                        comparisonLineLeft("Lobby", player1.lobby, player1.lobbyPosition)+
+                        comparisonLineLeft("Wide Qualification", player1.wideQualification, player1.wideQualificationPosition)+
+                        comparisonLineLeft("Wide Finals", player1.wideFinals, player1.wideFinalsPosition)+
+                        comparisonLineLeft("Total Score", player1.total, player1.totalPosition)+
+                        comparisonLineLeft("Overall Rank", player1.overall, player1.overallPosition)+
+                        "```",
+                true)
+            .addField("**[VS]**",
+                "```\n"+
+                        comparisonLineMiddle(player1.qualification, player2.qualification)+
+                        comparisonLineMiddle(player1.finals, player2.finals)+
+                        comparisonLineMiddle(player1.lobby, player2.lobby)+
+                        comparisonLineMiddle(player1.wideQualification, player2.wideQualification)+
+                        comparisonLineMiddle(player1.wideFinals, player2.wideFinals)+
+                        comparisonLineMiddle(player1.total, player2.total)+
+                        comparisonLineMiddle(player1.overall, player2.overall)+
+                        "```",
+                true)
+            .addField(player2.name,
+                "```\n"+
+                        comparisonLineRight("Qualification", player2.qualification, player2.qualificationPosition) +
+                        comparisonLineRight("Finals", player2.finals, player2.finalsPosition)+
+                        comparisonLineRight("Lobby", player2.lobby, player2.lobbyPosition)+
+                        comparisonLineRight("Wide Qualification", player2.wideQualification, player2.wideQualificationPosition)+
+                        comparisonLineRight("Wide Finals", player2.wideFinals, player2.wideFinalsPosition)+
+                        comparisonLineRight("Total Score", player2.total, player2.totalPosition)+
+                        comparisonLineRight("Overall Rank", player2.overall, player2.overallPosition)+
+                        "```"
+                ,true)
+            .setFooter(date)
+            .build()
+    }
 
     fun generateSkin(uuid: String, playerName: String): EmbedBuilder {
         val time = System.currentTimeMillis()

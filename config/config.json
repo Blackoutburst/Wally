@@ -106,6 +106,7 @@
     "invalid page": "The page %page% is not valid please use a valid number",
     "select log level": "Select the new log level",
     "select permission level": "Select %user% new permission level",
-    "command compare error": "There was an error while running the command compare"
+    "command compare error": "There was an error while running the command compare",
+    "command practice compare error": "There was an error while running the practice command compare"
   }
 }
