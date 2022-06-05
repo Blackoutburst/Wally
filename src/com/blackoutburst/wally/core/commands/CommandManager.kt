@@ -77,11 +77,9 @@ object CommandManager {
             }
         }
 
-        val unknownCommand = ConfigManager.loadMessage( "unknown command")
-
         if (lowestWeight > 20) closest = null
         if (closest == null) {
-            message.reply(unknownCommand
+            message.reply(ConfigManager.loadMessage( "unknown command")
                 .replace("%command_name%", commandName) + '\n' +
                     ConfigManager.loadMessage( "run help").replace("%help%", prefix + "help")
             ).setActionRow(
@@ -92,7 +90,7 @@ object CommandManager {
             }
             return
         }
-        message.reply(unknownCommand
+        message.reply(ConfigManager.loadMessage( "unknown command")
             .replace("%command_name%", commandName) + '\n' +
                 ConfigManager.loadMessage( "close command").replace("%command_name%", closest)
         ).setActionRow(
@@ -126,6 +124,16 @@ object CommandManager {
             }
             return
         }
+
+        message.reply(ConfigManager.loadMessage( "unknown command")
+            .replace("%command_name%", commandName) + '\n' +
+                ConfigManager.loadMessage( "run help").replace("%help%", prefix + "help")
+        ).setActionRow(
+            Button.primary(commandSender.member.id + ":" + message.id, "Yes run help"),
+            Button.danger(commandSender.member.id + ":" + UUID.randomUUID(), "No"))
+            .queue { r: Message ->
+                r.delete().queueAfter(ConfigManager.loadValue("settings", "answer lifetime").toLong(), TimeUnit.SECONDS)
+            }
         //checkForCloseCommand(commandSender, commandName, message) Temps disabled until it works properly
     }
 }
