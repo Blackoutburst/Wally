@@ -35,6 +35,15 @@ class PracticeStats() : StatsObject {
         this.wideFinals = wideFinals
         this.total = total
         this.combined = true
+
+        qualificationPosition = getPlayerPosition(uuid, LeaderboardManager.qualificationLeaderboardPractice)
+        finalsPosition = getPlayerPosition(uuid, LeaderboardManager.finalsLeaderboardPractice)
+        lobbyPosition = getPlayerPosition(uuid, LeaderboardManager.lobbyLeaderboardPractice)
+        wideQualificationPosition = getPlayerPosition(uuid, LeaderboardManager.wideQualificationLeaderboardPractice)
+        wideFinalsPosition = getPlayerPosition(uuid, LeaderboardManager.wideFinalsLeaderboardPractice)
+        totalPosition = getPlayerPosition(uuid, LeaderboardManager.totalLeaderboardPractice)
+        overall = (qualificationPosition + finalsPosition + wideQualificationPosition + wideFinalsPosition + totalPosition) / 5.0f
+        overallPosition = getPlayerPosition(uuid, LeaderboardManager.overallLeaderboardPractice)
     }
 
     constructor(data: String, vararg noLeaderboard: Boolean) : this() {

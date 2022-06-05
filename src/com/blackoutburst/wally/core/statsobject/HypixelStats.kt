@@ -38,6 +38,16 @@ class HypixelStats() : StatsObject {
         this.totalAPI = totalAPI
         this.challenges = challenges
         this.combined = true
+
+        winsPosition = getPlayerPosition(uuid, LeaderboardManager.winsLeaderboardHypixel)
+        wallsPosition = getPlayerPosition(uuid, LeaderboardManager.wallLeaderboardHypixel)
+        qualificationPosition = getPlayerPosition(uuid, LeaderboardManager.qualificationLeaderboardHypixel)
+        finalsPosition = getPlayerPosition(uuid, LeaderboardManager.finalsLeaderboardHypixel)
+        totalPosition = getPlayerPosition(uuid, LeaderboardManager.totalLeaderboardHypixel)
+        totalAPIPosition = getPlayerPosition(uuid, LeaderboardManager.totalApiLeaderboardHypixel)
+        challengesPosition = getPlayerPosition(uuid, LeaderboardManager.challengesLeaderboardHypixel)
+        overall = (winsPosition + wallsPosition + qualificationPosition + finalsPosition + totalPosition + challengesPosition) / 6.0f
+        overallPosition = getPlayerPosition(uuid, LeaderboardManager.overallLeaderboardHypixel)
     }
 
     constructor(data: String, vararg noLeaderboard: Boolean) : this() {

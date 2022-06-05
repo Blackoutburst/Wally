@@ -50,7 +50,11 @@ object MessageUtils {
             when (commandSender.displayPreference) {
                 DisplayPreference.TEXT -> message.editMessage(generatePracticeStatsMessage(stats)).queue()
                 DisplayPreference.EMBED -> message.editMessageEmbeds(generatePracticeStatsEmbed(stats)).queue()
-                else -> message.editMessage("Soon...").queue()}
+                else -> {
+                    CanvasUtils.createPracticeStatsCanvas(stats)
+                    message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("practice_stats.png")).queue()
+                }
+            }
         } else {
             val menu = createAccountMenu(commandSender, uuid, "practice stats")
 
@@ -66,9 +70,11 @@ object MessageUtils {
                     message.replyEmbeds(generatePracticeStatsEmbed(stats)).queue()
                 }
                 else -> menu?.let {
-                    message.reply("Soon...").setActionRow(it).queue()
+                    CanvasUtils.createPracticeStatsCanvas(stats)
+                    message.reply("\u00A0").addFile(File("practice_stats.png")).setActionRow(it).queue()
                 } ?: run {
-                    message.reply("Soon...").queue()
+                    CanvasUtils.createPracticeStatsCanvas(stats)
+                    message.reply("\u00A0").addFile(File("practice_stats.png")).queue()
                 }
             }
         }

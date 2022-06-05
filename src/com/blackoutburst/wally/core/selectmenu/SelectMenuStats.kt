@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEve
 import java.nio.file.Paths
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.statsobject.HypixelStats
-import com.blackoutburst.wally.core.statsobject.StatsObject
 import com.blackoutburst.wally.utils.Utils.getHighestScore
 import java.nio.file.Files
 import java.util.ArrayList
@@ -43,7 +42,7 @@ class SelectMenuStats : SelectMenuExecutable() {
             var challenges = 0
             stats.forEach { s -> challenges += s.challenges }
 
-            val combinedStats = HypixelStats(uuid[0], "${wallyUser.member.effectiveName}#${wallyUser.member.user.discriminator}", wins, walls, qualification, finals, total, totalAPI, challenges)
+            val combinedStats = HypixelStats(wallyUser.mainAccountUuid, "${wallyUser.member.effectiveName}#${wallyUser.member.user.discriminator}", wins, walls, qualification, finals, total, totalAPI, challenges)
 
             event.deferEdit().queue()
 

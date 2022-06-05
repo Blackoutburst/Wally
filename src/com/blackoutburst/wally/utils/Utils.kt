@@ -2,10 +2,8 @@ package com.blackoutburst.wally.utils
 
 import com.blackoutburst.wally.core.Wally
 import net.dv8tion.jda.api.entities.Role
-import net.dv8tion.jda.api.interactions.commands.build.Commands.user
 import java.awt.Color
 import java.awt.image.BufferedImage
-import java.io.*
 import java.net.URL
 import javax.imageio.ImageIO
 
