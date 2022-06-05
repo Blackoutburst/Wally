@@ -11,6 +11,9 @@ class WallyUser(val member: Member, private val options: UserOption) {
     val permissionLevel: PermissionLevel
         get() = options.permissionLevel
 
+    val mainAccountUuid: String
+        get() = options.mainAccountUUID
+
     val displayPreference: DisplayPreference
         get() = options.displayPreference
 

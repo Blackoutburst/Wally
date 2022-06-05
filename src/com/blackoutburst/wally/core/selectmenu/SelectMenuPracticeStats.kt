@@ -22,7 +22,7 @@ class SelectMenuPracticeStats : SelectMenuExecutable() {
             val stats: MutableList<PracticeStats> = ArrayList()
 
             uuid.forEach { u ->
-                val filePath = Paths.get("database/linked users/$memberId/accounts/$u/hypixel.json")
+                val filePath = Paths.get("database/linked users/$memberId/accounts/$u/practice.json")
                 try {
                     val data = String(Files.readAllBytes(filePath))
                     stats.add(PracticeStats(data))
@@ -38,7 +38,7 @@ class SelectMenuPracticeStats : SelectMenuExecutable() {
             val wideFinals = Utils.getHighestScore(stats.map { s -> s.wideFinals }.toIntArray())
             val total = qualification + finals + lobby + wideQualification + wideFinals
 
-            val combinedStats = PracticeStats(uuid[0], "${wallyUser.member.effectiveName}#${wallyUser.member.user.discriminator}", qualification, finals, lobby, wideQualification, wideFinals, total)
+            val combinedStats = PracticeStats(wallyUser.mainAccountUuid, "${wallyUser.member.effectiveName}#${wallyUser.member.user.discriminator}", qualification, finals, lobby, wideQualification, wideFinals, total)
 
             event.deferEdit().queue()
 
