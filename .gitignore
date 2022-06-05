@@ -7,7 +7,6 @@
 /database/
 /leaderboard/
 /linked player/
-*.png
 .settings
 .txt
 .env
