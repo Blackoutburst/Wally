@@ -39,10 +39,10 @@ object CanvasUtils {
     fun createPracticeStatsCanvas(data: PracticeStats) {
         val user = DatabaseUtils.getWallyUserFromUUID(data.uuid)
         val canvas = Canvas(1000, 600)
-        val fontColor = Color.decode(user!!.fontColor)
+        val fontColor = if (user == null) Color.WHITE else Color.decode(user.fontColor)
         val color = Utils.getColorFromScore(Utils.getHighestScore(data.scores))
 
-        if (user.hasFont()) {
+        if (user!!.hasFont()) {
             canvas.loadFont("database/linked users/${user.member.id}/resources/font.ttf")
         }
 
@@ -110,10 +110,10 @@ object CanvasUtils {
     fun createHypixelStatsCanvas(data: HypixelStats) {
         val user = DatabaseUtils.getWallyUserFromUUID(data.uuid)
         val canvas = Canvas(1000, 600)
-        val fontColor = Color.decode(user!!.fontColor)
+        val fontColor = if (user == null) Color.WHITE else Color.decode(user.fontColor)
         val color = Utils.getColorFromScore(Utils.getHighestScore(data.scores))
 
-        if (user.hasFont()) {
+        if (user!!.hasFont()) {
             canvas.loadFont("database/linked users/${user.member.id}/resources/font.ttf")
         }
 
