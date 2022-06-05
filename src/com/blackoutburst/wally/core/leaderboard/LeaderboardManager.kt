@@ -59,10 +59,8 @@ object LeaderboardManager {
             try {
                 val data = String(Files.readAllBytes(filePath))
                 leaderboard.add(
-                    if (type == DatabaseUtils.DataType.HYPIXEL) HypixelStats(
-                        data,
-                        skipPosition
-                    ) else PracticeStats(data, skipPosition)
+                    if (type == DatabaseUtils.DataType.HYPIXEL) HypixelStats(data, skipPosition)
+                    else PracticeStats(data, skipPosition)
                 )
             } catch (e: Exception) {
                 Wally.logger.logStackTrace(e)

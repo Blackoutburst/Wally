@@ -5,16 +5,16 @@ import com.blackoutburst.wally.utils.LeaderboardUtils.getPlayerPosition
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
 import com.blackoutburst.wally.core.leaderboard.Leaderboard
 
-class PracticeStats(data: String?, vararg noLeaderboard: Boolean) : StatsObject {
+class PracticeStats() : StatsObject {
 
-    override val uuid: String
-    override val name: String
-    override val qualification: Int
-    override val finals: Int
-    val lobby: Int
-    val wideQualification: Int
-    val wideFinals: Int
-    override val total: Int
+    override var uuid = ""
+    override var name = ""
+    override var qualification = 0
+    override var finals = 0
+    var lobby = 0
+    var wideQualification = 0
+    var wideFinals = 0
+    override var total = 0
     override var overall = 0f
     var qualificationPosition = 0
     var finalsPosition = 0
@@ -23,9 +23,22 @@ class PracticeStats(data: String?, vararg noLeaderboard: Boolean) : StatsObject 
     var wideFinalsPosition = 0
     var totalPosition = 0
     var overallPosition = 0
+    var combined = false
 
-    init {
-        uuid = getValuesFromAPI(data!!, "uuid", "unknown")
+    constructor(uuid: String, name: String, qualification: Int, finals: Int, lobby :Int, wideQualification: Int, wideFinals: Int, total: Int) : this() {
+        this.uuid = uuid
+        this.name = name
+        this.qualification = qualification
+        this.finals = finals
+        this.lobby = lobby
+        this.wideQualification = wideQualification
+        this.wideFinals = wideFinals
+        this.total = total
+        this.combined = true
+    }
+
+    constructor(data: String, vararg noLeaderboard: Boolean) : this() {
+        uuid = getValuesFromAPI(data, "uuid", "unknown")
         name = getValuesFromAPI(data, "name", "Unknown")
         qualification = getValuesFromAPI(data, "scores.qualification", "0").toInt()
         finals = getValuesFromAPI(data, "scores.finals", "0").toInt()
@@ -33,16 +46,8 @@ class PracticeStats(data: String?, vararg noLeaderboard: Boolean) : StatsObject 
         wideQualification = getValuesFromAPI(data, "scores.wide_qualification", "0").toInt()
         wideFinals = getValuesFromAPI(data, "scores.wide_finals", "0").toInt()
         total = qualification + finals + lobby + wideQualification + wideFinals
-        if (noLeaderboard.isNotEmpty() && noLeaderboard[0]) {
-            qualificationPosition = 0
-            finalsPosition = 0
-            lobbyPosition = 0
-            wideQualificationPosition = 0
-            wideFinalsPosition = 0
-            totalPosition = 0
-            overall = 0f
-            overallPosition = 0
-        } else {
+
+        if (noLeaderboard.isEmpty() || noLeaderboard.isNotEmpty() && !noLeaderboard[0]) {
             qualificationPosition = getPlayerPosition(uuid, LeaderboardManager.qualificationLeaderboardPractice)
             finalsPosition = getPlayerPosition(uuid, LeaderboardManager.finalsLeaderboardPractice)
             lobbyPosition = getPlayerPosition(uuid, LeaderboardManager.lobbyLeaderboardPractice)

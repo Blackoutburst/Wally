@@ -95,7 +95,7 @@ object CanvasUtils {
         canvas.drawImage(iconChallenges, 490, 410, 50, 50)
         canvas.drawStringLeft(formatLine("Challenges", data.challenges, data.challengesPosition), 560, 425, 30.0f, fontColor)
 
-        if (!data.combined) {
+        if (data.overall.toInt() != 0) {
             canvas.drawImage(iconOverall, 490, 480, 50, 50)
             canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 495, 30.0f, fontColor)
         }

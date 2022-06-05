@@ -45,25 +45,25 @@ object MessageUtils {
         }
     }
 
-    fun sendPracticeStats(commandSender: WallyUser, message: Message, data: String, uuid: String, edit: Boolean) {
+    fun sendPracticeStats(commandSender: WallyUser, message: Message, stats: PracticeStats, uuid: String, edit: Boolean) {
         if (edit) {
             when (commandSender.displayPreference) {
-                DisplayPreference.TEXT -> message.editMessage(generatePracticeStatsMessage(data)).queue()
-                DisplayPreference.EMBED -> message.editMessageEmbeds(generatePracticeStatsEmbed(data)).queue()
+                DisplayPreference.TEXT -> message.editMessage(generatePracticeStatsMessage(stats)).queue()
+                DisplayPreference.EMBED -> message.editMessageEmbeds(generatePracticeStatsEmbed(stats)).queue()
                 else -> message.editMessage("Soon...").queue()}
         } else {
             val menu = createAccountMenu(commandSender, uuid, "practice stats")
 
             when (commandSender.displayPreference) {
                 DisplayPreference.TEXT -> menu?.let {
-                    message.reply(generatePracticeStatsMessage(data)).setActionRow(it).queue()
+                    message.reply(generatePracticeStatsMessage(stats)).setActionRow(it).queue()
                 } ?: run {
-                    message.reply(generatePracticeStatsMessage(data)).queue()
+                    message.reply(generatePracticeStatsMessage(stats)).queue()
                 }
                 DisplayPreference.EMBED -> menu?.let {
-                    message.replyEmbeds(generatePracticeStatsEmbed(data)).setActionRow(it).queue()
+                    message.replyEmbeds(generatePracticeStatsEmbed(stats)).setActionRow(it).queue()
                 } ?: run {
-                    message.replyEmbeds(generatePracticeStatsEmbed(data)).queue()
+                    message.replyEmbeds(generatePracticeStatsEmbed(stats)).queue()
                 }
                 else -> menu?.let {
                     message.reply("Soon...").setActionRow(it).queue()
@@ -153,9 +153,7 @@ object MessageUtils {
         return builder.toString()
     }
 
-    private fun generatePracticeStatsMessage(data: String): String {
-        val stats = PracticeStats(data)
-
+    private fun generatePracticeStatsMessage(stats: PracticeStats): String {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + stats.name + System.lineSeparator() + System.lineSeparator() +
                 "Qualification: " + Utils.formatLine(stats.qualification, stats.qualificationPosition) + System.lineSeparator() +
@@ -164,7 +162,7 @@ object MessageUtils {
                 "Wide Qualification: " + Utils.formatLine(stats.wideQualification, stats.wideQualificationPosition) + System.lineSeparator() +
                 "Wide Finals: " + Utils.formatLine(stats.wideFinals, stats.wideFinalsPosition) + System.lineSeparator() +
                 "Total Score: " + Utils.formatLine(stats.total, stats.totalPosition) + System.lineSeparator() +
-                "Overall Rank: " + Utils.formatLine(stats.overall, stats.overallPosition) + System.lineSeparator() +
+                if (stats.overall.toInt() != 0) { "Overall Rank: " + Utils.formatLine(stats.overall, stats.overallPosition) } else { "" } + System.lineSeparator() +
                 "```"
     }
 
@@ -178,7 +176,7 @@ object MessageUtils {
                 "Q/F: " + Utils.formatLine(stats.total, stats.totalPosition) + System.lineSeparator() +
                 "Q/F API: " + Utils.formatLine(stats.totalAPI, stats.totalAPIPosition) + System.lineSeparator() +
                 "Challenges: " + Utils.formatLine(stats.challenges, stats.challengesPosition) + System.lineSeparator() +
-                "Overall Rank: " + Utils.formatLine(stats.overall, stats.overallPosition) + System.lineSeparator() +
+                if (stats.overall.toInt() != 0) { "Overall Rank: " + Utils.formatLine(stats.overall, stats.overallPosition) } else { "" } + System.lineSeparator() +
                 "```"
     }
 
@@ -195,7 +193,7 @@ object MessageUtils {
                 comparisonLine("Q/F", player1.total, player1.totalPosition, player2.total, player2.totalPosition) +
                 comparisonLine("Q/F API", player1.totalAPI, player1.totalAPIPosition, player2.totalAPI, player2.totalAPIPosition) +
                 comparisonLine("Challenges", player1.challenges, player1.challengesPosition, player2.challenges, player2.challengesPosition) +
-                comparisonLine("Overall Rank", player1.overall, player1.overallPosition, player2.overall, player2.overallPosition) +
+                if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) { comparisonLine("Overall Rank", player1.overall, player1.overallPosition, player2.overall, player2.overallPosition) } else { "" } + System.lineSeparator() +
                 "```"
     }
 
@@ -211,7 +209,7 @@ object MessageUtils {
                 comparisonLine("Wide Qualification", player1.wideQualification, player1.wideQualification, player2.wideQualification, player2.wideQualificationPosition) +
                 comparisonLine("Wide Finals", player1.wideFinals, player1.wideFinalsPosition, player2.wideFinals, player2.wideFinalsPosition) +
                 comparisonLine("Total Score", player1.total, player1.totalPosition, player2.total, player2.totalPosition) +
-                comparisonLine("Overall Rank", player1.overall, player1.overallPosition, player2.overall, player2.overallPosition) +
+                if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) { comparisonLine("Overall Rank", player1.overall, player1.overallPosition, player2.overall, player2.overallPosition) } else { "" } + System.lineSeparator() +
                 "```"
     }
 

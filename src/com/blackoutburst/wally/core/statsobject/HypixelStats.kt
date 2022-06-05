@@ -51,7 +51,7 @@ class HypixelStats() : StatsObject {
         totalAPI = getValuesFromAPI(data, "player.achievements.arcade_hitw_practice_makes_perfect", "0").toInt()
         challenges = getValuesFromAPI(data, "player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0").toInt()
 
-        if (noLeaderboard.isEmpty()) {
+        if (noLeaderboard.isEmpty() || noLeaderboard.isNotEmpty() && !noLeaderboard[0]) {
             winsPosition = getPlayerPosition(uuid, LeaderboardManager.winsLeaderboardHypixel)
             wallsPosition = getPlayerPosition(uuid, LeaderboardManager.wallLeaderboardHypixel)
             qualificationPosition = getPlayerPosition(uuid, LeaderboardManager.qualificationLeaderboardHypixel)

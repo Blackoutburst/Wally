@@ -49,7 +49,11 @@ class CommandStats : CommandExecutable() {
             return
         }
         updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, uuid)
-        updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, discordID, uuid)
+
+        val wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid)
+        if (wallyUser != null) {
+            updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, wallyUser.member.id, uuid)
+        }
         Visage.getPlayerHead(uuid)
         sendHypixelStats(commandSender, message, HypixelStats(data), uuid, false)
     }

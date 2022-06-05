@@ -36,13 +36,14 @@ object EmbedUtils {
             .build()
     }
 
-    fun generatePracticeStatsEmbed(data: String): MessageEmbed {
+    fun generatePracticeStatsEmbed(stats: PracticeStats): MessageEmbed {
+        val user = DatabaseUtils.getWallyUserFromUUID(stats.uuid)
         val time = System.currentTimeMillis()
-        val stats = PracticeStats(data)
         val uuid = stats.uuid
-        val faceLink = "https://visage.surgeplay.com/face/512/$uuid?&time=$time"
+        val date = LocalDate.now().toString()
+        val faceLink = if (stats.combined) user!!.member.effectiveAvatarUrl else "https://visage.surgeplay.com/face/512/$uuid?&time=$time"
 
-        return EmbedBuilder()
+        val builder = EmbedBuilder()
             .setAuthor(stats.name,"https://hypixel.net/player/$uuid",faceLink)
             .setThumbnail(faceLink)
             .setTitle("Practice stats", "https://hypixel.net/player/$uuid")
@@ -57,9 +58,13 @@ object EmbedUtils {
             .addField("Wide Finals", "`"+Utils.formatLine(stats.wideFinals, stats.wideFinalsPosition)+"`",true)
             .addBlankField(true)
             .addField("Total Score", "`"+Utils.formatLine(stats.total, stats.totalPosition)+"`",true)
-            .addField("Overall Rank", "`"+Utils.formatLine(stats.overall, stats.overallPosition)+"`",true)
-            .setFooter(LocalDate.now().toString() + " | " + stats.uuid)
-            .build()
+
+        if (stats.overall.toInt() != 0)
+            builder.addField("Overall Rank", "`"+Utils.formatLine(stats.overall, stats.overallPosition)+"`",true)
+        builder.addBlankField(true)
+        builder.setFooter("$date | $uuid")
+
+        return builder.build()
     }
 
     fun generateHypixelStatsEmbed(stats: HypixelStats): MessageEmbed {
@@ -69,7 +74,7 @@ object EmbedUtils {
         val date = LocalDate.now().toString()
         val faceLink = if (stats.combined) user!!.member.effectiveAvatarUrl else "https://visage.surgeplay.com/face/512/$uuid?&time=$time"
 
-        return EmbedBuilder()
+        val builder = EmbedBuilder()
             .setAuthor(stats.name,"https://hypixel.net/player/$uuid",faceLink)
             .setThumbnail(faceLink)
             .setTitle("Hypixel stats", "https://hypixel.net/player/" + stats.uuid)
@@ -84,9 +89,13 @@ object EmbedUtils {
             .addField("QF (according to the API)", "`"+Utils.formatLine(stats.totalAPI, stats.totalAPIPosition)+"`",true)
             .addBlankField(true)
             .addField("Challenges", "`"+Utils.formatLine(stats.challenges, stats.challengesPosition)+"`",true)
-            .addField("Overall Rank", "`"+Utils.formatLine(stats.overall, stats.overallPosition)+"`",true)
-            .setFooter("$date | $uuid")
-            .build()
+
+        if (stats.overall.toInt() != 0)
+            builder.addField("Overall Rank", "`"+Utils.formatLine(stats.overall, stats.overallPosition)+"`",true)
+        builder.addBlankField(true)
+        builder.setFooter("$date | $uuid")
+
+        return builder.build()
     }
 
     fun generateHypixelCompareEmbed(player1Data: String, player2Data: String): MessageEmbed {
@@ -107,7 +116,7 @@ object EmbedUtils {
                   comparisonLineLeft("Q/F", player1.total, player1.totalPosition)+
                   comparisonLineLeft("Q/F API", player1.totalAPI, player1.totalAPIPosition)+
                   comparisonLineLeft("Challenges", player1.challenges, player1.challengesPosition)+
-                  comparisonLineLeft("Overall Rank", player1.overall, player1.overallPosition)+
+                  if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) { comparisonLineLeft("Overall Rank", player1.overall, player1.overallPosition) } else { "" }+
                   "```",
                 true)
             .addField("**[VS]**",
@@ -119,7 +128,7 @@ object EmbedUtils {
                   comparisonLineMiddle(player1.total, player2.total)+
                   comparisonLineMiddle(player1.totalAPI, player2.totalAPI)+
                   comparisonLineMiddle(player1.challenges, player2.challenges)+
-                  comparisonLineMiddle(player1.overall, player2.overall)+
+                  if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) { comparisonLineMiddle(player1.overall, player2.overall) } else { "" }+
                   "```",
                 true)
             .addField(player2.name,
@@ -131,7 +140,7 @@ object EmbedUtils {
                   comparisonLineRight("Q/F", player2.total, player2.totalPosition)+
                   comparisonLineRight("Q/F API", player2.totalAPI, player2.totalAPIPosition)+
                   comparisonLineRight("Challenges", player2.challenges, player2.challengesPosition)+
-                  comparisonLineRight("Overall Rank", player2.overall, player2.overallPosition)+
+                  if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) { comparisonLineRight("Overall Rank", player2.overall, player2.overallPosition) } else { "" }+
                   "```"
                 ,true)
             .setFooter(date)
@@ -155,7 +164,7 @@ object EmbedUtils {
                         comparisonLineLeft("Wide Qualification", player1.wideQualification, player1.wideQualificationPosition)+
                         comparisonLineLeft("Wide Finals", player1.wideFinals, player1.wideFinalsPosition)+
                         comparisonLineLeft("Total Score", player1.total, player1.totalPosition)+
-                        comparisonLineLeft("Overall Rank", player1.overall, player1.overallPosition)+
+                        if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) { comparisonLineLeft("Overall Rank", player1.overall, player1.overallPosition) } else { "" }+
                         "```",
                 true)
             .addField("**[VS]**",
@@ -166,7 +175,7 @@ object EmbedUtils {
                         comparisonLineMiddle(player1.wideQualification, player2.wideQualification)+
                         comparisonLineMiddle(player1.wideFinals, player2.wideFinals)+
                         comparisonLineMiddle(player1.total, player2.total)+
-                        comparisonLineMiddle(player1.overall, player2.overall)+
+                        if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) { comparisonLineMiddle(player1.overall, player2.overall) } else { "" }+
                         "```",
                 true)
             .addField(player2.name,
@@ -177,7 +186,7 @@ object EmbedUtils {
                         comparisonLineRight("Wide Qualification", player2.wideQualification, player2.wideQualificationPosition)+
                         comparisonLineRight("Wide Finals", player2.wideFinals, player2.wideFinalsPosition)+
                         comparisonLineRight("Total Score", player2.total, player2.totalPosition)+
-                        comparisonLineRight("Overall Rank", player2.overall, player2.overallPosition)+
+                        if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) { comparisonLineRight("Overall Rank", player2.overall, player2.overallPosition) } else { "" }+
                         "```"
                 ,true)
             .setFooter(date)
