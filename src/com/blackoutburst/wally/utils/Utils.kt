@@ -55,15 +55,15 @@ object Utils {
 
     fun getScoreCompareColor(score1: Number, score2: Number) : Color {
         if (score1 is Int) {
-            if (score1.toLong() > score2.toLong())
-                return Color.RED
             if (score1.toLong() < score2.toLong())
+                return Color.RED
+            if (score1.toLong() > score2.toLong())
                 return Color.GREEN
             return Color.WHITE
         } else {
-            if (score1.toDouble() < score2.toDouble())
-                return Color.RED
             if (score1.toDouble() > score2.toDouble())
+                return Color.RED
+            if (score1.toDouble() < score2.toDouble())
                 return Color.GREEN
             return Color.WHITE
         }
