@@ -126,6 +126,6 @@ object CommandManager {
             }
             return
         }
-        checkForCloseCommand(commandSender, commandName, message)
+        //checkForCloseCommand(commandSender, commandName, message) Temps disabled until it works properly
     }
 }

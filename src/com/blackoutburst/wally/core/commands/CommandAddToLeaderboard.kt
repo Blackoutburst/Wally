@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.request.Hypixel
 import com.blackoutburst.wally.core.request.PracticeServer
+import com.blackoutburst.wally.core.request.Visage
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
 import net.dv8tion.jda.api.entities.Guild
@@ -34,6 +35,7 @@ class CommandAddToLeaderboard : CommandExecutable() {
         val practiceData = PracticeServer.getPlayerStats(playerUUID)
         updateLeaderboardStats(hypixelData!!, DatabaseUtils.DataType.HYPIXEL, playerUUID)
         updateLeaderboardStats(practiceData!!, DatabaseUtils.DataType.HYPIXEL, playerUUID)
+        Visage.getPlayerHead(playerUUID)
 
         channel.sendMessage(ConfigManager.loadMessage( "remove exclude success").replace("%name%", args[0])).queue()
     }

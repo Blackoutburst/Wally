@@ -97,8 +97,7 @@ object MessageUtils {
                 DisplayPreference.EMBED -> message.editMessageEmbeds(generateHypixelStatsEmbed(data)).queue()
                 else -> {
                     CanvasUtils.createHypixelStatsCanvas(HypixelStats(data))
-                    message.editMessage("\u00A0").clearFiles().complete()
-                    message.editMessage("\u00A0").clearFiles().addFile(File("stats.png")).queue()
+                    message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("stats.png")).queue()
                 }
             }
         } else {

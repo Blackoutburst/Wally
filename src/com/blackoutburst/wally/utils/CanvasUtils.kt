@@ -44,8 +44,8 @@ object CanvasUtils {
 
         canvas.drawImage(hypixelHeader, 0, 0, 1000, 37, color)
 
-        if (File("database/linked users/${user.member.id}/resources/head.png").exists())
-            canvas.drawImage("database/linked users/${user.member.id}/resources/head.png", 20, 57, 128, 128)
+        if (File("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png").exists())
+            canvas.drawImage("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png", 20, 57, 128, 128)
         else if (File("database/leaderboards/hypixel/${data.uuid}/head.png").exists())
             canvas.drawImage("database/leaderboards/hypixel/${data.uuid}/head.png", 20, 57, 128, 128)
         else if (File("database/leaderboards/practice/${data.uuid}/head.png").exists())

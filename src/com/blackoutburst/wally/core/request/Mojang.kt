@@ -7,7 +7,7 @@ import com.blackoutburst.wally.core.logger.LogLevel
 
 object Mojang {
 
-    fun getPlayerUUID( playerName: String): String? {
+    fun getPlayerUUID(playerName: String): String? {
         return try {
             val result = ConnectionManager.readFromURL("https://api.mojang.com/users/profiles/minecraft/$playerName")
             val gson = Gson()
@@ -21,7 +21,7 @@ object Mojang {
         }
     }
 
-    fun getPlayerName( uuid: String): String? {
+    fun getPlayerName(uuid: String): String? {
         return try {
             val result = ConnectionManager.readFromURL("https://sessionserver.mojang.com/session/minecraft/profile/$uuid")
             val gson = Gson()

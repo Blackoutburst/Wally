@@ -25,10 +25,12 @@ class CommandExcludeList : CommandExecutable() {
             val builder = StringBuilder()
             var line: String?
 
+            builder.append("```\n")
             while (reader.readLine().also { line = it } != null) {
                 builder.append(line).append("\n")
             }
             reader.close()
+            builder.append("```\n")
 
             channel.sendMessage(builder).queue()
         } catch (e: Exception) {

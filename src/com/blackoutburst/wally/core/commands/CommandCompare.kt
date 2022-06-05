@@ -14,6 +14,7 @@ import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.request.Visage
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 
@@ -60,8 +61,11 @@ class CommandCompare : CommandExecutable() {
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "command compare error"))
             return
         }
+
         updateLeaderboardStats(player1Data, DatabaseUtils.DataType.HYPIXEL, player1Uuid)
         updateLeaderboardStats(player2Data, DatabaseUtils.DataType.HYPIXEL, player2Uuid)
+        Visage.getPlayerHead(player1Uuid)
+        Visage.getPlayerHead(player2Uuid)
         sendHypixelCompare(commandSender, message, player1Data, player2Data)
     }
 }
