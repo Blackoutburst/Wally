@@ -95,7 +95,10 @@ object MessageUtils {
         when (commandSender.displayPreference) {
             DisplayPreference.TEXT -> message.reply(generatePracticeCompareMessage(player1data, player2data)).queue()
             DisplayPreference.EMBED -> message.replyEmbeds(generatePracticeCompareEmbed(player1data, player2data)).queue()
-            else -> message.reply("Soon...").queue()
+            else -> {
+                CanvasUtils.createPracticeCompareCanvas(player1data, player2data)
+                message.reply("\u00A0").addFile(File("practice_compare.png")).queue()
+            }
         }
     }
 
