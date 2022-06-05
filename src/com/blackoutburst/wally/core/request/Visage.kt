@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.core.request
 
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.utils.DatabaseUtils
 import java.io.*
 import java.net.URL
@@ -48,6 +49,7 @@ object Visage {
                 fos.write(response)
                 fos.close()
             }
+            Wally.logger.log(LogLevel.INFO, "Visage request sent for [$uuid]")
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e)
         }
