@@ -48,9 +48,6 @@ object Utils {
     fun getHighestScore(scores: IntArray): Int {
         var highest = 0
 
-        for (score in scores)
-            println(score)
-
         for (score in scores) if (score > highest) highest = score
         return highest
     }
