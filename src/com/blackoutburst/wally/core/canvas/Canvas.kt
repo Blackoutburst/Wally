@@ -7,7 +7,7 @@ import java.io.IOException
 import javax.imageio.ImageIO
 
 
-class Canvas(private var width: Int, private var height: Int) {
+class Canvas(width: Int, height: Int) {
 
     private var bufferedImage: BufferedImage? = null
     private var font: Font? = null
@@ -27,7 +27,7 @@ class Canvas(private var width: Int, private var height: Int) {
         g!!.dispose()
     }
 
-    private fun tint(r: Float, g: Float, b: Float, a: Float, image: BufferedImage): BufferedImage? {
+    private fun tint(r: Float, g: Float, b: Float, a: Float, image: BufferedImage): BufferedImage {
         val tintedImage = BufferedImage(image.width, image.height, BufferedImage.TRANSLUCENT)
         val graphics = tintedImage.createGraphics()
         graphics.drawImage(image, 0, 0, null)
