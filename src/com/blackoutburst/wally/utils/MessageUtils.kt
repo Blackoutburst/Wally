@@ -84,7 +84,10 @@ object MessageUtils {
         when (commandSender.displayPreference) {
             DisplayPreference.TEXT -> message.reply(generateHypixelCompareMessage(player1data, player2data)).queue()
             DisplayPreference.EMBED -> message.replyEmbeds(generateHypixelCompareEmbed(player1data, player2data)).queue()
-            else -> message.reply("Soon...").queue()
+            else -> {
+                CanvasUtils.createHypixelCompareCanvas(player1data, player2data)
+                message.reply("\u00A0").addFile(File("compare.png")).queue()
+            }
         }
     }
 

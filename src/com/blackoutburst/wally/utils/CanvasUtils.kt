@@ -29,10 +29,131 @@ import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.utils.Utils.downloadAvatar
 import com.blackoutburst.wally.utils.Utils.formatLine
+import com.blackoutburst.wally.utils.Utils.formatLineReverse
+import com.blackoutburst.wally.utils.Utils.formatScoreCompareCanvas
+import com.blackoutburst.wally.utils.Utils.getScoreCompareColor
 import java.awt.Color
 import java.io.File
 
 object CanvasUtils {
+
+    fun createHypixelCompareCanvas(data1: String, data2: String) {
+        val canvas = Canvas(1000, 600)
+
+        val player1 = HypixelStats(data1)
+        val user1 = DatabaseUtils.getWallyUserFromUUID(player1.uuid)
+        val fontColor1 = if (user1 == null) Color.WHITE else Color.decode(user1.fontColor)
+        val color1 = Utils.getColorFromScore(Utils.getHighestScore(player1.scores))
+
+        val player2 = HypixelStats(data2)
+        val user2 = DatabaseUtils.getWallyUserFromUUID(player2.uuid)
+        val fontColor2 = if (user2 == null) Color.WHITE else Color.decode(user2.fontColor)
+        val color2 = Utils.getColorFromScore(Utils.getHighestScore(player2.scores))
+
+        if (user1 != null && user1.hasFont()) {
+            canvas.loadFont("database/linked users/${user1.member.id}/resources/font.ttf")
+        }
+
+        if (user1 != null && user1.hasBackground()) {
+            canvas.drawImageLeftHalf("database/linked users/${user1.member.id}/resources/background.png", 0, 37, 500, 563)
+        } else {
+            canvas.drawImageLeftHalf(background, 0, 37, 500, 563)
+        }
+
+        canvas.drawImageLeftHalf(hypixelHeader, 0, 0, 500, 37, color1)
+
+        if (user1 != null && File("database/linked users/${user1.member.id}/accounts/${player1.uuid}/head.png").exists())
+            canvas.drawImage("database/linked users/${user1.member.id}/accounts/${player1.uuid}/head.png", 20, 52, 64, 64)
+        else if (File("database/leaderboards/hypixel/${player1.uuid}/head.png").exists())
+            canvas.drawImage("database/leaderboards/hypixel/${player1.uuid}/head.png", 20, 52, 64, 64)
+        else if (File("database/leaderboards/practice/${player1.uuid}/head.png").exists())
+            canvas.drawImage("database/leaderboards/practice/${player1.uuid}/head.png", 20, 52, 64, 64)
+        else
+            canvas.drawImage(missingHead, 20, 52, 64, 64)
+
+        canvas.drawStringLeft(player1.name, 100, 57, 36.0f, fontColor1)
+        if (user1 != null)
+            canvas.drawStringLeft(user1.subtitle, 100, 97, 30.0f, fontColor1)
+
+        canvas.drawImage(line, 0, 130, 450, 5, color1)
+
+        canvas.drawImage(iconWins, 20, 150, 40, 40)
+        canvas.drawStringLeft(formatLine("Wins", player1.wins, player1.winsPosition), 80, 160, 30.0f, getScoreCompareColor(player1.wins, player2.wins))
+        canvas.drawImage(iconWalls, 20, 205, 40, 40)
+        canvas.drawStringLeft(formatLine("Walls", player1.walls, player1.wallsPosition), 80, 215, 30.0f, getScoreCompareColor(player1.walls, player2.walls))
+        canvas.drawImage(iconQualification, 20, 260, 40, 40)
+        canvas.drawStringLeft(formatLine("Qualification", player1.qualification, player1.qualificationPosition), 80, 270, 30.0f, getScoreCompareColor(player1.qualification, player2.qualification))
+        canvas.drawImage(iconFinals, 20, 315, 40, 40)
+        canvas.drawStringLeft(formatLine("Finals", player1.finals, player1.finalsPosition), 80, 325, 30.0f, getScoreCompareColor(player1.finals, player2.finals))
+        canvas.drawImage(iconTotal, 20, 370, 40, 40)
+        canvas.drawStringLeft(formatLine("Total Score", player1.total, player1.totalPosition), 80, 380, 30.0f, getScoreCompareColor(player1.total, player2.total))
+        canvas.drawImage(iconTotalApi, 20, 425, 40, 40)
+        canvas.drawStringLeft(formatLine("Total Score (API)", player1.totalAPI, player1.totalAPIPosition), 80, 435, 30.0f, getScoreCompareColor(player1.totalAPI, player2.totalAPI))
+        canvas.drawImage(iconChallenges, 20, 480, 40, 40)
+        canvas.drawStringLeft(formatLine("Challenges", player1.challenges, player1.challengesPosition), 80, 490, 30.0f, getScoreCompareColor(player1.challenges, player2.challenges))
+        if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
+            canvas.drawImage(iconOverall, 20, 535, 40, 40)
+            canvas.drawStringLeft(formatLine("Overall Rank", player1.overall, player1.overallPosition), 80, 545, 30.0f, getScoreCompareColor(player1.overall, player2.overall))
+        }
+
+        if (user2 != null && user2.hasFont()) {
+            canvas.loadFont("database/linked users/${user2.member.id}/resources/font.ttf")
+        }
+
+        if (user2 != null && user2.hasBackground()) {
+            canvas.drawImageRightHalf("database/linked users/${user2.member.id}/resources/background.png", 500, 37, 500, 563)
+        } else {
+            canvas.drawImageRightHalf(background, 500, 37, 500, 563)
+        }
+
+        canvas.drawImageRightHalf(hypixelHeader, 500, 0, 500, 37, color2)
+
+        if (user2 != null && File("database/linked users/${user2.member.id}/accounts/${player2.uuid}/head.png").exists())
+            canvas.drawImage("database/linked users/${user2.member.id}/accounts/${player2.uuid}/head.png", 916, 52, 64, 64)
+        else if (File("database/leaderboards/hypixel/${player2.uuid}/head.png").exists())
+            canvas.drawImage("database/leaderboards/hypixel/${player2.uuid}/head.png", 916, 52, 64, 64)
+        else if (File("database/leaderboards/practice/${player2.uuid}/head.png").exists())
+            canvas.drawImage("database/leaderboards/practice/${player2.uuid}/head.png", 916, 52, 64, 64)
+        else
+            canvas.drawImage(missingHead, 916, 52, 64, 64)
+
+        canvas.drawStringRight(player2.name, 900, 57, 36.0f, fontColor2)
+        if (user2 != null)
+            canvas.drawStringRight(user2.subtitle, 900, 97, 30.0f, fontColor2)
+
+        canvas.drawImage(line, 1000, 130, -450, 5, color2)
+
+        canvas.drawImage(iconWins, 940, 150, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Wins", player2.wins, player2.winsPosition), 920, 160, 30.0f, getScoreCompareColor(player2.wins, player1.wins))
+        canvas.drawImage(iconWalls, 940, 205, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Walls", player2.walls, player2.wallsPosition), 920, 215, 30.0f, getScoreCompareColor(player2.walls, player1.walls))
+        canvas.drawImage(iconQualification, 940, 260, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Qualification", player2.qualification, player2.qualificationPosition), 920, 270, 30.0f, getScoreCompareColor(player2.qualification, player1.qualification))
+        canvas.drawImage(iconFinals, 940, 315, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Finals", player2.finals, player2.finalsPosition), 920, 325, 30.0f, getScoreCompareColor(player2.finals, player1.finals))
+        canvas.drawImage(iconTotal, 940, 370, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Total Score", player2.total, player2.totalPosition), 920, 380, 30.0f, getScoreCompareColor(player2.total, player1.total))
+        canvas.drawImage(iconTotalApi, 940, 425, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Total Score (API)", player2.totalAPI, player2.totalAPIPosition), 920, 435, 30.0f, getScoreCompareColor(player2.totalAPI, player1.totalAPI))
+        canvas.drawImage(iconChallenges, 940, 480, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Challenges", player2.challenges, player2.challengesPosition), 920, 490, 30.0f, getScoreCompareColor(player2.challenges, player1.challenges))
+        if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
+            canvas.drawImage(iconOverall, 940, 535, 40, 40)
+            canvas.drawStringRight(formatLineReverse("Overall Rank", player2.overall, player2.overallPosition), 920, 545, 30.0f, getScoreCompareColor(player2.overall, player1.overall))
+        }
+
+        canvas.drawStringCenter(formatScoreCompareCanvas(player1.wins, player2.wins), 500, 160, 30.0f, Color.WHITE)
+        canvas.drawStringCenter(formatScoreCompareCanvas(player1.walls, player2.walls), 500, 215, 30.0f, Color.WHITE)
+        canvas.drawStringCenter(formatScoreCompareCanvas(player1.qualification, player2.qualification), 500, 270, 30.0f, Color.WHITE)
+        canvas.drawStringCenter(formatScoreCompareCanvas(player1.finals, player2.finals), 500, 325, 30.0f, Color.WHITE)
+        canvas.drawStringCenter(formatScoreCompareCanvas(player1.total, player2.total), 500, 380, 30.0f, Color.WHITE)
+        canvas.drawStringCenter(formatScoreCompareCanvas(player1.totalAPI, player2.totalAPI), 500, 435, 30.0f, Color.WHITE)
+        canvas.drawStringCenter(formatScoreCompareCanvas(player1.challenges, player2.challenges), 500, 490, 30.0f, Color.WHITE)
+        if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0)
+            canvas.drawStringCenter(formatScoreCompareCanvas(player1.overall, player2.overall), 500, 545, 30.0f, Color.WHITE)
+
+        canvas.save("compare.png")
+    }
 
     fun createPracticeStatsCanvas(data: PracticeStats) {
         val user = DatabaseUtils.getWallyUserFromUUID(data.uuid)
