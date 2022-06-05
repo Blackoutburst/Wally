@@ -6,6 +6,13 @@ import java.awt.Color
 
 object Utils {
 
+    fun formatLine(label :String, score: Number, position: Int): String {
+        return if (score is Int)
+            "$label: " + Wally.numberFormat.format(score.toLong()) + " " + LeaderboardUtils.formatPosition(position)
+        else
+            "$label: " + Wally.decimalFormat.format(score.toDouble()) + " " + LeaderboardUtils.formatPosition(position)
+    }
+
     fun formatLine(score: Number, position: Int): String {
         return if (score is Int)
             Wally.numberFormat.format(score.toLong()) + " " + LeaderboardUtils.formatPosition(position)

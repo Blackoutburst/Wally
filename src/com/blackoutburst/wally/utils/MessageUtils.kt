@@ -95,7 +95,11 @@ object MessageUtils {
             when (commandSender.displayPreference) {
                 DisplayPreference.TEXT -> message.editMessage(generateHypixelStatsMessage(data)).queue()
                 DisplayPreference.EMBED -> message.editMessageEmbeds(generateHypixelStatsEmbed(data)).queue()
-                else -> message.editMessage("Soon...").queue()
+                else -> {
+                    CanvasUtils.createHypixelStatsCanvas(HypixelStats(data))
+                    message.editMessage("\u00A0").clearFiles().complete()
+                    message.editMessage("\u00A0").clearFiles().addFile(File("stats.png")).queue()
+                }
             }
         } else {
             val menu = createAccountMenu(commandSender, uuid, "stats")
@@ -112,9 +116,11 @@ object MessageUtils {
                     message.replyEmbeds(generateHypixelStatsEmbed(data)).queue()
                 }
                 else -> menu?.let {
-                    message.reply("Soon...").setActionRow(it).queue()
+                    CanvasUtils.createHypixelStatsCanvas(HypixelStats(data))
+                    message.reply("\u00A0").addFile(File("stats.png")).setActionRow(it).queue()
                 } ?: run {
-                    message.reply("Soon...").queue()
+                    CanvasUtils.createHypixelStatsCanvas(HypixelStats(data))
+                    message.reply("\u00A0").addFile(File("stats.png")).queue()
                 }
             }
         }
