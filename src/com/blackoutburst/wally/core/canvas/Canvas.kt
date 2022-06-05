@@ -51,14 +51,54 @@ class Canvas(width: Int, height: Int) {
         g!!.drawImage(tintedImage, x, y, width, height, null)
     }
 
+    fun drawImageLeftHalf(image: BufferedImage, x: Int, y: Int, width: Int, height: Int, color :Color) {
+        val tintedImage = tint(color.red / 255.0f, color.green / 255.0f, color.blue / 255.0f, color.alpha / 255.0f, image)
+
+        g!!.drawImage(tintedImage.getSubimage(0, 0, image.width/2, image.height), x, y, width, height, null)
+    }
+
+    fun drawImageRightHalf(image: BufferedImage, x: Int, y: Int, width: Int, height: Int, color :Color) {
+        val tintedImage = tint(color.red / 255.0f, color.green / 255.0f, color.blue / 255.0f, color.alpha / 255.0f, image)
+
+        g!!.drawImage(tintedImage.getSubimage(image.width/2, 0, image.width/2, image.height), x, y, width, height, null)
+    }
+
     fun drawImage(image: BufferedImage, x: Int, y: Int, width: Int, height: Int) {
         g!!.drawImage(image, x, y, width, height, null)
+    }
+
+    fun drawImageLeftHalf(image: BufferedImage, x: Int, y: Int, width: Int, height: Int) {
+        g!!.drawImage(image.getSubimage(0, 0, image.width/2, image.height), x, y, width, height, null)
+    }
+
+    fun drawImageRightHalf(image: BufferedImage, x: Int, y: Int, width: Int, height: Int) {
+        g!!.drawImage(image.getSubimage(image.width/2, 0, image.width/2, image.height), x, y, width, height, null)
     }
 
     fun drawImage(file: String, x: Int, y: Int, width: Int, height: Int) {
         try {
             val image = ImageIO.read(File(file))
             g!!.drawImage(image, x, y, width, height, null)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun drawImageLeftHalf(file: String, x: Int, y: Int, width: Int, height: Int) {
+        try {
+            val image = ImageIO.read(File(file))
+
+            g!!.drawImage(image.getSubimage(0, 0, image.width/2, image.height), x, y, width, height, null)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun drawImageRightHalf(file: String, x: Int, y: Int, width: Int, height: Int) {
+        try {
+            val image = ImageIO.read(File(file))
+
+            g!!.drawImage(image.getSubimage(image.width/2, 0, image.width/2, image.height), x, y, width, height, null)
         } catch (e: Exception) {
             e.printStackTrace()
         }

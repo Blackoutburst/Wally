@@ -6,6 +6,7 @@ import java.awt.Color
 import java.awt.image.BufferedImage
 import java.net.URL
 import javax.imageio.ImageIO
+import kotlin.math.abs
 
 
 object Utils {
@@ -22,6 +23,13 @@ object Utils {
             "$label: " + Wally.numberFormat.format(score.toLong()) + " " + LeaderboardUtils.formatPosition(position)
         else
             "$label: " + Wally.decimalFormat.format(score.toDouble()) + " " + LeaderboardUtils.formatPosition(position)
+    }
+
+    fun formatLineReverse(label :String, score: Number, position: Int): String {
+        return if (score is Int)
+            LeaderboardUtils.formatPosition(position) + " " + Wally.numberFormat.format(score.toLong()) + " :$label"
+        else
+            LeaderboardUtils.formatPosition(position) + " " + Wally.decimalFormat.format(score.toDouble()) + " :$label"
     }
 
     fun formatLine(score: Number, position: Int): String {
@@ -43,6 +51,29 @@ object Utils {
             if (score1 is Int) Wally.numberFormat.format(score1.toLong() - score2.toLong()) else Wally.decimalFormat.format(score1.toDouble() - score2.toDouble()),
             if (score1 is Int) Wally.numberFormat.format(score2.toLong() - score1.toLong()) else Wally.decimalFormat.format(score2.toDouble() - score1.toDouble())
         )
+    }
+
+    fun getScoreCompareColor(score1: Number, score2: Number) : Color {
+        if (score1 is Int) {
+            if (score1.toLong() > score2.toLong())
+                return Color.RED
+            if (score1.toLong() < score2.toLong())
+                return Color.GREEN
+            return Color.WHITE
+        } else {
+            if (score1.toDouble() < score2.toDouble())
+                return Color.RED
+            if (score1.toDouble() > score2.toDouble())
+                return Color.GREEN
+            return Color.WHITE
+        }
+    }
+
+    fun formatScoreCompareCanvas(score1: Number, score2: Number) : String {
+        return if (score1 is Int)
+            "[" + Wally.numberFormat.format(abs(score1.toLong() - score2.toLong())) + "]"
+        else
+            "[" + Wally.decimalFormat.format(abs(score1.toDouble() - score2.toDouble())) + "]"
     }
 
     fun getHighestScore(scores: IntArray): Int {
