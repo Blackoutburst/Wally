@@ -13,6 +13,7 @@ import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.request.Visage
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 
@@ -62,6 +63,8 @@ class CommandPracticeCompare : CommandExecutable() {
 
         updateLeaderboardStats(player1Data, DatabaseUtils.DataType.PRACTICE, player1Uuid)
         updateLeaderboardStats(player2Data, DatabaseUtils.DataType.PRACTICE, player2Uuid)
+        Visage.getPlayerHead(player1Uuid)
+        Visage.getPlayerHead(player2Uuid)
         sendPracticeCompare(commandSender, message, player1Data, player2Data)
     }
 }

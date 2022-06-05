@@ -13,6 +13,7 @@ import com.blackoutburst.wally.core.database.DatabaseManager
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.commands.CommandManager
+import com.blackoutburst.wally.core.request.Visage
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 import java.lang.StringBuilder
@@ -72,6 +73,7 @@ object CommandUtils {
             channel.sendMessage(ConfigManager.loadMessage( "link success").replace("%name%", playerName)).queue()
             Wally.logger.log(LogLevel.INFO, "$playerName was linked to $discordID")
         }
+        Visage.getPlayerHead(playerUUID)
     }
 
     fun getDiscordIDFromTwoArgs(guild: Guild, args: Array<String>): String? {

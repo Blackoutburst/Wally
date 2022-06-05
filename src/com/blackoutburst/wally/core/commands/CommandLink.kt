@@ -6,6 +6,7 @@ import com.blackoutburst.wally.utils.CommandUtils.createUserData
 import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.request.Visage
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 

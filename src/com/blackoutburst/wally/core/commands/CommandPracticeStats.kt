@@ -15,6 +15,7 @@ import com.blackoutburst.wally.core.WallyUser
 import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.request.Visage
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 
@@ -57,6 +58,7 @@ class CommandPracticeStats : CommandExecutable() {
 
         updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, uuid)
         updateLinkedPlayerStats(data, DatabaseUtils.DataType.PRACTICE, discordID, uuid)
+        Visage.getPlayerHead(uuid)
         sendPracticeStats(commandSender, message, data, uuid, false)
     }
 }
