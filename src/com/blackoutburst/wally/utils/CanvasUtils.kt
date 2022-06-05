@@ -104,7 +104,7 @@ object CanvasUtils {
             canvas.drawImageRightHalf(background, 500, 37, 500, 563)
         }
 
-        canvas.drawImageRightHalf(hypixelHeader, 500, 0, 500, 37, color2)
+        canvas.drawImageRightHalf(practiceHeader, 500, 0, 500, 37, color2)
 
         if (user2 != null && File("database/linked users/${user2.member.id}/accounts/${player2.uuid}/head.png").exists())
             canvas.drawImage("database/linked users/${user2.member.id}/accounts/${player2.uuid}/head.png", 916, 52, 64, 64)
