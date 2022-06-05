@@ -63,8 +63,6 @@ class CommandPracticeCompare : CommandExecutable() {
 
         updateLeaderboardStats(player1Data, DatabaseUtils.DataType.PRACTICE, player1Uuid)
         updateLeaderboardStats(player2Data, DatabaseUtils.DataType.PRACTICE, player2Uuid)
-        Visage.getPlayerHead(player1Uuid)
-        Visage.getPlayerHead(player2Uuid)
         sendPracticeCompare(commandSender, message, player1Data, player2Data)
     }
 }

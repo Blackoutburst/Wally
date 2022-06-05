@@ -90,13 +90,13 @@ object MessageUtils {
         }
     }
 
-    fun sendHypixelStats(commandSender: WallyUser, message: Message, data: String, uuid: String, edit: Boolean) {
+    fun sendHypixelStats(commandSender: WallyUser, message: Message, stats: HypixelStats, uuid: String, edit: Boolean) {
        if (edit) {
             when (commandSender.displayPreference) {
-                DisplayPreference.TEXT -> message.editMessage(generateHypixelStatsMessage(data)).queue()
-                DisplayPreference.EMBED -> message.editMessageEmbeds(generateHypixelStatsEmbed(data)).queue()
+                DisplayPreference.TEXT -> message.editMessage(generateHypixelStatsMessage(stats)).queue()
+                DisplayPreference.EMBED -> message.editMessageEmbeds(generateHypixelStatsEmbed(stats)).queue()
                 else -> {
-                    CanvasUtils.createHypixelStatsCanvas(HypixelStats(data))
+                    CanvasUtils.createHypixelStatsCanvas(stats)
                     message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("stats.png")).queue()
                 }
             }
@@ -105,20 +105,20 @@ object MessageUtils {
 
             when (commandSender.displayPreference) {
                 DisplayPreference.TEXT -> menu?.let {
-                    message.reply(generateHypixelStatsMessage(data)).setActionRow(it).queue()
+                    message.reply(generateHypixelStatsMessage(stats)).setActionRow(it).queue()
                 } ?: run  {
-                    message.reply(generateHypixelStatsMessage(data)).queue()
+                    message.reply(generateHypixelStatsMessage(stats)).queue()
                 }
                 DisplayPreference.EMBED -> menu?.let {
-                    message.replyEmbeds(generateHypixelStatsEmbed(data)).setActionRow(it).queue()
+                    message.replyEmbeds(generateHypixelStatsEmbed(stats)).setActionRow(it).queue()
                 } ?: run {
-                    message.replyEmbeds(generateHypixelStatsEmbed(data)).queue()
+                    message.replyEmbeds(generateHypixelStatsEmbed(stats)).queue()
                 }
                 else -> menu?.let {
-                    CanvasUtils.createHypixelStatsCanvas(HypixelStats(data))
+                    CanvasUtils.createHypixelStatsCanvas(stats)
                     message.reply("\u00A0").addFile(File("stats.png")).setActionRow(it).queue()
                 } ?: run {
-                    CanvasUtils.createHypixelStatsCanvas(HypixelStats(data))
+                    CanvasUtils.createHypixelStatsCanvas(stats)
                     message.reply("\u00A0").addFile(File("stats.png")).queue()
                 }
             }
@@ -168,8 +168,7 @@ object MessageUtils {
                 "```"
     }
 
-    private fun generateHypixelStatsMessage(data: String): String {
-        val stats = HypixelStats(data)
+    private fun generateHypixelStatsMessage(stats: HypixelStats): String {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + stats.name + System.lineSeparator() + System.lineSeparator() +
                 "Wins: " + Utils.formatLine(stats.wins, stats.winsPosition) + System.lineSeparator() +
@@ -251,10 +250,14 @@ object MessageUtils {
         val menu = SelectMenu.create(commandSender.member.id + ":$menuName")
             .setRequiredRange(1, 1)
             .setPlaceholder("Select an account")
+
+        var combined = ""
         for (s in entries) {
             val player = Mojang.getPlayerName(s!!) ?: continue
             menu.addOption(player, s)
+            combined += "$s:"
         }
+        menu.addOption("Combined stats", combined)
         return menu.build()
     }
 

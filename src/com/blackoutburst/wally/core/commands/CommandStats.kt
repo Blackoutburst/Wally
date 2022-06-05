@@ -15,6 +15,7 @@ import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.request.Visage
+import com.blackoutburst.wally.core.statsobject.HypixelStats
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 
@@ -50,6 +51,6 @@ class CommandStats : CommandExecutable() {
         updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, uuid)
         updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, discordID, uuid)
         Visage.getPlayerHead(uuid)
-        sendHypixelStats(commandSender, message, data, uuid, false)
+        sendHypixelStats(commandSender, message, HypixelStats(data), uuid, false)
     }
 }

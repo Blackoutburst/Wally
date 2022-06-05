@@ -64,8 +64,6 @@ class CommandCompare : CommandExecutable() {
 
         updateLeaderboardStats(player1Data, DatabaseUtils.DataType.HYPIXEL, player1Uuid)
         updateLeaderboardStats(player2Data, DatabaseUtils.DataType.HYPIXEL, player2Uuid)
-        Visage.getPlayerHead(player1Uuid)
-        Visage.getPlayerHead(player2Uuid)
         sendHypixelCompare(commandSender, message, player1Data, player2Data)
     }
 }

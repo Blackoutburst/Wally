@@ -5,17 +5,17 @@ import com.blackoutburst.wally.utils.LeaderboardUtils.getPlayerPosition
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
 import com.blackoutburst.wally.core.leaderboard.Leaderboard
 
-class HypixelStats(data: String, vararg noLeaderboard: Boolean) : StatsObject {
+class HypixelStats() : StatsObject {
 
-    override val uuid: String
-    override val name: String
-    val wins: Int
-    val walls: Int
-    override val qualification: Int
-    override val finals: Int
-    override val total: Int
-    val totalAPI: Int
-    val challenges: Int
+    override var uuid = ""
+    override var name = ""
+    var wins = 0
+    var walls = 0
+    override var qualification = 0
+    override var finals = 0
+    override var total = 0
+    var totalAPI = 0
+    var challenges = 0
     override var overall = 0f
     var winsPosition = 0
     var wallsPosition = 0
@@ -25,8 +25,22 @@ class HypixelStats(data: String, vararg noLeaderboard: Boolean) : StatsObject {
     var totalAPIPosition = 0
     var challengesPosition = 0
     var overallPosition = 0
+    var combined = false
 
-    init {
+    constructor(uuid: String, name: String, wins: Int, walls: Int, qualification: Int, finals: Int, total: Int, totalAPI: Int, challenges: Int) : this() {
+        this.uuid = uuid
+        this.name = name
+        this.wins = wins
+        this.walls = walls
+        this.qualification = qualification
+        this.finals = finals
+        this.total = total
+        this.totalAPI = totalAPI
+        this.challenges = challenges
+        this.combined = true
+    }
+
+    constructor(data: String, vararg noLeaderboard: Boolean) : this() {
         uuid = getValuesFromAPI(data, "player.uuid", "unknown")
         name = getValuesFromAPI(data, "player.displayname", "Unknown")
         wins = getValuesFromAPI(data, "player.stats.Arcade.wins_hole_in_the_wall", "0").toInt()
@@ -37,17 +51,7 @@ class HypixelStats(data: String, vararg noLeaderboard: Boolean) : StatsObject {
         totalAPI = getValuesFromAPI(data, "player.achievements.arcade_hitw_practice_makes_perfect", "0").toInt()
         challenges = getValuesFromAPI(data, "player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0").toInt()
 
-        if (noLeaderboard.isNotEmpty() && noLeaderboard[0]) {
-            winsPosition = 0
-            wallsPosition = 0
-            qualificationPosition = 0
-            finalsPosition = 0
-            totalPosition = 0
-            totalAPIPosition = 0
-            challengesPosition = 0
-            overall = 0f
-            overallPosition = 0
-        } else {
+        if (noLeaderboard.isEmpty()) {
             winsPosition = getPlayerPosition(uuid, LeaderboardManager.winsLeaderboardHypixel)
             wallsPosition = getPlayerPosition(uuid, LeaderboardManager.wallLeaderboardHypixel)
             qualificationPosition = getPlayerPosition(uuid, LeaderboardManager.qualificationLeaderboardHypixel)

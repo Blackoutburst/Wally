@@ -2,9 +2,22 @@ package com.blackoutburst.wally.utils
 
 import com.blackoutburst.wally.core.Wally
 import net.dv8tion.jda.api.entities.Role
+import net.dv8tion.jda.api.interactions.commands.build.Commands.user
 import java.awt.Color
+import java.awt.image.BufferedImage
+import java.io.*
+import java.net.URL
+import javax.imageio.ImageIO
+
 
 object Utils {
+
+    fun downloadAvatar(avatarUrl: String) : BufferedImage {
+        val connection = URL(avatarUrl).openConnection()
+        connection.setRequestProperty("User-Agent", "fuck you")
+
+        return ImageIO.read(connection.getInputStream())
+    }
 
     fun formatLine(label :String, score: Number, position: Int): String {
         return if (score is Int)

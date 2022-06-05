@@ -1,8 +1,6 @@
 package com.blackoutburst.wally.utils
 
-import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.canvas.Canvas
-import com.blackoutburst.wally.core.canvas.ResourcesLoader
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.background
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.hypixelHeader
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconChallenges
@@ -20,9 +18,12 @@ import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconWins
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.line
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.missingHead
 import com.blackoutburst.wally.core.statsobject.HypixelStats
+import com.blackoutburst.wally.utils.Utils.downloadAvatar
 import com.blackoutburst.wally.utils.Utils.formatLine
 import java.awt.Color
 import java.io.File
+import java.net.URL
+import javax.imageio.ImageIO
 
 object CanvasUtils {
 
@@ -44,14 +45,19 @@ object CanvasUtils {
 
         canvas.drawImage(hypixelHeader, 0, 0, 1000, 37, color)
 
-        if (File("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png").exists())
-            canvas.drawImage("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png", 20, 57, 128, 128)
-        else if (File("database/leaderboards/hypixel/${data.uuid}/head.png").exists())
-            canvas.drawImage("database/leaderboards/hypixel/${data.uuid}/head.png", 20, 57, 128, 128)
-        else if (File("database/leaderboards/practice/${data.uuid}/head.png").exists())
-            canvas.drawImage("database/leaderboards/practice/${data.uuid}/head.png", 20, 57, 128, 128)
-        else
-            canvas.drawImage(missingHead, 20, 57, 128, 128)
+        if (!data.combined) {
+            if (File("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png").exists())
+                canvas.drawImage("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png", 20, 57, 128, 128)
+            else if (File("database/leaderboards/hypixel/${data.uuid}/head.png").exists())
+                canvas.drawImage("database/leaderboards/hypixel/${data.uuid}/head.png", 20, 57, 128, 128)
+            else if (File("database/leaderboards/practice/${data.uuid}/head.png").exists())
+                canvas.drawImage("database/leaderboards/practice/${data.uuid}/head.png", 20, 57, 128, 128)
+            else
+                canvas.drawImage(missingHead, 20, 57, 128, 128)
+        } else {
+
+            canvas.drawImage(downloadAvatar(user.member.effectiveAvatarUrl), 20, 57, 128, 128)
+        }
 
         canvas.drawStringLeft(data.name, 158, 57, 36.0f, fontColor)
         canvas.drawStringLeft(user.subtitle, 158, 97, 30.0f, fontColor)
@@ -88,8 +94,11 @@ object CanvasUtils {
         canvas.drawStringLeft(formatLine("Total Score (API)", data.totalAPI, data.totalAPIPosition), 560, 355, 30.0f, fontColor)
         canvas.drawImage(iconChallenges, 490, 410, 50, 50)
         canvas.drawStringLeft(formatLine("Challenges", data.challenges, data.challengesPosition), 560, 425, 30.0f, fontColor)
-        canvas.drawImage(iconOverall, 490, 480, 50, 50)
-        canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 495, 30.0f, fontColor)
+
+        if (!data.combined) {
+            canvas.drawImage(iconOverall, 490, 480, 50, 50)
+            canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 495, 30.0f, fontColor)
+        }
 
         canvas.save("stats.png")
     }
