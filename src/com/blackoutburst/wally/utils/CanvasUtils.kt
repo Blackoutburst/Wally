@@ -42,12 +42,12 @@ object CanvasUtils {
 
         val player1 = PracticeStats(data1)
         val user1 = DatabaseUtils.getWallyUserFromUUID(player1.uuid)
-        val fontColor1 = if (user1 == null) Color.WHITE else Color.decode(user1.fontColor)
+        val fontColor1 = Color.decode(user1?.fontColor ?: "#FFFFFF")
         val color1 = Utils.getColorFromScore(Utils.getHighestScore(player1.scores))
 
         val player2 = PracticeStats(data2)
         val user2 = DatabaseUtils.getWallyUserFromUUID(player2.uuid)
-        val fontColor2 = if (user2 == null) Color.WHITE else Color.decode(user2.fontColor)
+        val fontColor2 = Color.decode(user2?.fontColor ?: "#FFFFFF")
         val color2 = Utils.getColorFromScore(Utils.getHighestScore(player2.scores))
 
         if (user1 != null && user1.hasFont()) {
@@ -62,8 +62,8 @@ object CanvasUtils {
 
         canvas.drawImageLeftHalf(practiceHeader, 0, 0, 500, 37, color1)
 
-        if (user1 != null && File("database/linked users/${user1.member.id}/accounts/${player1.uuid}/head.png").exists())
-            canvas.drawImage("database/linked users/${user1.member.id}/accounts/${player1.uuid}/head.png", 20, 52, 64, 64)
+        if (File("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png").exists())
+            canvas.drawImage("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png", 20, 52, 64, 64)
         else if (File("database/leaderboards/hypixel/${player1.uuid}/head.png").exists())
             canvas.drawImage("database/leaderboards/hypixel/${player1.uuid}/head.png", 20, 52, 64, 64)
         else if (File("database/leaderboards/practice/${player1.uuid}/head.png").exists())
@@ -72,8 +72,7 @@ object CanvasUtils {
             canvas.drawImage(missingHead, 20, 52, 64, 64)
 
         canvas.drawStringLeft(player1.name, 100, 57, 36.0f, fontColor1)
-        if (user1 != null)
-            canvas.drawStringLeft(user1.subtitle, 100, 97, 30.0f, fontColor1)
+        canvas.drawStringLeft(user1?.subtitle ?: "", 100, 97, 30.0f, fontColor1)
 
         canvas.drawImage(line, 0, 130, 450, 5, color1)
 
@@ -106,8 +105,8 @@ object CanvasUtils {
 
         canvas.drawImageRightHalf(practiceHeader, 500, 0, 500, 37, color2)
 
-        if (user2 != null && File("database/linked users/${user2.member.id}/accounts/${player2.uuid}/head.png").exists())
-            canvas.drawImage("database/linked users/${user2.member.id}/accounts/${player2.uuid}/head.png", 916, 52, 64, 64)
+        if (File("database/linked users/${user2?.member?.id}/accounts/${player2.uuid}/head.png").exists())
+            canvas.drawImage("database/linked users/${user2?.member?.id}/accounts/${player2.uuid}/head.png", 916, 52, 64, 64)
         else if (File("database/leaderboards/hypixel/${player2.uuid}/head.png").exists())
             canvas.drawImage("database/leaderboards/hypixel/${player2.uuid}/head.png", 916, 52, 64, 64)
         else if (File("database/leaderboards/practice/${player2.uuid}/head.png").exists())
@@ -116,8 +115,7 @@ object CanvasUtils {
             canvas.drawImage(missingHead, 916, 52, 64, 64)
 
         canvas.drawStringRight(player2.name, 900, 57, 36.0f, fontColor2)
-        if (user2 != null)
-            canvas.drawStringRight(user2.subtitle, 900, 97, 30.0f, fontColor2)
+        canvas.drawStringRight(user2?.subtitle ?: "", 900, 97, 30.0f, fontColor2)
 
         canvas.drawImage(line, 1000, 130, -450, 5, color2)
 
@@ -155,12 +153,12 @@ object CanvasUtils {
 
         val player1 = HypixelStats(data1)
         val user1 = DatabaseUtils.getWallyUserFromUUID(player1.uuid)
-        val fontColor1 = if (user1 == null) Color.WHITE else Color.decode(user1.fontColor)
+        val fontColor1 = Color.decode(user1?.fontColor ?: "#FFFFFF")
         val color1 = Utils.getColorFromScore(Utils.getHighestScore(player1.scores))
 
         val player2 = HypixelStats(data2)
         val user2 = DatabaseUtils.getWallyUserFromUUID(player2.uuid)
-        val fontColor2 = if (user2 == null) Color.WHITE else Color.decode(user2.fontColor)
+        val fontColor2 = Color.decode(user2?.fontColor ?: "#FFFFFF")
         val color2 = Utils.getColorFromScore(Utils.getHighestScore(player2.scores))
 
         if (user1 != null && user1.hasFont()) {
@@ -175,8 +173,8 @@ object CanvasUtils {
 
         canvas.drawImageLeftHalf(hypixelHeader, 0, 0, 500, 37, color1)
 
-        if (user1 != null && File("database/linked users/${user1.member.id}/accounts/${player1.uuid}/head.png").exists())
-            canvas.drawImage("database/linked users/${user1.member.id}/accounts/${player1.uuid}/head.png", 20, 52, 64, 64)
+        if (File("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png").exists())
+            canvas.drawImage("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png", 20, 52, 64, 64)
         else if (File("database/leaderboards/hypixel/${player1.uuid}/head.png").exists())
             canvas.drawImage("database/leaderboards/hypixel/${player1.uuid}/head.png", 20, 52, 64, 64)
         else if (File("database/leaderboards/practice/${player1.uuid}/head.png").exists())
@@ -185,8 +183,7 @@ object CanvasUtils {
             canvas.drawImage(missingHead, 20, 52, 64, 64)
 
         canvas.drawStringLeft(player1.name, 100, 57, 36.0f, fontColor1)
-        if (user1 != null)
-            canvas.drawStringLeft(user1.subtitle, 100, 97, 30.0f, fontColor1)
+        canvas.drawStringLeft(user1?.subtitle ?: "", 100, 97, 30.0f, fontColor1)
 
         canvas.drawImage(line, 0, 130, 450, 5, color1)
 
@@ -221,8 +218,8 @@ object CanvasUtils {
 
         canvas.drawImageRightHalf(hypixelHeader, 500, 0, 500, 37, color2)
 
-        if (user2 != null && File("database/linked users/${user2.member.id}/accounts/${player2.uuid}/head.png").exists())
-            canvas.drawImage("database/linked users/${user2.member.id}/accounts/${player2.uuid}/head.png", 916, 52, 64, 64)
+        if (File("database/linked users/${user2?.member?.id}/accounts/${player2.uuid}/head.png").exists())
+            canvas.drawImage("database/linked users/${user2?.member?.id}/accounts/${player2.uuid}/head.png", 916, 52, 64, 64)
         else if (File("database/leaderboards/hypixel/${player2.uuid}/head.png").exists())
             canvas.drawImage("database/leaderboards/hypixel/${player2.uuid}/head.png", 916, 52, 64, 64)
         else if (File("database/leaderboards/practice/${player2.uuid}/head.png").exists())
@@ -231,8 +228,7 @@ object CanvasUtils {
             canvas.drawImage(missingHead, 916, 52, 64, 64)
 
         canvas.drawStringRight(player2.name, 900, 57, 36.0f, fontColor2)
-        if (user2 != null)
-            canvas.drawStringRight(user2.subtitle, 900, 97, 30.0f, fontColor2)
+        canvas.drawStringRight(user2?.subtitle ?: "", 900, 97, 30.0f, fontColor2)
 
         canvas.drawImage(line, 1000, 130, -450, 5, color2)
 
@@ -271,7 +267,7 @@ object CanvasUtils {
     fun createPracticeStatsCanvas(data: PracticeStats) {
         val user = DatabaseUtils.getWallyUserFromUUID(data.uuid)
         val canvas = Canvas(1000, 600)
-        val fontColor = if (user == null) Color.WHITE else Color.decode(user.fontColor)
+        val fontColor = Color.decode(user?.fontColor ?: "#FFFFFF")
         val color = Utils.getColorFromScore(Utils.getHighestScore(data.scores))
 
         if (user != null && user.hasFont()) {
@@ -287,8 +283,8 @@ object CanvasUtils {
         canvas.drawImage(practiceHeader, 0, 0, 1000, 37, color)
 
         if (!data.combined) {
-            if (user != null && File("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png").exists())
-                canvas.drawImage("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png", 20, 57, 128, 128)
+            if (File("database/linked users/${user?.member?.id}/accounts/${data.uuid}/head.png").exists())
+                canvas.drawImage("database/linked users/${user?.member?.id}/accounts/${data.uuid}/head.png", 20, 57, 128, 128)
             else if (File("database/leaderboards/hypixel/${data.uuid}/head.png").exists())
                 canvas.drawImage("database/leaderboards/hypixel/${data.uuid}/head.png", 20, 57, 128, 128)
             else if (File("database/leaderboards/practice/${data.uuid}/head.png").exists())
@@ -300,8 +296,7 @@ object CanvasUtils {
         }
 
         canvas.drawStringLeft(data.name, 158, 57, 36.0f, fontColor)
-        if (user != null )
-            canvas.drawStringLeft(user.subtitle, 158, 97, 30.0f, fontColor)
+        canvas.drawStringLeft(user?.subtitle ?: "", 158, 97, 30.0f, fontColor)
 
         var iconX = 158
         val increment = 55
@@ -345,7 +340,7 @@ object CanvasUtils {
     fun createHypixelStatsCanvas(data: HypixelStats) {
         val user = DatabaseUtils.getWallyUserFromUUID(data.uuid)
         val canvas = Canvas(1000, 600)
-        val fontColor = if (user == null) Color.WHITE else Color.decode(user.fontColor)
+        val fontColor = Color.decode(user?.fontColor ?: "#FFFFFF")
         val color = Utils.getColorFromScore(Utils.getHighestScore(data.scores))
 
         if (user != null && user.hasFont()) {
@@ -361,8 +356,8 @@ object CanvasUtils {
         canvas.drawImage(hypixelHeader, 0, 0, 1000, 37, color)
 
         if (!data.combined) {
-            if (user != null && File("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png").exists())
-                canvas.drawImage("database/linked users/${user.member.id}/accounts/${data.uuid}/head.png", 20, 57, 128, 128)
+            if (File("database/linked users/${user?.member?.id}/accounts/${data.uuid}/head.png").exists())
+                canvas.drawImage("database/linked users/${user?.member?.id}/accounts/${data.uuid}/head.png", 20, 57, 128, 128)
             else if (File("database/leaderboards/hypixel/${data.uuid}/head.png").exists())
                 canvas.drawImage("database/leaderboards/hypixel/${data.uuid}/head.png", 20, 57, 128, 128)
             else if (File("database/leaderboards/practice/${data.uuid}/head.png").exists())
@@ -374,8 +369,7 @@ object CanvasUtils {
         }
 
         canvas.drawStringLeft(data.name, 158, 57, 36.0f, fontColor)
-        if (user != null)
-            canvas.drawStringLeft(user.subtitle, 158, 97, 30.0f, fontColor)
+        canvas.drawStringLeft(user?.subtitle ?: "", 158, 97, 30.0f, fontColor)
 
         var iconX = 158
         val increment = 55
