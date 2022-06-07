@@ -18,7 +18,6 @@ class SelectMenuStats : SelectMenuExecutable() {
             val uuid = event.selectedOptions[0].value.split(":").dropLast(1)
             val wallyUser = getWallyUserFromUUID(uuid[0])
             val memberId = wallyUser!!.member.id
-
             val stats: MutableList<HypixelStats> = ArrayList()
 
             uuid.forEach { u ->
