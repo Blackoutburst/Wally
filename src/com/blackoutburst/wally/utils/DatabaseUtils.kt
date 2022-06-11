@@ -7,8 +7,12 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.WallyUser
 import java.nio.file.Paths
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addHypixelPlayer
+import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addPracticePlayer
 import com.google.gson.Gson
 import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.core.statsobject.HypixelStats
+import com.blackoutburst.wally.core.statsobject.PracticeStats
 import java.io.*
 import java.nio.file.Files
 
@@ -100,6 +104,11 @@ object DatabaseUtils {
             val rootFolderPath = "database/leaderboards/$typeName"
             val playerFolderPath = "$rootFolderPath/$uuid"
             val playerFolder = File(playerFolderPath)
+
+            if (type == DataType.HYPIXEL)
+                addHypixelPlayer(HypixelStats(data))
+            else
+                addPracticePlayer(PracticeStats(data))
 
             if (!playerFolder.exists() && !playerFolder.mkdirs()) {
                 Wally.logger.log(LogLevel.WARN, "Player leaderboard folder creation failed")
