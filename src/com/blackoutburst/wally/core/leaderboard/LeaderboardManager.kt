@@ -72,18 +72,18 @@ object LeaderboardManager {
         leaderboard.players.sortWith(leaderboard.comparator)
     }
 
-    fun addPracticePlayer(data: PracticeStats) {
-        if (qualificationLeaderboardPractice.players.find { player -> player.uuid == data.uuid } != null) {
+    fun addPracticePlayer(data: String) {
+        val playerData = PracticeStats(data, true)
+        if (qualificationLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } != null) {
             return
         }
 
-        qualificationLeaderboardPractice.players.add(data)
-        finalsLeaderboardPractice.players.add(data)
-        lobbyLeaderboardPractice.players.add(data)
-        wideQualificationLeaderboardPractice.players.add(data)
-        wideFinalsLeaderboardPractice.players.add(data)
-        totalLeaderboardPractice.players.add(data)
-        overallLeaderboardPractice.players.add(data)
+        qualificationLeaderboardPractice.players.add(playerData)
+        finalsLeaderboardPractice.players.add(playerData)
+        lobbyLeaderboardPractice.players.add(playerData)
+        wideQualificationLeaderboardPractice.players.add(playerData)
+        wideFinalsLeaderboardPractice.players.add(playerData)
+        totalLeaderboardPractice.players.add(playerData)
 
         sort(qualificationLeaderboardPractice)
         sort(finalsLeaderboardPractice)
@@ -91,22 +91,25 @@ object LeaderboardManager {
         sort(wideQualificationLeaderboardPractice)
         sort(wideFinalsLeaderboardPractice)
         sort(totalLeaderboardPractice)
+
+        val playerOverallData = PracticeStats(data, false)
+        overallLeaderboardPractice.players.add(playerOverallData)
         sort(overallLeaderboardPractice)
     }
 
-    fun addHypixelPlayer(data :HypixelStats) {
-        if (winsLeaderboardHypixel.players.find { player -> player.uuid == data.uuid } != null) {
+    fun addHypixelPlayer(data :String) {
+        val playerData = HypixelStats(data, true)
+        if (winsLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } != null) {
             return
         }
 
-        winsLeaderboardHypixel.players.add(data)
-        wallLeaderboardHypixel.players.add(data)
-        qualificationLeaderboardHypixel.players.add(data)
-        finalsLeaderboardHypixel.players.add(data)
-        totalLeaderboardHypixel.players.add(data)
-        totalApiLeaderboardHypixel.players.add(data)
-        challengesLeaderboardHypixel.players.add(data)
-        overallLeaderboardHypixel.players.add(data)
+        winsLeaderboardHypixel.players.add(playerData)
+        wallLeaderboardHypixel.players.add(playerData)
+        qualificationLeaderboardHypixel.players.add(playerData)
+        finalsLeaderboardHypixel.players.add(playerData)
+        totalLeaderboardHypixel.players.add(playerData)
+        totalApiLeaderboardHypixel.players.add(playerData)
+        challengesLeaderboardHypixel.players.add(playerData)
 
         sort(winsLeaderboardHypixel)
         sort(wallLeaderboardHypixel)
@@ -115,6 +118,9 @@ object LeaderboardManager {
         sort(totalLeaderboardHypixel)
         sort(totalApiLeaderboardHypixel)
         sort(challengesLeaderboardHypixel)
+
+        val playerOverallData = HypixelStats(data, false)
+        overallLeaderboardHypixel.players.add(playerOverallData)
         sort(overallLeaderboardHypixel)
 
     }

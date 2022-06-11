@@ -75,8 +75,8 @@ object DatabaseManager {
             Wally.logger.log(LogLevel.WARN, "Couldn't create the directory [$playerFolderPath] aborting")
             false
         } else {
-            addHypixelPlayer(HypixelStats(hypixelData))
-            addPracticePlayer(PracticeStats(practiceData))
+            addHypixelPlayer(hypixelData)
+            addPracticePlayer(practiceData)
             generateStats(hypixelData, "$playerFolderPath/hypixel.json") &&
             generateStats(practiceData, "$playerFolderPath/practice.json") &&
             generateWallyProfile(wallyProfile, "$rootFolderPath/data.json")

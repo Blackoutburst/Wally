@@ -106,9 +106,9 @@ object DatabaseUtils {
             val playerFolder = File(playerFolderPath)
 
             if (type == DataType.HYPIXEL)
-                addHypixelPlayer(HypixelStats(data))
+                addHypixelPlayer(data)
             else
-                addPracticePlayer(PracticeStats(data))
+                addPracticePlayer(data)
 
             if (!playerFolder.exists() && !playerFolder.mkdirs()) {
                 Wally.logger.log(LogLevel.WARN, "Player leaderboard folder creation failed")
