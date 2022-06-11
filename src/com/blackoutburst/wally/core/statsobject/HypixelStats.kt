@@ -24,7 +24,7 @@ class HypixelStats() : StatsObject {
     var totalPosition = 0
     var totalAPIPosition = 0
     var challengesPosition = 0
-    var overallPosition = 0
+    override var overallPosition = 0
     var combined = false
 
     constructor(uuid: String, name: String, wins: Int, walls: Int, qualification: Int, finals: Int, total: Int, totalAPI: Int, challenges: Int) : this() {

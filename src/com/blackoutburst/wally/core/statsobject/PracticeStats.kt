@@ -22,7 +22,7 @@ class PracticeStats() : StatsObject {
     var wideQualificationPosition = 0
     var wideFinalsPosition = 0
     var totalPosition = 0
-    var overallPosition = 0
+    override var overallPosition = 0
     var combined = false
 
     constructor(uuid: String, name: String, qualification: Int, finals: Int, lobby :Int, wideQualification: Int, wideFinals: Int, total: Int) : this() {
