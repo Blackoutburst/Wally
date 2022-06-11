@@ -108,6 +108,8 @@
     "select log level": "Select the new log level",
     "select permission level": "Select %user% new permission level",
     "command compare error": "There was an error while running the command compare",
-    "command practice compare error": "There was an error while running the practice command compare"
+    "command practice compare error": "There was an error while running the practice command compare",
+    "main account updated": "`%user%` main account is now `%name%`",
+    "not user alt": "`%name%` is not `%user%` alt account"
   }
 }

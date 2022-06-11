@@ -54,6 +54,7 @@ object CommandManager {
         register(PermissionLevel.MEMBER, CommandSetDisplayPreference(), "setDisplayPreference", "sdp")
         register(PermissionLevel.MEMBER, CommandCompare(), "compare", "c")
         register(PermissionLevel.MEMBER, CommandPracticeCompare(), "pCompare", "pc", "practiceCompare", "practiceC")
+        register(PermissionLevel.STAFF, CommandSetMainAccount(), "setMain", "setMainAccount", "setMainAcc")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 
