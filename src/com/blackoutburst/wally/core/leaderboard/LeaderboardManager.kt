@@ -72,6 +72,80 @@ object LeaderboardManager {
         leaderboard.players.sortWith(leaderboard.comparator)
     }
 
+    fun addPracticePlayer(data: PracticeStats) {
+        if (qualificationLeaderboardPractice.players.find { player -> player.uuid == data.uuid } != null) {
+            return
+        }
+
+        qualificationLeaderboardPractice.players.add(data)
+        finalsLeaderboardPractice.players.add(data)
+        lobbyLeaderboardPractice.players.add(data)
+        wideQualificationLeaderboardPractice.players.add(data)
+        wideFinalsLeaderboardPractice.players.add(data)
+        totalLeaderboardPractice.players.add(data)
+        overallLeaderboardPractice.players.add(data)
+
+        sort(qualificationLeaderboardPractice)
+        sort(finalsLeaderboardPractice)
+        sort(lobbyLeaderboardPractice)
+        sort(wideQualificationLeaderboardPractice)
+        sort(wideFinalsLeaderboardPractice)
+        sort(totalLeaderboardPractice)
+        sort(overallLeaderboardPractice)
+    }
+
+    fun addHypixelPlayer(data :HypixelStats) {
+        if (winsLeaderboardHypixel.players.find { player -> player.uuid == data.uuid } != null) {
+            return
+        }
+
+        winsLeaderboardHypixel.players.add(data)
+        wallLeaderboardHypixel.players.add(data)
+        qualificationLeaderboardHypixel.players.add(data)
+        finalsLeaderboardHypixel.players.add(data)
+        totalLeaderboardHypixel.players.add(data)
+        totalApiLeaderboardHypixel.players.add(data)
+        challengesLeaderboardHypixel.players.add(data)
+        overallLeaderboardHypixel.players.add(data)
+
+        sort(winsLeaderboardHypixel)
+        sort(wallLeaderboardHypixel)
+        sort(qualificationLeaderboardHypixel)
+        sort(finalsLeaderboardHypixel)
+        sort(totalLeaderboardHypixel)
+        sort(totalApiLeaderboardHypixel)
+        sort(challengesLeaderboardHypixel)
+        sort(overallLeaderboardHypixel)
+
+    }
+
+    fun removePlayer(uuid : String) {
+        if (winsLeaderboardHypixel.players.find { player -> player.uuid == uuid } == null) {
+            return
+        }
+
+        winsLeaderboardHypixel.players.remove(winsLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+        wallLeaderboardHypixel.players.remove(wallLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+        qualificationLeaderboardHypixel.players.remove(qualificationLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+        finalsLeaderboardHypixel.players.remove(finalsLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+        totalLeaderboardHypixel.players.remove(totalLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+        totalApiLeaderboardHypixel.players.remove(totalApiLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+        challengesLeaderboardHypixel.players.remove(challengesLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+        overallLeaderboardHypixel.players.remove(overallLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+
+        if (qualificationLeaderboardPractice.players.find { player -> player.uuid == uuid } == null) {
+            return
+        }
+
+        qualificationLeaderboardPractice.players.remove(qualificationLeaderboardPractice.players.first { player -> player.uuid == uuid })
+        finalsLeaderboardPractice.players.remove(finalsLeaderboardPractice.players.first { player -> player.uuid == uuid })
+        lobbyLeaderboardPractice.players.remove(lobbyLeaderboardPractice.players.first { player -> player.uuid == uuid })
+        wideQualificationLeaderboardPractice.players.remove(wideQualificationLeaderboardPractice.players.first { player -> player.uuid == uuid })
+        wideFinalsLeaderboardPractice.players.remove(wideFinalsLeaderboardPractice.players.first { player -> player.uuid == uuid })
+        totalLeaderboardPractice.players.remove(totalLeaderboardPractice.players.first { player -> player.uuid == uuid })
+        overallLeaderboardPractice.players.remove(overallLeaderboardPractice.players.first { player -> player.uuid == uuid })
+    }
+
     init {
         Wally.logger.log(LogLevel.INFO, "Initializing leaderboard")
         val begin = Instant.now()

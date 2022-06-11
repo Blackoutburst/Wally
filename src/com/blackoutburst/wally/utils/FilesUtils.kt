@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.utils
 
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.removePlayer
 import java.io.File
 import java.nio.file.Files
 import java.util.stream.Collectors
@@ -37,8 +38,10 @@ object FilesUtils {
 
     fun excludeFromLb(uuid: String) {
         try {
-            if (!isExcluded(uuid))
+            if (!isExcluded(uuid)) {
                 Files.write(Paths.get("config/excluded.txt"), "$uuid\n".toByteArray(), StandardOpenOption.CREATE, StandardOpenOption.APPEND)
+                removePlayer(uuid)
+            }
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e)
         }

@@ -5,6 +5,10 @@ import com.blackoutburst.wally.utils.DatabaseUtils.generateWallyProfile
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.UserOption
+import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addHypixelPlayer
+import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addPracticePlayer
+import com.blackoutburst.wally.core.statsobject.HypixelStats
+import com.blackoutburst.wally.core.statsobject.PracticeStats
 import java.io.File
 
 object DatabaseManager {
@@ -71,6 +75,8 @@ object DatabaseManager {
             Wally.logger.log(LogLevel.WARN, "Couldn't create the directory [$playerFolderPath] aborting")
             false
         } else {
+            addHypixelPlayer(HypixelStats(hypixelData))
+            addPracticePlayer(PracticeStats(practiceData))
             generateStats(hypixelData, "$playerFolderPath/hypixel.json") &&
             generateStats(practiceData, "$playerFolderPath/practice.json") &&
             generateWallyProfile(wallyProfile, "$rootFolderPath/data.json")
