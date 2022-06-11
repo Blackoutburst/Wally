@@ -120,30 +120,26 @@ object LeaderboardManager {
     }
 
     fun removePlayer(uuid : String) {
-        if (winsLeaderboardHypixel.players.find { player -> player.uuid == uuid } == null) {
-            return
+        if (winsLeaderboardHypixel.players.find { player -> player.uuid == uuid } != null) {
+            winsLeaderboardHypixel.players.remove(winsLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+            wallLeaderboardHypixel.players.remove(wallLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+            qualificationLeaderboardHypixel.players.remove(qualificationLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+            finalsLeaderboardHypixel.players.remove(finalsLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+            totalLeaderboardHypixel.players.remove(totalLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+            totalApiLeaderboardHypixel.players.remove(totalApiLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+            challengesLeaderboardHypixel.players.remove(challengesLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+            overallLeaderboardHypixel.players.remove(overallLeaderboardHypixel.players.first { player -> player.uuid == uuid })
         }
 
-        winsLeaderboardHypixel.players.remove(winsLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-        wallLeaderboardHypixel.players.remove(wallLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-        qualificationLeaderboardHypixel.players.remove(qualificationLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-        finalsLeaderboardHypixel.players.remove(finalsLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-        totalLeaderboardHypixel.players.remove(totalLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-        totalApiLeaderboardHypixel.players.remove(totalApiLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-        challengesLeaderboardHypixel.players.remove(challengesLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-        overallLeaderboardHypixel.players.remove(overallLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-
-        if (qualificationLeaderboardPractice.players.find { player -> player.uuid == uuid } == null) {
-            return
+        if (qualificationLeaderboardPractice.players.find { player -> player.uuid == uuid } != null) {
+            qualificationLeaderboardPractice.players.remove(qualificationLeaderboardPractice.players.first { player -> player.uuid == uuid })
+            finalsLeaderboardPractice.players.remove(finalsLeaderboardPractice.players.first { player -> player.uuid == uuid })
+            lobbyLeaderboardPractice.players.remove(lobbyLeaderboardPractice.players.first { player -> player.uuid == uuid })
+            wideQualificationLeaderboardPractice.players.remove(wideQualificationLeaderboardPractice.players.first { player -> player.uuid == uuid })
+            wideFinalsLeaderboardPractice.players.remove(wideFinalsLeaderboardPractice.players.first { player -> player.uuid == uuid })
+            totalLeaderboardPractice.players.remove(totalLeaderboardPractice.players.first { player -> player.uuid == uuid })
+            overallLeaderboardPractice.players.remove(overallLeaderboardPractice.players.first { player -> player.uuid == uuid })
         }
-
-        qualificationLeaderboardPractice.players.remove(qualificationLeaderboardPractice.players.first { player -> player.uuid == uuid })
-        finalsLeaderboardPractice.players.remove(finalsLeaderboardPractice.players.first { player -> player.uuid == uuid })
-        lobbyLeaderboardPractice.players.remove(lobbyLeaderboardPractice.players.first { player -> player.uuid == uuid })
-        wideQualificationLeaderboardPractice.players.remove(wideQualificationLeaderboardPractice.players.first { player -> player.uuid == uuid })
-        wideFinalsLeaderboardPractice.players.remove(wideFinalsLeaderboardPractice.players.first { player -> player.uuid == uuid })
-        totalLeaderboardPractice.players.remove(totalLeaderboardPractice.players.first { player -> player.uuid == uuid })
-        overallLeaderboardPractice.players.remove(overallLeaderboardPractice.players.first { player -> player.uuid == uuid })
     }
 
     init {
