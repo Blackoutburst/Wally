@@ -24,7 +24,7 @@ class HypixelStats() : StatsObject {
     var totalPosition = 0
     var totalAPIPosition = 0
     var challengesPosition = 0
-    var overallPosition = 0
+    override var overallPosition = 0
     var combined = false
 
     constructor(uuid: String, name: String, wins: Int, walls: Int, qualification: Int, finals: Int, total: Int, totalAPI: Int, challenges: Int) : this() {
@@ -50,7 +50,7 @@ class HypixelStats() : StatsObject {
         overallPosition = getPlayerPosition(uuid, LeaderboardManager.overallLeaderboardHypixel)
     }
 
-    constructor(data: String, vararg noLeaderboard: Boolean) : this() {
+    constructor(data: String, noLeaderboard: Boolean = false) : this() {
         uuid = getValuesFromAPI(data, "player.uuid", "unknown")
         name = getValuesFromAPI(data, "player.displayname", "Unknown")
         wins = getValuesFromAPI(data, "player.stats.Arcade.wins_hole_in_the_wall", "0").toInt()
@@ -61,7 +61,7 @@ class HypixelStats() : StatsObject {
         totalAPI = getValuesFromAPI(data, "player.achievements.arcade_hitw_practice_makes_perfect", "0").toInt()
         challenges = getValuesFromAPI(data, "player.challenges.all_time.ARCADE__hole_in_the_wall_challenge", "0").toInt()
 
-        if (noLeaderboard.isEmpty() || noLeaderboard.isNotEmpty() && !noLeaderboard[0]) {
+        if (!noLeaderboard) {
             winsPosition = getPlayerPosition(uuid, LeaderboardManager.winsLeaderboardHypixel)
             wallsPosition = getPlayerPosition(uuid, LeaderboardManager.wallLeaderboardHypixel)
             qualificationPosition = getPlayerPosition(uuid, LeaderboardManager.qualificationLeaderboardHypixel)

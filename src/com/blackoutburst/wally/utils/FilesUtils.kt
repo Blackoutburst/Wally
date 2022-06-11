@@ -38,9 +38,9 @@ object FilesUtils {
 
     fun excludeFromLb(uuid: String) {
         try {
+            removePlayer(uuid)
             if (!isExcluded(uuid)) {
                 Files.write(Paths.get("config/excluded.txt"), "$uuid\n".toByteArray(), StandardOpenOption.CREATE, StandardOpenOption.APPEND)
-                removePlayer(uuid)
             }
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e)

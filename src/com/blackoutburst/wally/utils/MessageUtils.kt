@@ -33,14 +33,20 @@ object MessageUtils {
             when (commandSender.displayPreference) {
                 DisplayPreference.TEXT -> message.editMessage(generateLeaderboardMessage(leaderboard, page, true)).queue()
                 DisplayPreference.EMBED -> message.editMessageEmbeds(generateLeaderboardEmbed(leaderboard, page)).queue()
-                else -> message.editMessage("Soon...").queue()
+                else -> {
+                    CanvasUtils.createLeaderboardCanvas(leaderboard, page-1)
+                    message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("leaderboard.png")).queue()
+                }
             }
         } else {
             val menu = createLeaderboardMenu(commandSender, page)
             when (commandSender.displayPreference) {
                 DisplayPreference.TEXT -> message.reply(generateLeaderboardMessage(leaderboard, page, true)).setActionRow(menu).queue()
                 DisplayPreference.EMBED -> message.replyEmbeds(generateLeaderboardEmbed(leaderboard, page)).setActionRow(menu).queue()
-                else -> message.reply("Soon...").setActionRow(menu).queue()
+                else -> {
+                    CanvasUtils.createLeaderboardCanvas(leaderboard, page-1)
+                    message.reply("\u00A0").addFile(File("leaderboard.png")).setActionRow(menu).queue()
+                }
             }
         }
     }
@@ -155,7 +161,7 @@ object MessageUtils {
             builder.append("(#").append(i + 1).append(") ")
                 .append(stats.name).append(": ")
                 .append(
-                    if (leaderboard.type == Leaderboard.Type.OVERALL) Wally.decimalFormat.format(stats.overall.toDouble()) else Wally.numberFormat.format(
+                    if (leaderboard.type == Leaderboard.Type.OVERALL) Wally.decimalFormat.format(stats.overall) else Wally.numberFormat.format(
                         stats.getDataFromType(leaderboard.type).toLong()
                     )
                 )

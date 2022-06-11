@@ -21,8 +21,13 @@ class Canvas(width: Int, height: Int) {
         g!!.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
     }
 
+    fun useDefaultFont() {
+        font = ResourcesLoader.font
+    }
+
     fun save(fileName: String) {
         val file = File(fileName)
+        useDefaultFont()
         ImageIO.write(bufferedImage, "png", file)
         g!!.dispose()
     }
@@ -122,6 +127,12 @@ class Canvas(width: Int, height: Int) {
         g!!.drawString(string, x - g!!.fontMetrics.stringWidth(string) / 2, y + g!!.fontMetrics.height / 2)
     }
 
+    fun getStringLength(string: String, size: Float) : Int {
+        font = font!!.deriveFont(size)
+        g!!.font = font
+        return g!!.fontMetrics.stringWidth(string)
+    }
+
     fun drawStringRight(string: String, x: Int, y: Int, size: Float, color: Color) {
         font = font!!.deriveFont(size)
         g!!.font = font
@@ -132,12 +143,6 @@ class Canvas(width: Int, height: Int) {
     }
 
     fun loadFont(file: String) {
-        try {
-            font = Font.createFont(Font.TRUETYPE_FONT, File(file))
-        } catch (e: FontFormatException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
+        font = Font.createFont(Font.TRUETYPE_FONT, File(file))
     }
 }

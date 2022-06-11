@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.utils
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.canvas.Canvas
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.background
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.hypixelHeader
@@ -25,6 +26,8 @@ import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconWins
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.line
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.missingHead
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.practiceHeader
+import com.blackoutburst.wally.core.commands.DisplayPreference
+import com.blackoutburst.wally.core.leaderboard.Leaderboard
 import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.utils.Utils.downloadAvatar
@@ -412,5 +415,112 @@ object CanvasUtils {
         }
 
         canvas.save("stats.png")
+    }
+
+    fun createLeaderboardCanvas(leaderboard: Leaderboard, page: Int) {
+        val topUser = leaderboard.players[10 * page]
+        val canvas = Canvas(700, 700)
+
+        val color = Utils.getColorFromScore(Utils.getHighestScore(topUser.scores))
+
+        canvas.drawImage(background, 0, 37, 1000, 663)
+        canvas.drawImage(if (topUser is HypixelStats) { hypixelHeader } else { practiceHeader }, 0, 0, 1000, 37, color)
+
+        canvas.drawStringCenter(leaderboard.name, 350, 67, 42.0f, Color.WHITE)
+
+        if (topUser is HypixelStats) {
+            when (leaderboard.type) {
+                Leaderboard.Type.WINS -> {
+                    canvas.drawImage(iconWins, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconWins, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.WALLS -> {
+                    canvas.drawImage(iconWalls, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconWalls, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.QUALIFICATION -> {
+                    canvas.drawImage(iconQualification, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconQualification, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.FINALS -> {
+                    canvas.drawImage(iconFinals, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconFinals, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.TOTAL -> {
+                    canvas.drawImage(iconTotal, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconTotal, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.TOTAL_API -> {
+                    canvas.drawImage(iconTotalApi, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconTotalApi, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.CHALLENGES -> {
+                    canvas.drawImage(iconChallenges, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconChallenges, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                else -> {
+                    canvas.drawImage(iconOverall, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconOverall, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+            }
+        } else {
+            when (leaderboard.type) {
+                Leaderboard.Type.QUALIFICATION -> {
+                    canvas.drawImage(iconPracticeQualification, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconPracticeQualification, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.FINALS -> {
+                    canvas.drawImage(iconPracticeFinals, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconPracticeFinals, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.LOBBY -> {
+                    canvas.drawImage(iconPracticeLobby, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconPracticeLobby, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.WIDE_QUALIFICATION -> {
+                    canvas.drawImage(iconPracticeWideQualification, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconPracticeWideQualification, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.WIDE_FINALS -> {
+                    canvas.drawImage(iconPracticeWideFinals, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconPracticeWideFinals, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                Leaderboard.Type.TOTAL -> {
+                    canvas.drawImage(iconPracticeTotal, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconPracticeTotal, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                else -> {
+                    canvas.drawImage(iconPracticeOverall, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconPracticeOverall, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+            }
+        }
+
+        var index = 0
+        for (i in 10 * page until 10 * page + 10) {
+            if (i >= leaderboard.players.size) break
+            val player = leaderboard.players[i]
+            val user = DatabaseUtils.getWallyUserFromUUID(player.uuid)
+            val fontColor = Utils.getColorFromScore(Utils.getHighestScore(player.scores))
+
+
+            if (File("database/linked users/${user?.member?.id}/accounts/${player.uuid}/head.png").exists())
+                canvas.drawImage("database/linked users/${user?.member?.id}/accounts/${player.uuid}/head.png", 40, 140 + 55 * index, 40, 40)
+            else if (File("database/leaderboards/hypixel/${player.uuid}/head.png").exists())
+                canvas.drawImage("database/leaderboards/hypixel/${player.uuid}/head.png", 40, 140 + 55 * index, 40, 40)
+            else if (File("database/leaderboards/practice/${player.uuid}/head.png").exists())
+                canvas.drawImage("database/leaderboards/practice/${player.uuid}/head.png", 40, 140 + 55 * index, 40, 40)
+            else
+                canvas.drawImage(missingHead, 40, 140 + 55 * index, 40, 40)
+
+            if (leaderboard.type == Leaderboard.Type.OVERALL) {
+                canvas.drawStringLeft("(#${i + 1}) ${player.name}: ${Wally.decimalFormat.format(player.overall)}", 100, 150 + 55 * index, 32.0f, fontColor)
+            } else {
+                canvas.drawStringLeft("(#${i + 1}) ${player.name}: ${Wally.numberFormat.format(player.getDataFromType(leaderboard.type))}", 100, 150 + 55 * index, 32.0f, fontColor)
+            }
+            index++
+        }
+
+        canvas.save("leaderboard.png")
     }
 }

@@ -10,6 +10,7 @@ interface StatsObject {
     val qualification: Int
     val total: Int
     val overall: Float
+    val overallPosition: Int
     fun getDataFromType(type: Leaderboard.Type): Int
     val scores: IntArray
 }

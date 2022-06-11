@@ -32,14 +32,14 @@ object LeaderboardManager {
     val totalLeaderboardHypixel = Leaderboard("Hypixel Total Score", TotalComparator(), Leaderboard.Type.TOTAL)
     val totalApiLeaderboardHypixel = Leaderboard("Hypixel Total Score (API)", HypixelTotalAPIComparator(), Leaderboard.Type.TOTAL_API)
     val challengesLeaderboardHypixel = Leaderboard("Hypixel Daily Challenges", HypixelChallengesComparator(), Leaderboard.Type.CHALLENGES)
-    val overallLeaderboardHypixel = Leaderboard("Hypixel Overall rank", OverallComparator(), Leaderboard.Type.OVERALL)
+    val overallLeaderboardHypixel = Leaderboard("Hypixel Overall Rank", OverallComparator(), Leaderboard.Type.OVERALL)
     val qualificationLeaderboardPractice = Leaderboard("Practice Qualification", QualificationComparator(), Leaderboard.Type.QUALIFICATION)
     val finalsLeaderboardPractice = Leaderboard("Practice Finals", FinalsComparator(), Leaderboard.Type.FINALS)
     val lobbyLeaderboardPractice = Leaderboard("Practice Lobby", PracticeLobbyComparator(), Leaderboard.Type.LOBBY)
     val wideQualificationLeaderboardPractice = Leaderboard("Practice Wide Qualification", PracticeWideQualificationComparator(), Leaderboard.Type.WIDE_QUALIFICATION)
     val wideFinalsLeaderboardPractice = Leaderboard("Practice Wide Finals", PracticeWideFinalsComparator(), Leaderboard.Type.WIDE_FINALS)
     val totalLeaderboardPractice = Leaderboard("Practice Total Score", TotalComparator(), Leaderboard.Type.TOTAL)
-    val overallLeaderboardPractice = Leaderboard("Practice Overall rank", OverallComparator(), Leaderboard.Type.OVERALL)
+    val overallLeaderboardPractice = Leaderboard("Practice Overall Rank", OverallComparator(), Leaderboard.Type.OVERALL)
 
     private fun calculateOverallLeaderboards() {
         populate(overallLeaderboardHypixel.players, DatabaseUtils.DataType.HYPIXEL, false)
