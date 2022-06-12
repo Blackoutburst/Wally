@@ -22,7 +22,7 @@ class CommandPracticeCompare : CommandExecutable() {
         val discordID = commandSender.member.id
 
         if (args.isEmpty() || !isLinked(discordID) && args.size == 1) {
-            message.reply(ConfigManager.loadMessage( "invalid command usage").replace("%usage%", CommandManager.prefix + "compare [Minecraft name] [Minecraft name]")).queue()
+            message.reply(ConfigManager.loadMessage( "invalid command usage").replace("%usage%", CommandManager.prefix + "practiceCompare [Minecraft name] [Minecraft name]")).queue()
             return
         }
 

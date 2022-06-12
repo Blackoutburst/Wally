@@ -23,6 +23,10 @@ class Canvas(width: Int, height: Int) {
         g!!.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
     }
 
+    fun useDefaultFont() {
+        font = ResourcesLoader.font
+    }
+
     fun save(fileName: String) {
         val file = File(fileName)
         ImageIO.write(bufferedImage, "png", file)

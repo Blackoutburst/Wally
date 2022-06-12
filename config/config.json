@@ -131,6 +131,10 @@
     "background reset": "Your background got reset to the default one!",
     "background delete error": "I couldn't delete the background file!",
     "no background": "You are not using a custom background!",
-    "background deleted": "%user% background got reset to the default background"
+    "background deleted": "%user% background got reset to the default background",
+    "not a valid size": "`%size%` is not a valid size please use a valid number",
+    "font size update": "Your font size got updated successfully!",
+    "font size reset": "Your font size got reset to the default value!",
+    "font size deleted": "%user% font size got reset to the default value"
   }
 }

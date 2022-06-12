@@ -16,7 +16,7 @@ class CommandDeleteBackground : CommandExecutable() {
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.isEmpty()) {
             message.reply(ConfigManager.loadMessage( "invalid command usage")
-                .replace("%usage%", prefix + "deleteFontColor [discordID/Minecraft name]")).queue()
+                .replace("%usage%", prefix + "deleteBackground [discordID/Minecraft name]")).queue()
             return
         }
 
