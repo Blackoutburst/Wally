@@ -48,7 +48,7 @@ class CommandDeleteFontColor : CommandExecutable() {
             discordID = wallyUser.member.id
         }
 
-        if (DatabaseUtils.isLinked(discordID)) {
+        if (!DatabaseUtils.isLinked(discordID)) {
             message.reply(ConfigManager.loadMessage( "not linked")
                 .replace("%user%", "<@$discordID>")).queue()
             return

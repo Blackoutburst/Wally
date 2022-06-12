@@ -24,7 +24,7 @@ class CommandResetFontColor : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         val discordID = commandSender.member.id
-        if (DatabaseUtils.isLinked(discordID)) {
+        if (!DatabaseUtils.isLinked(discordID)) {
             message.reply(ConfigManager.loadMessage( "you are not linked")).queue()
             return
         }

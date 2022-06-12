@@ -30,7 +30,7 @@ class CommandSetFontColor : CommandExecutable() {
         }
 
         val discordID = commandSender.member.id
-        if (DatabaseUtils.isLinked(discordID)) {
+        if (!DatabaseUtils.isLinked(discordID)) {
             message.reply(ConfigManager.loadMessage( "you are not linked")).queue()
             return
         }
