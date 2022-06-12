@@ -1,23 +1,22 @@
 package com.blackoutburst.wally.utils
 
-import net.dv8tion.jda.api.entities.MessageChannel
-import com.blackoutburst.wally.core.WallyUser
-import com.blackoutburst.wally.core.config.ConfigManager
-import com.blackoutburst.wally.core.request.Mojang
-import com.blackoutburst.wally.core.request.Hypixel
-import com.blackoutburst.wally.core.request.PracticeServer
 import com.blackoutburst.wally.core.UserOption
-import com.blackoutburst.wally.core.commands.PermissionLevel
-import com.blackoutburst.wally.core.commands.DisplayPreference
-import com.blackoutburst.wally.core.database.DatabaseManager
 import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.commands.CommandManager
+import com.blackoutburst.wally.core.commands.DisplayPreference
+import com.blackoutburst.wally.core.commands.PermissionLevel
+import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.database.DatabaseManager
+import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.core.request.Hypixel
+import com.blackoutburst.wally.core.request.Mojang
+import com.blackoutburst.wally.core.request.PracticeServer
 import com.blackoutburst.wally.core.request.Visage
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
-import java.lang.StringBuilder
-import java.util.Locale
+import net.dv8tion.jda.api.entities.MessageChannel
+import java.util.*
 
 object CommandUtils {
 
@@ -74,6 +73,17 @@ object CommandUtils {
             Wally.logger.log(LogLevel.INFO, "$playerName was linked to $discordID")
         }
         Visage.getPlayerHead(playerUUID)
+    }
+
+    fun getDiscordIDFromArg(guild: Guild, arg :String): String? {
+        return try {
+            if (guild.getMemberById(arg) != null)
+                arg
+            else
+                null
+        } catch (ignored :Exception) {
+            null
+        }
     }
 
     fun getDiscordIDFromTwoArgs(guild: Guild, args: Array<String>): String? {

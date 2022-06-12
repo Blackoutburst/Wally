@@ -1,15 +1,14 @@
 package com.blackoutburst.wally.core.commands
 
 import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
-import java.util.UUID
 import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.interactions.components.buttons.Button
-import java.util.HashSet
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
@@ -25,7 +24,7 @@ object CommandManager {
         register(PermissionLevel.STAFF, CommandUnlink(), "unlink")
         register(PermissionLevel.ADMIN, CommandSetLogLevel(), "setLogLevel")
         register(PermissionLevel.ADMIN, CommandReloadUser(), "reloadUser", "reloadUsers")
-        register(PermissionLevel.ADMIN, CommandSetPermissionLevel(), "setPermissionLevel", "setPerms", "setPermission")
+        register(PermissionLevel.ADMIN, CommandSetPermissionLevel(), "setPermissionLevel", "setPerms", "setPermission", "spl")
         register(PermissionLevel.ADMIN, CommandGetConfig(), "getConfig", "getConfiguration")
         register(PermissionLevel.ADMIN, CommandSetConfig(), "setConfig", "setConfiguration")
         register(PermissionLevel.MEMBER, CommandPoll(), "poll")
@@ -40,7 +39,7 @@ object CommandManager {
         register(PermissionLevel.ADMIN, CommandGetChangelog(), "getChangelog")
         register(PermissionLevel.ADMIN, CommandSetChangelog(), "setChangelog")
         register(PermissionLevel.STAFF, CommandAddAlt(), "addAlt")
-        register(PermissionLevel.STAFF, CommandRemoveAlt(), "removeAlt")
+        register(PermissionLevel.STAFF, CommandRemoveAlt(), "removeAlt", "rmAlt")
         register(PermissionLevel.STAFF, CommandListAccount(), "listAccount", "listAcc", "listAccounts", "listAccs")
         register(PermissionLevel.MEMBER, CommandSkin(), "skin")
         register(PermissionLevel.STAFF, CommandExcludeFromLeaderboard(),"excludeFromLeaderboard", "excludeFromLb", "excludeLb", "elb")

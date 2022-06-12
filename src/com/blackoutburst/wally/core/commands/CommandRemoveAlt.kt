@@ -1,22 +1,22 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.utils.CommandUtils.getDiscordIDFromTwoArgs
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
-import com.blackoutburst.wally.utils.CommandUtils.getNonDiscordIDArgFromTwoArgs
-import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
-import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
-import com.blackoutburst.wally.utils.FilesUtils.removeExclusion
-import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
-import com.blackoutburst.wally.core.config.ConfigManager
-import java.util.UUID
-import com.blackoutburst.wally.core.database.DatabaseManager
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.database.DatabaseManager
 import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.utils.CommandUtils.getDiscordIDFromArg
+import com.blackoutburst.wally.utils.DatabaseUtils
+import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
+import com.blackoutburst.wally.utils.FilesUtils.removeExclusion
+import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.interactions.components.buttons.Button
 import java.io.File
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class CommandRemoveAlt : CommandExecutable() {
@@ -25,15 +25,28 @@ class CommandRemoveAlt : CommandExecutable() {
         if (args.size != 2) {
             message.reply(
                 ConfigManager.loadMessage( "invalid command usage")
-                    .replace("%usage%", CommandManager.prefix + "removeAlt [discordID]")
+                    .replace("%usage%", CommandManager.prefix + "removeAlt [discordID/Minecraft name] [Alt Minecraft name]")
             ).queue()
             return
         }
 
-        val discordID = getDiscordIDFromTwoArgs(guild, args)
+        var discordID = getDiscordIDFromArg(guild, args[0])
+
         if (discordID == null) {
-            message.reply(ConfigManager.loadMessage( "not an user")).queue()
-            return
+            val playerUuid = getPlayerUUID(args[0])
+            if (playerUuid == null) {
+                message.reply(ConfigManager.loadMessage( "not an user")).queue()
+                return
+            }
+
+            val wallyUser = DatabaseUtils.getWallyUserFromUUID(playerUuid)
+            if (wallyUser == null) {
+                message.reply(ConfigManager.loadMessage( "not linked")
+                    .replace("%user%", args[0])).queue()
+                return
+            }
+
+            discordID = wallyUser.member.id
         }
 
         if (!isLinked(discordID)) {
@@ -43,12 +56,7 @@ class CommandRemoveAlt : CommandExecutable() {
             return
         }
 
-        val playerName = getNonDiscordIDArgFromTwoArgs(guild, args)
-        if (playerName == null) {
-            message.reply(ConfigManager.loadMessage( "could not get name")).queue()
-            return
-        }
-
+        val playerName = args[1]
         val playerUUID = getPlayerUUID(playerName)
         val folder = File("database/linked users/$discordID/accounts/$playerUUID")
 
