@@ -117,6 +117,9 @@
     "font color update": "Your font color got updated successfully!",
     "font color reset": "Your font color got reset to the default value!",
     "font color deleted": "%user% font color got reset to the default value",
-    "leaderboard sort": "Leaderboards sorted successfully"
+    "leaderboard sort": "Leaderboards sorted successfully",
+    "missing font attachment": "You must upload a font file with the command (.TTF/.OTF)!",
+    "not a font file": "The file must be a valid font file (.TTF/.OTF)",
+    "font update": "Your font got updated successfully!"
   }
 }

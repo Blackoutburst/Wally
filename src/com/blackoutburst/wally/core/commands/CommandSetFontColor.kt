@@ -18,7 +18,7 @@ class CommandSetFontColor : CommandExecutable() {
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 1) {
             message.reply(ConfigManager.loadMessage( "invalid command usage")
-                .replace("%usage%", prefix + "setFontColor [discordID] [Minecraft Name]")).queue()
+                .replace("%usage%", prefix + "setFontColor [color]")).queue()
             return
         }
 
