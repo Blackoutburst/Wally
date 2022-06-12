@@ -115,6 +115,7 @@
     "user data error": "Something is wrong with your data **ask staff members** to investigate them",
     "not a valid color": "%color% is not a valid color please use a valid Hexadecimal color (e.g #4284f5)",
     "font color update": "Your font color got updated successfully!",
-    "font color reset": "Your font color got reset to the default value!"
+    "font color reset": "Your font color got reset to the default value!",
+    "font color deleted": "%user% font color got reset to the default value"
   }
 }
