@@ -124,6 +124,13 @@
     "font reset": "Your font got reset tp the default one!",
     "font delete error": "I couldn't delete the font file!",
     "no font": "You are not using a custom font!",
-    "font deleted": "%user% font got reset to the default font"
+    "font deleted": "%user% font got reset to the default font",
+    "missing background attachment": "You must upload a picture file with the command (.PNG/.JPG/.JPEG)!",
+    "not a picture": "The file must be a valid picture (.PNG/.JPG/.JPEG)!",
+    "background update": "Your font got updated successfully!\n(Tips: if the preview is cut out you might want to reduce the font size with `setFontSize`)",
+    "background reset": "Your font got reset tp the default one!",
+    "background delete error": "I couldn't delete the font file!",
+    "no background": "You are not using a custom font!",
+    "background deleted": "%user% font got reset to the default font"
   }
 }
