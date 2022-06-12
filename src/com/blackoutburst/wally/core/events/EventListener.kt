@@ -1,19 +1,20 @@
 package com.blackoutburst.wally.core.events
 
-import com.blackoutburst.wally.core.events.Ready.run
+import com.blackoutburst.wally.core.events.MessageReceived.run
 import com.blackoutburst.wally.core.events.ReactionAdd.run
 import com.blackoutburst.wally.core.events.ReactionRemove.run
+import com.blackoutburst.wally.core.events.Ready.run
 import com.blackoutburst.wally.core.events.SelectMenuInteraction.run
-import com.blackoutburst.wally.core.events.MessageReceived.run
-import net.dv8tion.jda.api.hooks.ListenerAdapter
+import com.blackoutburst.wally.core.roles.RolesManager.addRole
 import net.dv8tion.jda.api.events.ReadyEvent
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent
-import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent
-import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent
+import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 class EventListener : ListenerAdapter() {
 
@@ -23,6 +24,7 @@ class EventListener : ListenerAdapter() {
 
     override fun onGuildMemberJoin(event: GuildMemberJoinEvent) {
         if (event.member.user.isBot) return
+        addRole("Members", event.member)
     }
 
     override fun onGuildMemberRemove(event: GuildMemberRemoveEvent) {
