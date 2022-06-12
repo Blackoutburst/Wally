@@ -64,6 +64,7 @@ object CommandManager {
         register(PermissionLevel.MEMBER, CommandSetBackground(), "setBackground", "setBg", "sbg")
         register(PermissionLevel.MEMBER, CommandResetBackground(), "resetBackground", "resetBg", "rbg")
         register(PermissionLevel.STAFF, CommandDeleteBackground(), "deleteBackground", "deleteBg", "dbg")
+        register(PermissionLevel.MEMBER, CommandSetFontSize(), "setFontSize", "sfs")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 
