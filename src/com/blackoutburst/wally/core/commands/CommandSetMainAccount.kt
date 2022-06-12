@@ -8,7 +8,6 @@ import com.blackoutburst.wally.core.request.Hypixel
 import com.blackoutburst.wally.core.request.Mojang
 import com.blackoutburst.wally.core.request.PracticeServer
 import com.blackoutburst.wally.utils.CommandUtils.getDiscordIDFromTwoArgs
-import com.blackoutburst.wally.utils.CommandUtils.getNonDiscordIDArgFromTwoArgs
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.FilesUtils
 import net.dv8tion.jda.api.entities.Guild
@@ -21,14 +20,27 @@ class CommandSetMainAccount : CommandExecutable() {
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 2) {
             message.reply(ConfigManager.loadMessage( "invalid command usage")
-                .replace("%usage%", prefix + "setMainAccount [discordID] [Minecraft Name]")).queue()
+                .replace("%usage%", prefix + "setMainAccount [discordID/Minecraft name] [Minecraft Name]")).queue()
             return
         }
 
-        val discordID = getDiscordIDFromTwoArgs(guild, args)
+        var discordID = getDiscordIDFromTwoArgs(guild, args)
+
         if (discordID == null) {
-            message.reply(ConfigManager.loadMessage( "not an user")).queue()
-            return
+            val playerUuid = Mojang.getPlayerUUID(args[0])
+            if (playerUuid == null) {
+                message.reply(ConfigManager.loadMessage( "not an user")).queue()
+                return
+            }
+
+            val wallyUser = DatabaseUtils.getWallyUserFromUUID(playerUuid)
+            if (wallyUser == null) {
+                message.reply(ConfigManager.loadMessage( "not linked")
+                    .replace("%user%", args[0])).queue()
+                return
+            }
+
+            discordID = wallyUser.member.id
         }
         val option = DatabaseUtils.getWallyUserData(discordID)
         if (option == null) {
@@ -36,7 +48,7 @@ class CommandSetMainAccount : CommandExecutable() {
             return
         }
 
-        val playerName = getNonDiscordIDArgFromTwoArgs(guild, args)!!
+        val playerName = args[1]
         val player = Mojang.getPlayerUUID(playerName)
         if (player == null) {
             message.reply(ConfigManager.loadMessage( "not in mojang").replace("%name%", playerName)).queue()
