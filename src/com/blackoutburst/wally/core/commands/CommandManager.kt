@@ -67,6 +67,7 @@ object CommandManager {
         register(PermissionLevel.MEMBER, CommandSetFontSize(), "setFontSize", "sfs")
         register(PermissionLevel.MEMBER, CommandResetFontSize(), "resetFontSize", "rfs")
         register(PermissionLevel.STAFF, CommandDeleteFontSize(), "deleteFontSize", "dfs")
+        register(PermissionLevel.ADMIN, CommandSetSubtitle(), "setSubtitle", "setSub", "setTitle")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 

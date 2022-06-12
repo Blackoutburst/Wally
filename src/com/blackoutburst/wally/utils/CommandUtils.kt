@@ -20,6 +20,15 @@ import java.util.*
 
 object CommandUtils {
 
+    fun getSubtitle(message: Message): String {
+        val tmp = message.contentRaw.trim { it <= ' ' }.split(" ").toTypedArray()
+        val words = tmp.copyOfRange(2, tmp.size)
+        val builder = StringBuilder()
+
+        words.forEach { w: String? -> builder.append(w).append(' ') }
+        return builder.toString()
+    }
+
     fun concatArgs(message: Message): String {
         val tmp = message.contentRaw.trim { it <= ' ' }.split(" ").toTypedArray()
         val words = tmp.copyOfRange(1, tmp.size)
