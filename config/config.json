@@ -137,6 +137,8 @@
     "font size reset": "Your font size got reset to the default value!",
     "font size deleted": "%user% font size got reset to the default value",
     "subtitle update": "%user% subtitle got updated successfully",
-    "dev update": "`%user%` developer status got updated successfully"
+    "dev update": "%user% developer status got updated successfully",
+    "not a valid tier": "`%tier%` is not a valid tier please use a valid number",
+    "patreon tier update": "%user% patreon tier got updated successfully"
   }
 }
