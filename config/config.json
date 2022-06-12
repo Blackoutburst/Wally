@@ -136,6 +136,7 @@
     "font size update": "Your font size got updated successfully!",
     "font size reset": "Your font size got reset to the default value!",
     "font size deleted": "%user% font size got reset to the default value",
-    "subtitle update": "%user% subtitle got updated successfully"
+    "subtitle update": "%user% subtitle got updated successfully",
+    "dev update": "`%user%` developer status got updated successfully"
   }
 }
