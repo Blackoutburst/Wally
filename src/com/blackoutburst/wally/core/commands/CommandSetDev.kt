@@ -57,7 +57,7 @@ class CommandSetDev : CommandExecutable() {
         DatabaseUtils.generateWallyProfile(option, "database/linked users/$discordID/data.json")
         Wally.loadUser()
 
-        message.reply(ConfigManager.loadMessage( "subtitle update")
+        message.reply(ConfigManager.loadMessage( "dev update")
             .replace("%user%", "<@$discordID>")).queue()
     }
 }
