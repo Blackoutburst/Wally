@@ -43,12 +43,13 @@ object CanvasUtils {
     fun createFontPreviewCanvas(user :WallyUser) {
         val canvas = Canvas(100, 35)
         val fontColor = Color.decode(user.fontColor)
+        val fontSize = user.fontSize
 
         if (user.hasFont()) {
             canvas.loadFont("database/linked users/${user.member.id}/resources/font.ttf")
         }
 
-        canvas.drawStringLeft("Preview", 5, 10, 18.0f, fontColor)
+        canvas.drawStringLeft("Preview", 5, 10, 18.0f + fontSize, fontColor)
         canvas.save("font_preview.png")
     }
 
@@ -59,11 +60,13 @@ object CanvasUtils {
         val user1 = DatabaseUtils.getWallyUserFromUUID(player1.uuid)
         val fontColor1 = Color.decode(user1?.fontColor ?: "#FFFFFF")
         val color1 = Utils.getColorFromScore(Utils.getHighestScore(player1.scores))
+        val fontSize1 = user1?.fontSize ?: 0f
 
         val player2 = PracticeStats(data2)
         val user2 = DatabaseUtils.getWallyUserFromUUID(player2.uuid)
         val fontColor2 = Color.decode(user2?.fontColor ?: "#FFFFFF")
         val color2 = Utils.getColorFromScore(Utils.getHighestScore(player2.scores))
+        val fontSize2 = user2?.fontSize ?: 0f
 
         if (user1 != null && user1.hasFont()) {
             canvas.loadFont("database/linked users/${user1.member.id}/resources/font.ttf")
@@ -86,26 +89,26 @@ object CanvasUtils {
         else
             canvas.drawImage(missingHead, 20, 52, 64, 64)
 
-        canvas.drawStringLeft(player1.name, 100, 57, 36.0f, fontColor1)
-        canvas.drawStringLeft(user1?.subtitle ?: "", 100, 97, 30.0f, fontColor1)
+        canvas.drawStringLeft(player1.name, 100, 57, 36.0f + fontSize1, fontColor1)
+        canvas.drawStringLeft(user1?.subtitle ?: "", 100, 97, 30.0f + fontSize1, fontColor1)
 
         canvas.drawImage(line, 0, 130, 450, 5, color1)
 
         canvas.drawImage(iconPracticeQualification, 20, 150, 40, 40)
-        canvas.drawStringLeft(formatLine("Qualification", player1.qualification, player1.qualificationPosition), 80, 160, 30.0f, getScoreCompareColor(player1.qualification, player2.qualification))
+        canvas.drawStringLeft(formatLine("Qualification", player1.qualification, player1.qualificationPosition), 80, 160, 30.0f + fontSize1, getScoreCompareColor(player1.qualification, player2.qualification))
         canvas.drawImage(iconPracticeFinals, 20, 205, 40, 40)
-        canvas.drawStringLeft(formatLine("Finals", player1.finals, player1.finalsPosition), 80, 215, 30.0f, getScoreCompareColor(player1.finals, player2.finals))
+        canvas.drawStringLeft(formatLine("Finals", player1.finals, player1.finalsPosition), 80, 215, 30.0f + fontSize1, getScoreCompareColor(player1.finals, player2.finals))
         canvas.drawImage(iconPracticeLobby, 20, 260, 40, 40)
-        canvas.drawStringLeft(formatLine("Lobby", player1.lobby, player1.lobbyPosition), 80, 270, 30.0f, getScoreCompareColor(player1.lobby, player2.lobby))
+        canvas.drawStringLeft(formatLine("Lobby", player1.lobby, player1.lobbyPosition), 80, 270, 30.0f + fontSize1, getScoreCompareColor(player1.lobby, player2.lobby))
         canvas.drawImage(iconPracticeWideQualification, 20, 315, 40, 40)
-        canvas.drawStringLeft(formatLine("Wide Qualif", player1.wideQualification, player1.wideQualificationPosition), 80, 325, 30.0f, getScoreCompareColor(player1.wideQualification, player2.wideQualification))
+        canvas.drawStringLeft(formatLine("Wide Qualif", player1.wideQualification, player1.wideQualificationPosition), 80, 325, 30.0f + fontSize1, getScoreCompareColor(player1.wideQualification, player2.wideQualification))
         canvas.drawImage(iconPracticeWideFinals, 20, 370, 40, 40)
-        canvas.drawStringLeft(formatLine("Wide Finals", player1.wideFinals, player1.wideFinalsPosition), 80, 380, 30.0f, getScoreCompareColor(player1.wideFinals, player2.wideFinals))
+        canvas.drawStringLeft(formatLine("Wide Finals", player1.wideFinals, player1.wideFinalsPosition), 80, 380, 30.0f + fontSize1, getScoreCompareColor(player1.wideFinals, player2.wideFinals))
         canvas.drawImage(iconPracticeTotal, 20, 425, 40, 40)
-        canvas.drawStringLeft(formatLine("Total Score", player1.total, player1.totalPosition), 80, 435, 30.0f, getScoreCompareColor(player1.total, player2.total))
+        canvas.drawStringLeft(formatLine("Total Score", player1.total, player1.totalPosition), 80, 435, 30.0f + fontSize1, getScoreCompareColor(player1.total, player2.total))
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
             canvas.drawImage(iconPracticeOverall, 20, 480, 40, 40)
-            canvas.drawStringLeft(formatLine("Overall Rank", player1.overall, player1.overallPosition), 80, 490, 30.0f, getScoreCompareColor(player1.overall, player2.overall))
+            canvas.drawStringLeft(formatLine("Overall Rank", player1.overall, player1.overallPosition), 80, 490, 30.0f + fontSize1, getScoreCompareColor(player1.overall, player2.overall))
         }
 
         if (user2 != null && user2.hasFont()) {
@@ -129,27 +132,29 @@ object CanvasUtils {
         else
             canvas.drawImage(missingHead, 916, 52, 64, 64)
 
-        canvas.drawStringRight(player2.name, 900, 57, 36.0f, fontColor2)
-        canvas.drawStringRight(user2?.subtitle ?: "", 900, 97, 30.0f, fontColor2)
+        canvas.drawStringRight(player2.name, 900, 57, 36.0f + fontSize2, fontColor2)
+        canvas.drawStringRight(user2?.subtitle ?: "", 900, 97, 30.0f + fontSize2, fontColor2)
 
         canvas.drawImage(line, 1000, 130, -450, 5, color2)
 
         canvas.drawImage(iconPracticeQualification, 940, 150, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Qualification", player2.qualification, player2.qualificationPosition), 920, 160, 30.0f, getScoreCompareColor(player2.qualification, player1.qualification))
+        canvas.drawStringRight(formatLineReverse("Qualification", player2.qualification, player2.qualificationPosition), 920, 160, 30.0f + fontSize2, getScoreCompareColor(player2.qualification, player1.qualification))
         canvas.drawImage(iconPracticeFinals, 940, 205, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Finals", player2.finals, player2.finalsPosition), 920, 215, 30.0f, getScoreCompareColor(player2.finals, player1.finals))
+        canvas.drawStringRight(formatLineReverse("Finals", player2.finals, player2.finalsPosition), 920, 215, 30.0f + fontSize2, getScoreCompareColor(player2.finals, player1.finals))
         canvas.drawImage(iconPracticeLobby, 940, 260, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Lobby", player2.lobby, player2.lobbyPosition), 920, 270, 30.0f, getScoreCompareColor(player2.lobby, player1.lobby))
+        canvas.drawStringRight(formatLineReverse("Lobby", player2.lobby, player2.lobbyPosition), 920, 270, 30.0f + fontSize2, getScoreCompareColor(player2.lobby, player1.lobby))
         canvas.drawImage(iconPracticeWideQualification, 940, 315, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Wide Qualif", player2.wideQualification, player2.wideQualificationPosition), 920, 325, 30.0f, getScoreCompareColor(player2.wideQualification, player1.wideQualification))
+        canvas.drawStringRight(formatLineReverse("Wide Qualif", player2.wideQualification, player2.wideQualificationPosition), 920, 325, 30.0f + fontSize2, getScoreCompareColor(player2.wideQualification, player1.wideQualification))
         canvas.drawImage(iconPracticeWideFinals, 940, 370, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Wide Finals", player2.wideFinals, player2.wideFinalsPosition), 920, 380, 30.0f, getScoreCompareColor(player2.wideFinals, player1.wideFinals))
+        canvas.drawStringRight(formatLineReverse("Wide Finals", player2.wideFinals, player2.wideFinalsPosition), 920, 380, 30.0f + fontSize2, getScoreCompareColor(player2.wideFinals, player1.wideFinals))
         canvas.drawImage(iconPracticeTotal, 940, 425, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Total Score", player2.total, player2.totalPosition), 920, 435, 30.0f, getScoreCompareColor(player2.total, player1.total))
+        canvas.drawStringRight(formatLineReverse("Total Score", player2.total, player2.totalPosition), 920, 435, 30.0f + fontSize2, getScoreCompareColor(player2.total, player1.total))
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
             canvas.drawImage(iconPracticeOverall, 940, 480, 40, 40)
-            canvas.drawStringRight(formatLineReverse("Overall Rank", player2.overall, player2.overallPosition), 920, 490, 30.0f, getScoreCompareColor(player2.overall, player1.overall))
+            canvas.drawStringRight(formatLineReverse("Overall Rank", player2.overall, player2.overallPosition), 920, 490, 30.0f + fontSize2, getScoreCompareColor(player2.overall, player1.overall))
         }
+
+        canvas.useDefaultFont()
 
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.qualification, player2.qualification), 500, 160, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.finals, player2.finals), 500, 215, 30.0f, Color.WHITE)
@@ -170,11 +175,13 @@ object CanvasUtils {
         val user1 = DatabaseUtils.getWallyUserFromUUID(player1.uuid)
         val fontColor1 = Color.decode(user1?.fontColor ?: "#FFFFFF")
         val color1 = Utils.getColorFromScore(Utils.getHighestScore(player1.scores))
+        val fontSize1 = user1?.fontSize ?: 0f
 
         val player2 = HypixelStats(data2)
         val user2 = DatabaseUtils.getWallyUserFromUUID(player2.uuid)
         val fontColor2 = Color.decode(user2?.fontColor ?: "#FFFFFF")
         val color2 = Utils.getColorFromScore(Utils.getHighestScore(player2.scores))
+        val fontSize2 = user1?.fontSize ?: 0f
 
         if (user1 != null && user1.hasFont()) {
             canvas.loadFont("database/linked users/${user1.member.id}/resources/font.ttf")
@@ -197,28 +204,28 @@ object CanvasUtils {
         else
             canvas.drawImage(missingHead, 20, 52, 64, 64)
 
-        canvas.drawStringLeft(player1.name, 100, 57, 36.0f, fontColor1)
-        canvas.drawStringLeft(user1?.subtitle ?: "", 100, 97, 30.0f, fontColor1)
+        canvas.drawStringLeft(player1.name, 100, 57, 36.0f + fontSize1, fontColor1)
+        canvas.drawStringLeft(user1?.subtitle ?: "", 100, 97, 30.0f + fontSize1, fontColor1)
 
         canvas.drawImage(line, 0, 130, 450, 5, color1)
 
         canvas.drawImage(iconWins, 20, 150, 40, 40)
-        canvas.drawStringLeft(formatLine("Wins", player1.wins, player1.winsPosition), 80, 160, 30.0f, getScoreCompareColor(player1.wins, player2.wins))
+        canvas.drawStringLeft(formatLine("Wins", player1.wins, player1.winsPosition), 80, 160, 30.0f + fontSize1, getScoreCompareColor(player1.wins, player2.wins))
         canvas.drawImage(iconWalls, 20, 205, 40, 40)
-        canvas.drawStringLeft(formatLine("Walls", player1.walls, player1.wallsPosition), 80, 215, 30.0f, getScoreCompareColor(player1.walls, player2.walls))
+        canvas.drawStringLeft(formatLine("Walls", player1.walls, player1.wallsPosition), 80, 215, 30.0f + fontSize1, getScoreCompareColor(player1.walls, player2.walls))
         canvas.drawImage(iconQualification, 20, 260, 40, 40)
-        canvas.drawStringLeft(formatLine("Qualification", player1.qualification, player1.qualificationPosition), 80, 270, 30.0f, getScoreCompareColor(player1.qualification, player2.qualification))
+        canvas.drawStringLeft(formatLine("Qualification", player1.qualification, player1.qualificationPosition), 80, 270, 30.0f + fontSize1, getScoreCompareColor(player1.qualification, player2.qualification))
         canvas.drawImage(iconFinals, 20, 315, 40, 40)
-        canvas.drawStringLeft(formatLine("Finals", player1.finals, player1.finalsPosition), 80, 325, 30.0f, getScoreCompareColor(player1.finals, player2.finals))
+        canvas.drawStringLeft(formatLine("Finals", player1.finals, player1.finalsPosition), 80, 325, 30.0f + fontSize1, getScoreCompareColor(player1.finals, player2.finals))
         canvas.drawImage(iconTotal, 20, 370, 40, 40)
-        canvas.drawStringLeft(formatLine("Total Score", player1.total, player1.totalPosition), 80, 380, 30.0f, getScoreCompareColor(player1.total, player2.total))
+        canvas.drawStringLeft(formatLine("Total Score", player1.total, player1.totalPosition), 80, 380, 30.0f + fontSize1, getScoreCompareColor(player1.total, player2.total))
         canvas.drawImage(iconTotalApi, 20, 425, 40, 40)
-        canvas.drawStringLeft(formatLine("Total Score (API)", player1.totalAPI, player1.totalAPIPosition), 80, 435, 30.0f, getScoreCompareColor(player1.totalAPI, player2.totalAPI))
+        canvas.drawStringLeft(formatLine("Total Score (API)", player1.totalAPI, player1.totalAPIPosition), 80, 435, 30.0f + fontSize1, getScoreCompareColor(player1.totalAPI, player2.totalAPI))
         canvas.drawImage(iconChallenges, 20, 480, 40, 40)
-        canvas.drawStringLeft(formatLine("Challenges", player1.challenges, player1.challengesPosition), 80, 490, 30.0f, getScoreCompareColor(player1.challenges, player2.challenges))
+        canvas.drawStringLeft(formatLine("Challenges", player1.challenges, player1.challengesPosition), 80, 490, 30.0f + fontSize1, getScoreCompareColor(player1.challenges, player2.challenges))
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
             canvas.drawImage(iconOverall, 20, 535, 40, 40)
-            canvas.drawStringLeft(formatLine("Overall Rank", player1.overall, player1.overallPosition), 80, 545, 30.0f, getScoreCompareColor(player1.overall, player2.overall))
+            canvas.drawStringLeft(formatLine("Overall Rank", player1.overall, player1.overallPosition), 80, 545, 30.0f + fontSize1, getScoreCompareColor(player1.overall, player2.overall))
         }
 
         if (user2 != null && user2.hasFont()) {
@@ -242,30 +249,31 @@ object CanvasUtils {
         else
             canvas.drawImage(missingHead, 916, 52, 64, 64)
 
-        canvas.drawStringRight(player2.name, 900, 57, 36.0f, fontColor2)
-        canvas.drawStringRight(user2?.subtitle ?: "", 900, 97, 30.0f, fontColor2)
+        canvas.drawStringRight(player2.name, 900, 57, 36.0f + fontSize2, fontColor2)
+        canvas.drawStringRight(user2?.subtitle ?: "", 900, 97, 30.0f + fontSize2, fontColor2)
 
         canvas.drawImage(line, 1000, 130, -450, 5, color2)
 
         canvas.drawImage(iconWins, 940, 150, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Wins", player2.wins, player2.winsPosition), 920, 160, 30.0f, getScoreCompareColor(player2.wins, player1.wins))
+        canvas.drawStringRight(formatLineReverse("Wins", player2.wins, player2.winsPosition), 920, 160, 30.0f + fontSize2, getScoreCompareColor(player2.wins, player1.wins))
         canvas.drawImage(iconWalls, 940, 205, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Walls", player2.walls, player2.wallsPosition), 920, 215, 30.0f, getScoreCompareColor(player2.walls, player1.walls))
+        canvas.drawStringRight(formatLineReverse("Walls", player2.walls, player2.wallsPosition), 920, 215, 30.0f + fontSize2, getScoreCompareColor(player2.walls, player1.walls))
         canvas.drawImage(iconQualification, 940, 260, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Qualification", player2.qualification, player2.qualificationPosition), 920, 270, 30.0f, getScoreCompareColor(player2.qualification, player1.qualification))
+        canvas.drawStringRight(formatLineReverse("Qualification", player2.qualification, player2.qualificationPosition), 920, 270, 30.0f + fontSize2, getScoreCompareColor(player2.qualification, player1.qualification))
         canvas.drawImage(iconFinals, 940, 315, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Finals", player2.finals, player2.finalsPosition), 920, 325, 30.0f, getScoreCompareColor(player2.finals, player1.finals))
+        canvas.drawStringRight(formatLineReverse("Finals", player2.finals, player2.finalsPosition), 920, 325, 30.0f + fontSize2, getScoreCompareColor(player2.finals, player1.finals))
         canvas.drawImage(iconTotal, 940, 370, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Total Score", player2.total, player2.totalPosition), 920, 380, 30.0f, getScoreCompareColor(player2.total, player1.total))
+        canvas.drawStringRight(formatLineReverse("Total Score", player2.total, player2.totalPosition), 920, 380, 30.0f + fontSize2, getScoreCompareColor(player2.total, player1.total))
         canvas.drawImage(iconTotalApi, 940, 425, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Total Score (API)", player2.totalAPI, player2.totalAPIPosition), 920, 435, 30.0f, getScoreCompareColor(player2.totalAPI, player1.totalAPI))
+        canvas.drawStringRight(formatLineReverse("Total Score (API)", player2.totalAPI, player2.totalAPIPosition), 920, 435, 30.0f + fontSize2, getScoreCompareColor(player2.totalAPI, player1.totalAPI))
         canvas.drawImage(iconChallenges, 940, 480, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Challenges", player2.challenges, player2.challengesPosition), 920, 490, 30.0f, getScoreCompareColor(player2.challenges, player1.challenges))
+        canvas.drawStringRight(formatLineReverse("Challenges", player2.challenges, player2.challengesPosition), 920, 490, 30.0f + fontSize2, getScoreCompareColor(player2.challenges, player1.challenges))
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
             canvas.drawImage(iconOverall, 940, 535, 40, 40)
-            canvas.drawStringRight(formatLineReverse("Overall Rank", player2.overall, player2.overallPosition), 920, 545, 30.0f, getScoreCompareColor(player2.overall, player1.overall))
+            canvas.drawStringRight(formatLineReverse("Overall Rank", player2.overall, player2.overallPosition), 920, 545, 30.0f + fontSize2, getScoreCompareColor(player2.overall, player1.overall))
         }
 
+        canvas.useDefaultFont()
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.wins, player2.wins), 500, 160, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.walls, player2.walls), 500, 215, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.qualification, player2.qualification), 500, 270, 30.0f, Color.WHITE)
@@ -284,6 +292,7 @@ object CanvasUtils {
         val canvas = Canvas(1000, 600)
         val fontColor = Color.decode(user?.fontColor ?: "#FFFFFF")
         val color = Utils.getColorFromScore(Utils.getHighestScore(data.scores))
+        val fontSize = user?.fontSize ?: 0f
 
         if (user != null && user.hasFont()) {
             canvas.loadFont("database/linked users/${user.member.id}/resources/font.ttf")
@@ -310,8 +319,8 @@ object CanvasUtils {
             canvas.drawImage(downloadAvatar(user!!.member.effectiveAvatarUrl), 20, 57, 128, 128)
         }
 
-        canvas.drawStringLeft(data.name, 158, 57, 36.0f, fontColor)
-        canvas.drawStringLeft(user?.subtitle ?: "", 158, 97, 30.0f, fontColor)
+        canvas.drawStringLeft(data.name, 158, 57, 36.0f + fontSize, fontColor)
+        canvas.drawStringLeft(user?.subtitle ?: "", 158, 97, 30.0f + fontSize, fontColor)
 
         var iconX = 158
         val increment = 55
@@ -332,21 +341,21 @@ object CanvasUtils {
         canvas.drawImage(line, 0, 205, 450, 5, color)
 
         canvas.drawImage(iconPracticeQualification, 40, 270, 50, 50)
-        canvas.drawStringLeft(formatLine("Qualification", data.qualification, data.qualificationPosition), 110, 285, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Qualification", data.qualification, data.qualificationPosition), 110, 285, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconPracticeFinals, 40, 340, 50, 50)
-        canvas.drawStringLeft(formatLine("Finals", data.finals, data.finalsPosition), 110, 355, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Finals", data.finals, data.finalsPosition), 110, 355, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconPracticeLobby, 40, 410, 50, 50)
-        canvas.drawStringLeft(formatLine("Lobby", data.lobby, data.lobbyPosition), 110, 425, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Lobby", data.lobby, data.lobbyPosition), 110, 425, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconPracticeWideQualification, 40, 480, 50, 50)
-        canvas.drawStringLeft(formatLine("Wide Qualification", data.wideQualification, data.wideQualificationPosition), 110, 495, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Wide Qualification", data.wideQualification, data.wideQualificationPosition), 110, 495, 30.0f + fontSize, fontColor)
 
         canvas.drawImage(iconPracticeWideFinals, 490, 270, 50, 50)
-        canvas.drawStringLeft(formatLine("Wide Finals", data.wideFinals, data.wideFinalsPosition), 560, 285, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Wide Finals", data.wideFinals, data.wideFinalsPosition), 560, 285, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconPracticeTotal, 490, 340, 50, 50)
-        canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 560, 355, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 560, 355, 30.0f + fontSize, fontColor)
         if (data.overall.toInt() != 0) {
             canvas.drawImage(iconPracticeOverall, 490, 410, 50, 50)
-            canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 425, 30.0f, fontColor)
+            canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 425, 30.0f + fontSize, fontColor)
         }
 
         canvas.save("practice_stats.png")
@@ -357,6 +366,7 @@ object CanvasUtils {
         val canvas = Canvas(1000, 600)
         val fontColor = Color.decode(user?.fontColor ?: "#FFFFFF")
         val color = Utils.getColorFromScore(Utils.getHighestScore(data.scores))
+        val fontSize = user?.fontSize ?: 0f
 
         if (user != null && user.hasFont()) {
             canvas.loadFont("database/linked users/${user.member.id}/resources/font.ttf")
@@ -383,8 +393,8 @@ object CanvasUtils {
             canvas.drawImage(downloadAvatar(user!!.member.effectiveAvatarUrl), 20, 57, 128, 128)
         }
 
-        canvas.drawStringLeft(data.name, 158, 57, 36.0f, fontColor)
-        canvas.drawStringLeft(user?.subtitle ?: "", 158, 97, 30.0f, fontColor)
+        canvas.drawStringLeft(data.name, 158, 57, 36.0f + fontSize, fontColor)
+        canvas.drawStringLeft(user?.subtitle ?: "", 158, 97, 30.0f + fontSize, fontColor)
 
         var iconX = 158
         val increment = 55
@@ -406,24 +416,24 @@ object CanvasUtils {
         canvas.drawImage(line, 0, 205, 450, 5, color)
 
         canvas.drawImage(iconWins, 40, 270, 50, 50)
-        canvas.drawStringLeft(formatLine("Wins", data.wins, data.winsPosition), 110, 285, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Wins", data.wins, data.winsPosition), 110, 285, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconWalls, 40, 340, 50, 50)
-        canvas.drawStringLeft(formatLine("Walls", data.walls, data.wallsPosition), 110, 355, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Walls", data.walls, data.wallsPosition), 110, 355, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconQualification, 40, 410, 50, 50)
-        canvas.drawStringLeft(formatLine("Qualification", data.qualification, data.qualificationPosition), 110, 425, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Qualification", data.qualification, data.qualificationPosition), 110, 425, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconFinals, 40, 480, 50, 50)
-        canvas.drawStringLeft(formatLine("Finals", data.finals, data.finalsPosition), 110, 495, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Finals", data.finals, data.finalsPosition), 110, 495, 30.0f + fontSize, fontColor)
 
         canvas.drawImage(iconTotal, 490, 270, 50, 50)
-        canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 560, 285, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 560, 285, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconTotalApi, 490, 340, 50, 50)
-        canvas.drawStringLeft(formatLine("Total Score (API)", data.totalAPI, data.totalAPIPosition), 560, 355, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Total Score (API)", data.totalAPI, data.totalAPIPosition), 560, 355, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconChallenges, 490, 410, 50, 50)
-        canvas.drawStringLeft(formatLine("Challenges", data.challenges, data.challengesPosition), 560, 425, 30.0f, fontColor)
+        canvas.drawStringLeft(formatLine("Challenges", data.challenges, data.challengesPosition), 560, 425, 30.0f + fontSize, fontColor)
 
         if (data.overall.toInt() != 0) {
             canvas.drawImage(iconOverall, 490, 480, 50, 50)
-            canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 495, 30.0f, fontColor)
+            canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 495, 30.0f + fontSize, fontColor)
         }
 
         canvas.save("stats.png")

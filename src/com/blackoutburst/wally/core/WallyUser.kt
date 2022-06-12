@@ -19,6 +19,9 @@ class WallyUser(val member: Member, private val options: UserOption) {
     val fontColor: String
         get() = options.fontColor
 
+    val fontSize: Float
+        get() = options.fontSize
+
     val subtitle: String
         get() = options.subtitle
 

@@ -1,7 +1,7 @@
 package com.blackoutburst.wally.core
 
-import com.blackoutburst.wally.core.commands.PermissionLevel
 import com.blackoutburst.wally.core.commands.DisplayPreference
+import com.blackoutburst.wally.core.commands.PermissionLevel
 
 class UserOption {
 
@@ -9,6 +9,7 @@ class UserOption {
     var displayPreference: DisplayPreference
     var mainAccountUUID: String
     var fontColor: String
+    var fontSize: Float
     var serverID: String
     var subtitle: String
     var patreonTier: Int
@@ -22,6 +23,7 @@ class UserOption {
         serverID = ""
         subtitle = ""
         patreonTier = 0
+        fontSize = 0f
         isDeveloper = false
     }
 
@@ -33,6 +35,7 @@ class UserOption {
         this.serverID = serverID
         subtitle = ""
         patreonTier = 0
+        fontSize = 0f
         isDeveloper = false
     }
 }
