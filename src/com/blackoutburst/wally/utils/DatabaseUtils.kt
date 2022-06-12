@@ -1,20 +1,21 @@
 package com.blackoutburst.wally.utils
 
-import net.dv8tion.jda.api.entities.MessageChannel
-import com.blackoutburst.wally.core.commands.DisplayPreference
 import com.blackoutburst.wally.core.UserOption
-import com.blackoutburst.wally.core.config.ConfigManager
-import com.blackoutburst.wally.core.WallyUser
-import java.nio.file.Paths
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.commands.DisplayPreference
+import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addHypixelPlayer
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addPracticePlayer
-import com.google.gson.Gson
 import com.blackoutburst.wally.core.logger.LogLevel
-import com.blackoutburst.wally.core.statsobject.HypixelStats
-import com.blackoutburst.wally.core.statsobject.PracticeStats
-import java.io.*
+import com.google.gson.Gson
+import net.dv8tion.jda.api.entities.MessageChannel
+import java.io.File
+import java.io.FileReader
+import java.io.FileWriter
+import java.io.Writer
 import java.nio.file.Files
+import java.nio.file.Paths
 
 object DatabaseUtils {
 

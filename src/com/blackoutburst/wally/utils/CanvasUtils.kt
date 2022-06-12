@@ -27,7 +27,6 @@ import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconWins
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.line
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.missingHead
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.practiceHeader
-import com.blackoutburst.wally.core.commands.DisplayPreference
 import com.blackoutburst.wally.core.leaderboard.Leaderboard
 import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats

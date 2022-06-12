@@ -1,14 +1,12 @@
 package com.blackoutburst.wally.core.database
 
-import com.blackoutburst.wally.utils.DatabaseUtils.generateStats
-import com.blackoutburst.wally.utils.DatabaseUtils.generateWallyProfile
-import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.UserOption
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addHypixelPlayer
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addPracticePlayer
-import com.blackoutburst.wally.core.statsobject.HypixelStats
-import com.blackoutburst.wally.core.statsobject.PracticeStats
+import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.utils.DatabaseUtils.generateStats
+import com.blackoutburst.wally.utils.DatabaseUtils.generateWallyProfile
 import java.io.File
 
 object DatabaseManager {

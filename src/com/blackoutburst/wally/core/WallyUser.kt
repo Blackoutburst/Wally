@@ -1,8 +1,7 @@
 package com.blackoutburst.wally.core
 
-import com.blackoutburst.wally.core.commands.PermissionLevel
 import com.blackoutburst.wally.core.commands.DisplayPreference
-import com.sun.org.apache.xpath.internal.operations.Bool
+import com.blackoutburst.wally.core.commands.PermissionLevel
 import net.dv8tion.jda.api.entities.Member
 import java.io.File
 

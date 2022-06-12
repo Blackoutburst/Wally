@@ -1,21 +1,20 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
-import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
-import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinkedUUID
-import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
-import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
-import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
-import com.blackoutburst.wally.utils.MessageUtils.sendPracticeCompare
 import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
-import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.core.config.ConfigManager
-import com.blackoutburst.wally.core.request.Visage
+import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
+import com.blackoutburst.wally.utils.DatabaseUtils
+import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
+import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
+import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
+import com.blackoutburst.wally.utils.DatabaseUtils.isLinkedUUID
+import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
+import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
+import com.blackoutburst.wally.utils.MessageUtils.sendPracticeCompare
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 
 class CommandPracticeCompare : CommandExecutable() {
 

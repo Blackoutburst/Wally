@@ -1,21 +1,19 @@
 package com.blackoutburst.wally.core.commands
 
 import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.commands.CommandManager.prefix
-import com.blackoutburst.wally.utils.CommandUtils.getDiscordIDFromTwoArgs
-import com.blackoutburst.wally.utils.CommandUtils.createUserData
 import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
+import com.blackoutburst.wally.core.commands.CommandManager.prefix
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.request.Hypixel
 import com.blackoutburst.wally.core.request.Mojang
 import com.blackoutburst.wally.core.request.PracticeServer
-import com.blackoutburst.wally.core.request.Visage
+import com.blackoutburst.wally.utils.CommandUtils.getDiscordIDFromTwoArgs
 import com.blackoutburst.wally.utils.CommandUtils.getNonDiscordIDArgFromTwoArgs
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.FilesUtils
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 import java.io.File
 
 class CommandSetMainAccount : CommandExecutable() {
