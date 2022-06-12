@@ -41,14 +41,14 @@ import java.io.File
 object CanvasUtils {
 
     fun createFontPreviewCanvas(user :WallyUser) {
-        val canvas = Canvas(100, 30)
+        val canvas = Canvas(100, 35)
         val fontColor = Color.decode(user.fontColor)
 
         if (user.hasFont()) {
             canvas.loadFont("database/linked users/${user.member.id}/resources/font.ttf")
         }
 
-        canvas.drawStringLeft("Preview", 0, 0, 18.0f, fontColor)
+        canvas.drawStringLeft("Preview", 5, 10, 18.0f, fontColor)
         canvas.save("font_preview.png")
     }
 

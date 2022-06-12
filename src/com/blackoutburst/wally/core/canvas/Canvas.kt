@@ -23,13 +23,8 @@ class Canvas(width: Int, height: Int) {
         g!!.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
     }
 
-    fun useDefaultFont() {
-        font = ResourcesLoader.font
-    }
-
     fun save(fileName: String) {
         val file = File(fileName)
-        useDefaultFont()
         ImageIO.write(bufferedImage, "png", file)
         g!!.dispose()
     }
@@ -145,6 +140,6 @@ class Canvas(width: Int, height: Int) {
     }
 
     fun loadFont(file: String) {
-        font = Font.createFont(Font.TRUETYPE_FONT, File(file))
+        font = Font.createFont(Font.TRUETYPE_FONT, File(file)) // This never get released ? Why ?
     }
 }
