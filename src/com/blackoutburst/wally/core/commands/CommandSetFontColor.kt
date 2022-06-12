@@ -11,6 +11,7 @@ import com.blackoutburst.wally.core.request.Hypixel
 import com.blackoutburst.wally.core.request.Mojang
 import com.blackoutburst.wally.core.request.PracticeServer
 import com.blackoutburst.wally.core.request.Visage
+import com.blackoutburst.wally.utils.CanvasUtils
 import com.blackoutburst.wally.utils.CommandUtils.getNonDiscordIDArgFromTwoArgs
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.FilesUtils
@@ -19,6 +20,7 @@ import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 import java.awt.Color
 import java.io.File
+import javax.xml.crypto.Data
 
 class CommandSetFontColor : CommandExecutable() {
 
@@ -44,7 +46,7 @@ class CommandSetFontColor : CommandExecutable() {
         val color = if (args[0].startsWith("#")) args[0] else "#${args[0]}"
 
 
-        if (Color.decode(color) == null) {
+        try { Color.decode(color) } catch (ignored :Exception) {
             message.reply(ConfigManager.loadMessage( "not a valid color").replace("%color%", color)).queue()
             return
         }
@@ -54,6 +56,9 @@ class CommandSetFontColor : CommandExecutable() {
         DatabaseUtils.generateWallyProfile(option, "database/linked users/$discordID/data.json")
         Wally.loadUser()
 
-        message.reply(ConfigManager.loadMessage( "font color update")).queue()
+        val updatedUser = DatabaseUtils.getWallyUserFromUUID(option.mainAccountUUID)
+
+        CanvasUtils.createFontPreviewCanvas(updatedUser!!)
+        message.reply(ConfigManager.loadMessage( "font color update")).addFile(File("font_preview.png")).queue()
     }
 }
