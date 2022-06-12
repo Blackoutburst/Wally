@@ -14,6 +14,7 @@ class CommandSetFont : CommandExecutable() {
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (message.attachments.size == 0) {
             message.reply(ConfigManager.loadMessage( "missing font attachment")).queue()
+            return
         }
 
         val discordID = commandSender.member.id
@@ -24,7 +25,7 @@ class CommandSetFont : CommandExecutable() {
 
         val file = message.attachments[0]
         if (file.fileExtension == "ttf" || file.fileExtension == "otf") {
-            file.proxy.downloadToFile(File("database/linked users/${commandSender.member.id}/resources/font.ttf"))
+            file.downloadToFile(File("database/linked users/$discordID/resources/font.ttf")).join()
             CanvasUtils.createFontPreviewCanvas(commandSender)
             message.reply(ConfigManager.loadMessage( "font update")).addFile(File("font_preview.png")).queue()
         } else {

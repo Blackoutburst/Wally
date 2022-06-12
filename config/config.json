@@ -120,9 +120,10 @@
     "leaderboard sort": "Leaderboards sorted successfully",
     "missing font attachment": "You must upload a font file with the command (.TTF/.OTF)!",
     "not a font file": "The file must be a valid font file (.TTF/.OTF)",
-    "font update": "Your font got updated successfully!",
+    "font update": "Your font got updated successfully!\n(Tips: if the preview is cut out you might want to reduce the font size with `setFontSize`)",
     "font reset": "Your font got reset tp the default one!",
     "font delete error": "I couldn't delete the font file!",
-    "no font": "You are not using a custom font!"
+    "no font": "You are not using a custom font!",
+    "font deleted": "%user% font got reset to the default font"
   }
 }
