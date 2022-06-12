@@ -77,14 +77,14 @@ object CommandUtils {
     }
 
     fun getDiscordIDFromTwoArgs(guild: Guild, args: Array<String>): String? {
-        if (guild.getMemberById(args[0]) != null) return args[0]
-        if (guild.getMemberById(args[1]) != null) return args[1]
+        try { if (guild.getMemberById(args[0]) != null) return args[0] } catch (ignored :Exception) {}
+        try { if (guild.getMemberById(args[1]) != null) return args[1] } catch (ignored :Exception) {}
         return null
     }
 
     fun getNonDiscordIDArgFromTwoArgs(guild: Guild, args: Array<String>): String? {
-        if (guild.getMemberById(args[0]) != null) return args[1]
-        if (guild.getMemberById(args[1]) != null) return args[0]
+        try {  if (guild.getMemberById(args[0]) != null) return args[1] } catch (ignored :Exception) {}
+        try {  if (guild.getMemberById(args[1]) != null) return args[0] } catch (ignored :Exception) {}
         return null
     }
 

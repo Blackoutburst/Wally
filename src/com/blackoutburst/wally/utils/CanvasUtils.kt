@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.utils
 
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.canvas.Canvas
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.background
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.hypixelHeader
@@ -39,6 +40,18 @@ import java.awt.Color
 import java.io.File
 
 object CanvasUtils {
+
+    fun createFontPreviewCanvas(user :WallyUser) {
+        val canvas = Canvas(100, 30)
+        val fontColor = Color.decode(user.fontColor)
+
+        if (user.hasFont()) {
+            canvas.loadFont("database/linked users/${user.member.id}/resources/font.ttf")
+        }
+
+        canvas.drawStringLeft("Preview", 0, 0, 18.0f, fontColor)
+        canvas.save("font_preview.png")
+    }
 
     fun createPracticeCompareCanvas(data1: String, data2: String) {
         val canvas = Canvas(1000, 600)

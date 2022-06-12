@@ -55,6 +55,9 @@ object CommandManager {
         register(PermissionLevel.MEMBER, CommandCompare(), "compare", "c")
         register(PermissionLevel.MEMBER, CommandPracticeCompare(), "pCompare", "pc", "practiceCompare", "practiceC")
         register(PermissionLevel.STAFF, CommandSetMainAccount(), "setMain", "setMainAccount", "setMainAcc")
+        register(PermissionLevel.MEMBER, CommandSetFontColor(), "setFontColor", "sfc")
+        register(PermissionLevel.MEMBER, CommandResetFontColor(), "resetFontColor", "rfc")
+        register(PermissionLevel.STAFF, CommandDeleteFontColor(), "deleteFontColor", "dfc")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 
