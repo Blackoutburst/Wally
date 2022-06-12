@@ -47,7 +47,7 @@ object CommandManager {
         register(PermissionLevel.STAFF, CommandExcludeList(), "excludeList", "eList")
         register(PermissionLevel.ADMIN, CommandLogLevel(), "logLevel", "showLogLevel", "displayLogLevel")
         register(PermissionLevel.MEMBER, CommandLeaderboard(),"leaderboard", "leaderboards", "lead", "leads", "lb", "lbs")
-        register(PermissionLevel.ADMIN, CommandSetPrefix(), "setPrefix", "setCommandPrefix")
+        register(PermissionLevel.ADMIN, CommandSetPrefix(), "setPrefix", "setCommandPrefix", "scp")
         register(PermissionLevel.MEMBER, CommandStats(), "stats", "stat", "s")
         register(PermissionLevel.MEMBER, CommandPracticeStats(),"practiceStats", "practiceStat", "ps", "pStats", "pStat")
         register(PermissionLevel.MEMBER, CommandSetDisplayPreference(), "setDisplayPreference", "sdp")
@@ -57,6 +57,7 @@ object CommandManager {
         register(PermissionLevel.MEMBER, CommandSetFontColor(), "setFontColor", "sfc")
         register(PermissionLevel.MEMBER, CommandResetFontColor(), "resetFontColor", "rfc")
         register(PermissionLevel.STAFF, CommandDeleteFontColor(), "deleteFontColor", "dfc")
+        register(PermissionLevel.ADMIN, CommandSortLeaderboard(), "sortLeaderboard", "sortLead", "sortLb", "slb")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 

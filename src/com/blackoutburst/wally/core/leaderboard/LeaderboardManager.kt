@@ -1,25 +1,15 @@
 package com.blackoutburst.wally.core.leaderboard
 
-import com.blackoutburst.wally.core.leaderboard.comparators.HypixelWinsComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.HypixelWallsComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.QualificationComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.FinalsComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.TotalComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.HypixelTotalAPIComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.HypixelChallengesComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.OverallComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.PracticeLobbyComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.PracticeWideQualificationComparator
-import com.blackoutburst.wally.core.leaderboard.comparators.PracticeWideFinalsComparator
-import com.blackoutburst.wally.core.statsobject.StatsObject
-import java.nio.file.Paths
+import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.leaderboard.comparators.*
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats
-import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.core.statsobject.StatsObject
 import com.blackoutburst.wally.utils.DatabaseUtils
 import java.io.File
 import java.nio.file.Files
+import java.nio.file.Paths
 import java.time.Duration
 import java.time.Instant
 
@@ -70,6 +60,25 @@ object LeaderboardManager {
 
     private fun sort(leaderboard: Leaderboard) {
         leaderboard.players.sortWith(leaderboard.comparator)
+    }
+
+    fun sortAll() {
+        sort(winsLeaderboardHypixel)
+        sort(wallLeaderboardHypixel)
+        sort(qualificationLeaderboardHypixel)
+        sort(finalsLeaderboardHypixel)
+        sort(totalLeaderboardHypixel)
+        sort(totalApiLeaderboardHypixel)
+        sort(challengesLeaderboardHypixel)
+        sort(overallLeaderboardHypixel)
+
+        sort(qualificationLeaderboardPractice)
+        sort(finalsLeaderboardPractice)
+        sort(lobbyLeaderboardPractice)
+        sort(wideQualificationLeaderboardPractice)
+        sort(wideFinalsLeaderboardPractice)
+        sort(totalLeaderboardPractice)
+        sort(overallLeaderboardPractice)
     }
 
     fun addPracticePlayer(data: String) {
