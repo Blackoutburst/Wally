@@ -135,6 +135,7 @@
     "not a valid size": "`%size%` is not a valid size please use a valid number",
     "font size update": "Your font size got updated successfully!",
     "font size reset": "Your font size got reset to the default value!",
-    "font size deleted": "%user% font size got reset to the default value"
+    "font size deleted": "%user% font size got reset to the default value",
+    "subtitle update": "%user% subtitle got updated successfully"
   }
 }
