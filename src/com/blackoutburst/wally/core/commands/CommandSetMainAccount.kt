@@ -23,7 +23,7 @@ class CommandSetMainAccount : CommandExecutable() {
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.size != 2) {
             message.reply(ConfigManager.loadMessage( "invalid command usage")
-                .replace("%usage%", prefix + "link [discordID] [Minecraft Name]")).queue()
+                .replace("%usage%", prefix + "setMainAccount [discordID] [Minecraft Name]")).queue()
             return
         }
 
@@ -49,7 +49,7 @@ class CommandSetMainAccount : CommandExecutable() {
         val folder = File("database/linked users/$discordID/accounts/")
         val entries = folder.list()
 
-        if (!entries.contains(player)) {
+        if (!entries!!.contains(player)) {
             message.reply(ConfigManager.loadMessage( "not user alt")
                 .replace("%name%", playerName)
                 .replace("%user%", user!!.member.effectiveName)
