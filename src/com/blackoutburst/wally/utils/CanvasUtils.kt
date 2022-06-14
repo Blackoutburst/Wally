@@ -225,6 +225,7 @@ object CanvasUtils {
         canvas.drawStringLeft(formatLine("Total Score (API)", player1.totalAPI, player1.totalAPIPosition), 80, 435, 30.0f + fontSize1, getScoreCompareColor(player1.totalAPI, player2.totalAPI))
         canvas.drawImage(iconChallenges, 20, 480, 40, 40)
         canvas.drawStringLeft(formatLine("Challenges", player1.challenges, player1.challengesPosition), 80, 490, 30.0f + fontSize1, getScoreCompareColor(player1.challenges, player2.challenges))
+        
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
             canvas.drawImage(iconOverall, 20, 535, 40, 40)
             canvas.drawStringLeft(formatLine("Overall Rank", player1.overall, player1.overallPosition), 80, 545, 30.0f + fontSize1, getScoreCompareColor(player1.overall, player2.overall))
