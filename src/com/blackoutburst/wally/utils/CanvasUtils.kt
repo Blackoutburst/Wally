@@ -164,6 +164,7 @@ object CanvasUtils {
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.wideQualification, player2.wideQualification), 500, 325, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.wideFinals, player2.wideFinals), 500, 380, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.total, player2.total), 500, 435, 30.0f, Color.WHITE)
+        
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0)
             canvas.drawStringCenter(formatScoreCompareCanvas(player1.overall, player2.overall), 500, 490, 30.0f, Color.WHITE)
 
