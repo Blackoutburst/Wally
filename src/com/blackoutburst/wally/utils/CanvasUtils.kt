@@ -286,6 +286,7 @@ object CanvasUtils {
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.total, player2.total), 500, 380, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.totalAPI, player2.totalAPI), 500, 435, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.challenges, player2.challenges), 500, 490, 30.0f, Color.WHITE)
+        
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0)
             canvas.drawStringCenter(formatScoreCompareCanvas(player1.overall, player2.overall), 500, 545, 30.0f, Color.WHITE)
 
