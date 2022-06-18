@@ -359,6 +359,7 @@ object CanvasUtils {
         canvas.drawStringLeft(formatLine("Wide Finals", data.wideFinals, data.wideFinalsPosition), 560, 285, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconPracticeTotal, 490, 340, 50, 50)
         canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 560, 355, 30.0f + fontSize, fontColor)
+        
         if (data.overall.toInt() != 0) {
             canvas.drawImage(iconPracticeOverall, 490, 410, 50, 50)
             canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 425, 30.0f + fontSize, fontColor)
