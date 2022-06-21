@@ -336,6 +336,7 @@ object CanvasUtils {
             if (user.patreonTier >= 2) {canvas.drawImage(iconTier2, iconX, 135, 50, 50); iconX += increment}
             if (user.patreonTier >= 3) {canvas.drawImage(iconTier3, iconX, 135, 50, 50); iconX += increment}
         }
+        
         if (data.qualificationPosition in 1..10) {canvas.drawImage(iconPracticeQualification, iconX, 135, 50, 50); iconX += increment}
         if (data.finalsPosition in 1..10) {canvas.drawImage(iconPracticeFinals, iconX, 135, 50, 50); iconX += increment}
         if (data.lobbyPosition in 1..10) {canvas.drawImage(iconPracticeLobby, iconX, 135, 50, 50); iconX += increment}
