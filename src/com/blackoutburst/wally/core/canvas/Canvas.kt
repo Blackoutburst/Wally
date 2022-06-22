@@ -84,6 +84,7 @@ class Canvas(width: Int, height: Int) {
     fun drawImage(file: String, x: Int, y: Int, width: Int, height: Int) {
         try {
             val image = ImageIO.read(File(file))
+            
             g!!.drawImage(image, x, y, width, height, null)
         } catch (e: Exception) {
             e.printStackTrace()
