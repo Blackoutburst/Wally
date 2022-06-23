@@ -64,6 +64,7 @@ object DatabaseUtils {
     fun generateStats(data: String, file: String): Boolean {
         return try {
             val writer: Writer = FileWriter(file)
+            
             writer.write(data)
             writer.flush()
             writer.close()
