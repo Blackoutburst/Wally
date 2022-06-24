@@ -13,6 +13,7 @@ object DatabaseManager {
 
     private fun createRootFolders(folderPath: String) {
         val rootFolder = File(folderPath)
+
         if (!rootFolder.exists()) {
             if (rootFolder.mkdir()) {
                 Wally.logger.log(LogLevel.INFO, "$folderPath created")
