@@ -29,6 +29,7 @@ object DatabaseManager {
         createRootFolders("database/leaderboards/hypixel")
         createRootFolders("database/leaderboards/practice")
         createRootFolders("database/linked users")
+        createRootFolders("database/attachments")
     }
 
     fun cleanFolder(rootFolder: File): Boolean {
