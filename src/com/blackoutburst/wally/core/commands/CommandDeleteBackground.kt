@@ -15,7 +15,7 @@ class CommandDeleteBackground : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.isEmpty()) {
-            message.reply(ConfigManager.loadMessage( "invalid command usage")
+            message.reply(ConfigManager.loadMessage("invalid command usage")
                 .replace("%usage%", prefix + "deleteBackground [discordID/Minecraft name]")).queue()
             return
         }
@@ -25,13 +25,13 @@ class CommandDeleteBackground : CommandExecutable() {
         if (discordID == null) {
             val playerUuid = Mojang.getPlayerUUID(args[0])
             if (playerUuid == null) {
-                message.reply(ConfigManager.loadMessage( "not an user")).queue()
+                message.reply(ConfigManager.loadMessage("not an user")).queue()
                 return
             }
 
             val wallyUser = DatabaseUtils.getWallyUserFromUUID(playerUuid)
             if (wallyUser == null) {
-                message.reply(ConfigManager.loadMessage( "not linked")
+                message.reply(ConfigManager.loadMessage("not linked")
                     .replace("%user%", args[0])).queue()
                 return
             }
@@ -40,7 +40,7 @@ class CommandDeleteBackground : CommandExecutable() {
         }
 
         if (!DatabaseUtils.isLinked(discordID)) {
-            message.reply(ConfigManager.loadMessage( "not linked")
+            message.reply(ConfigManager.loadMessage("not linked")
                 .replace("%user%", "<@$discordID>")).queue()
             return
         }
@@ -48,13 +48,13 @@ class CommandDeleteBackground : CommandExecutable() {
         val file = File("database/linked users/$discordID/resources/background.png")
         if (file.exists()) {
             if (file.delete()) {
-                message.reply(ConfigManager.loadMessage( "background deleted")
+                message.reply(ConfigManager.loadMessage("background deleted")
                     .replace("%user%", "<@$discordID>")).queue()
             } else {
-                message.reply(ConfigManager.loadMessage( "background delete error")).queue()
+                message.reply(ConfigManager.loadMessage("background delete error")).queue()
             }
         } else {
-            message.reply(ConfigManager.loadMessage( "no background")).queue()
+            message.reply(ConfigManager.loadMessage("no background")).queue()
         }
 
     }
