@@ -56,6 +56,5 @@ class CommandDeleteBackground : CommandExecutable() {
         } else {
             message.reply(ConfigManager.loadMessage("no background")).queue()
         }
-
     }
 }
