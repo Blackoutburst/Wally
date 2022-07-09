@@ -1,20 +1,19 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
-import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
+import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.request.Hypixel.getPlayerStats
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinkedUUID
+import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
-import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
+import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
+import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
 import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
 import com.blackoutburst.wally.utils.MessageUtils.sendHypixelCompare
-import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
-import com.blackoutburst.wally.utils.DatabaseUtils
-import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 
 class CommandCompare : CommandExecutable() {
 
@@ -46,12 +45,12 @@ class CommandCompare : CommandExecutable() {
         }
 
         var player1Data = getPlayerStats(player1Uuid)
-        if (player1Data == null && isLinkedUUID(player1Uuid)) {
+        if (player1Data == null) {
             player1Data = getBackupLocalData(player1Uuid, DatabaseUtils.DataType.HYPIXEL, channel)
         }
 
         var player2Data = getPlayerStats(player2Uuid)
-        if (player2Data == null && isLinkedUUID(player2Uuid)) {
+        if (player2Data == null) {
             player2Data = getBackupLocalData(player2Uuid, DatabaseUtils.DataType.HYPIXEL, channel)
         }
 

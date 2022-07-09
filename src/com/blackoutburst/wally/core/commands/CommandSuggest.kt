@@ -18,7 +18,7 @@ class CommandSuggest : CommandExecutable() {
         if (args.isEmpty()) {
             message.reply(
                 ConfigManager.loadMessage( "invalid command usage")
-                .replace("%usage%", CommandManager.prefix + "say [message]")).queue()
+                .replace("%usage%", CommandManager.prefix + "suggest [message]")).queue()
             return
         }
 
