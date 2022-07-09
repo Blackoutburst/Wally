@@ -8,7 +8,6 @@ import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
 import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
 import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinkedUUID
 import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
 import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
 import com.blackoutburst.wally.utils.MessageUtils.sendPracticeCompare
@@ -46,12 +45,12 @@ class CommandPracticeCompare : CommandExecutable() {
         }
 
         var player1Data = getPlayerStats(player1Uuid)
-        if (player1Data == null && isLinkedUUID(player1Uuid)) {
+        if (player1Data == null) {
             player1Data = getBackupLocalData(player1Uuid, DatabaseUtils.DataType.PRACTICE, channel)
         }
 
         var player2Data = getPlayerStats(player2Uuid)
-        if (player2Data == null && isLinkedUUID(player2Uuid)) {
+        if (player2Data == null) {
             player2Data = getBackupLocalData(player2Uuid, DatabaseUtils.DataType.PRACTICE, channel)
         }
 

@@ -55,11 +55,11 @@ class CommandListAccount : CommandExecutable() {
         val builder = StringBuilder()
 
         builder.append("```md").append(System.lineSeparator())
-            .append("#").append(getPlayerName(mainUUID)).append(System.lineSeparator())
+            .append("# ").append(getPlayerName(mainUUID)).append(System.lineSeparator())
 
         for (s in entries!!) {
             if (s == mainUUID) continue
-            builder.append(getPlayerName(s)).append(System.lineSeparator())
+            builder.append("- ").append(getPlayerName(s)).append(System.lineSeparator())
         }
 
         builder.append("```").append(System.lineSeparator())

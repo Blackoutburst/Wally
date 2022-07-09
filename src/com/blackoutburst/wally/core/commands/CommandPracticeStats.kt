@@ -1,24 +1,23 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
-import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
-import com.blackoutburst.wally.core.request.Mojang.getPlayerName
-import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinkedUUID
-import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
-import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
-import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
-import com.blackoutburst.wally.utils.DatabaseUtils.updateLinkedPlayerStats
-import com.blackoutburst.wally.utils.MessageUtils.sendPracticeStats
 import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
-import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.request.Mojang.getPlayerName
+import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
 import com.blackoutburst.wally.core.request.Visage
 import com.blackoutburst.wally.core.statsobject.PracticeStats
+import com.blackoutburst.wally.utils.DatabaseUtils
+import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
+import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
+import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
+import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
+import com.blackoutburst.wally.utils.DatabaseUtils.updateLinkedPlayerStats
+import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
+import com.blackoutburst.wally.utils.MessageUtils.sendPracticeStats
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 
 class CommandPracticeStats : CommandExecutable() {
 
@@ -48,7 +47,7 @@ class CommandPracticeStats : CommandExecutable() {
         }
 
         var data = getPlayerStats(uuid)
-        if (data == null && isLinkedUUID(uuid)) {
+        if (data == null) {
             data = getBackupLocalData(uuid, DatabaseUtils.DataType.PRACTICE, channel)
         }
 
