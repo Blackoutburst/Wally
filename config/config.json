@@ -140,6 +140,12 @@
     "subtitle update": "%user% subtitle got updated successfully",
     "dev update": "%user% developer status got updated successfully",
     "not a valid tier": "`%tier%` is not a valid tier please use a valid number",
-    "patreon tier update": "%user% patreon tier got updated successfully"
+    "patreon tier update": "%user% patreon tier got updated successfully",
+    "f range": "Value must be between 0 and 550",
+    "f zero": "0F compares to 0 to 45Q",
+    "f convert": "%F%F compares to **%Q%**Q",
+    "q range": "Value must be between 0 and 400",
+    "q zero": "%Q%Q compares to **0**F as they probably won't qualify",
+    "q convert": "%Q%Q compares to **%F%**F"
   }
 }
