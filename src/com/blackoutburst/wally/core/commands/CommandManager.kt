@@ -72,6 +72,7 @@ object CommandManager {
         register(PermissionLevel.ADMIN, CommandSetPatreonTier(), "setPatreonTier", "setPatreon")
         register(PermissionLevel.MEMBER, CommandSuggest(), "suggest")
         register(PermissionLevel.MEMBER, CommandWhoIs(), "who", "whois")
+        register(PermissionLevel.MEMBER, CommandConvert(), "convert")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 
