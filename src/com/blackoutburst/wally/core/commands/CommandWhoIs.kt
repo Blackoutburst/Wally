@@ -91,8 +91,6 @@ class CommandWhoIs : CommandExecutable() {
             val combinedStats = HypixelStats(user.mainAccountUuid, "${user.member.effectiveName}#${user.member.user.discriminator}", wins, walls, qualification, finals, total, totalAPI, challenges)
             embed.setColor(Utils.getColorFromScore(Utils.getHighestScore(combinedStats.scores)))
             embed.addField("Discord", "`${user.member.effectiveName}#${user.member.user.discriminator}`", true)
-            embed.addBlankField(true)
-            embed.addBlankField(true)
 
             val folder = File("database/linked users/${user.member.id}/accounts/")
             val entries = folder.list()
@@ -115,7 +113,7 @@ class CommandWhoIs : CommandExecutable() {
             }
 
             builder.append("```").append(System.lineSeparator())
-            embed.addField("Accounts", builder.toString(), false)
+            embed.addField("Minecraft Accounts", builder.toString(), false)
 
             var hypixelData = Hypixel.getPlayerStats(uuid)
             if (hypixelData == null) {
