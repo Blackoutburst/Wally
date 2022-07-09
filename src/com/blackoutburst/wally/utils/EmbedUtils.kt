@@ -1,21 +1,21 @@
 package com.blackoutburst.wally.utils
 
-import com.blackoutburst.wally.utils.Utils.getColorFromScore
-import com.blackoutburst.wally.utils.Utils.getHighestScore
-import com.blackoutburst.wally.core.leaderboard.Leaderboard
-import net.dv8tion.jda.api.entities.MessageEmbed
-import net.dv8tion.jda.api.EmbedBuilder
-import java.time.LocalDate
-import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.leaderboard.Leaderboard
 import com.blackoutburst.wally.core.statsobject.HypixelStats
+import com.blackoutburst.wally.core.statsobject.PracticeStats
+import com.blackoutburst.wally.core.statsobject.StatsObject
 import com.blackoutburst.wally.utils.LineUtils.comparisonLineLeft
 import com.blackoutburst.wally.utils.LineUtils.comparisonLineMiddle
 import com.blackoutburst.wally.utils.LineUtils.comparisonLineRight
+import com.blackoutburst.wally.utils.Utils.getColorFromScore
+import com.blackoutburst.wally.utils.Utils.getHighestScore
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
 import java.io.BufferedReader
 import java.io.FileReader
-import java.lang.StringBuilder
+import java.time.LocalDate
 
 object EmbedUtils {
 
@@ -228,5 +228,29 @@ object EmbedUtils {
             Wally.logger.logStackTrace(e)
             null
         }
+    }
+
+    fun pbEmbed(stats :StatsObject, discordId :String, oldScore :Int, newScore :Int, gameType :String) : MessageEmbed {
+        val time = System.currentTimeMillis()
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        val wallyPfp = "https://www.blackoutburst.com/img/wally.png"
+
+        val embed = EmbedBuilder()
+            .setThumbnail("https://visage.surgeplay.com/full/512/${stats.uuid}?&time=$time")
+            .setFooter("Discord ID: $discordId\nUUID: ${stats.uuid}")
+            .setColor(getColorFromScore(newScore))
+            .setAuthor("New $gameType PB !", wallyURL, wallyPfp)
+
+        if (oldScore > 0) {
+            embed.setTitle("${stats.name} improved ${Utils.getGenderPrefix(discordId)} **$gameType** Personal Best!")
+            embed.addField("Old PB", "**$oldScore**",true)
+            embed.addField("New PB", "**$newScore**",true)
+            embed.addField("Increase","**${(newScore - oldScore)}**",true)
+        } else {
+            embed.setTitle("${stats.name} completed ${Utils.getGenderPrefix(discordId)} first game of **$gameType**!")
+            embed.addField("They got", "**$newScore** points!",true)
+        }
+
+        return embed.build()
     }
 }

@@ -6,9 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.request.PracticeServer
 import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.utils.DatabaseUtils
-import com.blackoutburst.wally.utils.Utils
-import net.dv8tion.jda.api.EmbedBuilder
-import net.dv8tion.jda.api.entities.MessageEmbed
+import com.blackoutburst.wally.utils.EmbedUtils.pbEmbed
 import net.dv8tion.jda.api.entities.emoji.Emoji
 import java.lang.Thread.sleep
 
@@ -93,30 +91,5 @@ object PracticeTracker {
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.PRACTICE, user.member.id, user.mainAccountUuid)
         }
-
-    }
-
-    private fun pbEmbed(stats :PracticeStats, discordId :String, oldScore :Int, newScore :Int, gameType :String) : MessageEmbed {
-        val time = System.currentTimeMillis()
-        val wallyURL = "https://github.com/Blackoutburst/Wally"
-        val wallyPfp = "https://www.blackoutburst.com/img/wally.png"
-
-        val embed = EmbedBuilder()
-            .setThumbnail("https://visage.surgeplay.com/full/512/${stats.uuid}?&time=$time")
-            .setFooter("Discord ID: $discordId\nUUID: ${stats.uuid}")
-            .setColor(Utils.getColorFromScore(newScore))
-            .setAuthor("New $gameType PB !", wallyURL, wallyPfp)
-
-        if (oldScore > 0) {
-            embed.setTitle("${stats.name} improved ${Utils.getGenderPrefix(discordId)} **$gameType** Personal Best!")
-            embed.addField("Old PB", "**$oldScore**",true)
-            embed.addField("New PB", "**$newScore**",true)
-            embed.addField("Increase","**${(newScore - oldScore)}**",true)
-        } else {
-            embed.setTitle("${stats.name} completed ${Utils.getGenderPrefix(discordId)} first game of **$gameType**!")
-            embed.addField("They got", "**$newScore** points!",true)
-        }
-
-        return embed.build()
     }
 }
