@@ -61,6 +61,28 @@ object DatabaseUtils {
         return data
     }
 
+    fun getLocalData(uuid: String, type: DataType): String? {
+        var data: String? = null
+        val typeName = type.dataName
+
+        try {
+            val wallyUser = getWallyUserFromUUID(uuid)
+            val memberId = wallyUser!!.member.id
+            val filePath = Paths.get("database/linked users/$memberId/accounts/$uuid/$typeName.json")
+
+            data = String(Files.readAllBytes(filePath))
+        } catch (e: Exception) {
+            try {
+                val filePath = Paths.get("database/leaderboards/$typeName/$uuid/data.json")
+
+                data = String(Files.readAllBytes(filePath))
+            } catch (e2: Exception) {
+                Wally.logger.logStackTrace(e2)
+            }
+        }
+        return data
+    }
+
     fun generateStats(data: String, file: String): Boolean {
         return try {
             val writer: Writer = FileWriter(file)

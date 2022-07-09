@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.utils
 
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.config.ConfigManager
 import net.dv8tion.jda.api.entities.Role
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -10,6 +11,20 @@ import kotlin.math.abs
 
 
 object Utils {
+
+    fun getGenderPrefix(discordId: String): String? {
+        val hisRole = Wally.hitwDiscord!!.getRoleById(ConfigManager.loadValue("roles", "He/Him"))
+        val herRole = Wally.hitwDiscord!!.getRoleById(ConfigManager.loadValue("roles", "She/Her"))
+        val theirRole = Wally.hitwDiscord!!.getRoleById(ConfigManager.loadValue("roles", "They/Them"))
+        val memberRoles = Wally.hitwDiscord!!.getMemberById(discordId)!!.roles
+
+        val his = memberRoles.contains(hisRole)
+        val her = memberRoles.contains(herRole)
+        val their = memberRoles.contains(theirRole)
+
+        if (his && !her && !their) return "his"
+        return if (her && !his && !their) "her" else "their"
+    }
 
     fun downloadAvatar(avatarUrl: String) : BufferedImage {
         val connection = URL(avatarUrl).openConnection()
