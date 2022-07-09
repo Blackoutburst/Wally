@@ -1,12 +1,13 @@
 package com.blackoutburst.wally.core.commands
 
 import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.utils.CommandUtils.concatArgs
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
+import net.dv8tion.jda.api.entities.emoji.Emoji
 import java.awt.Color
 import java.time.LocalDate
 
@@ -31,8 +32,8 @@ class CommandPoll : CommandExecutable() {
 
         message.delete().queue()
         channel.sendMessageEmbeds(embed.build()).queue { msg: Message ->
-            msg.addReaction("U+1F44D").queue()
-            msg.addReaction("U+1F44E").queue()
+            msg.addReaction(Emoji.fromUnicode("U+1F44D")).queue()
+            msg.addReaction(Emoji.fromUnicode("U+1F44E")).queue()
         }
     }
 }
