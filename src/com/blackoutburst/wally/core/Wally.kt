@@ -1,24 +1,23 @@
 package com.blackoutburst.wally.core
 
-import com.blackoutburst.wally.main.Main.Companion.DISCORD_TOKEN
-import net.dv8tion.jda.api.JDA
-import java.util.HashSet
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.Locale
+import com.blackoutburst.wally.core.events.EventListener
 import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.core.logger.Logger
+import com.blackoutburst.wally.main.Main.Companion.DISCORD_TOKEN
 import com.google.gson.Gson
-import java.io.FileReader
+import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Activity
-import net.dv8tion.jda.api.utils.ChunkingFilter
-import net.dv8tion.jda.api.utils.MemberCachePolicy
-import net.dv8tion.jda.api.requests.GatewayIntent
-import com.blackoutburst.wally.core.events.EventListener
-import com.blackoutburst.wally.core.logger.Logger
 import net.dv8tion.jda.api.entities.Guild
+import net.dv8tion.jda.api.requests.GatewayIntent
+import net.dv8tion.jda.api.utils.ChunkingFilter
 import net.dv8tion.jda.api.utils.Compression
+import net.dv8tion.jda.api.utils.MemberCachePolicy
 import java.io.File
+import java.io.FileReader
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
 
 object Wally {
 
@@ -29,6 +28,7 @@ object Wally {
     val numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH) as DecimalFormat
     val decimalFormat = DecimalFormat("#.##")
     var hitwDiscord: Guild? = null
+    var devServer: Guild? = null
 
     fun loadUser() {
         users.clear()

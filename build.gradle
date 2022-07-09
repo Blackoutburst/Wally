@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.7.0-RC'
+    ext.kotlin_version = '1.7.0'
     repositories {
         mavenCentral()
     }
@@ -22,7 +22,7 @@ application {
 dependencies {
   implementation 'com.google.guava:guava:31.1-jre'
   implementation 'com.google.code.gson:gson:2.9.0'
-  implementation 'net.dv8tion:JDA:5.0.0-alpha.12'
+  implementation 'net.dv8tion:JDA:5.0.0-alpha.13'
   implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }

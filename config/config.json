@@ -37,7 +37,8 @@
   "channels": {
     "changelog channel": "739630025304703068",
     "practice tracker channel": "909117760116756570",
-    "tracker channel": "709548207717220352"
+    "tracker channel": "709548207717220352",
+    "dev suggestion channel": "949052086258106380"
   },
   "replies": {
     "missing permission": "I\u0027m sorry, but you don\u0027t have the necessary permission to use this command!",
