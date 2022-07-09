@@ -17,7 +17,7 @@ The branch [old](https://github.com/Blackoutburst/Wally/tree/old) is just here f
 Wally is a discord bot that allow you to check your Hypixel Hole in the Wall stats, he contains much more features such as a score tracker, customizable user profile, leaderboards and much more!
 
 ## Prerequsites
-* [Kotlin 1.7.0-RC](https://kotlinlang.org/) - Kotlin is necessary to run the bot since it's made with Kotlin
+* [Kotlin 1.7.0](https://kotlinlang.org/) - Kotlin is necessary to run the bot since it's made with Kotlin
 * [Java 8+](https://www.java.com/) - Java is necessary to run the bot
 * [A config file](https://github.com/Blackoutburst/Wally/blob/master/config/config.json) - see the [config.json](https://github.com/Blackoutburst/Wally/blob/master/config/config.json) file and modify it to your needs
 * [A Hypixel key](https://hypixel.net/) - In order to get the data from hypixel you need a key
