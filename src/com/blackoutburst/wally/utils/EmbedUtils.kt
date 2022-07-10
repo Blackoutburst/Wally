@@ -18,6 +18,7 @@ import java.io.BufferedReader
 import java.io.FileReader
 import java.time.LocalDate
 
+
 object EmbedUtils {
 
     fun generateLeaderboardEmbed(leaderboard: Leaderboard, page: Int): MessageEmbed {
@@ -234,13 +235,13 @@ object EmbedUtils {
     fun pbEmbed(stats :StatsObject, user :WallyUser, oldScore :Int, newScore :Int, gameType :String) : MessageEmbed {
         val time = System.currentTimeMillis()
         val wallyURL = "https://github.com/Blackoutburst/Wally"
-        val wallyPfp = "https://www.blackoutburst.com/img/wally.png"
+        val avatarUrl = user.member.user.avatarUrl
 
         val embed = EmbedBuilder()
             .setThumbnail("https://visage.surgeplay.com/full/512/${stats.uuid}?&time=$time")
             .setFooter("Discord ID: ${user.member.id}\nUUID: ${stats.uuid}")
             .setColor(getColorFromScore(newScore))
-            .setAuthor("${user.member.effectiveName}#${user.member.user.discriminator} new $gameType PB !", wallyURL, wallyPfp)
+            .setAuthor("${user.member.effectiveName}#${user.member.user.discriminator} new $gameType PB !", wallyURL, avatarUrl)
 
         if (oldScore > 0) {
             embed.setTitle("${stats.name} improved ${Utils.getGenderPrefix(user.member.id)} **$gameType** Personal Best!")
@@ -253,5 +254,29 @@ object EmbedUtils {
         }
 
         return embed.build()
+    }
+
+    fun welcomeEmbed(stats: HypixelStats, user: WallyUser) : MessageEmbed {
+        val time = System.currentTimeMillis()
+        val url = "https://visage.surgeplay.com/face/512/${stats.uuid}?&time=$time"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        val avatarUrl = user.member.user.avatarUrl
+        val name: String = user.member.effectiveName
+
+        return EmbedBuilder()
+            .setAuthor("$name | ${stats.name}", wallyURL, avatarUrl)
+            .setThumbnail(url)
+            .setFooter("Discord ID: ${user.member.id}\nUUID: ${stats.uuid}")
+            .setTitle("$name was linked!")
+            .setDescription("They have:")
+            .addField("`${stats.wins}` wins", "", true)
+            .addField("`${stats.walls}` walls", "", true)
+            .addField("`${stats.qualification}` Q", "", true)
+            .addField("`${stats.finals}` F", "", true)
+            .addField("`${(stats.total)}` Q/F", "", true)
+            .addField("`${(stats.totalAPI)}` Q/F (API)", "", true)
+            .addField("`${(stats.challenges)}` Challenges", "", true)
+            .setColor(getColorFromScore(getHighestScore(stats.scores)))
+            .build()
     }
 }
