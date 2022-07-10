@@ -83,9 +83,10 @@ object CommandUtils {
             Wally.logger.log(LogLevel.INFO, "$playerName was linked to $discordID")
             val member = Wally.hitwDiscord!!.getMemberById(discordID)
             if (member != null)
-                channel.sendMessageEmbeds(EmbedUtils.welcomeEmbed(HypixelStats(hypixelData), WallyUser(member, wallyProfile)))
+                channel.sendMessageEmbeds(EmbedUtils.welcomeEmbed(HypixelStats(hypixelData), WallyUser(member, wallyProfile))).queue()
         }
         Visage.getPlayerHead(playerUUID)
+        Wally.loadUser()
     }
 
     fun getDiscordIDFromArg(guild: Guild, arg :String): String? {

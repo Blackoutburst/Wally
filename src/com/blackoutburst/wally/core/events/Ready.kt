@@ -3,10 +3,6 @@ package com.blackoutburst.wally.core.events
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
-import com.blackoutburst.wally.threads.HypixelLeaderboardUpdater
-import com.blackoutburst.wally.threads.HypixelTracker
-import com.blackoutburst.wally.threads.PracticeLeaderboardUpdater
-import com.blackoutburst.wally.threads.PracticeTracker
 import net.dv8tion.jda.api.events.ReadyEvent
 import kotlin.system.exitProcess
 
@@ -25,6 +21,7 @@ object Ready {
 
         Wally.logger.log(LogLevel.INFO, "Discord servers retrieved successfully")
 
+        /*
         HypixelTracker.run()
         PracticeTracker.run()
         Wally.logger.log(LogLevel.INFO, "Trackers started successfully")
@@ -32,5 +29,6 @@ object Ready {
         HypixelLeaderboardUpdater.run()
         PracticeLeaderboardUpdater.run()
         Wally.logger.log(LogLevel.INFO, "Leaderboard Updaters started successfully")
+         */
     }
 }

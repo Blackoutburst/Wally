@@ -56,5 +56,6 @@ class CommandUnlink : CommandExecutable() {
 
         channel.sendMessage(ConfigManager.loadMessage( "unlink success")).queue()
         Wally.logger.log(LogLevel.INFO, args[0] + " got unlinked")
+        Wally.loadUser()
     }
 }
