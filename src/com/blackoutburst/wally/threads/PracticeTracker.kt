@@ -15,7 +15,7 @@ object PracticeTracker {
     fun run() {
         val thread = Thread {
             while (true) {
-                for (i in 0..Wally.users.size) {
+                for (i in 0 until Wally.users.size) {
                     val user = Wally.users[i]
                     checkPlayer(user)
                     sleep(500)
