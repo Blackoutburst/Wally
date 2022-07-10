@@ -1,6 +1,7 @@
 package com.blackoutburst.wally.utils
 
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.leaderboard.Leaderboard
 import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats
@@ -230,24 +231,24 @@ object EmbedUtils {
         }
     }
 
-    fun pbEmbed(stats :StatsObject, discordId :String, oldScore :Int, newScore :Int, gameType :String) : MessageEmbed {
+    fun pbEmbed(stats :StatsObject, user :WallyUser, oldScore :Int, newScore :Int, gameType :String) : MessageEmbed {
         val time = System.currentTimeMillis()
         val wallyURL = "https://github.com/Blackoutburst/Wally"
         val wallyPfp = "https://www.blackoutburst.com/img/wally.png"
 
         val embed = EmbedBuilder()
             .setThumbnail("https://visage.surgeplay.com/full/512/${stats.uuid}?&time=$time")
-            .setFooter("Discord ID: $discordId\nUUID: ${stats.uuid}")
+            .setFooter("Discord ID: ${user.member.id}\nUUID: ${stats.uuid}")
             .setColor(getColorFromScore(newScore))
-            .setAuthor("New $gameType PB !", wallyURL, wallyPfp)
+            .setAuthor("${user.member.effectiveName}#${user.member.user.discriminator} new $gameType PB !", wallyURL, wallyPfp)
 
         if (oldScore > 0) {
-            embed.setTitle("${stats.name} improved ${Utils.getGenderPrefix(discordId)} **$gameType** Personal Best!")
+            embed.setTitle("${stats.name} improved ${Utils.getGenderPrefix(user.member.id)} **$gameType** Personal Best!")
             embed.addField("Old PB", "**$oldScore**",true)
             embed.addField("New PB", "**$newScore**",true)
             embed.addField("Increase","**${(newScore - oldScore)}**",true)
         } else {
-            embed.setTitle("${stats.name} completed ${Utils.getGenderPrefix(discordId)} first game of **$gameType**!")
+            embed.setTitle("${stats.name} completed ${Utils.getGenderPrefix(user.member.id)} first game of **$gameType**!")
             embed.addField("They got", "**$newScore** points!",true)
         }
 
