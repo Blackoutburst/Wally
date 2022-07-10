@@ -26,7 +26,6 @@ class ButtonPermissionLevel : ButtonExecutable() {
 
         data.permissionLevel = level
         generateWallyProfile(data, file)
-        Wally.loadUser()
         return true
     }
 
