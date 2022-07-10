@@ -34,7 +34,7 @@ object HypixelTracker {
 
         if (stats.finals > localStats.finals) {
             Wally.hitwDiscord!!.getTextChannelById(ConfigManager.loadValue("channels", "tracker channel"))!!
-                .sendMessageEmbeds(pbEmbed(stats, user.member.id, localStats.finals, stats.finals, "Finals")).queue { r ->
+                .sendMessageEmbeds(pbEmbed(stats, user, localStats.finals, stats.finals, "Finals")).queue { r ->
                     if (stats.finals - localStats.finals == 1) {
                         r.addReaction(Emoji.fromFormatted("weTakeThose:839985386012147783")).queue()
                     }
@@ -46,7 +46,7 @@ object HypixelTracker {
 
         if (stats.qualification > localStats.qualification) {
             Wally.hitwDiscord!!.getTextChannelById(ConfigManager.loadValue("channels", "tracker channel"))!!
-                .sendMessageEmbeds(pbEmbed(stats, user.member.id, localStats.qualification, stats.qualification, "Qualifiers")).queue{ r ->
+                .sendMessageEmbeds(pbEmbed(stats, user, localStats.qualification, stats.qualification, "Qualifiers")).queue{ r ->
                     if (stats.qualification - localStats.qualification == 1) {
                         r.addReaction(Emoji.fromFormatted("weTakeThose:839985386012147783")).queue()
                     }
