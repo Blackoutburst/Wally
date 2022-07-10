@@ -3,6 +3,7 @@ package com.blackoutburst.wally.core.roles
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.core.statsobject.HypixelStats
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Role
 
@@ -66,6 +67,30 @@ object RolesManager {
                     removeRole(role.name, member)
             }
             addRole("$lowRound+ Club", member)
+        }
+    }
+
+    fun addLifeTimeRoles(member: Member, stats: HypixelStats) {
+        if (stats.winsPosition <= 10)
+            addRole("Top 10 Lifetime Wins", member)
+        if (stats.wallsPosition <= 10)
+            addRole("Top 10 Lifetime Walls", member)
+        if (stats.qualificationPosition <= 10)
+            addRole("Top 10 Lifetime Q", member)
+        if (stats.finalsPosition <= 10)
+            addRole("Top 10 Lifetime F", member)
+    }
+
+    fun cleanLifeTimeRoles(member: Member, stats: HypixelStats) {
+        for (role in member.roles) {
+            if (role.name == "Top 10 Lifetime Wins" && stats.winsPosition > 10)
+                removeRole(role.name, member)
+            if (role.name == "Top 10 Lifetime Walls" && stats.wallsPosition > 10)
+                removeRole(role.name, member)
+            if (role.name == "Top 10 Lifetime Q" && stats.qualificationPosition > 10)
+                removeRole(role.name, member)
+            if (role.name == "Top 10 Lifetime F" && stats.finalsPosition > 10)
+                removeRole(role.name, member)
         }
     }
 }
