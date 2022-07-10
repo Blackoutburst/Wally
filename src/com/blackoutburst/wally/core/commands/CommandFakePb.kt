@@ -77,6 +77,7 @@ class CommandFakePb : CommandExecutable() {
                     r.addReaction(Emoji.fromFormatted("weTakeThose:839985386012147783")).queue()
                 }
             }
+        channel.sendMessage(ConfigManager.loadMessage("fakePB").replace("%name%", stats.name)).queue()
     }
 }
 
