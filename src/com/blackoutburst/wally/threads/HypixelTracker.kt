@@ -60,5 +60,8 @@ object HypixelTracker {
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, user.member.id, user.mainAccountUuid)
             RolesManager.addClubRole(Utils.getHighestScore(stats.scores), user.member)
         }
+
+        RolesManager.cleanLifeTimeRoles(user.member, stats)
+        RolesManager.addLifeTimeRoles(user.member, stats)
     }
 }
