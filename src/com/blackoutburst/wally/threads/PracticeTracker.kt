@@ -1,4 +1,4 @@
-package com.blackoutburst.wally.trackers
+package com.blackoutburst.wally.threads
 
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
