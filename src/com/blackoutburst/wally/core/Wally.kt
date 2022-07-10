@@ -18,11 +18,12 @@ import java.io.FileReader
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 object Wally {
 
     var jda: JDA? = null
-    val users: MutableSet<WallyUser> = HashSet()
+    val users: MutableList<WallyUser> = ArrayList()
     val logger = Logger
     var isReady = false
     val numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH) as DecimalFormat

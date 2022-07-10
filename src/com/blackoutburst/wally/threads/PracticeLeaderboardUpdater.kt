@@ -10,7 +10,8 @@ object PracticeLeaderboardUpdater {
     fun run() {
         val thread = Thread {
             while (true) {
-                for (player in LeaderboardManager.qualificationLeaderboardPractice.players) {
+                for (i in 0..LeaderboardManager.qualificationLeaderboardPractice.players.size) {
+                    val player = LeaderboardManager.qualificationLeaderboardPractice.players[i]
                     DatabaseUtils.updateLeaderboardStats(PracticeServer.getPlayerStats(player.uuid, true) ?: continue,
                         DatabaseUtils.DataType.PRACTICE, player.uuid)
                     sleep(1000)

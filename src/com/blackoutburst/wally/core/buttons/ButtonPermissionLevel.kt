@@ -1,15 +1,15 @@
 package com.blackoutburst.wally.core.buttons
 
-import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
-import com.blackoutburst.wally.utils.DatabaseUtils.generateWallyProfile
-import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
-import com.blackoutburst.wally.core.commands.PermissionLevel
-import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.commands.PermissionLevel
+import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.utils.DatabaseUtils.generateWallyProfile
+import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import net.dv8tion.jda.api.interactions.components.buttons.Button
-import java.util.UUID
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ButtonPermissionLevel : ButtonExecutable() {
@@ -42,7 +42,7 @@ class ButtonPermissionLevel : ButtonExecutable() {
             return
         }
 
-        event.message.editMessage(ConfigManager.loadMessage( "select display preference"))
+        event.message.editMessage(ConfigManager.loadMessage( "select permission level"))
             .setActionRow(
                 if (level == PermissionLevel.MEMBER) Button.primary(id + UUID.randomUUID(),"MEMBER") else Button.secondary(id + UUID.randomUUID(), "MEMBER"),
                 if (level == PermissionLevel.STAFF) Button.primary(id + UUID.randomUUID(),"STAFF" ) else Button.secondary(id + UUID.randomUUID(), "STAFF"),

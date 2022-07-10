@@ -10,7 +10,8 @@ object HypixelLeaderboardUpdater {
     fun run() {
         val thread = Thread {
             while (true) {
-                for (player in LeaderboardManager.winsLeaderboardHypixel.players) {
+                for (i in 0..LeaderboardManager.winsLeaderboardHypixel.players.size) {
+                    val player = LeaderboardManager.winsLeaderboardHypixel.players[i]
                     DatabaseUtils.updateLeaderboardStats(Hypixel.getPlayerStats(player.uuid, true) ?: continue,
                         DatabaseUtils.DataType.HYPIXEL, player.uuid)
                     sleep(1000)
