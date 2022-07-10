@@ -4,9 +4,11 @@ import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.request.Hypixel
+import com.blackoutburst.wally.core.roles.RolesManager
 import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.EmbedUtils.pbEmbed
+import com.blackoutburst.wally.utils.Utils
 import net.dv8tion.jda.api.entities.emoji.Emoji
 import java.lang.Thread.sleep
 
@@ -43,6 +45,7 @@ object HypixelTracker {
 
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, user.member.id, user.mainAccountUuid)
+            RolesManager.addClubRole(Utils.getHighestScore(stats.scores), user.member)
         }
 
         if (stats.qualification > localStats.qualification) {
@@ -55,6 +58,7 @@ object HypixelTracker {
 
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, user.member.id, user.mainAccountUuid)
+            RolesManager.addClubRole(Utils.getHighestScore(stats.scores), user.member)
         }
     }
 }

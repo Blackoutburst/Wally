@@ -1,9 +1,10 @@
 package com.blackoutburst.wally.core.roles
 
-import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
 import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.Role
 
 object RolesManager {
 
@@ -15,7 +16,7 @@ object RolesManager {
         }
     }
 
-    fun addRole( roleName: String,  member: Member) {
+    fun addRole(roleName: String,  member: Member) {
         val guild = member.guild
         val role = guild.getRoleById(ConfigManager.loadValue("roles", roleName))
         val memberName = member.effectiveName
@@ -50,5 +51,21 @@ object RolesManager {
             LogLevel.INFO,
             "Role [$roleName] removed to [$memberName]"
         )
+    }
+
+    fun addClubRole(score: Int, member: Member) {
+        if (Wally.hitwDiscord == null) return
+
+        val lowRound = (if (score > 500) 500 else score + 49) / 50 * 50 - 50
+        val roles = Wally.hitwDiscord!!.roles
+        val role = roles.stream().filter { r: Role -> r.name == "$lowRound+ Club" }.findFirst()
+
+        if (!member.roles.contains(role.get())) {
+            for (role in member.roles) {
+                if (role.name.contains("+ Club"))
+                    removeRole(role.name, member)
+            }
+            addRole("$lowRound+ Club", member)
+        }
     }
 }

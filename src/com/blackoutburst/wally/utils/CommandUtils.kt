@@ -13,6 +13,7 @@ import com.blackoutburst.wally.core.request.Hypixel
 import com.blackoutburst.wally.core.request.Mojang
 import com.blackoutburst.wally.core.request.PracticeServer
 import com.blackoutburst.wally.core.request.Visage
+import com.blackoutburst.wally.core.roles.RolesManager.addClubRole
 import com.blackoutburst.wally.core.statsobject.HypixelStats
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
@@ -82,8 +83,10 @@ object CommandUtils {
             channel.sendMessage(ConfigManager.loadMessage( "link success").replace("%name%", playerName)).queue()
             Wally.logger.log(LogLevel.INFO, "$playerName was linked to $discordID")
             val member = Wally.hitwDiscord!!.getMemberById(discordID)
-            if (member != null)
+            if (member != null) {
                 channel.sendMessageEmbeds(EmbedUtils.welcomeEmbed(HypixelStats(hypixelData), WallyUser(member, wallyProfile))).queue()
+                addClubRole(Utils.getHighestScore(HypixelStats(hypixelData).scores), member)
+            }
         }
         Visage.getPlayerHead(playerUUID)
         Wally.loadUser()
