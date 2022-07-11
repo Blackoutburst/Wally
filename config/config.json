@@ -147,6 +147,8 @@
     "q range": "Value must be between 0 and 400",
     "q zero": "%Q%Q compares to **0**F as they probably won't qualify",
     "q convert": "%Q%Q compares to **%F%**F",
-    "fakePB": "%name% fake pb has been displayed!"
+    "fakePB": "%name% fake pb has been displayed!",
+    "nothing to show": "Nothing to show, sorry try to pb",
+    "esk": "lol try to pb, idiot. kind of a skill issue if you ask me"
   }
 }

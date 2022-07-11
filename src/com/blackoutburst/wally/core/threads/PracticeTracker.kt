@@ -1,4 +1,4 @@
-package com.blackoutburst.wally.threads
+package com.blackoutburst.wally.core.threads
 
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
@@ -26,11 +26,12 @@ object PracticeTracker {
         thread.name = "Practice Tracker"
     }
 
-    private fun checkPlayer(user: WallyUser) {
-        val data = PracticeServer.getPlayerStats(user.mainAccountUuid, true) ?: return
+    fun checkPlayer(user: WallyUser): Boolean {
+        var pb = false
+        val data = PracticeServer.getPlayerStats(user.mainAccountUuid, true) ?: return false
         val stats = PracticeStats(data)
 
-        val localData = DatabaseUtils.getLocalData(user.mainAccountUuid, DatabaseUtils.DataType.PRACTICE) ?: return
+        val localData = DatabaseUtils.getLocalData(user.mainAccountUuid, DatabaseUtils.DataType.PRACTICE) ?: return false
         val localStats = PracticeStats(localData)
 
         if (stats.finals > localStats.finals) {
@@ -43,6 +44,7 @@ object PracticeTracker {
 
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.PRACTICE, user.member.id, user.mainAccountUuid)
+            pb = true
         }
 
         if (stats.qualification > localStats.qualification) {
@@ -55,6 +57,7 @@ object PracticeTracker {
 
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.PRACTICE, user.member.id, user.mainAccountUuid)
+            pb = true
         }
 
         if (stats.lobby > localStats.lobby) {
@@ -67,6 +70,7 @@ object PracticeTracker {
 
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.PRACTICE, user.member.id, user.mainAccountUuid)
+            pb = true
         }
 
         if (stats.wideQualification > localStats.wideQualification) {
@@ -79,6 +83,7 @@ object PracticeTracker {
 
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.PRACTICE, user.member.id, user.mainAccountUuid)
+            pb = true
         }
 
         if (stats.wideFinals > localStats.wideFinals) {
@@ -91,6 +96,9 @@ object PracticeTracker {
 
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.PRACTICE, user.member.id, user.mainAccountUuid)
+            pb = true
         }
+
+        return pb
     }
 }

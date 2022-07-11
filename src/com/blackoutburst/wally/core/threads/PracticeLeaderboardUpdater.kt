@@ -1,4 +1,4 @@
-package com.blackoutburst.wally.threads
+package com.blackoutburst.wally.core.threads
 
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
 import com.blackoutburst.wally.core.request.PracticeServer

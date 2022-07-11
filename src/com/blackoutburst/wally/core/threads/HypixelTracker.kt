@@ -1,4 +1,4 @@
-package com.blackoutburst.wally.threads
+package com.blackoutburst.wally.core.threads
 
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
@@ -28,11 +28,13 @@ object HypixelTracker {
         thread.name = "Hypixel Tracker"
     }
 
-    private fun checkPlayer(user: WallyUser) {
-        val data = Hypixel.getPlayerStats(user.mainAccountUuid, true) ?: return
+    fun checkPlayer(user: WallyUser): Boolean {
+        var pb = false
+
+        val data = Hypixel.getPlayerStats(user.mainAccountUuid, true) ?: return false
         val stats = HypixelStats(data)
 
-        val localData = DatabaseUtils.getLocalData(user.mainAccountUuid, DatabaseUtils.DataType.HYPIXEL) ?: return
+        val localData = DatabaseUtils.getLocalData(user.mainAccountUuid, DatabaseUtils.DataType.HYPIXEL) ?: return false
         val localStats = HypixelStats(localData)
 
         if (stats.finals > localStats.finals) {
@@ -46,6 +48,7 @@ object HypixelTracker {
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, user.member.id, user.mainAccountUuid)
             RolesManager.addClubRole(Utils.getHighestScore(stats.scores), user.member)
+            pb = true
         }
 
         if (stats.qualification > localStats.qualification) {
@@ -59,9 +62,11 @@ object HypixelTracker {
             DatabaseUtils.updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, user.mainAccountUuid)
             DatabaseUtils.updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, user.member.id, user.mainAccountUuid)
             RolesManager.addClubRole(Utils.getHighestScore(stats.scores), user.member)
+            pb = true
         }
 
         RolesManager.cleanLifeTimeRoles(user.member, stats)
         RolesManager.addLifeTimeRoles(user.member, stats)
+        return pb
     }
 }
