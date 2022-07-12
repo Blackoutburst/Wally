@@ -149,6 +149,8 @@
     "q convert": "%Q%Q compares to **%F%**F",
     "fakePB": "%name% fake pb has been displayed!",
     "nothing to show": "Nothing to show, sorry try to pb",
-    "esk": "lol try to pb, idiot. kind of a skill issue if you ask me"
+    "esk": "lol try to pb, idiot. kind of a skill issue if you ask me",
+    "pb display":  "%user% pbs have been displayed",
+    "no pb": "%user% didn't made any pbs!"
   }
 }
