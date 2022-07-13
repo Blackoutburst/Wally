@@ -1,29 +1,29 @@
 package com.blackoutburst.wally.utils
 
-import com.blackoutburst.wally.utils.EmbedUtils.generateLeaderboardEmbed
-import com.blackoutburst.wally.utils.EmbedUtils.generatePracticeStatsEmbed
-import com.blackoutburst.wally.utils.EmbedUtils.generateHypixelStatsEmbed
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinkedUUID
-import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserFromUUID
-import com.blackoutburst.wally.core.WallyUser
-import com.blackoutburst.wally.core.leaderboard.Leaderboard
-import com.blackoutburst.wally.core.commands.DisplayPreference
 import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.statsobject.PracticeStats
-import com.blackoutburst.wally.core.statsobject.HypixelStats
+import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.commands.DisplayPreference
+import com.blackoutburst.wally.core.commands.PermissionLevel
+import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.leaderboard.Leaderboard
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
 import com.blackoutburst.wally.core.request.Mojang
-import com.blackoutburst.wally.core.commands.PermissionLevel
-import java.util.UUID
-import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.statsobject.HypixelStats
+import com.blackoutburst.wally.core.statsobject.PracticeStats
+import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserFromUUID
+import com.blackoutburst.wally.utils.DatabaseUtils.isLinkedUUID
+import com.blackoutburst.wally.utils.EmbedUtils.generateCrossCompareEmbed
 import com.blackoutburst.wally.utils.EmbedUtils.generateHypixelCompareEmbed
+import com.blackoutburst.wally.utils.EmbedUtils.generateHypixelStatsEmbed
+import com.blackoutburst.wally.utils.EmbedUtils.generateLeaderboardEmbed
 import com.blackoutburst.wally.utils.EmbedUtils.generatePracticeCompareEmbed
+import com.blackoutburst.wally.utils.EmbedUtils.generatePracticeStatsEmbed
 import com.blackoutburst.wally.utils.LineUtils.comparisonLine
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.interactions.components.buttons.Button
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenu
 import java.io.File
-import java.lang.StringBuilder
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 object MessageUtils {
@@ -104,6 +104,41 @@ object MessageUtils {
             else -> {
                 CanvasUtils.createPracticeCompareCanvas(player1data, player2data)
                 message.reply("\u00A0").addFile(File("practice_compare.png")).queue()
+            }
+        }
+    }
+
+    fun sendCrossCompare(commandSender: WallyUser, message: Message, stats: HypixelStats, practiceStats: PracticeStats, uuid: String, edit: Boolean) {
+        if (edit) {
+            when (commandSender.displayPreference) {
+                DisplayPreference.TEXT -> message.editMessage(generateCrossCompareMessage(stats, practiceStats)).queue()
+                DisplayPreference.EMBED -> message.editMessageEmbeds(generateCrossCompareEmbed(stats, practiceStats)).queue()
+                else -> {
+                    CanvasUtils.createCrossCompareCanvas(stats, practiceStats)
+                    message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("cross_compare.png")).queue()
+                }
+            }
+        } else {
+            val menu = createAccountMenu(commandSender, uuid, "cross compare", false)
+
+            when (commandSender.displayPreference) {
+                DisplayPreference.TEXT -> menu?.let {
+                    message.reply(generateCrossCompareMessage(stats, practiceStats)).setActionRow(it).queue()
+                } ?: run  {
+                    message.reply(generateCrossCompareMessage(stats, practiceStats)).queue()
+                }
+                DisplayPreference.EMBED -> menu?.let {
+                    message.replyEmbeds(generateCrossCompareEmbed(stats, practiceStats)).setActionRow(it).queue()
+                } ?: run {
+                    message.replyEmbeds(generateCrossCompareEmbed(stats, practiceStats)).queue()
+                }
+                else -> menu?.let {
+                    CanvasUtils.createCrossCompareCanvas(stats, practiceStats)
+                    message.reply("\u00A0").addFile(File("cross_compare.png")).setActionRow(it).queue()
+                } ?: run {
+                    CanvasUtils.createCrossCompareCanvas(stats, practiceStats)
+                    message.reply("\u00A0").addFile(File("cross_compare.png")).queue()
+                }
             }
         }
     }
@@ -198,6 +233,16 @@ object MessageUtils {
                 "```"
     }
 
+    private fun generateCrossCompareMessage(hypixelStats: HypixelStats, practiceStats: PracticeStats): String {
+        return "```yml" + System.lineSeparator() +
+                String.format("%-20s %-15s %-8s [VS] %8s %15s", "${hypixelStats.name}:", "Hypixel", "", "", "Practice") + System.lineSeparator() + System.lineSeparator() +
+                comparisonLine("Qualification", hypixelStats.qualification, hypixelStats.qualificationPosition, practiceStats.qualification, practiceStats.qualificationPosition) +
+                comparisonLine("Finals", hypixelStats.finals, hypixelStats.finalsPosition, practiceStats.finals, practiceStats.finalsPosition) +
+                comparisonLine("Q/F", hypixelStats.total, hypixelStats.totalPosition, practiceStats.total, practiceStats.totalPosition) +
+                if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0) { comparisonLine("Overall Rank", hypixelStats.overall, hypixelStats.overallPosition, practiceStats.overall, practiceStats.overallPosition) } else { "" } + System.lineSeparator() +
+                "```"
+    }
+
     private fun generateHypixelCompareMessage(player1Data: String, player2Data: String): String {
         val player1 = HypixelStats(player1Data)
         val player2 = HypixelStats(player2Data)
@@ -253,7 +298,7 @@ object MessageUtils {
         return menu.build()
     }
 
-    fun createAccountMenu(commandSender: WallyUser, uuid: String, menuName: String): SelectMenu? {
+    fun createAccountMenu(commandSender: WallyUser, uuid: String, menuName: String, includeCombined :Boolean = true): SelectMenu? {
         val linked = isLinkedUUID(uuid)
         if (!linked) return null
 
@@ -267,13 +312,18 @@ object MessageUtils {
             .setRequiredRange(1, 1)
             .setPlaceholder("Select an account")
 
+
         var combined = ""
         for (s in entries) {
             val player = Mojang.getPlayerName(s!!) ?: continue
             menu.addOption(player, s)
             combined += "$s:"
         }
-        menu.addOption("Combined stats", combined)
+
+        if (includeCombined) {
+            menu.addOption("Combined stats", combined)
+        }
+
         return menu.build()
     }
 

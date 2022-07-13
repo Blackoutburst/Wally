@@ -100,6 +100,41 @@ object EmbedUtils {
         return builder.build()
     }
 
+    fun generateCrossCompareEmbed(hypixelStats: HypixelStats, practiceStats: PracticeStats): MessageEmbed {
+        val date = LocalDate.now().toString()
+
+        return EmbedBuilder()
+            .setAuthor(hypixelStats.name,"https://hypixel.net/arcade-games/leaderboard/hole_in_the_wall", "https://www.blackoutburst.com/img/wally.png")
+            .setTitle("Hypixel VS Practice", "https://hypixel.net/arcade-games/leaderboard/hole_in_the_wall")
+            .setColor(getColorFromScore(getHighestScore(hypixelStats.scores.plus(practiceStats.scores))))
+            .addField("**Hypixel**",
+                "```\n"+
+                        comparisonLineLeft("Qualification", hypixelStats.qualification, hypixelStats.qualificationPosition)+
+                        comparisonLineLeft("Finals", hypixelStats.finals, hypixelStats.finalsPosition)+
+                        comparisonLineLeft("Q/F", hypixelStats.total, hypixelStats.totalPosition)+
+                        if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0) { comparisonLineLeft("Overall Rank", hypixelStats.overall, hypixelStats.overallPosition) } else { "" }+
+                        "```",
+                true)
+            .addField("**[VS]**",
+                "```\n"+
+                        comparisonLineMiddle(hypixelStats.qualification, practiceStats.qualification)+
+                        comparisonLineMiddle(hypixelStats.finals, practiceStats.finals)+
+                        comparisonLineMiddle(hypixelStats.total, practiceStats.total)+
+                        if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0) { comparisonLineMiddle(hypixelStats.overall, practiceStats.overall) } else { "" }+
+                        "```",
+                true)
+            .addField("Practice",
+                "```\n"+
+                        comparisonLineRight("Qualification", practiceStats.qualification, practiceStats.qualificationPosition)+
+                        comparisonLineRight("Finals", practiceStats.finals, practiceStats.finalsPosition)+
+                        comparisonLineRight("Q/F", practiceStats.total, practiceStats.totalPosition)+
+                        if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0) { comparisonLineRight("Overall Rank", practiceStats.overall, practiceStats.overallPosition) } else { "" }+
+                        "```"
+                ,true)
+            .setFooter(date)
+            .build()
+    }
+
     fun generateHypixelCompareEmbed(player1Data: String, player2Data: String): MessageEmbed {
         val player1 = HypixelStats(player1Data)
         val player2 = HypixelStats(player2Data)

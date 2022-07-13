@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.canvas.Canvas
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.background
+import com.blackoutburst.wally.core.canvas.ResourcesLoader.hypixel
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.hypixelHeader
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconChallenges
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconDev
@@ -26,6 +27,7 @@ import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconWalls
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconWins
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.line
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.missingHead
+import com.blackoutburst.wally.core.canvas.ResourcesLoader.practice
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.practiceHeader
 import com.blackoutburst.wally.core.leaderboard.Leaderboard
 import com.blackoutburst.wally.core.statsobject.HypixelStats
@@ -555,5 +557,111 @@ object CanvasUtils {
         }
 
         canvas.save("leaderboard.png")
+    }
+
+    fun createCrossCompareCanvas(hypixelStats: HypixelStats, practiceStats: PracticeStats) {
+        val canvas = Canvas(1000, 600)
+
+        val user1 = DatabaseUtils.getWallyUserFromUUID(hypixelStats.uuid)
+        val fontColor1 = Color.decode(user1?.fontColor ?: "#FFFFFF")
+        val color1 = Utils.getColorFromScore(Utils.getHighestScore(hypixelStats.scores))
+        val fontSize1 = user1?.fontSize ?: 0f
+
+        val user2 = DatabaseUtils.getWallyUserFromUUID(practiceStats.uuid)
+        val fontColor2 = Color.decode(user2?.fontColor ?: "#FFFFFF")
+        val color2 = Utils.getColorFromScore(Utils.getHighestScore(practiceStats.scores))
+        val fontSize2 = user1?.fontSize ?: 0f
+
+        if (user1 != null && user1.hasFont()) {
+            canvas.loadFont("database/linked users/${user1.member.id}/resources/font.ttf")
+        }
+
+        if (user1 != null && user1.hasBackground()) {
+            canvas.drawImageLeftHalf("database/linked users/${user1.member.id}/resources/background.png", 0, 37, 500, 563)
+        } else {
+            canvas.drawImageLeftHalf(background, 0, 37, 500, 563)
+        }
+
+        canvas.drawImageLeftHalf(hypixelHeader, 0, 0, 500, 37, color1)
+
+        if (File("database/linked users/${user1?.member?.id}/accounts/${hypixelStats.uuid}/head.png").exists())
+            canvas.drawImage("database/linked users/${user1?.member?.id}/accounts/${hypixelStats.uuid}/head.png", 20, 52, 64, 64)
+        else if (File("database/leaderboards/hypixel/${hypixelStats.uuid}/head.png").exists())
+            canvas.drawImage("database/leaderboards/hypixel/${hypixelStats.uuid}/head.png", 20, 52, 64, 64)
+        else if (File("database/leaderboards/practice/${hypixelStats.uuid}/head.png").exists())
+            canvas.drawImage("database/leaderboards/practice/${hypixelStats.uuid}/head.png", 20, 52, 64, 64)
+        else
+            canvas.drawImage(missingHead, 20, 52, 64, 64)
+
+        canvas.drawStringLeft(hypixelStats.name, 100, 57, 36.0f + fontSize1, fontColor1)
+        canvas.drawStringLeft(user1?.subtitle ?: "", 100, 97, 30.0f + fontSize1, fontColor1)
+
+        canvas.drawImage(line, 0, 130, 450, 5, color1)
+
+        canvas.drawImage(hypixel, 20, 150, 50, 50)
+        canvas.drawStringLeft("Hypixel", 90, 160, 38.0f + fontSize1, Color.WHITE)
+
+        canvas.drawImage(iconQualification, 20, 260, 40, 40)
+        canvas.drawStringLeft(formatLine("Qualification", hypixelStats.qualification, hypixelStats.qualificationPosition), 80, 270, 30.0f + fontSize1, getScoreCompareColor(hypixelStats.qualification, practiceStats.qualification))
+        canvas.drawImage(iconFinals, 20, 350, 40, 40)
+        canvas.drawStringLeft(formatLine("Finals", hypixelStats.finals, hypixelStats.finalsPosition), 80, 360, 30.0f + fontSize1, getScoreCompareColor(hypixelStats.finals, practiceStats.finals))
+        canvas.drawImage(iconTotal, 20, 440, 40, 40)
+        canvas.drawStringLeft(formatLine("Total Score", hypixelStats.total, hypixelStats.totalPosition), 80, 450, 30.0f + fontSize1, getScoreCompareColor(hypixelStats.total, practiceStats.total))
+
+        if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0) {
+            canvas.drawImage(iconOverall, 20, 530, 40, 40)
+            canvas.drawStringLeft(formatLine("Overall Rank", hypixelStats.overall, hypixelStats.overallPosition), 80, 540, 30.0f + fontSize1, getScoreCompareColor(hypixelStats.overall, practiceStats.overall))
+        }
+
+        if (user2 != null && user2.hasFont()) {
+            canvas.loadFont("database/linked users/${user2.member.id}/resources/font.ttf")
+        }
+
+        if (user2 != null && user2.hasBackground()) {
+            canvas.drawImageRightHalf("database/linked users/${user2.member.id}/resources/background.png", 500, 37, 500, 563)
+        } else {
+            canvas.drawImageRightHalf(background, 500, 37, 500, 563)
+        }
+
+        canvas.drawImageRightHalf(practiceHeader, 500, 0, 500, 37, color2)
+
+        if (File("database/linked users/${user2?.member?.id}/accounts/${practiceStats.uuid}/head.png").exists())
+            canvas.drawImage("database/linked users/${user2?.member?.id}/accounts/${practiceStats.uuid}/head.png", 916, 52, 64, 64)
+        else if (File("database/leaderboards/hypixel/${practiceStats.uuid}/head.png").exists())
+            canvas.drawImage("database/leaderboards/hypixel/${practiceStats.uuid}/head.png", 916, 52, 64, 64)
+        else if (File("database/leaderboards/practice/${practiceStats.uuid}/head.png").exists())
+            canvas.drawImage("database/leaderboards/practice/${practiceStats.uuid}/head.png", 916, 52, 64, 64)
+        else
+            canvas.drawImage(missingHead, 916, 52, 64, 64)
+
+        canvas.drawStringRight(practiceStats.name, 900, 57, 36.0f + fontSize2, fontColor2)
+        canvas.drawStringRight(user2?.subtitle ?: "", 900, 97, 30.0f + fontSize2, fontColor2)
+
+        canvas.drawImage(line, 1000, 130, -450, 5, color2)
+
+        canvas.drawImage(practice, 940, 160, 50, 50)
+        canvas.drawStringRight("Practice", 910, 160, 38.0f + fontSize1, Color.WHITE)
+
+        canvas.drawImage(iconQualification, 940, 260, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Qualification", practiceStats.qualification, practiceStats.qualificationPosition), 920, 270, 30.0f + fontSize2, getScoreCompareColor(practiceStats.qualification, hypixelStats.qualification))
+        canvas.drawImage(iconFinals, 940, 350, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Finals", practiceStats.finals, practiceStats.finalsPosition), 920, 360, 30.0f + fontSize2, getScoreCompareColor(practiceStats.finals, hypixelStats.finals))
+        canvas.drawImage(iconTotal, 940, 440, 40, 40)
+        canvas.drawStringRight(formatLineReverse("Total Score", practiceStats.total, practiceStats.totalPosition), 920, 450, 30.0f + fontSize2, getScoreCompareColor(practiceStats.total, hypixelStats.total))
+
+        if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0) {
+            canvas.drawImage(iconOverall, 940, 530, 40, 40)
+            canvas.drawStringRight(formatLineReverse("Overall Rank", practiceStats.overall, practiceStats.overallPosition), 920, 540, 30.0f + fontSize2, getScoreCompareColor(practiceStats.overall, hypixelStats.overall))
+        }
+
+        canvas.useDefaultFont()
+        canvas.drawStringCenter(formatScoreCompareCanvas(hypixelStats.qualification, practiceStats.qualification), 500, 270, 30.0f, Color.WHITE)
+        canvas.drawStringCenter(formatScoreCompareCanvas(hypixelStats.finals, practiceStats.finals), 500, 360, 30.0f, Color.WHITE)
+        canvas.drawStringCenter(formatScoreCompareCanvas(hypixelStats.total, practiceStats.total), 500, 450, 30.0f, Color.WHITE)
+
+        if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0)
+            canvas.drawStringCenter(formatScoreCompareCanvas(hypixelStats.overall, practiceStats.overall), 500, 540, 30.0f, Color.WHITE)
+
+        canvas.save("cross_compare.png")
     }
 }
