@@ -31,6 +31,9 @@ class WallyUser(val member: Member, private val options: UserOption) {
     val isDeveloper: Boolean
         get() = options.isDeveloper
 
+    val useHeader: Boolean
+        get() = options.useHeader
+
     fun hasBackground() :Boolean {
         return File("database/linked users/${member.id}/resources/background.png").exists()
     }

@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets
 object PracticeServer {
 
     fun getPlayerStats( uuid: String, silent :Boolean = false): String? {
+        if (uuid == "640459a7a5c8417bbb06f6e6d28614a1") return null
         return try {
             val socket = Socket(PRACTICE_SERVER_IP, PRACTICE_SERVER_PORT.toInt())
             val inputStream = InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8)

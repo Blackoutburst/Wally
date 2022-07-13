@@ -14,6 +14,7 @@ class UserOption {
     var subtitle: String
     var patreonTier: Int
     var isDeveloper: Boolean
+    var useHeader: Boolean
 
     constructor() {
         permissionLevel = PermissionLevel.MEMBER
@@ -25,6 +26,7 @@ class UserOption {
         patreonTier = 0
         fontSize = 0f
         isDeveloper = false
+        useHeader = true
     }
 
     constructor(permissionLevel: PermissionLevel, displayPreference: DisplayPreference, mainAccountUUID: String, serverID: String) {
@@ -37,5 +39,6 @@ class UserOption {
         patreonTier = 0
         fontSize = 0f
         isDeveloper = false
+        useHeader = true
     }
 }

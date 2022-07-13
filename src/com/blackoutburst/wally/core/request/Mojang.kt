@@ -1,9 +1,9 @@
 package com.blackoutburst.wally.core.request
 
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.logger.LogLevel
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 
 object Mojang {
 
@@ -22,6 +22,7 @@ object Mojang {
     }
 
     fun getPlayerName(uuid: String): String? {
+        if (uuid == "640459a7a5c8417bbb06f6e6d28614a1") return null
         return try {
             val result = ConnectionManager.readFromURL("https://sessionserver.mojang.com/session/minecraft/profile/$uuid")
             val gson = Gson()

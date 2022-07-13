@@ -310,7 +310,8 @@ object CanvasUtils {
             canvas.drawImage(background, 0, 37, 1000, 563)
         }
 
-        canvas.drawImage(practiceHeader, 0, 0, 1000, 37, color)
+        if (user != null && user.useHeader)
+            canvas.drawImage(practiceHeader, 0, 0, 1000, 37, color)
 
         if (!data.combined) {
             if (File("database/linked users/${user?.member?.id}/accounts/${data.uuid}/head.png").exists())
@@ -386,7 +387,8 @@ object CanvasUtils {
             canvas.drawImage(background, 0, 37, 1000, 563)
         }
 
-        canvas.drawImage(hypixelHeader, 0, 0, 1000, 37, color)
+        if (user != null && user.useHeader)
+            canvas.drawImage(hypixelHeader, 0, 0, 1000, 37, color)
 
         if (!data.combined) {
             if (File("database/linked users/${user?.member?.id}/accounts/${data.uuid}/head.png").exists())
