@@ -33,6 +33,8 @@ object ResourcesLoader {
     val line = loadImage("res/line.png")
     val practiceHeader = loadImage("res/practice_header.png")
     val missingHead = loadImage("res/missing_head.png")
+    val hypixel = loadImage("res/hypixel.png")
+    val practice = loadImage("res/practice.png")
 
     val font = loadFont("res/font.ttf")
 

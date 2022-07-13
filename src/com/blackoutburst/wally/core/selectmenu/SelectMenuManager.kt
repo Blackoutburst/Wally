@@ -1,10 +1,9 @@
 package com.blackoutburst.wally.core.selectmenu
 
 import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.logger.LogLevel
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent
-import java.util.HashSet
 
 object SelectMenuManager {
 
@@ -15,6 +14,7 @@ object SelectMenuManager {
         register(SelectMenuStats(), "stats")
         register(SelectMenuPracticeStats(), "practice stats")
         register(SelectMenuLeaderboard(), "leaderboard")
+        register(SelectMenuCrossCompare(), "cross compare")
         Wally.logger.log(LogLevel.INFO, "Select menu registered!")
     }
 
