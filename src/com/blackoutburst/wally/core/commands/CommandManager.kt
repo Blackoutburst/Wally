@@ -76,6 +76,7 @@ object CommandManager {
         register(PermissionLevel.STAFF, CommandFakePb(), "fakePB")
         register(PermissionLevel.STAFF, CommandFakePracticePb(), "fakePracticePB")
         register(PermissionLevel.STAFF, CommandForcePB(), "forcePB", "fpb")
+        register(PermissionLevel.MEMBER, CommandToggleHeader(), "toggleHeader", "th")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 

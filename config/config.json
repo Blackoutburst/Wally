@@ -151,6 +151,7 @@
     "nothing to show": "Nothing to show, sorry try to pb",
     "esk": "lol try to pb, idiot. kind of a skill issue if you ask me",
     "pb display":  "%user% pbs have been displayed",
-    "no pb": "%user% didn't made any pbs!"
+    "no pb": "%user% didn't made any pbs!",
+    "header update": "Your stats header is now **%state%**"
   }
 }
