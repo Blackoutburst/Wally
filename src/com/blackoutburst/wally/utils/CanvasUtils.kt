@@ -553,6 +553,7 @@ object CanvasUtils {
             } else {
                 canvas.drawStringLeft("(#${i + 1}) ${player.name}: ${Wally.numberFormat.format(player.getDataFromType(leaderboard.type))}", 100, 150 + 55 * index, 32.0f, fontColor)
             }
+
             index++
         }
 
