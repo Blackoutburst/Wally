@@ -11,7 +11,7 @@ import java.net.URLConnection
 object Visage {
 
     fun getPlayerHead(uuid :String) {
-        if (uuid == "640459a7a5c8417bbb06f6e6d28614a1") return
+        //if (uuid == "640459a7a5c8417bbb06f6e6d28614a1") return
         try {
             val url = URL("https://visage.surgeplay.com/face/128/$uuid")
             val con: URLConnection = url.openConnection()
