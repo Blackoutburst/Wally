@@ -18,7 +18,6 @@ import java.io.FileReader
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 object Wally {
 
@@ -30,6 +29,7 @@ object Wally {
     val decimalFormat = DecimalFormat("#.##")
     var hitwDiscord: Guild? = null
     var devServer: Guild? = null
+    var threadSet: Set<Thread>? = null
 
     fun loadUser() {
         users.clear()
