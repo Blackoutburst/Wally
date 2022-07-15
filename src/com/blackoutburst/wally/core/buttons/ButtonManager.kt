@@ -1,10 +1,9 @@
 package com.blackoutburst.wally.core.buttons
 
 import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.logger.LogLevel
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
-import java.util.HashSet
 
 object ButtonManager {
 
@@ -18,6 +17,14 @@ object ButtonManager {
         register(ButtonDisplayPreference(), "TEXT", "EMBED", "CANVAS")
         register(ButtonLogLevel(), "INFO", "WARN", "ERROR", "NONE")
         register(ButtonPermissionLevel(), "MEMBER", "STAFF", "ADMIN")
+        register(ButtonAdminCommands(), "Admin commands")
+        register(ButtonStaffCommands(), "Staff commands")
+        register(ButtonHypixelCommands(), "Hypixel commands")
+        register(ButtonPracticeCommands(), "Practice commands")
+        register(ButtonMiscCommands(), "Misc commands")
+        register(ButtonHelpMenu(), "Help menu")
+        register(ButtonCommandsNextPage(), "Next page")
+        register(ButtonCommandsPreviousPage(), "Previous page")
         Wally.logger.log(LogLevel.INFO, "Button registered!")
     }
 

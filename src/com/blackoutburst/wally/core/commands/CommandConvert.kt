@@ -91,7 +91,7 @@ class CommandConvert : CommandExecutable() {
         if (args.size < 2) {
             message.reply(
                 ConfigManager.loadMessage( "invalid command usage")
-                .replace("%usage%", CommandManager.prefix + "convert [sccore] [Q/F]")).queue()
+                .replace("%usage%", CommandManager.prefix + "convert [score] [Q/F]")).queue()
             return
         }
         val type: Type
@@ -99,7 +99,7 @@ class CommandConvert : CommandExecutable() {
         if (typeArg == -1) {
             message.reply(
                 ConfigManager.loadMessage( "invalid command usage")
-                    .replace("%usage%", CommandManager.prefix + "convert [sccore] [Q/F]")).queue()
+                    .replace("%usage%", CommandManager.prefix + "convert [score] [Q/F]")).queue()
             return
         }
 
@@ -109,7 +109,7 @@ class CommandConvert : CommandExecutable() {
             else -> {
                 message.reply(
                     ConfigManager.loadMessage( "invalid command usage")
-                        .replace("%usage%", CommandManager.prefix + "convert [sccore] [Q/F]")).queue()
+                        .replace("%usage%", CommandManager.prefix + "convert [score] [Q/F]")).queue()
                 return
             }
         }
@@ -118,7 +118,7 @@ class CommandConvert : CommandExecutable() {
         } catch (e: Exception) {
             message.reply(
                 ConfigManager.loadMessage( "invalid command usage")
-                    .replace("%usage%", CommandManager.prefix + "convert [sccore] [Q/F]")).queue()
+                    .replace("%usage%", CommandManager.prefix + "convert [score] [Q/F]")).queue()
             return
         }
         when (type) {

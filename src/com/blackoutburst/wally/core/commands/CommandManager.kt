@@ -70,7 +70,7 @@ object CommandManager {
         register(PermissionLevel.ADMIN, CommandSetSubtitle(), "setSubtitle", "setSub", "setTitle")
         register(PermissionLevel.ADMIN, CommandSetDev(), "setDev")
         register(PermissionLevel.ADMIN, CommandSetPatreonTier(), "setPatreonTier", "setPatreon")
-        register(PermissionLevel.MEMBER, CommandSuggest(), "suggest")
+        register(PermissionLevel.MEMBER, CommandSuggest(), "suggest", "suggestion")
         register(PermissionLevel.MEMBER, CommandWhoIs(), "who", "whois")
         register(PermissionLevel.MEMBER, CommandConvert(), "convert")
         register(PermissionLevel.STAFF, CommandFakePb(), "fakePB")
@@ -78,6 +78,7 @@ object CommandManager {
         register(PermissionLevel.STAFF, CommandForcePB(), "forcePB", "fpb")
         register(PermissionLevel.MEMBER, CommandToggleHeader(), "toggleHeader", "th")
         register(PermissionLevel.MEMBER, CommandCrossCompare(), "crossCompare", "cc")
+        register(PermissionLevel.MEMBER, CommandHelp(), "help")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 

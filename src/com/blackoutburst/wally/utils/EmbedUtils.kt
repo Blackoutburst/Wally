@@ -2,6 +2,7 @@ package com.blackoutburst.wally.utils
 
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.commands.PermissionLevel
 import com.blackoutburst.wally.core.leaderboard.Leaderboard
 import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats
@@ -312,5 +313,258 @@ object EmbedUtils {
             .addField("`${Wally.numberFormat.format(stats.challenges)}` Challenges", "", true)
             .setColor(getColorFromScore(getHighestScore(stats.scores)))
             .build()
+    }
+
+    fun adminCommandsPage1(): MessageEmbed {
+        val iconURL = "https://www.blackoutburst.com/img/wally.png"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        var commands = "**Wally Admin commands:** (1/2)\n\n"
+        commands += "`setLogLevel`\n"
+        commands += "Set the logger message filter level\n\n"
+        commands += "`reloadUser | reloadUsers`\n"
+        commands += "Reload every wally users\n\n"
+        commands += "`setPermissionLevel | setPerms | setPermission | spl` `[discordID | Minecraft name]`\n"
+        commands += "Set a Wally user permission level\n\n"
+        commands += "`getConfig | getConfiguration`\n"
+        commands += "Retrieve Wally configuration file\n\n"
+        commands += "`setConfig | setConfiguration`\n"
+        commands += "Set Wally configuration file\n\n"
+        commands += "`setTracker`\n"
+        commands += "Set the Hypixel tracker in the channel used to run the command\n\n"
+        commands += "`showTracker`\n"
+        commands += "Show in which channel the Hypixel tracker is set\n\n"
+        commands += "`setPracticeTracker`\n"
+        commands += "Set the Practice tracker in the channel used to run the command\n\n"
+        commands += "`showPracticeTracker`\n"
+        commands += "Show in which channel the Practice tracker is set\n\n"
+        commands += "`setAnswerLifetime | setAnswerLife` `[seconds]`\n"
+        commands += "Set the life duration for certain types of messages\n\n"
+
+        return EmbedBuilder()
+            .setAuthor("Admin Commands (1/2)", wallyURL, iconURL)
+            .setColor(Color(255, 0, 0))
+            .setDescription(commands)
+            .build()
+    }
+
+    fun adminCommandsPage2(): MessageEmbed {
+        val iconURL = "https://www.blackoutburst.com/img/wally.png"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        var commands = "**Wally Admin commands:** (2/2)\n\n"
+        commands += "`getLog | getLogs`\n"
+        commands += "Retrieve the current log file\n\n"
+        commands += "`preChangelog | previewChangelog`\n"
+        commands += "Preview the changelog message\n\n"
+        commands += "`changelog`\n"
+        commands += "Display the changelog message inside the changelog channel\n\n"
+        commands += "`getChangelog`\n"
+        commands += "Get the changelog file\n\n"
+        commands += "`setChangelog`\n"
+        commands += "Set the changelog file\n\n"
+        commands += "`logLevel | showLogLevel | displayLogLevel`\n"
+        commands += "Display the current logger message filter level\n\n"
+        commands += "`setPrefix | setCommandPrefix | scp` `[New prefix]`\n"
+        commands += "Edit the command prefix\n\n"
+        commands += "`sortLeaderboard | sortLead | sortLb | slb`\n"
+        commands += "Sort the leaderboards\n\n"
+        commands += "`setSubtitle | setSub | setTitle` `[discordID | Minecraft name] (Title)`\n"
+        commands += "Change a Wally user title\n\n"
+        commands += "`setDev` `[true | false]`\n"
+        commands += "Define a Wally user as developer (no extra perms just a badge)\n\n"
+        commands += "`setPatreonTier | setPatreon` `[0 | 1 | 2 | 3]`\n"
+        commands += "Define a Wally user patreon tier\n"
+
+        return EmbedBuilder()
+            .setAuthor("Admin Commands (2/2)", wallyURL, iconURL)
+            .setColor(Color(255, 0, 0))
+            .setDescription(commands)
+            .build()
+    }
+
+    fun staffCommandsPage1(): MessageEmbed {
+        val iconURL = "https://www.blackoutburst.com/img/wally.png"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        var commands = "**Wally Staff commands:** (1/2)\n\n"
+        commands += "`say` `[Message]`\n"
+        commands += "Make wally speaks for you\n\n"
+        commands += "`link` `[discordID] [Minecraft Name]`\n"
+        commands += "Link a Minecraft account to a discord account\n\n"
+        commands += "`unlink` `[discordID | Minecraft name]`\n"
+        commands += "Unlink a Minecraft account from a discord account\n\n"
+        commands += "`addAlt` `[discordID] [Minecraft Name]`\n"
+        commands += "Add a Minecraft account to a discord account\n\n"
+        commands += "`removeAlt | rmAlt` `[discordID | Minecraft name] [Alt Minecraft name]`\n"
+        commands += "Remove a Minecraft account from a discord account\n\n"
+        commands += "`listAccount | listAcc | listAccounts | listAccs` `[discordID | Minecraft name]`\n"
+        commands += "Lists every Minecraft account related to a discord account\n\n"
+        commands += "`excludeFromLeaderboard | excludeFromLb | excludeLb | elb` `[Minecraft Name]`\n"
+        commands += "Exclude a Minecraft account from the leaderboard\n\n"
+        commands += "`addToLeaderboard | addToLb | addLb | alb` `[Minecraft Name]`\n"
+        commands += "Add a Minecraft account to the leaderboard\n\n"
+        commands += "`excludeList | eList`\n"
+        commands += "Display every account excluded from the leaderboard\n\n"
+
+        return EmbedBuilder()
+            .setAuthor("Staff Commands (1/2)", wallyURL, iconURL)
+            .setColor(Color(255, 128, 0))
+            .setDescription(commands)
+            .build()
+    }
+
+    fun staffCommandsPage2(): MessageEmbed {
+        val iconURL = "https://www.blackoutburst.com/img/wally.png"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        var commands = "**Wally Staff commands:** (2/2)\n\n"
+        commands += "`setMain | setMainAccount | setMainAcc` `[discordID | Minecraft name] [Minecraft Name]`\n"
+        commands += "Change a Wally user main account\n\n"
+        commands += "`deleteFontColor | dfc` `[discordID | Minecraft name]`\n"
+        commands += "Reset someone custom font color\n\n"
+        commands += "`deleteFont | df` `[discordID | Minecraft name]`\n"
+        commands += "Remove specified user custom font\n\n"
+        commands += "`deleteFont | df` `[discordID | Minecraft name]`\n"
+        commands += "Remove specified user custom font\n\n"
+        commands += "`deleteBackground | deleteBg | dbg` `[discordID | Minecraft name]`\n"
+        commands += "Remove specified user custom background\n\n"
+        commands += "`deleteFontSize | dfs` `[discordID | Minecraft name]`\n"
+        commands += "Reset someone custom font size\n\n"
+        commands += "`fakePB` `[discordID | Minecraft name] [GameType] [Old score] [New score]`\n"
+        commands += "Display a fake Hypixel PB\n\n"
+        commands += "`fakePracticePB` `[discordID | Minecraft name] [GameType] [Old score] [New score]`\n"
+        commands += "Display a fake Practice PB\n\n"
+        commands += "`forcePB | fpb` `[discordID | Minecraft name]`\n"
+        commands += "Force Wally to check if the specified user made a new PB (Hypixel/Practice)\n\n"
+
+        return EmbedBuilder()
+            .setAuthor("Staff Commands (2/2)", wallyURL, iconURL)
+            .setColor(Color(255, 128, 0))
+            .setDescription(commands)
+            .build()
+    }
+
+    fun hypixelCommands(): MessageEmbed {
+        val iconURL = "https://www.blackoutburst.com/img/wally.png"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        var commands = "**Wally Hypixel commands:**\n\n"
+        commands += "`leaderboard | leaderboards | lead | leads | lb | lbs` `(page)`\n"
+        commands += "Display the Hole in the Wall leaderboards\n\n"
+        commands += "`stats | stat | s` `(Minecraft name)`\n"
+        commands += "Show a player stats\n\n"
+        commands += "`compare | c` `(Minecraft name) [Minecraft name]`\n"
+        commands += "Compare two player stats\n\n"
+        commands += "`crossCompare | cc` `(Minecraft name)`\n"
+        commands += "Cross compare a player Hypixel and Practice stats\n\n"
+        commands += "`convert` `[score] [Q | F]`\n"
+        commands += "Convert a Qualification score to Finals or Finals to Qualification\n\n"
+
+
+        return EmbedBuilder()
+            .setAuthor("Hypixel Commands", wallyURL, iconURL)
+            .setColor(Color(71, 165, 255))
+            .setDescription(commands)
+            .build()
+    }
+
+    fun practiceCommands(): MessageEmbed {
+        val iconURL = "https://www.blackoutburst.com/img/wally.png"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        var commands = "**Wally Practice commands:**\n\n"
+        commands += "`leaderboard | leaderboards | lead | leads | lb | lbs` `(page)`\n"
+        commands += "Display the Hole in the Wall leaderboards\n\n"
+        commands += "`practiceStats | practiceStat | ps | pStats | pStat` `(Minecraft name)`\n"
+        commands += "Show a player stats\n\n"
+        commands += "`pCompare | pc | practiceCompare | practiceC` `(Minecraft name) [Minecraft name]`\n"
+        commands += "Compare two player stats\n\n"
+        commands += "`crossCompare | cc` `(Minecraft name)`\n"
+        commands += "Cross compare a player Hypixel and Practice stats\n\n"
+        commands += "`pGraph | practiceGraph` `(Minecraft name)`\n"
+        commands += "Display a graph of the latest 100 games on the practice server\n\n"
+
+
+        return EmbedBuilder()
+            .setAuthor("Practice Commands", wallyURL, iconURL)
+            .setColor(Color(71, 255, 0))
+            .setDescription(commands)
+            .build()
+    }
+
+    fun miscCommandsPage1(): MessageEmbed {
+        val iconURL = "https://www.blackoutburst.com/img/wally.png"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        var commands = "**Wally Miscellaneous commands:** (1/2)\n\n"
+        commands += "`ping`\n"
+        commands += "Show various Wally data\n\n"
+        commands += "`poll` `[message]`\n"
+        commands += "Create a basic poll\n\n"
+        commands += "`skin` `[Minecraft name]`\n"
+        commands += "Display someone Minecraft skin\n\n"
+        commands += "`setDisplayPreference | sdp`\n"
+        commands += "Changes the way certain commands looks\n\n"
+        commands += "`setFontColor | sfc` `[color in hexadecimal]`\n"
+        commands += "Changes your stats font color\n\n"
+        commands += "`resetFontColor | rfc`\n"
+        commands += "Reset your stats font color\n\n"
+        commands += "`setFont | sf` `[Upload a .TTF or .OTF file with the command]`\n"
+        commands += "Set your stats font\n\n"
+        commands += "`resetFont | rf`\n"
+        commands += "Reset your stats font\n\n"
+        commands += "`setFontSize | sfs` [size]\n"
+        commands += "Set your stats font size\n\n\n"
+        commands += "`resetFontSize | rfs`\n"
+        commands += "Reset your stats font size\n\n"
+
+        return EmbedBuilder()
+            .setAuthor("Miscellaneous Commands (1/2)", wallyURL, iconURL)
+            .setColor(Color(255, 150, 255))
+            .setDescription(commands)
+            .build()
+    }
+
+    fun miscCommandsPage2(): MessageEmbed {
+        val iconURL = "https://www.blackoutburst.com/img/wally.png"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        var commands = "**Wally Miscellaneous commands:** (2/2)\n\n"
+
+        commands += "`setBackground | setBg | sbg` `[Upload a .PNG, .JPG, .JPEG file with the command]`\n"
+        commands += "Update your stats background\n\n"
+        commands += "`resetBackground | resetBg | rbg`\n"
+        commands += "Reset your stats background\n\n"
+        commands += "`resetBackground | resetBg | rbg`\n"
+        commands += "Reset your stats background\n\n"
+        commands += "`toggleHeader | th`\n"
+        commands += "Toggle your stats header\n\n"
+        commands += "`suggestion | suggest`\n"
+        commands += "Create a suggestion for Wally, the practice server or even the discord server\n\n"
+        commands += "`who | whois`\n"
+        commands += "Display various information about a player\n\n"
+        commands += "`help`\n"
+        commands += "Display Wally commands\n\n"
+
+        return EmbedBuilder()
+            .setAuthor("Miscellaneous Commands (2/2)", wallyURL, iconURL)
+            .setColor(Color(255, 150, 255))
+            .setDescription(commands)
+            .build()
+    }
+
+    fun helpEmbed(commandSender :WallyUser) : MessageEmbed {
+        val iconURL = "https://www.blackoutburst.com/img/wally.png"
+        val wallyURL = "https://github.com/Blackoutburst/Wally"
+        val embed: EmbedBuilder = EmbedBuilder()
+            .setAuthor("Commands", wallyURL, iconURL)
+            .setColor(Color(71, 165, 255))
+            .setDescription("This is wally commands categories.\nUse `help [categories]` to display actual commands.\nOr use one of the buttons below!")
+
+        if (commandSender.permissionLevel.weight >= PermissionLevel.ADMIN.weight) {
+            embed.addField("**Admin**", "Display Admin commands", true)
+        }
+
+        if (commandSender.permissionLevel.weight >= PermissionLevel.STAFF.weight) {
+            embed.addField("**Staff**", "Display Staff commands", true)
+        }
+        embed.addField("**Hypixel**", "Display Hypixel commands", true)
+        embed.addField("**Practice**", "Display Practice Server commands", true)
+        embed.addField("**Misc**", "Display Miscellaneous commands", true)
+
+        return embed.build()
     }
 }
