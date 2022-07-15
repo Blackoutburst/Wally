@@ -1,7 +1,9 @@
 package com.blackoutburst.wally.core.commands
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang
 import com.blackoutburst.wally.core.threads.HypixelTracker
 import com.blackoutburst.wally.core.threads.PracticeTracker
@@ -24,14 +26,17 @@ class CommandForcePB : CommandExecutable() {
         var discordID = CommandUtils.getDiscordIDFromTwoArgs(guild, args)
 
         if (discordID == null) {
+            Wally.logger.log(LogLevel.WARN, "Discord id is null")
             val playerUuid = Mojang.getPlayerUUID(args[0])
             if (playerUuid == null) {
+                Wally.logger.log(LogLevel.WARN, "Player uuid is null")
                 message.reply(ConfigManager.loadMessage( "not an user")).queue()
                 return
             }
 
             val wallyUser = DatabaseUtils.getWallyUserFromUUID(playerUuid)
             if (wallyUser == null) {
+                Wally.logger.log(LogLevel.WARN, "Wally user is missing")
                 message.reply(
                     ConfigManager.loadMessage( "not linked")
                     .replace("%user%", args[0])).queue()
@@ -43,6 +48,7 @@ class CommandForcePB : CommandExecutable() {
 
         val options = DatabaseUtils.getWallyUserData(discordID)
         if (options == null) {
+            Wally.logger.log(LogLevel.WARN, "User data are missing")
             message.reply(
                 ConfigManager.loadMessage( "not linked")
                 .replace("%user%", args[0])).queue()
@@ -50,6 +56,7 @@ class CommandForcePB : CommandExecutable() {
         }
         val user = DatabaseUtils.getWallyUserFromUUID(options.mainAccountUUID)
         if (user == null) {
+            Wally.logger.log(LogLevel.WARN, "Wally user is missing")
             message.reply(
                 ConfigManager.loadMessage( "not linked")
                     .replace("%user%", args[0])).queue()

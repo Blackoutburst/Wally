@@ -1,14 +1,16 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.core.commands.CommandManager.prefix
-import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
-import com.blackoutburst.wally.utils.FilesUtils.excludeFromLb
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
+import com.blackoutburst.wally.core.commands.CommandManager.prefix
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.database.DatabaseManager.cleanFolder
+import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.utils.FilesUtils.excludeFromLb
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 import java.io.File
 
 class CommandExcludeFromLeaderboard : CommandExecutable() {
@@ -22,6 +24,7 @@ class CommandExcludeFromLeaderboard : CommandExecutable() {
 
         val playerUUID = getPlayerUUID(args[0])
         if (playerUUID == null) {
+            Wally.logger.log(LogLevel.WARN, "Player uuid is null")
             message.reply(ConfigManager.loadMessage( "not in mojang").replace("%name%", args[0])).queue()
             return
         }

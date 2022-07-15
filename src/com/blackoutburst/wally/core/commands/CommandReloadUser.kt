@@ -1,11 +1,11 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
-import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.config.ConfigManager
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 import java.io.File
 
 class CommandReloadUser : CommandExecutable() {
@@ -20,7 +20,7 @@ class CommandReloadUser : CommandExecutable() {
 
         val entries = rootFolder.list()
         if (entries == null) {
-            message.reply(ConfigManager.loadMessage( "no user db")).queue()
+            message.reply(ConfigManager.loadMessage( "user db empty")).queue()
             return
         }
 

@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.commands.CommandManager.prefix
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang
 import com.blackoutburst.wally.utils.CommandUtils.createUserData
 import com.blackoutburst.wally.utils.CommandUtils.getDiscordIDFromTwoArgs
@@ -22,10 +23,12 @@ class CommandLink : CommandExecutable() {
 
         val discordID = getDiscordIDFromTwoArgs(guild, args)
         if (discordID == null) {
+            Wally.logger.log(LogLevel.WARN, "Discord id is null")
             message.reply(ConfigManager.loadMessage( "not an user")).queue()
             return
         }
         if (Wally.users.find { user -> user.member.id == discordID } != null) {
+            Wally.logger.log(LogLevel.WARN, "User is alreayd linked")
             val user = Wally.users.first { user -> user.member.id == discordID }
             message.reply(ConfigManager.loadMessage( "already linked")
                 .replace("%name%", user.member.effectiveName)

@@ -1,8 +1,10 @@
 package com.blackoutburst.wally.core.commands
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.commands.CommandManager.prefix
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang
 import com.blackoutburst.wally.utils.CommandUtils.getDiscordIDFromTwoArgs
 import com.blackoutburst.wally.utils.DatabaseUtils
@@ -23,14 +25,17 @@ class CommandDeleteBackground : CommandExecutable() {
         var discordID = getDiscordIDFromTwoArgs(guild, args)
 
         if (discordID == null) {
+            Wally.logger.log(LogLevel.WARN, "Discord id is null probably not an user")
             val playerUuid = Mojang.getPlayerUUID(args[0])
             if (playerUuid == null) {
+                Wally.logger.log(LogLevel.WARN, "Player uuid is null")
                 message.reply(ConfigManager.loadMessage("not an user")).queue()
                 return
             }
 
             val wallyUser = DatabaseUtils.getWallyUserFromUUID(playerUuid)
             if (wallyUser == null) {
+                Wally.logger.log(LogLevel.WARN, "Wally user is missing")
                 message.reply(ConfigManager.loadMessage("not linked")
                     .replace("%user%", args[0])).queue()
                 return
@@ -40,6 +45,7 @@ class CommandDeleteBackground : CommandExecutable() {
         }
 
         if (!DatabaseUtils.isLinked(discordID)) {
+            Wally.logger.log(LogLevel.WARN, "User is not linked")
             message.reply(ConfigManager.loadMessage("not linked")
                 .replace("%user%", "<@$discordID>")).queue()
             return

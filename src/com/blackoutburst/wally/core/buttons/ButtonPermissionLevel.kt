@@ -4,6 +4,7 @@ import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.commands.PermissionLevel
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.utils.DatabaseUtils.generateWallyProfile
 import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
 import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserFromUUID
@@ -20,6 +21,7 @@ class ButtonPermissionLevel : ButtonExecutable() {
         val data = getWallyUserData(discordID)
 
         if (data == null) {
+            Wally.logger.log(LogLevel.WARN,"Wally user data is null")
             event.reply(ConfigManager.loadMessage( "not linked or corrupted")).setEphemeral(true).queue()
             return false
         }
@@ -34,13 +36,16 @@ class ButtonPermissionLevel : ButtonExecutable() {
         val id = buttonUser.member.id + ":" + editedUserID + ":"
         val level = PermissionLevel.valueOf(event.button.label)
         val data = getWallyUserData(editedUserID)
-        val member = getWallyUserFromUUID(data!!.mainAccountUUID)
 
         if (data == null) {
+            Wally.logger.log(LogLevel.WARN,"The wally user data is null!")
             event.reply(ConfigManager.loadMessage( "not linked or corrupted")).setEphemeral(true)
                 .queue()
             return
         }
+
+        val member = getWallyUserFromUUID(data.mainAccountUUID)
+
 
         event.message.editMessage(ConfigManager.loadMessage( "select permission level")
             .replace("%user%", member!!.member.effectiveName)).setActionRow(

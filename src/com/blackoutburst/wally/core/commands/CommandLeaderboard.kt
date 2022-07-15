@@ -1,13 +1,14 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.utils.MessageUtils.sendLeaderboard
-import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
+import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.utils.MessageUtils.sendLeaderboard
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 
 class CommandLeaderboard : CommandExecutable() {
 
@@ -24,6 +25,7 @@ class CommandLeaderboard : CommandExecutable() {
         }
 
         if (page < 1) {
+            Wally.logger.log(LogLevel.WARN, "Invalid leaderboard page")
             message.reply(ConfigManager.loadMessage( "invalid page").replace("%page%", args[0])).queue()
             return
         }

@@ -1,7 +1,9 @@
 package com.blackoutburst.wally.core.commands
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.utils.CanvasUtils
 import com.blackoutburst.wally.utils.DatabaseUtils
 import net.dv8tion.jda.api.entities.Guild
@@ -19,6 +21,7 @@ class CommandSetFont : CommandExecutable() {
 
         val discordID = commandSender.member.id
         if (!DatabaseUtils.isLinked(discordID)) {
+            Wally.logger.log(LogLevel.WARN, "User is not linked")
             message.reply(ConfigManager.loadMessage( "you are not linked")).queue()
             return
         }

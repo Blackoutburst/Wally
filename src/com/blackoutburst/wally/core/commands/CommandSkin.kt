@@ -1,16 +1,18 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
-import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
-import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
+import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang.getPlayerName
+import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
+import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
 import com.blackoutburst.wally.utils.EmbedUtils.generateSkin
 import com.blackoutburst.wally.utils.MessageUtils.createAccountMenu
-import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
-import com.blackoutburst.wally.core.config.ConfigManager
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 
 class CommandSkin : CommandExecutable() {
 
@@ -27,6 +29,7 @@ class CommandSkin : CommandExecutable() {
         }
 
         if (uuid == null) {
+            Wally.logger.log(LogLevel.WARN, "Player uuid is null")
             message.reply(ConfigManager.loadMessage( "unknown player")).queue()
             return
         }

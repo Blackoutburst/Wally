@@ -1,21 +1,20 @@
 package com.blackoutburst.wally.core.commands
 
-import com.blackoutburst.wally.core.commands.CommandManager.prefix
-import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
-import com.blackoutburst.wally.utils.FilesUtils.removeExclusion
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
+import com.blackoutburst.wally.core.commands.CommandManager.prefix
 import com.blackoutburst.wally.core.config.ConfigManager
-import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Hypixel
+import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
 import com.blackoutburst.wally.core.request.PracticeServer
 import com.blackoutburst.wally.core.request.Visage
-import com.blackoutburst.wally.core.statsobject.HypixelStats
-import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
+import com.blackoutburst.wally.utils.FilesUtils.removeExclusion
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 
 class CommandAddToLeaderboard : CommandExecutable() {
 
@@ -28,6 +27,7 @@ class CommandAddToLeaderboard : CommandExecutable() {
 
         val playerUUID = getPlayerUUID(args[0])
         if (playerUUID == null) {
+            Wally.logger.log(LogLevel.WARN,"UUID is null")
             message.reply(ConfigManager.loadMessage( "not in mojang").replace("%name%", args[0])).queue()
             return
         }

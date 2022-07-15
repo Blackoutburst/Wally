@@ -1,14 +1,16 @@
 package com.blackoutburst.wally.core.commands
 
+import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.commands.CommandManager.prefix
+import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.utils.CommandUtils.createUserData
 import com.blackoutburst.wally.utils.CommandUtils.getDiscordIDFromTwoArgs
 import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
-import com.blackoutburst.wally.utils.CommandUtils.createUserData
-import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.entities.MessageChannel
-import com.blackoutburst.wally.core.config.ConfigManager
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
 
 class CommandAddAlt : CommandExecutable() {
 
@@ -23,11 +25,13 @@ class CommandAddAlt : CommandExecutable() {
 
         val discordID = getDiscordIDFromTwoArgs(guild, args)
         if (discordID == null) {
+            Wally.logger.log(LogLevel.WARN,"Discord id is null")
             message.reply(ConfigManager.loadMessage( "not an user")).queue()
             return
         }
 
         if (!isLinked(discordID)) {
+            Wally.logger.log(LogLevel.INFO,"[$discordID] is not linked")
             message.reply(ConfigManager.loadMessage( "not linked").replace("%user%", "<@$discordID>")).queue()
             return
         }

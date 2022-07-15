@@ -3,6 +3,7 @@ package com.blackoutburst.wally.core.commands
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Hypixel
 import com.blackoutburst.wally.core.request.Mojang
 import com.blackoutburst.wally.core.statsobject.HypixelStats
@@ -30,6 +31,7 @@ class CommandWhoIs : CommandExecutable() {
         }
 
         if (uuid == null) {
+            Wally.logger.log(LogLevel.WARN, "Player uuid is null")
             message.reply(ConfigManager.loadMessage( "unknown player")).queue()
             return
         }

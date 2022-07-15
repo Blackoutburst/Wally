@@ -1,7 +1,9 @@
 package com.blackoutburst.wally.core.commands
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Hypixel.getPlayerStats
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
 import com.blackoutburst.wally.core.request.Visage
@@ -34,12 +36,14 @@ class CommandStats : CommandExecutable() {
         }
 
         if (uuid == null) {
+            Wally.logger.log(LogLevel.WARN, "Player uuid is null")
             message.reply(ConfigManager.loadMessage( "unknown player")).queue()
             return
         }
 
         var data = getPlayerStats(uuid)
         if (data == null) {
+            Wally.logger.log(LogLevel.WARN, "Player data are missing")
             data = getBackupLocalData(uuid, DatabaseUtils.DataType.HYPIXEL, channel)
         }
 

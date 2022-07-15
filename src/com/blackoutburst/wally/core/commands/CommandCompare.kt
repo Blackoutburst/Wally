@@ -1,7 +1,9 @@
 package com.blackoutburst.wally.core.commands
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Hypixel.getPlayerStats
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
 import com.blackoutburst.wally.utils.DatabaseUtils
@@ -40,21 +42,25 @@ class CommandCompare : CommandExecutable() {
 
 
         if (player1Uuid == null || player2Uuid == null) {
+            Wally.logger.log(LogLevel.WARN, "One or both players are null")
             message.reply(ConfigManager.loadMessage( "unknown player")).queue()
             return
         }
 
         var player1Data = getPlayerStats(player1Uuid)
         if (player1Data == null) {
+            Wally.logger.log(LogLevel.INFO, "Player 1 data is null")
             player1Data = getBackupLocalData(player1Uuid, DatabaseUtils.DataType.HYPIXEL, channel)
         }
 
         var player2Data = getPlayerStats(player2Uuid)
         if (player2Data == null) {
+            Wally.logger.log(LogLevel.INFO, "Player 2 data is null")
             player2Data = getBackupLocalData(player2Uuid, DatabaseUtils.DataType.HYPIXEL, channel)
         }
 
         if (player1Data == null || player2Data == null) {
+            Wally.logger.log(LogLevel.INFO, "One or both player data are missing")
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "command compare error"))
             return
         }

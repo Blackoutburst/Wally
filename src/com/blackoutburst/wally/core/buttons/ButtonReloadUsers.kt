@@ -1,24 +1,26 @@
 package com.blackoutburst.wally.core.buttons
 
-import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
-import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import java.io.File
 
 class ButtonReloadUsers : ButtonExecutable() {
     
     override fun onClick(buttonUser: WallyUser, event: ButtonInteractionEvent) {
         val rootFolder = File("database/linked users/")
-        val missingDatabase = ConfigManager.loadMessage( "no user db")
         if (!rootFolder.exists()) {
-            event.channel.sendMessage(missingDatabase).queue()
+            Wally.logger.log(LogLevel.WARN,"The database is missing!")
+            event.channel.sendMessage(ConfigManager.loadMessage( "no user db")).queue()
             return
         }
 
         val entries = rootFolder.list()
         if (entries == null) {
-            event.channel.sendMessage(missingDatabase).queue()
+            Wally.logger.log(LogLevel.WARN,"The database is empty!")
+            event.channel.sendMessage(ConfigManager.loadMessage( "user db empty")).queue()
             return
         }
 

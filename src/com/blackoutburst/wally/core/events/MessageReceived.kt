@@ -24,12 +24,12 @@ object MessageReceived {
                     event.channel.sendTyping().queue()
                     val userData = DatabaseUtils.getWallyUserData(event.member!!.id)
                     if (userData == null) {
-                        event.message.reply(ConfigManager.loadMessage("sorry not linked")).queue()
+                        event.message.reply(ConfigManager.loadMessage("you are not linked")).queue()
                         return
                     }
                     val user = DatabaseUtils.getWallyUserFromUUID(userData.mainAccountUUID)
                     if (user == null) {
-                        event.message.reply(ConfigManager.loadMessage("sorry not linked")).queue()
+                        event.message.reply(ConfigManager.loadMessage("you are not linked")).queue()
                         return
                     }
                     if (!HypixelTracker.checkPlayer(user)) {
@@ -49,12 +49,12 @@ object MessageReceived {
                     event.channel.sendTyping().queue()
                     val userData = DatabaseUtils.getWallyUserData(event.member!!.id)
                     if (userData == null) {
-                        event.message.reply(ConfigManager.loadMessage("sorry not linked")).queue()
+                        event.message.reply(ConfigManager.loadMessage("you are not linked")).queue()
                         return
                     }
                     val user = DatabaseUtils.getWallyUserFromUUID(userData.mainAccountUUID)
                     if (user == null) {
-                        event.message.reply(ConfigManager.loadMessage("sorry not linked")).queue()
+                        event.message.reply(ConfigManager.loadMessage("you are not linked")).queue()
                         return
                     }
                     if (!PracticeTracker.checkPlayer(user)) {

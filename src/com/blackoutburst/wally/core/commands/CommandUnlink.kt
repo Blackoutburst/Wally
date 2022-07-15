@@ -27,14 +27,17 @@ class CommandUnlink : CommandExecutable() {
         var discordID = CommandUtils.getDiscordIDFromArg(guild, args[0])
 
         if (discordID == null) {
+            Wally.logger.log(LogLevel.WARN, "Discord id is null")
             val playerUuid = Mojang.getPlayerUUID(args[0])
             if (playerUuid == null) {
+                Wally.logger.log(LogLevel.WARN, "Player uuid is null")
                 message.reply(ConfigManager.loadMessage( "not an user")).queue()
                 return
             }
 
             val wallyUser = DatabaseUtils.getWallyUserFromUUID(playerUuid)
             if (wallyUser == null) {
+                Wally.logger.log(LogLevel.WARN, "Wally user is missing")
                 message.reply(ConfigManager.loadMessage( "not linked")
                     .replace("%user%", args[0])).queue()
                 return
@@ -45,6 +48,7 @@ class CommandUnlink : CommandExecutable() {
 
         val folder = File("database/linked users/" + discordID)
         if (!isLinked(discordID)) {
+            Wally.logger.log(LogLevel.WARN, "User is not linked")
             message.reply(ConfigManager.loadMessage( "unlink not link")).queue()
             return
         }

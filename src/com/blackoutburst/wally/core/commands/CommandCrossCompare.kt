@@ -1,7 +1,9 @@
 package com.blackoutburst.wally.core.commands
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
+import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Hypixel
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
 import com.blackoutburst.wally.core.request.PracticeServer
@@ -36,21 +38,25 @@ class CommandCrossCompare : CommandExecutable() {
         }
 
         if (uuid == null) {
+            Wally.logger.log(LogLevel.WARN, "UUID is null")
             message.reply(ConfigManager.loadMessage( "unknown player")).queue()
             return
         }
 
         var data = Hypixel.getPlayerStats(uuid)
         if (data == null) {
+            Wally.logger.log(LogLevel.WARN, "Data is null")
             data = getBackupLocalData(uuid, DatabaseUtils.DataType.HYPIXEL, channel)
         }
 
         var practiceData = PracticeServer.getPlayerStats(uuid)
         if (practiceData == null) {
+            Wally.logger.log(LogLevel.WARN, "Practice data is null")
             practiceData = getBackupLocalData(uuid, DatabaseUtils.DataType.PRACTICE, channel)
         }
 
         if (data == null || practiceData == null) {
+            Wally.logger.log(LogLevel.WARN, "Hypixel, practice or both data are null")
             sendLogButtonReply(commandSender, message, ConfigManager.loadMessage( "command stats error"))
             return
         }
@@ -59,6 +65,7 @@ class CommandCrossCompare : CommandExecutable() {
 
         val wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid)
         if (wallyUser != null) {
+            Wally.logger.log(LogLevel.WARN, "Wally user is missing")
             updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, wallyUser.member.id, uuid)
             updateLinkedPlayerStats(practiceData, DatabaseUtils.DataType.PRACTICE, wallyUser.member.id, uuid)
         }
