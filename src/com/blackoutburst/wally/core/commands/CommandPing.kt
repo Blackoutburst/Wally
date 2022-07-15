@@ -61,7 +61,9 @@ class CommandPing : CommandExecutable() {
                 .addField("Version", "`2.0.0`", true)
 
                 .addField("", "[GitHub](https://github.com/Blackoutburst/Wally)", true)
-                .addField("", "[Patreon](https://www.patreon.com/Blackoutburst)", true).build()
+                .addField("", "[Patreon](https://www.patreon.com/Blackoutburst)", true)
+                .setFooter("Made with love by Blackoutburst", "https://www.blackoutburst.com/img/pfp.jpg")
+                .build()
             response.editMessageEmbeds(embed).queue()
         }
     }
