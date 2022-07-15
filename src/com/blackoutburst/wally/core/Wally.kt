@@ -26,7 +26,7 @@ object Wally {
     val logger = Logger
     var isReady = false
     val numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH) as DecimalFormat
-    val decimalFormat = DecimalFormat("#.##")
+    val decimalFormat = NumberFormat.getNumberInstance(Locale.ENGLISH) as DecimalFormat
     var hitwDiscord: Guild? = null
     var devServer: Guild? = null
     var threadSet: Set<Thread>? = null
