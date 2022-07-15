@@ -257,7 +257,7 @@ object EmbedUtils {
                 .addField("", "[GitHub](https://github.com/Blackoutburst/Wally)", true)
                 .addField("", "[Patreon](https://www.patreon.com/Blackoutburst)", true)
                 .setColor(Color(71, 165, 255))
-                .setFooter("Made with love by Blackoutburst", "https://www.blackoutburst.com/img/pfp.jpg")
+                .setFooter("Made with ❤️ by Blackoutburst", "https://www.blackoutburst.com/img/discord-pfp.png")
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e)
             null
