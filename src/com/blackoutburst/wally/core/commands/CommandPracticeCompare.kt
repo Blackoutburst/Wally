@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
+import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
 import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
@@ -67,6 +68,6 @@ class CommandPracticeCompare : CommandExecutable() {
 
         updateLeaderboardStats(player1Data, DatabaseUtils.DataType.PRACTICE, player1Uuid)
         updateLeaderboardStats(player2Data, DatabaseUtils.DataType.PRACTICE, player2Uuid)
-        sendPracticeCompare(commandSender, message, player1Data, player2Data)
+        sendPracticeCompare(commandSender, message, PracticeStats(player1Data), PracticeStats(player2Data), false)
     }
 }

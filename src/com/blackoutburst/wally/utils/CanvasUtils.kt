@@ -55,16 +55,14 @@ object CanvasUtils {
         canvas.save("font_preview.png")
     }
 
-    fun createPracticeCompareCanvas(data1: String, data2: String) {
+    fun createPracticeCompareCanvas(player1: PracticeStats, player2: PracticeStats) {
         val canvas = Canvas(1000, 600)
 
-        val player1 = PracticeStats(data1)
         val user1 = DatabaseUtils.getWallyUserFromUUID(player1.uuid)
         val fontColor1 = Color.decode(user1?.fontColor ?: "#FFFFFF")
         val color1 = Utils.getColorFromScore(Utils.getHighestScore(player1.scores))
         val fontSize1 = user1?.fontSize ?: 0f
 
-        val player2 = PracticeStats(data2)
         val user2 = DatabaseUtils.getWallyUserFromUUID(player2.uuid)
         val fontColor2 = Color.decode(user2?.fontColor ?: "#FFFFFF")
         val color2 = Utils.getColorFromScore(Utils.getHighestScore(player2.scores))
@@ -82,14 +80,18 @@ object CanvasUtils {
 
         canvas.drawImageLeftHalf(practiceHeader, 0, 0, 500, 37, color1)
 
-        if (File("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png").exists())
-            canvas.drawImage("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png", 20, 52, 64, 64)
-        else if (File("database/leaderboards/hypixel/${player1.uuid}/head.png").exists())
-            canvas.drawImage("database/leaderboards/hypixel/${player1.uuid}/head.png", 20, 52, 64, 64)
-        else if (File("database/leaderboards/practice/${player1.uuid}/head.png").exists())
-            canvas.drawImage("database/leaderboards/practice/${player1.uuid}/head.png", 20, 52, 64, 64)
-        else
-            canvas.drawImage(missingHead, 20, 52, 64, 64)
+        if (!player1.combined) {
+            if (File("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png").exists())
+                canvas.drawImage("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png", 20, 52, 64, 64)
+            else if (File("database/leaderboards/hypixel/${player1.uuid}/head.png").exists())
+                canvas.drawImage("database/leaderboards/hypixel/${player1.uuid}/head.png", 20, 52, 64, 64)
+            else if (File("database/leaderboards/practice/${player1.uuid}/head.png").exists())
+                canvas.drawImage("database/leaderboards/practice/${player1.uuid}/head.png", 20, 52, 64, 64)
+            else
+                canvas.drawImage(missingHead, 20, 52, 64, 64)
+        } else {
+            canvas.drawImage(downloadAvatar(user1!!.member.effectiveAvatarUrl), 20, 52, 64, 64)
+        }
 
         canvas.drawStringLeft(player1.name, 100, 57, 36.0f + fontSize1, fontColor1)
         canvas.drawStringLeft(user1?.subtitle ?: "", 100, 97, 30.0f + fontSize1, fontColor1)
@@ -173,16 +175,14 @@ object CanvasUtils {
         canvas.save("practice_compare.png")
     }
 
-    fun createHypixelCompareCanvas(data1: String, data2: String) {
+    fun createHypixelCompareCanvas(player1: HypixelStats, player2: HypixelStats) {
         val canvas = Canvas(1000, 600)
 
-        val player1 = HypixelStats(data1)
         val user1 = DatabaseUtils.getWallyUserFromUUID(player1.uuid)
         val fontColor1 = Color.decode(user1?.fontColor ?: "#FFFFFF")
         val color1 = Utils.getColorFromScore(Utils.getHighestScore(player1.scores))
         val fontSize1 = user1?.fontSize ?: 0f
 
-        val player2 = HypixelStats(data2)
         val user2 = DatabaseUtils.getWallyUserFromUUID(player2.uuid)
         val fontColor2 = Color.decode(user2?.fontColor ?: "#FFFFFF")
         val color2 = Utils.getColorFromScore(Utils.getHighestScore(player2.scores))
@@ -200,14 +200,19 @@ object CanvasUtils {
 
         canvas.drawImageLeftHalf(hypixelHeader, 0, 0, 500, 37, color1)
 
-        if (File("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png").exists())
-            canvas.drawImage("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png", 20, 52, 64, 64)
-        else if (File("database/leaderboards/hypixel/${player1.uuid}/head.png").exists())
-            canvas.drawImage("database/leaderboards/hypixel/${player1.uuid}/head.png", 20, 52, 64, 64)
-        else if (File("database/leaderboards/practice/${player1.uuid}/head.png").exists())
-            canvas.drawImage("database/leaderboards/practice/${player1.uuid}/head.png", 20, 52, 64, 64)
-        else
-            canvas.drawImage(missingHead, 20, 52, 64, 64)
+        if (!player1.combined) {
+
+            if (File("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png").exists())
+                canvas.drawImage("database/linked users/${user1?.member?.id}/accounts/${player1.uuid}/head.png", 20, 52, 64, 64)
+            else if (File("database/leaderboards/hypixel/${player1.uuid}/head.png").exists())
+                canvas.drawImage("database/leaderboards/hypixel/${player1.uuid}/head.png", 20, 52, 64, 64)
+            else if (File("database/leaderboards/practice/${player1.uuid}/head.png").exists())
+                canvas.drawImage("database/leaderboards/practice/${player1.uuid}/head.png", 20, 52, 64, 64)
+            else
+                canvas.drawImage(missingHead, 20, 52, 64, 64)
+        } else {
+            canvas.drawImage(downloadAvatar(user1!!.member.effectiveAvatarUrl), 20, 52, 64, 64)
+        }
 
         canvas.drawStringLeft(player1.name, 100, 57, 36.0f + fontSize1, fontColor1)
         canvas.drawStringLeft(user1?.subtitle ?: "", 100, 97, 30.0f + fontSize1, fontColor1)

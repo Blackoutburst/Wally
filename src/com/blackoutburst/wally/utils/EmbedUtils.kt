@@ -135,9 +135,7 @@ object EmbedUtils {
             .build()
     }
 
-    fun generateHypixelCompareEmbed(player1Data: String, player2Data: String): MessageEmbed {
-        val player1 = HypixelStats(player1Data)
-        val player2 = HypixelStats(player2Data)
+    fun generateHypixelCompareEmbed(player1: HypixelStats, player2: HypixelStats): MessageEmbed {
         val date = LocalDate.now().toString()
 
         return EmbedBuilder()
@@ -184,9 +182,7 @@ object EmbedUtils {
             .build()
     }
 
-    fun generatePracticeCompareEmbed(player1Data: String, player2Data: String): MessageEmbed {
-        val player1 = PracticeStats(player1Data)
-        val player2 = PracticeStats(player2Data)
+    fun generatePracticeCompareEmbed(player1: PracticeStats, player2: PracticeStats): MessageEmbed {
         val date = LocalDate.now().toString()
 
         return EmbedBuilder()

@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Hypixel.getPlayerStats
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.utils.DatabaseUtils
 import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
 import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
@@ -67,6 +68,6 @@ class CommandCompare : CommandExecutable() {
 
         updateLeaderboardStats(player1Data, DatabaseUtils.DataType.HYPIXEL, player1Uuid)
         updateLeaderboardStats(player2Data, DatabaseUtils.DataType.HYPIXEL, player2Uuid)
-        sendHypixelCompare(commandSender, message, player1Data, player2Data)
+        sendHypixelCompare(commandSender, message, HypixelStats(player1Data), HypixelStats(player2Data), false)
     }
 }

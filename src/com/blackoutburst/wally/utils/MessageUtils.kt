@@ -86,24 +86,72 @@ object MessageUtils {
         }
     }
 
-    fun sendHypixelCompare(commandSender: WallyUser, message: Message, player1data: String, player2data: String) {
-        when (commandSender.displayPreference) {
-            DisplayPreference.TEXT -> message.reply(generateHypixelCompareMessage(player1data, player2data)).queue()
-            DisplayPreference.EMBED -> message.replyEmbeds(generateHypixelCompareEmbed(player1data, player2data)).queue()
-            else -> {
-                CanvasUtils.createHypixelCompareCanvas(player1data, player2data)
-                message.reply("\u00A0").addFile(File("compare.png")).queue()
+    fun sendHypixelCompare(commandSender: WallyUser, message: Message, player1data: HypixelStats, player2data: HypixelStats, edit: Boolean) {
+        if (edit) {
+            when (commandSender.displayPreference) {
+                DisplayPreference.TEXT -> message.editMessage(generateHypixelCompareMessage(player1data, player2data)).queue()
+                DisplayPreference.EMBED -> message.editMessageEmbeds(generateHypixelCompareEmbed(player1data, player2data)).queue()
+                else -> {
+                    CanvasUtils.createHypixelCompareCanvas(player1data, player2data)
+                    message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("compare.png")).queue()
+                }
+            }
+        } else {
+            val menu = createCompareAccountMenu(commandSender, player1data.uuid, player2data.uuid,"compare")
+
+            when (commandSender.displayPreference) {
+                DisplayPreference.TEXT -> menu?.let {
+                    message.reply(generateHypixelCompareMessage(player1data, player2data)).setActionRow(it).queue()
+                } ?: run  {
+                    message.reply(generateHypixelCompareMessage(player1data, player2data)).queue()
+                }
+                DisplayPreference.EMBED -> menu?.let {
+                    message.replyEmbeds(generateHypixelCompareEmbed(player1data, player2data)).setActionRow(it).queue()
+                } ?: run {
+                    message.replyEmbeds(generateHypixelCompareEmbed(player1data, player2data)).queue()
+                }
+                else -> menu?.let {
+                    CanvasUtils.createHypixelCompareCanvas(player1data, player2data)
+                    message.reply("\u00A0").addFile(File("compare.png")).setActionRow(it).queue()
+                } ?: run {
+                    CanvasUtils.createHypixelCompareCanvas(player1data, player2data)
+                    message.reply("\u00A0").addFile(File("compare.png")).queue()
+                }
             }
         }
     }
 
-    fun sendPracticeCompare(commandSender: WallyUser, message: Message, player1data: String, player2data: String) {
-        when (commandSender.displayPreference) {
-            DisplayPreference.TEXT -> message.reply(generatePracticeCompareMessage(player1data, player2data)).queue()
-            DisplayPreference.EMBED -> message.replyEmbeds(generatePracticeCompareEmbed(player1data, player2data)).queue()
-            else -> {
-                CanvasUtils.createPracticeCompareCanvas(player1data, player2data)
-                message.reply("\u00A0").addFile(File("practice_compare.png")).queue()
+    fun sendPracticeCompare(commandSender: WallyUser, message: Message, player1data: PracticeStats, player2data: PracticeStats, edit: Boolean) {
+        if (edit) {
+            when (commandSender.displayPreference) {
+                DisplayPreference.TEXT -> message.editMessage(generatePracticeCompareMessage(player1data, player2data)).queue()
+                DisplayPreference.EMBED -> message.editMessageEmbeds(generatePracticeCompareEmbed(player1data, player2data)).queue()
+                else -> {
+                    CanvasUtils.createPracticeCompareCanvas(player1data, player2data)
+                    message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("practice_compare.png")).queue()
+                }
+            }
+        } else {
+            val menu = createCompareAccountMenu(commandSender, player1data.uuid, player2data.uuid,"practice compare")
+
+            when (commandSender.displayPreference) {
+                DisplayPreference.TEXT -> menu?.let {
+                    message.reply(generatePracticeCompareMessage(player1data, player2data)).setActionRow(it).queue()
+                } ?: run  {
+                    message.reply(generatePracticeCompareMessage(player1data, player2data)).queue()
+                }
+                DisplayPreference.EMBED -> menu?.let {
+                    message.replyEmbeds(generatePracticeCompareEmbed(player1data, player2data)).setActionRow(it).queue()
+                } ?: run {
+                    message.replyEmbeds(generatePracticeCompareEmbed(player1data, player2data)).queue()
+                }
+                else -> menu?.let {
+                    CanvasUtils.createPracticeCompareCanvas(player1data, player2data)
+                    message.reply("\u00A0").addFile(File("practice_compare.png")).setActionRow(it).queue()
+                } ?: run {
+                    CanvasUtils.createPracticeCompareCanvas(player1data, player2data)
+                    message.reply("\u00A0").addFile(File("practice_compare.png")).queue()
+                }
             }
         }
     }
@@ -243,9 +291,7 @@ object MessageUtils {
                 "```"
     }
 
-    private fun generateHypixelCompareMessage(player1Data: String, player2Data: String): String {
-        val player1 = HypixelStats(player1Data)
-        val player2 = HypixelStats(player2Data)
+    private fun generateHypixelCompareMessage(player1: HypixelStats, player2: HypixelStats): String {
 
         return "```yml" + System.lineSeparator() +
                 String.format("%-20s %-15s %-8s [VS] %8s %15s", "Player name:", player1.name, "", "", player2.name) + System.lineSeparator() + System.lineSeparator() +
@@ -260,9 +306,7 @@ object MessageUtils {
                 "```"
     }
 
-    private fun generatePracticeCompareMessage(player1Data: String, player2Data: String): String {
-        val player1 = PracticeStats(player1Data)
-        val player2 = PracticeStats(player2Data)
+    private fun generatePracticeCompareMessage(player1: PracticeStats, player2: PracticeStats): String {
 
         return "```yml" + System.lineSeparator() +
                 String.format("%-20s %-15s %-8s [VS] %8s %15s", "Player name:", player1.name, "", "", player2.name) + System.lineSeparator() + System.lineSeparator() +
@@ -322,6 +366,35 @@ object MessageUtils {
 
         if (includeCombined) {
             menu.addOption("Combined stats", combined)
+        }
+
+        return menu.build()
+    }
+
+    fun createCompareAccountMenu(commandSender: WallyUser, uuid: String, uuid2: String, menuName: String, includeCombined :Boolean = true): SelectMenu? {
+        val linked = isLinkedUUID(uuid)
+        if (!linked) return null
+
+        val wallyUser = getWallyUserFromUUID(uuid)
+        val memberId = wallyUser!!.member.id
+        val folder = File("database/linked users/$memberId/accounts/")
+        val entries = folder.list()
+        if (entries == null || entries.size == 1) return null
+
+        val menu = SelectMenu.create(commandSender.member.id + ":$menuName")
+            .setRequiredRange(1, 1)
+            .setPlaceholder("Select an account")
+
+
+        var combined = ""
+        for (s in entries) {
+            val player = Mojang.getPlayerName(s!!) ?: continue
+            menu.addOption(player, "$s:$uuid2")
+            combined += "$s:"
+        }
+
+        if (includeCombined) {
+            menu.addOption("Combined stats", "$combined$uuid2")
         }
 
         return menu.build()

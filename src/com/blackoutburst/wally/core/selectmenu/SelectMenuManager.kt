@@ -13,6 +13,8 @@ object SelectMenuManager {
         register(SelectMenuSkin(), "skin")
         register(SelectMenuStats(), "stats")
         register(SelectMenuPracticeStats(), "practice stats")
+        register(SelectMenuCompare(), "compare")
+        register(SelectMenuPracticeCompare(), "practice compare")
         register(SelectMenuLeaderboard(), "leaderboard")
         register(SelectMenuCrossCompare(), "cross compare")
         Wally.logger.log(LogLevel.INFO, "Select menu registered!")
