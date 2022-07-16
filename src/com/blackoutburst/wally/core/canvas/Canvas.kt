@@ -1,9 +1,8 @@
 package com.blackoutburst.wally.core.canvas
 
-import java.awt.Color
-import java.awt.Font
-import java.awt.Graphics2D
-import java.awt.RenderingHints
+import com.blackoutburst.wally.utils.Utils.getColorFromScore
+import java.awt.*
+import java.awt.geom.Line2D
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
@@ -146,5 +145,48 @@ class Canvas(width: Int, height: Int) {
 
     fun loadFont(file: String) {
         font = Font.createFont(Font.TRUETYPE_FONT, File(file)) // This never get released ? Why ?
+    }
+
+    fun drawQuad(x: Int, y: Int, w: Int, h: Int, color: Color?) {
+        g!!.color = color
+        g!!.fillRect(x, y, w, h)
+    }
+
+    fun drawEmptyQuad(x: Int, y: Int, w: Int, h: Int, color: Color?) {
+        g!!.color = color
+        g!!.drawRect(x, y, w, h)
+    }
+
+    fun drawGraphLine(data: IntArray, games: Int) {
+        g!!.stroke = BasicStroke(3.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+        for (i in 0 until games - 1) {
+            var line = Line2D.Float(
+                    1000 - i.toFloat() * 1000 / games,
+                    600 - (data[i] * 1.08f + 4),
+                    1000 - (i.toFloat() + 1) * 1000 / games,
+                    600 - (data[i + 1] * 1.08f + 4))
+            var gradient = GradientPaint(
+                1000 - i.toFloat() * 1000 / games, 600 - (data[i] * 1.08f + 4), getColorFromScore(data[i]),
+                1000 - (i.toFloat() + 1) * 1000 / games, 600 - (data[i + 1] * 1.08f + 4), getColorFromScore(data[i + 1])
+            )
+            g!!.paint = gradient
+            g!!.draw(line)
+            if (i == games - 2) {
+                line = Line2D.Float(
+                    1000 - (i.toFloat() + 1) * 1000 / games,
+                    600 - (data[i + 1] * 1.08f + 4),
+                    1000 - (i.toFloat() + 2) * 1000 / games,
+                    600 - (data[i + 1] * 1.08f + 4)
+                )
+                gradient = GradientPaint(
+                    1000 - (i.toFloat() + 1) * 1000 / games, 600 - (data[i + 1] * 1.08f + 4), getColorFromScore(
+                        data[i + 1]
+                    ),
+                    1000 - (i.toFloat() + 2) * 1000 / games, 600 - (data[i + 1] * 1.08f + 4), getColorFromScore(data[i + 1])
+                )
+                g!!.paint = gradient
+                g!!.draw(line)
+            }
+        }
     }
 }

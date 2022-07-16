@@ -36,11 +36,34 @@ import com.blackoutburst.wally.utils.Utils.downloadAvatar
 import com.blackoutburst.wally.utils.Utils.formatLine
 import com.blackoutburst.wally.utils.Utils.formatLineReverse
 import com.blackoutburst.wally.utils.Utils.formatScoreCompareCanvas
+import com.blackoutburst.wally.utils.Utils.getColorFromScore
 import com.blackoutburst.wally.utils.Utils.getScoreCompareColor
 import java.awt.Color
 import java.io.File
 
 object CanvasUtils {
+
+    fun createPGraphImage(data: IntArray, games: Int) {
+        val canvas = Canvas(1000, 600)
+
+        canvas.loadFont("res/font.ttf")
+        canvas.drawQuad(0, 0, 1000, 600, Color(0, 0, 0, 75))
+        for (i in 0..9) {
+            if (i != 9) {
+                canvas.drawQuad((i + 1) * 100, 0, 1, 592, Color(255, 255, 255, 70))
+                canvas.drawQuad((i + 1) * 100 - 2, 592, 4, 8, Color(255, 255, 255, 128))
+            }
+            val color = getColorFromScore(500 - 50 * i)
+            canvas.drawQuad(0, (i + 1) * 54, 1000, 1, Color(color.red, color.green, color.blue, 70))
+        }
+        canvas.drawEmptyQuad(0, 0, 999, 599, Color.WHITE)
+        canvas.drawGraphLine(data, games)
+        for (i in 0..9) {
+            canvas.drawStringLeft((i * games / 10).toString(), 1000 - i * 100 + 5, 580, 16.0f, Color.white)
+            canvas.drawStringLeft((500 - 50 * i).toString(), 5, (i + 1) * 54 - 15, 16.0f, getColorFromScore(500 - 50 * i))
+        }
+        canvas.save("pgraph.png")
+    }
 
     fun createFontPreviewCanvas(user :WallyUser) {
         val canvas = Canvas(100, 35)

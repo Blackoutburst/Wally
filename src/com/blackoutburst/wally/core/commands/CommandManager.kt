@@ -79,6 +79,7 @@ object CommandManager {
         register(PermissionLevel.MEMBER, CommandToggleHeader(), "toggleHeader", "th")
         register(PermissionLevel.MEMBER, CommandCrossCompare(), "crossCompare", "cc")
         register(PermissionLevel.MEMBER, CommandHelp(), "help")
+        register(PermissionLevel.MEMBER, CommandPGraph(), "pGraph", "practiceGraph")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 

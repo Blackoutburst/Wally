@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
-import java.util.ArrayList
+
 
 object APIUtils {
 
@@ -26,7 +26,7 @@ object APIUtils {
             for (i in 0 until splitPath.size - 1) objects.add(objects[i].getAsJsonObject(splitPath[i]))
 
             val element = objects[objects.size - 1][splitPath[splitPath.size - 1]] ?: return defaultValue
-            val result = element.asString
+            val result = try {element.asString} catch (ignored : Exception) {element.toString()}
 
             result ?: defaultValue
         } catch (e: Exception) {

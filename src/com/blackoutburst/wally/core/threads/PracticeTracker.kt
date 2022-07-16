@@ -18,7 +18,7 @@ object PracticeTracker {
                 for (i in 0 until Wally.users.size) {
                     val user = Wally.users[i]
                     checkPlayer(user)
-                    sleep(500)
+                    sleep(1000)
                 }
             }
         }

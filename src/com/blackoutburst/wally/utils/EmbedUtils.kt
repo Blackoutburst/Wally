@@ -441,6 +441,32 @@ object EmbedUtils {
             .build()
     }
 
+    fun generatePGraphEmbed(data: String, type: String, typeName: String) : MessageEmbed {
+        var average = 0
+
+        val history = APIUtils.getValuesFromAPI(data, type, "[0,0]").removeSurrounding("[", "]").split(",").map { it.toInt() }
+        var validGames = 1
+        for (i in 0 until history.size) {
+            if (history[i] != 0) {
+                average += history[i]
+                validGames++
+            }
+        }
+        average /= validGames
+
+        CanvasUtils.createPGraphImage(history.toIntArray(), 100)
+
+        val stats = PracticeStats(data)
+
+        return EmbedBuilder()
+            .setAuthor("${stats.name} | $typeName - latest 100 games","https://namemc.com/profile/${stats.uuid}","https://www.blackoutburst.com/img/wally.png")
+            .setTitle("Average Score: $average")
+            .setThumbnail("https://visage.surgeplay.com/face/128/${stats.uuid}")
+            .setColor(getColorFromScore(average))
+            .setImage("attachment://graph.png")
+            .build()
+    }
+
     fun hypixelCommands(): MessageEmbed {
         val iconURL = "https://www.blackoutburst.com/img/wally.png"
         val wallyURL = "https://github.com/Blackoutburst/Wally"

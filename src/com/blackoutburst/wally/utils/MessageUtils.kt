@@ -16,6 +16,7 @@ import com.blackoutburst.wally.utils.EmbedUtils.generateCrossCompareEmbed
 import com.blackoutburst.wally.utils.EmbedUtils.generateHypixelCompareEmbed
 import com.blackoutburst.wally.utils.EmbedUtils.generateHypixelStatsEmbed
 import com.blackoutburst.wally.utils.EmbedUtils.generateLeaderboardEmbed
+import com.blackoutburst.wally.utils.EmbedUtils.generatePGraphEmbed
 import com.blackoutburst.wally.utils.EmbedUtils.generatePracticeCompareEmbed
 import com.blackoutburst.wally.utils.EmbedUtils.generatePracticeStatsEmbed
 import com.blackoutburst.wally.utils.LineUtils.comparisonLine
@@ -48,6 +49,16 @@ object MessageUtils {
                     message.reply("\u00A0").addFile(File("leaderboard.png")).setActionRow(menu).queue()
                 }
             }
+        }
+    }
+
+    fun sendPGraph(commandSender: WallyUser, data: String, message: Message, type: String, typeName: String, edit: Boolean) {
+        if (edit) {
+            val menu = pGraphMenu(commandSender, PracticeStats(data).uuid)
+            message.editMessageEmbeds(generatePGraphEmbed(data, type, typeName)).override(true).addFile(File("pgraph.png"), "graph.png").setActionRow(menu).queue()
+        } else {
+            val menu = pGraphMenu(commandSender, PracticeStats(data).uuid)
+            message.replyEmbeds(generatePGraphEmbed(data, type, typeName)).addFile(File("pgraph.png"), "graph.png").setActionRow(menu).queue()
         }
     }
 
@@ -339,6 +350,18 @@ object MessageUtils {
             .addOption(LeaderboardManager.wideFinalsLeaderboardPractice.name, "12:$page")
             .addOption(LeaderboardManager.totalLeaderboardPractice.name, "13:$page")
             .addOption(LeaderboardManager.overallLeaderboardPractice.name, "14:$page")
+        return menu.build()
+    }
+
+    private fun pGraphMenu(commandSender: WallyUser, uuid: String): SelectMenu {
+        val menu = SelectMenu.create(commandSender.member.id + ":practice graph")
+            .setRequiredRange(1, 1)
+            .setPlaceholder("Select a game type")
+            .addOption("Qualification", "qualification_history:$uuid")
+            .addOption("Finals", "finals_history:$uuid")
+            .addOption("Lobby", "lobby_history:$uuid")
+            .addOption("Wide Qualification", "wide_qualification_history:$uuid")
+            .addOption("Wide Finals", "wide_finals_history:$uuid")
         return menu.build()
     }
 
