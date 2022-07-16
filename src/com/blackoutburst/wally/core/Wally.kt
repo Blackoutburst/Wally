@@ -3,7 +3,7 @@ package com.blackoutburst.wally.core
 import com.blackoutburst.wally.core.events.EventListener
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.logger.Logger
-import com.blackoutburst.wally.main.Main.Companion.DISCORD_TOKEN
+import com.blackoutburst.wally.main.Main
 import com.google.gson.Gson
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -67,7 +67,7 @@ object Wally {
     }
 
     init {
-        val builder = JDABuilder.createDefault(DISCORD_TOKEN)
+        val builder = JDABuilder.createDefault(Main.DISCORD_TOKEN)
             .setCompression(Compression.NONE)
             .setAutoReconnect(true)
             .setActivity(Activity.competing("Hole in the Wall"))

@@ -16,7 +16,7 @@ apply plugin: 'kotlin'
 apply plugin: 'maven'
 project.setProperty("mainClassName", "com.blackoutburst.wally.main.Main")
 application {
-	mainClass = 'main.Main'
+	mainClass = 'com.blackoutburst.wally.main.Main'
 }
 
 dependencies {

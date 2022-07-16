@@ -2,8 +2,7 @@ package com.blackoutburst.wally.core.request
 
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.logger.LogLevel
-import com.blackoutburst.wally.main.Main.Companion.PRACTICE_SERVER_IP
-import com.blackoutburst.wally.main.Main.Companion.PRACTICE_SERVER_PORT
+import com.blackoutburst.wally.main.Main
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStream
@@ -15,7 +14,7 @@ object PracticeServer {
     fun getPlayerStats( uuid: String, silent :Boolean = false): String? {
         //if (uuid == "640459a7a5c8417bbb06f6e6d28614a1") return null
         return try {
-            val socket = Socket(PRACTICE_SERVER_IP, PRACTICE_SERVER_PORT.toInt())
+            val socket = Socket(Main.PRACTICE_SERVER_IP, Main.PRACTICE_SERVER_PORT.toInt())
             val inputStream = InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8)
             val reader = BufferedReader(inputStream)
             val outputStream: OutputStream = socket.getOutputStream()
