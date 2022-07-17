@@ -137,7 +137,11 @@ class CommandWhoIs : CommandExecutable() {
 
             embed.setFooter(uuid)
 
-            channel.sendMessageEmbeds(embed.build()).addFile(background,"background.png").queue()
+            if (background.exists()) {
+                channel.sendMessageEmbeds(embed.build()).addFile(background,"background.png").queue()
+            } else {
+                channel.sendMessageEmbeds(embed.build()).queue()
+            }
         } else {
             var data = Hypixel.getPlayerStats(uuid)
             if (data == null) {
