@@ -15,10 +15,14 @@ object PracticeTracker {
     fun run() {
         val thread = Thread {
             while (true) {
-                for (i in 0 until Wally.users.size) {
-                    val user = Wally.users[i]
-                    checkPlayer(user)
-                    sleep(1000)
+                try {
+                    for (i in 0 until Wally.users.size) {
+                        val user = Wally.users[i]
+                        checkPlayer(user)
+                        sleep(1000)
+                    }
+                } catch (e: Exception) {
+                    Wally.logger.logStackTrace(e)
                 }
             }
         }

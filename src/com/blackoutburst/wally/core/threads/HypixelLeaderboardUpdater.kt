@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.core.threads
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
 import com.blackoutburst.wally.core.request.Hypixel
 import com.blackoutburst.wally.utils.DatabaseUtils
@@ -10,11 +11,15 @@ object HypixelLeaderboardUpdater {
     fun run() {
         val thread = Thread {
             while (true) {
-                for (i in 0 until LeaderboardManager.winsLeaderboardHypixel.players.size) {
-                    val player = LeaderboardManager.winsLeaderboardHypixel.players[i]
-                    DatabaseUtils.updateLeaderboardStats(Hypixel.getPlayerStats(player.uuid, true) ?: continue,
-                        DatabaseUtils.DataType.HYPIXEL, player.uuid)
-                    sleep(1000)
+                try {
+                    for (i in 0 until LeaderboardManager.winsLeaderboardHypixel.players.size) {
+                        val player = LeaderboardManager.winsLeaderboardHypixel.players[i]
+                        DatabaseUtils.updateLeaderboardStats(Hypixel.getPlayerStats(player.uuid, true) ?: continue,
+                            DatabaseUtils.DataType.HYPIXEL, player.uuid)
+                        sleep(1000)
+                    }
+                } catch (e: Exception) {
+                    Wally.logger.logStackTrace(e)
                 }
             }
         }

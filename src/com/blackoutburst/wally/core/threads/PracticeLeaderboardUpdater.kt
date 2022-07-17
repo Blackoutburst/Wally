@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.core.threads
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
 import com.blackoutburst.wally.core.request.PracticeServer
 import com.blackoutburst.wally.utils.DatabaseUtils
@@ -10,11 +11,15 @@ object PracticeLeaderboardUpdater {
     fun run() {
         val thread = Thread {
             while (true) {
-                for (i in 0 until LeaderboardManager.qualificationLeaderboardPractice.players.size) {
-                    val player = LeaderboardManager.qualificationLeaderboardPractice.players[i]
-                    DatabaseUtils.updateLeaderboardStats(PracticeServer.getPlayerStats(player.uuid, true) ?: continue,
-                        DatabaseUtils.DataType.PRACTICE, player.uuid)
-                    sleep(1000)
+                try {
+                    for (i in 0 until LeaderboardManager.qualificationLeaderboardPractice.players.size) {
+                        val player = LeaderboardManager.qualificationLeaderboardPractice.players[i]
+                        DatabaseUtils.updateLeaderboardStats(PracticeServer.getPlayerStats(player.uuid, true) ?: continue,
+                            DatabaseUtils.DataType.PRACTICE, player.uuid)
+                        sleep(1000)
+                    }
+                } catch (e: Exception) {
+                    Wally.logger.logStackTrace(e)
                 }
             }
         }
