@@ -1,21 +1,20 @@
 package com.blackoutburst.wally.core.selectmenu
 
+import com.blackoutburst.wally.core.Wally
+import com.blackoutburst.wally.core.WallyUser
+import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserFromUUID
 import com.blackoutburst.wally.utils.MessageUtils.sendPracticeStats
-import com.blackoutburst.wally.core.WallyUser
-import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent
-import java.nio.file.Paths
-import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.utils.Utils
+import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent
 import java.nio.file.Files
-import java.util.ArrayList
+import java.nio.file.Paths
 
 class SelectMenuPracticeStats : SelectMenuExecutable() {
     
     override fun onChange(menuUser: WallyUser, event: SelectMenuInteractionEvent) {
         if (event.selectedOptions[0].label == "Combined stats") {
-            val uuid = event.selectedOptions[0].value.split(":").dropLast(1)
+            val uuid = event.selectMenu.options.map { it.value }.filter { it != "all" }
             val wallyUser = getWallyUserFromUUID(uuid[0])
             val memberId = wallyUser!!.member.id
 

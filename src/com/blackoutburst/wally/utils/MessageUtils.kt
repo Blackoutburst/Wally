@@ -380,15 +380,13 @@ object MessageUtils {
             .setPlaceholder("Select an account")
 
 
-        var combined = ""
         for (s in entries) {
             val player = Mojang.getPlayerName(s!!) ?: continue
             menu.addOption(player, s)
-            combined += "$s:"
         }
 
         if (includeCombined) {
-            menu.addOption("Combined stats", combined)
+            menu.addOption("Combined stats", "all")
         }
 
         return menu.build()
