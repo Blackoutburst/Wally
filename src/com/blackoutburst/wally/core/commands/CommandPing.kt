@@ -58,7 +58,7 @@ class CommandPing : CommandExecutable() {
 
                 .addField("Ping", "`" + (System.currentTimeMillis() - time) + "`ms", true)
                 .addField("Uptime", "`$uptime` minutes", true)
-                .addField("Version", "`2.0.0`", true)
+                .addField("Version", "`2.0.1`", true)
 
                 .addField("", "[GitHub](https://github.com/Blackoutburst/Wally)", true)
                 .addField("", "[Patreon](https://www.patreon.com/Blackoutburst)", true)
