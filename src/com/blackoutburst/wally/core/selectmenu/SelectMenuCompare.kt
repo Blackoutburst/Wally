@@ -16,7 +16,7 @@ class SelectMenuCompare : SelectMenuExecutable() {
     override fun onChange(menuUser: WallyUser, event: SelectMenuInteractionEvent) {
         val uuid2 = event.selectedOptions[0].value.split(":").last()
         if (event.selectedOptions[0].label == "Combined stats") {
-            val uuid = event.selectMenu.options.map { it.value }.filter { it != "all" }
+            val uuid = event.selectMenu.options.map { it.value.split(":").first() }.filter { !it.contains("all") }
             val wallyUser = getWallyUserFromUUID(uuid[0])
             val memberId = wallyUser!!.member.id
             val stats: MutableList<HypixelStats> = ArrayList()
