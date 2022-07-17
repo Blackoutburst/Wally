@@ -3,10 +3,6 @@ package com.blackoutburst.wally.core.events
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
-import com.blackoutburst.wally.core.threads.HypixelLeaderboardUpdater
-import com.blackoutburst.wally.core.threads.HypixelTracker
-import com.blackoutburst.wally.core.threads.PracticeLeaderboardUpdater
-import com.blackoutburst.wally.core.threads.PracticeTracker
 import net.dv8tion.jda.api.events.ReadyEvent
 import kotlin.system.exitProcess
 
@@ -15,7 +11,7 @@ object Ready {
     fun run(event: ReadyEvent) {
         Wally.jda = event.jda
         Wally.loadUser()
-        Wally.hitwDiscord = event.jda.getGuildById(ConfigManager.loadValue("servers", "hitw server"))
+        Wally.hitwDiscord = event.jda.getGuildById(ConfigManager.loadValue("servers", "dev server"))
         Wally.devServer = event.jda.getGuildById(ConfigManager.loadValue("servers", "dev server"))
 
         if (Wally.hitwDiscord == null) {
@@ -25,7 +21,7 @@ object Ready {
 
         Wally.logger.log(LogLevel.INFO, "Discord servers retrieved successfully")
 
-
+        /*
         HypixelTracker.run()
         PracticeTracker.run()
         Wally.logger.log(LogLevel.INFO, "Trackers started successfully")
@@ -33,6 +29,7 @@ object Ready {
         HypixelLeaderboardUpdater.run()
         PracticeLeaderboardUpdater.run()
         Wally.logger.log(LogLevel.INFO, "Leaderboard Updaters started successfully")
+         */
         Wally.threadSet = Thread.getAllStackTraces().keys
     }
 }

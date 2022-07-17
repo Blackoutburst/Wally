@@ -24,40 +24,34 @@ class EventListener : ListenerAdapter() {
 
     override fun onGuildMemberJoin(event: GuildMemberJoinEvent) {
         if (event.member.user.isBot) return
-        //if (event.member.user.id == "696055080629043201") return
         addRole("Members", event.member)
     }
 
     override fun onMessageReactionAdd(event: MessageReactionAddEvent) {
         if (event.member == null) return
         if (event.member!!.user.isBot) return
-        //if (event.member!!.user.id == "696055080629043201") return
         run(event)
     }
 
     override fun onMessageReactionRemove(event: MessageReactionRemoveEvent) {
         if (event.member == null) return
         if (event.member!!.user.isBot) return
-        //if (event.member!!.user.id == "696055080629043201") return
         run(event)
     }
 
     override fun onButtonInteraction(event: ButtonInteractionEvent) {
         if (event.member == null) return
-        //if (event.member!!.user.id == "696055080629043201") return
         run(event)
     }
 
     override fun onSelectMenuInteraction(event: SelectMenuInteractionEvent) {
         if (event.member == null) return
-        //if (event.member!!.user.id == "696055080629043201") return
         run(event)
     }
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
         if (event.member == null) return
         if (event.member!!.user.isBot) return
-        //if (event.member!!.user.id == "696055080629043201") return
         run(event)
     }
 }

@@ -7,7 +7,6 @@ import com.blackoutburst.wally.main.Main
 object Hypixel {
 
     fun getPlayerStats(uuid: String, silent :Boolean = false): String? {
-        //if (uuid == "640459a7a5c8417bbb06f6e6d28614a1") return null
         if (!silent)
             Wally.logger.log(LogLevel.INFO, "New Hypixel request sent for [$uuid]")
         return ConnectionManager.readFromURL("https://api.hypixel.net/player?uuid=$uuid&key=${Main.HYPIXEL_API}")

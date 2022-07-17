@@ -10,7 +10,7 @@ object ReactionRemove {
     fun run(event: MessageReactionRemoveEvent) {
         if (event.member == null) return
         if (event.messageId == ConfigManager.loadValue("messages", "gender message")) {
-            removeRole(getGenderRoleName(event.emoji.asReactionCode), event.member!!)
+            removeRole(getGenderRoleName(event.emoji.toString()), event.member!!)
         }
     }
 }

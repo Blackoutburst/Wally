@@ -11,8 +11,8 @@ object RolesManager {
 
     fun getGenderRoleName( emote: String?): String {
         return when (emote) {
-            "RE:U+1f1ed" -> "He/Him"
-            "RE:U+1f1f8" -> "She/Her"
+            "UnicodeEmoji(U+1f1ed)" -> "He/Him"
+            "UnicodeEmoji(U+1f1f8)" -> "She/Her"
             else -> "They/Them"
         }
     }

@@ -10,7 +10,7 @@ object ReactionAdd {
     fun run(event: MessageReactionAddEvent) {
         if (event.member == null) return
         if (event.messageId == ConfigManager.loadValue("messages", "gender message")) {
-            addRole(getGenderRoleName(event.emoji.asReactionCode), event.member!!)
+            addRole(getGenderRoleName(event.emoji.toString()), event.member!!)
         }
     }
 }
