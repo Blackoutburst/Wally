@@ -83,13 +83,13 @@ object LeaderboardManager {
 
     fun addPracticePlayer(data: String) {
         val playerData = PracticeStats(data, true)
-        if (qualificationLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } != null) {
-            qualificationLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
-            finalsLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
-            lobbyLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
-            wideQualificationLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
-            wideFinalsLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
-            totalLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
+        if (qualificationLeaderboardPractice.players.find { it.uuid == playerData.uuid } != null) {
+            qualificationLeaderboardPractice.players.set(qualificationLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            finalsLeaderboardPractice.players.set(finalsLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            lobbyLeaderboardPractice.players.set(lobbyLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            wideQualificationLeaderboardPractice.players.set(wideQualificationLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            wideFinalsLeaderboardPractice.players.set(wideFinalsLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            totalLeaderboardPractice.players.set(totalLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
 
             sort(qualificationLeaderboardPractice)
             sort(finalsLeaderboardPractice)
@@ -99,7 +99,7 @@ object LeaderboardManager {
             sort(totalLeaderboardPractice)
 
             val playerOverallData = PracticeStats(data, false)
-            overallLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerOverallData
+            overallLeaderboardPractice.players.set(overallLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerOverallData)
             sort(overallLeaderboardPractice)
             return
         }
@@ -125,14 +125,14 @@ object LeaderboardManager {
 
     fun addHypixelPlayer(data :String) {
         val playerData = HypixelStats(data, true)
-        if (winsLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } != null) {
-            winsLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
-            wallLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
-            qualificationLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
-            finalsLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
-            totalLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
-            totalApiLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
-            challengesLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
+        if (winsLeaderboardHypixel.players.find { it.uuid == playerData.uuid } != null) {
+            winsLeaderboardHypixel.players.set(winsLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            wallLeaderboardHypixel.players.set(wallLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            qualificationLeaderboardHypixel.players.set(qualificationLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            finalsLeaderboardHypixel.players.set(finalsLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            totalLeaderboardHypixel.players.set(totalLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            totalApiLeaderboardHypixel.players.set(totalApiLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            challengesLeaderboardHypixel.players.set(challengesLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
 
             sort(winsLeaderboardHypixel)
             sort(wallLeaderboardHypixel)
@@ -143,7 +143,7 @@ object LeaderboardManager {
             sort(challengesLeaderboardHypixel)
 
             val playerOverallData = HypixelStats(data, false)
-            overallLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerOverallData
+            overallLeaderboardHypixel.players.set(overallLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerOverallData)
             sort(overallLeaderboardHypixel)
             return
         }
@@ -171,25 +171,25 @@ object LeaderboardManager {
     }
 
     fun removePlayer(uuid : String) {
-        if (winsLeaderboardHypixel.players.find { player -> player.uuid == uuid } != null) {
-            winsLeaderboardHypixel.players.remove(winsLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-            wallLeaderboardHypixel.players.remove(wallLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-            qualificationLeaderboardHypixel.players.remove(qualificationLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-            finalsLeaderboardHypixel.players.remove(finalsLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-            totalLeaderboardHypixel.players.remove(totalLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-            totalApiLeaderboardHypixel.players.remove(totalApiLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-            challengesLeaderboardHypixel.players.remove(challengesLeaderboardHypixel.players.first { player -> player.uuid == uuid })
-            overallLeaderboardHypixel.players.remove(overallLeaderboardHypixel.players.first { player -> player.uuid == uuid })
+        if (winsLeaderboardHypixel.players.find { it.uuid == uuid } != null) {
+            winsLeaderboardHypixel.players.remove(winsLeaderboardHypixel.players.first { it.uuid == uuid })
+            wallLeaderboardHypixel.players.remove(wallLeaderboardHypixel.players.first { it.uuid == uuid })
+            qualificationLeaderboardHypixel.players.remove(qualificationLeaderboardHypixel.players.first { it.uuid == uuid })
+            finalsLeaderboardHypixel.players.remove(finalsLeaderboardHypixel.players.first { it.uuid == uuid })
+            totalLeaderboardHypixel.players.remove(totalLeaderboardHypixel.players.first { it.uuid == uuid })
+            totalApiLeaderboardHypixel.players.remove(totalApiLeaderboardHypixel.players.first { it.uuid == uuid })
+            challengesLeaderboardHypixel.players.remove(challengesLeaderboardHypixel.players.first { it.uuid == uuid })
+            overallLeaderboardHypixel.players.remove(overallLeaderboardHypixel.players.first { it.uuid == uuid })
         }
 
-        if (qualificationLeaderboardPractice.players.find { player -> player.uuid == uuid } != null) {
-            qualificationLeaderboardPractice.players.remove(qualificationLeaderboardPractice.players.first { player -> player.uuid == uuid })
-            finalsLeaderboardPractice.players.remove(finalsLeaderboardPractice.players.first { player -> player.uuid == uuid })
-            lobbyLeaderboardPractice.players.remove(lobbyLeaderboardPractice.players.first { player -> player.uuid == uuid })
-            wideQualificationLeaderboardPractice.players.remove(wideQualificationLeaderboardPractice.players.first { player -> player.uuid == uuid })
-            wideFinalsLeaderboardPractice.players.remove(wideFinalsLeaderboardPractice.players.first { player -> player.uuid == uuid })
-            totalLeaderboardPractice.players.remove(totalLeaderboardPractice.players.first { player -> player.uuid == uuid })
-            overallLeaderboardPractice.players.remove(overallLeaderboardPractice.players.first { player -> player.uuid == uuid })
+        if (qualificationLeaderboardPractice.players.find { it.uuid == uuid } != null) {
+            qualificationLeaderboardPractice.players.remove(qualificationLeaderboardPractice.players.first { it.uuid == uuid })
+            finalsLeaderboardPractice.players.remove(finalsLeaderboardPractice.players.first { it.uuid == uuid })
+            lobbyLeaderboardPractice.players.remove(lobbyLeaderboardPractice.players.first { it.uuid == uuid })
+            wideQualificationLeaderboardPractice.players.remove(wideQualificationLeaderboardPractice.players.first { it.uuid == uuid })
+            wideFinalsLeaderboardPractice.players.remove(wideFinalsLeaderboardPractice.players.first { it.uuid == uuid })
+            totalLeaderboardPractice.players.remove(totalLeaderboardPractice.players.first { it.uuid == uuid })
+            overallLeaderboardPractice.players.remove(overallLeaderboardPractice.players.first { it.uuid == uuid })
         }
     }
 
