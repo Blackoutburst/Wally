@@ -84,6 +84,23 @@ object LeaderboardManager {
     fun addPracticePlayer(data: String) {
         val playerData = PracticeStats(data, true)
         if (qualificationLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } != null) {
+            qualificationLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
+            finalsLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
+            lobbyLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
+            wideQualificationLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
+            wideFinalsLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
+            totalLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerData
+
+            sort(qualificationLeaderboardPractice)
+            sort(finalsLeaderboardPractice)
+            sort(lobbyLeaderboardPractice)
+            sort(wideQualificationLeaderboardPractice)
+            sort(wideFinalsLeaderboardPractice)
+            sort(totalLeaderboardPractice)
+
+            val playerOverallData = PracticeStats(data, false)
+            overallLeaderboardPractice.players.find { player -> player.uuid == playerData.uuid } = playerOverallData
+            sort(overallLeaderboardPractice)
             return
         }
 
@@ -109,6 +126,25 @@ object LeaderboardManager {
     fun addHypixelPlayer(data :String) {
         val playerData = HypixelStats(data, true)
         if (winsLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } != null) {
+            winsLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
+            wallLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
+            qualificationLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
+            finalsLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
+            totalLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
+            totalApiLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
+            challengesLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerData
+
+            sort(winsLeaderboardHypixel)
+            sort(wallLeaderboardHypixel)
+            sort(qualificationLeaderboardHypixel)
+            sort(finalsLeaderboardHypixel)
+            sort(totalLeaderboardHypixel)
+            sort(totalApiLeaderboardHypixel)
+            sort(challengesLeaderboardHypixel)
+
+            val playerOverallData = HypixelStats(data, false)
+            overallLeaderboardHypixel.players.find { player -> player.uuid == playerData.uuid } = playerOverallData
+            sort(overallLeaderboardHypixel)
             return
         }
 
