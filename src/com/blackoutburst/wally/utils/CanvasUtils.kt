@@ -133,7 +133,7 @@ object CanvasUtils {
         canvas.drawStringLeft(formatLine("Wide Finals", player1.wideFinals, player1.wideFinalsPosition), 80, 380, 30.0f + fontSize1, getScoreCompareColor(player1.wideFinals, player2.wideFinals))
         canvas.drawImage(iconPracticeTotal, 20, 425, 40, 40)
         canvas.drawStringLeft(formatLine("Total Score", player1.total, player1.totalPosition), 80, 435, 30.0f + fontSize1, getScoreCompareColor(player1.total, player2.total))
-        
+
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
             canvas.drawImage(iconPracticeOverall, 20, 480, 40, 40)
             canvas.drawStringLeft(formatLine("Overall Rank", player1.overall, player1.overallPosition), 80, 490, 30.0f + fontSize1, getScoreCompareColor(player1.overall, player2.overall))
@@ -177,7 +177,7 @@ object CanvasUtils {
         canvas.drawStringRight(formatLineReverse("Wide Finals", player2.wideFinals, player2.wideFinalsPosition), 920, 380, 30.0f + fontSize2, getScoreCompareColor(player2.wideFinals, player1.wideFinals))
         canvas.drawImage(iconPracticeTotal, 940, 425, 40, 40)
         canvas.drawStringRight(formatLineReverse("Total Score", player2.total, player2.totalPosition), 920, 435, 30.0f + fontSize2, getScoreCompareColor(player2.total, player1.total))
-        
+
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
             canvas.drawImage(iconPracticeOverall, 940, 480, 40, 40)
             canvas.drawStringRight(formatLineReverse("Overall Rank", player2.overall, player2.overallPosition), 920, 490, 30.0f + fontSize2, getScoreCompareColor(player2.overall, player1.overall))
@@ -191,7 +191,7 @@ object CanvasUtils {
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.wideQualification, player2.wideQualification), 500, 325, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.wideFinals, player2.wideFinals), 500, 380, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.total, player2.total), 500, 435, 30.0f, Color.WHITE)
-        
+
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0)
             canvas.drawStringCenter(formatScoreCompareCanvas(player1.overall, player2.overall), 500, 490, 30.0f, Color.WHITE)
 
@@ -256,7 +256,7 @@ object CanvasUtils {
         canvas.drawStringLeft(formatLine("Total Score (API)", player1.totalAPI, player1.totalAPIPosition), 80, 435, 30.0f + fontSize1, getScoreCompareColor(player1.totalAPI, player2.totalAPI))
         canvas.drawImage(iconChallenges, 20, 480, 40, 40)
         canvas.drawStringLeft(formatLine("Challenges", player1.challenges, player1.challengesPosition), 80, 490, 30.0f + fontSize1, getScoreCompareColor(player1.challenges, player2.challenges))
-        
+
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
             canvas.drawImage(iconOverall, 20, 535, 40, 40)
             canvas.drawStringLeft(formatLine("Overall Rank", player1.overall, player1.overallPosition), 80, 545, 30.0f + fontSize1, getScoreCompareColor(player1.overall, player2.overall))
@@ -302,7 +302,7 @@ object CanvasUtils {
         canvas.drawStringRight(formatLineReverse("Total Score (API)", player2.totalAPI, player2.totalAPIPosition), 920, 435, 30.0f + fontSize2, getScoreCompareColor(player2.totalAPI, player1.totalAPI))
         canvas.drawImage(iconChallenges, 940, 480, 40, 40)
         canvas.drawStringRight(formatLineReverse("Challenges", player2.challenges, player2.challengesPosition), 920, 490, 30.0f + fontSize2, getScoreCompareColor(player2.challenges, player1.challenges))
-        
+
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0) {
             canvas.drawImage(iconOverall, 940, 535, 40, 40)
             canvas.drawStringRight(formatLineReverse("Overall Rank", player2.overall, player2.overallPosition), 920, 545, 30.0f + fontSize2, getScoreCompareColor(player2.overall, player1.overall))
@@ -316,7 +316,7 @@ object CanvasUtils {
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.total, player2.total), 500, 380, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.totalAPI, player2.totalAPI), 500, 435, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(player1.challenges, player2.challenges), 500, 490, 30.0f, Color.WHITE)
-        
+
         if (player1.overall.toInt() != 0 && player2.overall.toInt() != 0)
             canvas.drawStringCenter(formatScoreCompareCanvas(player1.overall, player2.overall), 500, 545, 30.0f, Color.WHITE)
 
@@ -340,7 +340,7 @@ object CanvasUtils {
             canvas.drawImage(background, 0, 37, 1000, 563)
         }
 
-        if (user != null && user.useHeader)
+        if (user == null || user.useHeader)
             canvas.drawImage(practiceHeader, 0, 0, 1000, 37, color)
 
         if (!data.combined) {
@@ -367,7 +367,7 @@ object CanvasUtils {
             if (user.patreonTier >= 2) {canvas.drawImage(iconTier2, iconX, 135, 50, 50); iconX += increment}
             if (user.patreonTier >= 3) {canvas.drawImage(iconTier3, iconX, 135, 50, 50); iconX += increment}
         }
-        
+
         if (data.qualificationPosition in 1..10) {canvas.drawImage(iconPracticeQualification, iconX, 135, 50, 50); iconX += increment}
         if (data.finalsPosition in 1..10) {canvas.drawImage(iconPracticeFinals, iconX, 135, 50, 50); iconX += increment}
         if (data.lobbyPosition in 1..10) {canvas.drawImage(iconPracticeLobby, iconX, 135, 50, 50); iconX += increment}
@@ -391,7 +391,7 @@ object CanvasUtils {
         canvas.drawStringLeft(formatLine("Wide Finals", data.wideFinals, data.wideFinalsPosition), 560, 285, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconPracticeTotal, 490, 340, 50, 50)
         canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 560, 355, 30.0f + fontSize, fontColor)
-        
+
         if (data.overall.toInt() != 0) {
             canvas.drawImage(iconPracticeOverall, 490, 410, 50, 50)
             canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 425, 30.0f + fontSize, fontColor)
@@ -417,7 +417,7 @@ object CanvasUtils {
             canvas.drawImage(background, 0, 37, 1000, 563)
         }
 
-        if (user != null && user.useHeader)
+        if (user == null || user.useHeader)
             canvas.drawImage(hypixelHeader, 0, 0, 1000, 37, color)
 
         if (!data.combined) {
