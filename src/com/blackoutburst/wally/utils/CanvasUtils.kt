@@ -593,12 +593,12 @@ object CanvasUtils {
 
         val user1 = DatabaseUtils.getWallyUserFromUUID(hypixelStats.uuid)
         val fontColor1 = Color.decode(user1?.fontColor ?: "#FFFFFF")
-        val color1 = Utils.getColorFromScore(Utils.getHighestScore(hypixelStats.scores))
+        val color1 = getColorFromScore(Utils.getHighestScore(hypixelStats.scores))
         val fontSize1 = user1?.fontSize ?: 0f
 
         val user2 = DatabaseUtils.getWallyUserFromUUID(practiceStats.uuid)
         val fontColor2 = Color.decode(user2?.fontColor ?: "#FFFFFF")
-        val color2 = Utils.getColorFromScore(Utils.getHighestScore(practiceStats.scores))
+        val color2 = getColorFromScore(Utils.getHighestScore(practiceStats.scores))
         val fontSize2 = user1?.fontSize ?: 0f
 
         if (user1 != null && user1.hasFont()) {
@@ -635,7 +635,7 @@ object CanvasUtils {
         canvas.drawImage(iconFinals, 20, 350, 40, 40)
         canvas.drawStringLeft(formatLine("Finals", hypixelStats.finals, hypixelStats.finalsPosition), 80, 360, 30.0f + fontSize1, getScoreCompareColor(hypixelStats.finals, practiceStats.finals))
         canvas.drawImage(iconTotal, 20, 440, 40, 40)
-        canvas.drawStringLeft(formatLine("Total Score", hypixelStats.total, hypixelStats.totalPosition), 80, 450, 30.0f + fontSize1, getScoreCompareColor(hypixelStats.total, practiceStats.total))
+        canvas.drawStringLeft(formatLine("Total Score", hypixelStats.total, hypixelStats.totalPosition), 80, 450, 30.0f + fontSize1, getScoreCompareColor(hypixelStats.total, practiceStats.qualification + practiceStats.finals))
 
         if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0) {
             canvas.drawImage(iconOverall, 20, 530, 40, 40)
@@ -676,7 +676,7 @@ object CanvasUtils {
         canvas.drawImage(iconFinals, 940, 350, 40, 40)
         canvas.drawStringRight(formatLineReverse("Finals", practiceStats.finals, practiceStats.finalsPosition), 920, 360, 30.0f + fontSize2, getScoreCompareColor(practiceStats.finals, hypixelStats.finals))
         canvas.drawImage(iconTotal, 940, 440, 40, 40)
-        canvas.drawStringRight(formatLineReverse("Total Score", practiceStats.total, practiceStats.totalPosition), 920, 450, 30.0f + fontSize2, getScoreCompareColor(practiceStats.total, hypixelStats.total))
+        canvas.drawStringRight(formatLineReverse("Total Score", practiceStats.qualification + practiceStats.finals, practiceStats.totalPosition), 920, 450, 30.0f + fontSize2, getScoreCompareColor(practiceStats.qualification + practiceStats.finals, hypixelStats.total))
 
         if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0) {
             canvas.drawImage(iconOverall, 940, 530, 40, 40)
@@ -686,7 +686,7 @@ object CanvasUtils {
         canvas.useDefaultFont()
         canvas.drawStringCenter(formatScoreCompareCanvas(hypixelStats.qualification, practiceStats.qualification), 500, 270, 30.0f, Color.WHITE)
         canvas.drawStringCenter(formatScoreCompareCanvas(hypixelStats.finals, practiceStats.finals), 500, 360, 30.0f, Color.WHITE)
-        canvas.drawStringCenter(formatScoreCompareCanvas(hypixelStats.total, practiceStats.total), 500, 450, 30.0f, Color.WHITE)
+        canvas.drawStringCenter(formatScoreCompareCanvas(hypixelStats.total, practiceStats.qualification + practiceStats.finals), 500, 450, 30.0f, Color.WHITE)
 
         if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0)
             canvas.drawStringCenter(formatScoreCompareCanvas(hypixelStats.overall, practiceStats.overall), 500, 540, 30.0f, Color.WHITE)
