@@ -84,12 +84,12 @@ object LeaderboardManager {
     fun addPracticePlayer(data: String) {
         val playerData = PracticeStats(data, true)
         if (qualificationLeaderboardPractice.players.find { it.uuid == playerData.uuid } != null) {
-            qualificationLeaderboardPractice.players.set(qualificationLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            finalsLeaderboardPractice.players.set(finalsLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            lobbyLeaderboardPractice.players.set(lobbyLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            wideQualificationLeaderboardPractice.players.set(wideQualificationLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            wideFinalsLeaderboardPractice.players.set(wideFinalsLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            totalLeaderboardPractice.players.set(totalLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            qualificationLeaderboardPractice.players[qualificationLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            finalsLeaderboardPractice.players[finalsLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            lobbyLeaderboardPractice.players[lobbyLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            wideQualificationLeaderboardPractice.players[wideQualificationLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            wideFinalsLeaderboardPractice.players[wideFinalsLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            totalLeaderboardPractice.players[totalLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
 
             sort(qualificationLeaderboardPractice)
             sort(finalsLeaderboardPractice)
@@ -99,7 +99,7 @@ object LeaderboardManager {
             sort(totalLeaderboardPractice)
 
             val playerOverallData = PracticeStats(data, false)
-            overallLeaderboardPractice.players.set(overallLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}, playerOverallData)
+            overallLeaderboardPractice.players[overallLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerOverallData
             sort(overallLeaderboardPractice)
             return
         }
@@ -126,13 +126,13 @@ object LeaderboardManager {
     fun addHypixelPlayer(data :String) {
         val playerData = HypixelStats(data, true)
         if (winsLeaderboardHypixel.players.find { it.uuid == playerData.uuid } != null) {
-            winsLeaderboardHypixel.players.set(winsLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            wallLeaderboardHypixel.players.set(wallLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            qualificationLeaderboardHypixel.players.set(qualificationLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            finalsLeaderboardHypixel.players.set(finalsLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            totalLeaderboardHypixel.players.set(totalLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            totalApiLeaderboardHypixel.players.set(totalApiLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
-            challengesLeaderboardHypixel.players.set(challengesLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerData)
+            winsLeaderboardHypixel.players[winsLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            wallLeaderboardHypixel.players[wallLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            qualificationLeaderboardHypixel.players[qualificationLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            finalsLeaderboardHypixel.players[finalsLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            totalLeaderboardHypixel.players[totalLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            totalApiLeaderboardHypixel.players[totalApiLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            challengesLeaderboardHypixel.players[challengesLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
 
             sort(winsLeaderboardHypixel)
             sort(wallLeaderboardHypixel)
@@ -143,7 +143,7 @@ object LeaderboardManager {
             sort(challengesLeaderboardHypixel)
 
             val playerOverallData = HypixelStats(data, false)
-            overallLeaderboardHypixel.players.set(overallLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}, playerOverallData)
+            overallLeaderboardHypixel.players[overallLeaderboardHypixel.players.indexOfFirst {it.uuid == playerData.uuid}] = playerOverallData
             sort(overallLeaderboardHypixel)
             return
         }
