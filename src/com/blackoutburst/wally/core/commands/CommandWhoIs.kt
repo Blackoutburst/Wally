@@ -52,6 +52,7 @@ class CommandWhoIs : CommandExecutable() {
         } else {
             name = Mojang.getPlayerName(uuid)
         }
+        
         if (name == null) {
             name = "unknown"
         }
