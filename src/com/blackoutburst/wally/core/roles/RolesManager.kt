@@ -21,6 +21,8 @@ object RolesManager {
         val guild = member.guild
         val role = guild.getRoleById(ConfigManager.loadValue("roles", roleName))
         val memberName = member.effectiveName
+        val roles = Wally.hitwDiscord!!.roles
+        val hasRole = roles.stream().filter { r: Role -> r.name == roleName }.findFirst()
 
         if (role == null) {
             Wally.logger.log(
@@ -30,14 +32,24 @@ object RolesManager {
             return
         }
 
+        if (member.roles.contains(hasRole.get())) {
+            return;
+        }
+
         guild.addRoleToMember(member, role).queue()
         Wally.logger.log(LogLevel.INFO, "Role [$roleName] added to [$memberName]")
     }
 
-    fun removeRole( roleName: String,  member: Member) {
+    fun removeRole(roleName: String,  member: Member) {
         val guild = member.guild
         val role = guild.getRoleById(ConfigManager.loadValue("roles", roleName))
         val memberName = member.effectiveName
+        val roles = Wally.hitwDiscord!!.roles
+        val hasRole = roles.stream().filter { r: Role -> r.name == roleName }.findFirst()
+
+        if (!member.roles.contains(hasRole.get())) {
+            return;
+        }
 
         if (role == null) {
             Wally.logger.log(
