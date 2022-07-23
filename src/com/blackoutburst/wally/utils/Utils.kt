@@ -103,7 +103,7 @@ object Utils {
             return Color.GRAY
         }
 
-        val lowRound = (if (score > 500) 500 else score + 50) / 50 * 50 - 50
+        val lowRound = (if (score > 500) 500 else score) / 50 * 50
         val roles = Wally.hitwDiscord!!.roles
         val role = roles.stream().filter { r: Role -> r.name == "$lowRound+ Club" }.findFirst()
 

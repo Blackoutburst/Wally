@@ -564,7 +564,7 @@ object CanvasUtils {
             if (i >= leaderboard.players.size) break
             val player = leaderboard.players[i]
             val user = DatabaseUtils.getWallyUserFromUUID(player.uuid)
-            val fontColor = Utils.getColorFromScore(Utils.getHighestScore(player.scores))
+            val fontColor = getColorFromScore(Utils.getHighestScore(player.scores))
 
 
             if (File("database/linked users/${user?.member?.id}/accounts/${player.uuid}/head.png").exists())
