@@ -24,7 +24,7 @@ class EventListener : ListenerAdapter() {
 
     override fun onGuildMemberJoin(event: GuildMemberJoinEvent) {
         if (event.member.user.isBot) return
-        addRole("Members", event.member)
+        addRole("Unverified", event.member)
     }
 
     override fun onMessageReactionAdd(event: MessageReactionAddEvent) {

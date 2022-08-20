@@ -1,13 +1,12 @@
 package com.blackoutburst.wally.core.logger
 
-import java.text.SimpleDateFormat
 import com.blackoutburst.wally.core.Wally
 import org.slf4j.helpers.Util
 import java.io.File
+import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
-import java.lang.StringBuilder
-import java.nio.file.Files
+import java.text.SimpleDateFormat
 import java.util.*
 
 object Logger {
@@ -15,7 +14,7 @@ object Logger {
     private val dateFormat = SimpleDateFormat("dd/MM - HH:mm:ss")
     val currentLogFile: String
 
-    var internalLogLevel = LogLevel.INFO
+    var internalLogLevel = LogLevel.NONE
 
     fun logStackTrace(exception: Exception) {
         log(LogLevel.ERROR, exception.message)

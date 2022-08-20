@@ -671,15 +671,15 @@ object CanvasUtils {
         canvas.drawImage(practice, 940, 160, 50, 50)
         canvas.drawStringRight("Practice", 910, 160, 38.0f + fontSize1, Color.WHITE)
 
-        canvas.drawImage(iconQualification, 940, 260, 40, 40)
+        canvas.drawImage(iconPracticeQualification, 940, 260, 40, 40)
         canvas.drawStringRight(formatLineReverse("Qualification", practiceStats.qualification, practiceStats.qualificationPosition), 920, 270, 30.0f + fontSize2, getScoreCompareColor(practiceStats.qualification, hypixelStats.qualification))
-        canvas.drawImage(iconFinals, 940, 350, 40, 40)
+        canvas.drawImage(iconPracticeFinals, 940, 350, 40, 40)
         canvas.drawStringRight(formatLineReverse("Finals", practiceStats.finals, practiceStats.finalsPosition), 920, 360, 30.0f + fontSize2, getScoreCompareColor(practiceStats.finals, hypixelStats.finals))
-        canvas.drawImage(iconTotal, 940, 440, 40, 40)
+        canvas.drawImage(iconPracticeTotal, 940, 440, 40, 40)
         canvas.drawStringRight(formatLineReverse("Total Score", practiceStats.qualification + practiceStats.finals, practiceStats.totalPosition), 920, 450, 30.0f + fontSize2, getScoreCompareColor(practiceStats.qualification + practiceStats.finals, hypixelStats.total))
 
         if (hypixelStats.overall.toInt() != 0 && practiceStats.overall.toInt() != 0) {
-            canvas.drawImage(iconOverall, 940, 530, 40, 40)
+            canvas.drawImage(iconPracticeOverall, 940, 530, 40, 40)
             canvas.drawStringRight(formatLineReverse("Overall Rank", practiceStats.overall, practiceStats.overallPosition), 920, 540, 30.0f + fontSize2, getScoreCompareColor(practiceStats.overall, hypixelStats.overall))
         }
 

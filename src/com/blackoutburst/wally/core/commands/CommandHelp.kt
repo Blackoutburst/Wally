@@ -40,11 +40,11 @@ class CommandHelp : CommandExecutable() {
                     Button.secondary(commandSender.member.id + ":" + UUID.randomUUID(),"Misc commands")
                 ).queue()
             }
-        } else if (args[0].equals("admin", ignoreCase = true)) {
+        } else if (args[0].equals("admin", ignoreCase = true) && commandSender.permissionLevel.weight >= PermissionLevel.ADMIN.weight) {
             channel.sendMessageEmbeds(adminCommandsPage1()).setActionRow(
                 Button.secondary(commandSender.member.id + ":" + UUID.randomUUID() + ":ADMIN HELP","Next page")
             ).queue()
-        } else if (args[0].equals("staff", ignoreCase = true)) {
+        } else if (args[0].equals("staff", ignoreCase = true) && commandSender.permissionLevel.weight >= PermissionLevel.STAFF.weight) {
             channel.sendMessageEmbeds(staffCommandsPage1()).setActionRow(
                 Button.secondary(commandSender.member.id + ":" + UUID.randomUUID() + ":STAFF HELP","Next page")
             ).queue()
@@ -55,6 +55,12 @@ class CommandHelp : CommandExecutable() {
         } else if (args[0].equals("misc", ignoreCase = true)) {
             channel.sendMessageEmbeds(miscCommandsPage1()).setActionRow(
                 Button.secondary(commandSender.member.id + ":" + UUID.randomUUID() + ":MISC HELP","Next page")
+            ).queue()
+        } else {
+            channel.sendMessageEmbeds(helpEmbed(commandSender)).setActionRow(
+                Button.secondary(commandSender.member.id + ":" + UUID.randomUUID(),"Hypixel commands"),
+                Button.secondary(commandSender.member.id + ":" + UUID.randomUUID(),"Practice commands"),
+                Button.secondary(commandSender.member.id + ":" + UUID.randomUUID(),"Misc commands")
             ).queue()
         }
     }

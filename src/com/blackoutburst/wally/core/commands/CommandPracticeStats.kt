@@ -63,11 +63,6 @@ class CommandPracticeStats : CommandExecutable() {
         }
 
         updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, uuid)
-
-        val wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid)
-        if (wallyUser != null) {
-            updateLinkedPlayerStats(data, DatabaseUtils.DataType.PRACTICE, wallyUser.member.id, uuid)
-        }
         Visage.getPlayerHead(uuid)
         sendPracticeStats(commandSender, message, PracticeStats(data), uuid, false)
     }

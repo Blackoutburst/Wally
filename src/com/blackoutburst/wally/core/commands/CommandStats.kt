@@ -13,7 +13,6 @@ import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
 import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
 import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
 import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
-import com.blackoutburst.wally.utils.DatabaseUtils.updateLinkedPlayerStats
 import com.blackoutburst.wally.utils.MessageUtils.sendHypixelStats
 import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
 import net.dv8tion.jda.api.entities.Guild
@@ -52,11 +51,6 @@ class CommandStats : CommandExecutable() {
             return
         }
         updateLeaderboardStats(data, DatabaseUtils.DataType.HYPIXEL, uuid)
-
-        val wallyUser = DatabaseUtils.getWallyUserFromUUID(uuid)
-        if (wallyUser != null) {
-            updateLinkedPlayerStats(data, DatabaseUtils.DataType.HYPIXEL, wallyUser.member.id, uuid)
-        }
         Visage.getPlayerHead(uuid)
         sendHypixelStats(commandSender, message, HypixelStats(data), uuid, false)
     }

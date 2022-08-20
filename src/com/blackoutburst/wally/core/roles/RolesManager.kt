@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.entities.Role
 
 object RolesManager {
 
-    fun getGenderRoleName( emote: String?): String {
+    fun getGenderRoleName(emote: String?): String {
         return when (emote) {
             "UnicodeEmoji(U+1f1ed)" -> "He/Him"
             "UnicodeEmoji(U+1f1f8)" -> "She/Her"
@@ -70,6 +70,8 @@ object RolesManager {
         if (Wally.hitwDiscord == null) return
 
         val lowRound = (if (score > 500) 500 else score + 50) / 50 * 50 - 50
+        if (lowRound < 50) return
+
         val roles = Wally.hitwDiscord!!.roles
         val role = roles.stream().filter { r: Role -> r.name == "$lowRound+ Club" }.findFirst()
 
