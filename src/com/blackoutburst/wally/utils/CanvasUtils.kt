@@ -468,7 +468,12 @@ object CanvasUtils {
         canvas.drawImage(iconTotal, 490, 270, 50, 50)
         canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 560, 285, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconTotalApi, 490, 340, 50, 50)
-        canvas.drawStringLeft(formatLine("Total Score (API)", data.totalAPI, data.totalAPIPosition), 560, 355, 30.0f + fontSize, fontColor)
+        if (data.totalAPI > data.total) {
+            canvas.drawStringLeft(formatLine("Total Score (API) (wrong)", data.totalAPI, data.totalAPIPosition), 560, 355, 30.0f + fontSize, fontColor)
+        }
+        else {
+            canvas.drawStringLeft(formatLine("Total Score (API)", data.totalAPI, data.totalAPIPosition), 560, 355, 30.0f + fontSize, fontColor)
+        }
         canvas.drawImage(iconChallenges, 490, 410, 50, 50)
         canvas.drawStringLeft(formatLine("Challenges", data.challenges, data.challengesPosition), 560, 425, 30.0f + fontSize, fontColor)
 

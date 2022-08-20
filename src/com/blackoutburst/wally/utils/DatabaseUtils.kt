@@ -8,6 +8,8 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addHypixelPlayer
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager.addPracticePlayer
 import com.blackoutburst.wally.core.logger.LogLevel
+import com.blackoutburst.wally.core.statsobject.HypixelStats
+import com.blackoutburst.wally.utils.FilesUtils.excludeFromLb
 import com.google.gson.Gson
 import net.dv8tion.jda.api.entities.MessageChannel
 import java.io.File
@@ -128,6 +130,12 @@ object DatabaseUtils {
             val rootFolderPath = "database/leaderboards/$typeName"
             val playerFolderPath = "$rootFolderPath/$uuid"
             val playerFolder = File(playerFolderPath)
+
+            val stats = HypixelStats(data)
+
+            if (((stats.finals > 600) || (stats.qualification > 400)) && (stats.wins < 200)) {
+                excludeFromLb(uuid)
+            }
 
             if (type == DataType.HYPIXEL)
                 addHypixelPlayer(data)
