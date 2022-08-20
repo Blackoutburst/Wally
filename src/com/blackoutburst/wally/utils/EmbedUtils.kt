@@ -458,7 +458,7 @@ object EmbedUtils {
 
         validHistory = validHistory.filter { it >= (average - 50) }
 
-        CanvasUtils.createPGraphImage(validHistory.toIntArray(), 100)
+        CanvasUtils.createPGraphImage(validHistory.toIntArray(), validHistory.size)
 
         val stats = PracticeStats(data)
 
