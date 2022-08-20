@@ -135,6 +135,7 @@ object DatabaseUtils {
 
             if (((stats.finals > 600) || (stats.qualification > 400)) && (stats.wins < 200)) {
                 excludeFromLb(uuid)
+                return
             }
 
             if (type == DataType.HYPIXEL)
