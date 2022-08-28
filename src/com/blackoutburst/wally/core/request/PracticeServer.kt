@@ -21,8 +21,9 @@ object PracticeServer {
 
             val dataReceived = reader.readLine()
             inputStream.close()
-            outputStream.close()
             reader.close()
+            outputStream.close()
+            socket.close()
             if (!silent)
                 Wally.logger.log(LogLevel.INFO, "Practice server request sent for [$uuid]")
             dataReceived
