@@ -49,7 +49,7 @@ class CommandListAccount : CommandExecutable() {
 
         val folder = File("database/linked users/$discordID/accounts/")
         val entries = folder.list()
-        val data = getWallyUserData(discordID!!)
+        val data = getWallyUserData(discordID)
 
         if (data == null) {
             Wally.logger.log(LogLevel.WARN, "User data are missing")

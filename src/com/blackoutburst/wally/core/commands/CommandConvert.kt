@@ -103,7 +103,7 @@ class CommandConvert : CommandExecutable() {
             return
         }
 
-        type = when (args[typeArg].toLowerCase()) {
+        type = when (args[typeArg].lowercase()) {
             "q" -> Type.Q
             "f" -> Type.F
             else -> {

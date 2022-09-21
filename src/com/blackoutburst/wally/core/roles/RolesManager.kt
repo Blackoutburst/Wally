@@ -76,9 +76,9 @@ object RolesManager {
         val role = roles.stream().filter { r: Role -> r.name == "$lowRound+ Club" }.findFirst()
 
         if (!member.roles.contains(role.get())) {
-            for (role in member.roles) {
-                if (role.name.contains("+ Club"))
-                    removeRole(role.name, member)
+            for (r in member.roles) {
+                if (r.name.contains("+ Club"))
+                    removeRole(r.name, member)
             }
             addRole("$lowRound+ Club", member)
         }
