@@ -22,16 +22,20 @@ object ConfigManager {
     }
 
     fun loadValue(key: String, value: String): String {
+        val fileReader = FileReader(configurationFile)
         val gson = Gson()
-        val json = gson.fromJson(FileReader(configurationFile), JsonObject::class.java)
+        val json = gson.fromJson(fileReader, JsonObject::class.java)
 
+        fileReader.close()
         return json.getAsJsonObject(key)[value].asString
     }
 
     fun loadMessage(value: String): String {
+        val fileReader = FileReader(configurationFile)
         val gson = Gson()
-        val json = gson.fromJson(FileReader(configurationFile), JsonObject::class.java)
+        val json = gson.fromJson(fileReader, JsonObject::class.java)
 
+        fileReader.close()
         return json.getAsJsonObject("replies")[value].asString
     }
 }
