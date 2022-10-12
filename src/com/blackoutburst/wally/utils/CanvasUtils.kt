@@ -489,7 +489,7 @@ object CanvasUtils {
         val topUser = leaderboard.players[10 * page]
         val canvas = Canvas(700, 700)
 
-        val color = Utils.getColorFromScore(Utils.getHighestScore(topUser.scores))
+        val color = getColorFromScore(Utils.getHighestScore(topUser.scores))
 
         canvas.drawImage(background, 0, 37, 1000, 663)
         canvas.drawImage(if (topUser is HypixelStats) { hypixelHeader } else { practiceHeader }, 0, 0, 1000, 37, color)

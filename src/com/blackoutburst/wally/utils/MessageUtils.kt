@@ -29,23 +29,31 @@ import java.util.concurrent.TimeUnit
 
 object MessageUtils {
 
+    private fun getValidLeaderboardPage(page : Int, leaderboard: Leaderboard) : Int {
+        return if (10 * page >= leaderboard.players.size) {
+            leaderboard.players.size / 10
+        } else {
+            page
+        }
+    }
+
     fun sendLeaderboard(commandSender: WallyUser, message: Message, leaderboard: Leaderboard, page: Int, edit: Boolean) {
         if (edit) {
             when (commandSender.displayPreference) {
-                DisplayPreference.TEXT -> message.editMessage(generateLeaderboardMessage(leaderboard, page, true)).queue()
-                DisplayPreference.EMBED -> message.editMessageEmbeds(generateLeaderboardEmbed(leaderboard, page)).queue()
+                DisplayPreference.TEXT -> message.editMessage(generateLeaderboardMessage(leaderboard, getValidLeaderboardPage(page, leaderboard), true)).queue()
+                DisplayPreference.EMBED -> message.editMessageEmbeds(generateLeaderboardEmbed(leaderboard, getValidLeaderboardPage(page, leaderboard))).queue()
                 else -> {
-                    CanvasUtils.createLeaderboardCanvas(leaderboard, page-1)
+                    CanvasUtils.createLeaderboardCanvas(leaderboard, getValidLeaderboardPage(page, leaderboard)-1)
                     message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("leaderboard.png")).queue()
                 }
             }
         } else {
-            val menu = createLeaderboardMenu(commandSender, page)
+            val menu = createLeaderboardMenu(commandSender, getValidLeaderboardPage(page, leaderboard))
             when (commandSender.displayPreference) {
-                DisplayPreference.TEXT -> message.reply(generateLeaderboardMessage(leaderboard, page, true)).setActionRow(menu).queue()
-                DisplayPreference.EMBED -> message.replyEmbeds(generateLeaderboardEmbed(leaderboard, page)).setActionRow(menu).queue()
+                DisplayPreference.TEXT -> message.reply(generateLeaderboardMessage(leaderboard, getValidLeaderboardPage(page, leaderboard), true)).setActionRow(menu).queue()
+                DisplayPreference.EMBED -> message.replyEmbeds(generateLeaderboardEmbed(leaderboard, getValidLeaderboardPage(page, leaderboard))).setActionRow(menu).queue()
                 else -> {
-                    CanvasUtils.createLeaderboardCanvas(leaderboard, page-1)
+                    CanvasUtils.createLeaderboardCanvas(leaderboard, getValidLeaderboardPage(page, leaderboard)-1)
                     message.reply("\u00A0").addFile(File("leaderboard.png")).setActionRow(menu).queue()
                 }
             }
