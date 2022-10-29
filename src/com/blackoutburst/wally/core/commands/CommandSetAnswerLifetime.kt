@@ -33,10 +33,10 @@ class CommandSetAnswerLifetime : CommandExecutable() {
 
         try {
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val json: JsonObject = gson.fromJson(
-                FileReader(ConfigManager.configurationFile),
-                JsonObject::class.java
-            )
+            val fileReader = FileReader(ConfigManager.configurationFile)
+            val json: JsonObject = gson.fromJson(fileReader, JsonObject::class.java)
+            fileReader.close()
+
             val writer: Writer = FileWriter(ConfigManager.configurationFile.path)
             json.getAsJsonObject("settings").addProperty("answer lifetime", value)
             writer.write(gson.toJson(json))

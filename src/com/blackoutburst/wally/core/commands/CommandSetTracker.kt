@@ -18,13 +18,15 @@ class CommandSetTracker : CommandExecutable() {
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         try {
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val json: JsonObject = gson.fromJson(FileReader(ConfigManager.configurationFile), JsonObject::class.java)
+            val fileReader = FileReader(ConfigManager.configurationFile)
+            val json: JsonObject = gson.fromJson(fileReader, JsonObject::class.java)
             
             val writer: Writer = FileWriter(ConfigManager.configurationFile.path)
             json.getAsJsonObject("channels").addProperty("tracker channel", channel.id)
             writer.write(gson.toJson(json))
             writer.flush()
             writer.close()
+            fileReader.close()
             channel.sendMessage(ConfigManager.loadMessage( "tracker channel updated").replace("%channel%", "<#" + channel.id + ">")).queue()
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e)

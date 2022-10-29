@@ -21,7 +21,8 @@ class CommandExcludeList : CommandExecutable() {
         }
 
         try {
-            val reader = BufferedReader(FileReader("config/excluded.txt"))
+            val fileReader = FileReader("config/excluded.txt")
+            val reader = BufferedReader(fileReader)
             val builder = StringBuilder()
             var line: String?
 
@@ -31,6 +32,7 @@ class CommandExcludeList : CommandExecutable() {
             }
             reader.close()
             builder.append("```\n")
+            fileReader.close()
 
             channel.sendMessage(builder).queue()
         } catch (e: Exception) {

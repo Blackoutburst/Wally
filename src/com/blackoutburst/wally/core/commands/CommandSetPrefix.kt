@@ -24,13 +24,15 @@ class CommandSetPrefix : CommandExecutable() {
         
         try {
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val json: JsonObject = gson.fromJson(FileReader(ConfigManager.configurationFile), JsonObject::class.java)
+            val fileReader = FileReader(ConfigManager.configurationFile)
+            val json: JsonObject = gson.fromJson(fileReader, JsonObject::class.java)
             val writer: Writer = FileWriter(ConfigManager.configurationFile.path)
 
             json.getAsJsonObject("settings").addProperty("command prefix", args[0])
             writer.write(gson.toJson(json))
             writer.flush()
             writer.close()
+            fileReader.close()
             channel.sendMessage(ConfigManager.loadMessage( "prefix update").replace("%prefix%", args[0])).queue()
             CommandManager.prefix = args[0]
         } catch (e: Exception) {

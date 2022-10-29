@@ -240,7 +240,8 @@ object EmbedUtils {
         return try {
             val wallyURL = "https://github.com/Blackoutburst/Wally"
             val wallyPfp = "https://www.blackoutburst.com/img/wally.png"
-            val reader = BufferedReader(FileReader("config/changelog.txt"))
+            val fileReader = FileReader("config/changelog.txt")
+            val reader = BufferedReader(fileReader)
             val changelog = StringBuilder()
             val title = reader.readLine()
             var line: String?
@@ -249,6 +250,7 @@ object EmbedUtils {
                 changelog.append(line).append("\n")
             }
             reader.close()
+            fileReader.close()
 
             EmbedBuilder()
                 .setAuthor(LocalDate.now().toString(), wallyURL, wallyPfp)
