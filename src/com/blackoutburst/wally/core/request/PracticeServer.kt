@@ -12,25 +12,8 @@ import java.nio.charset.StandardCharsets
 object PracticeServer {
 
     fun getPlayerStats( uuid: String, silent :Boolean = false): String? {
-        return try {
-            val socket = Socket(Main.PRACTICE_SERVER_IP, Main.PRACTICE_SERVER_PORT.toInt())
-            val inputStream = InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8)
-            val reader = BufferedReader(inputStream)
-            val outputStream: OutputStream = socket.getOutputStream()
-            outputStream.write("$uuid\n".toByteArray(StandardCharsets.UTF_8))
-
-            val dataReceived = reader.readLine()
-            inputStream.close()
-            reader.close()
-            outputStream.close()
-            socket.close()
-            if (!silent)
-                Wally.logger.log(LogLevel.INFO, "Practice server request sent for [$uuid]")
-            dataReceived
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Wally.logger.logStackTrace(e)
-            null
-        }
+        if (!silent)
+            Wally.logger.log(LogLevel.INFO, "New Practice server request sent for [$uuid]")
+        return ConnectionManager.readFromURL("http://178.32.125.169:30100/user?uuid=$uuid")
     }
 }
