@@ -7,12 +7,6 @@
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Blackoutburst/Wally/Java%20CI%20with%20Gradle/master?logo=github)](https://github.com/Blackoutburst/Wally/actions)
 [![License](https://img.shields.io/github/license/Blackoutburst/Wally.svg)](LICENSE)
 
-
-
-# Important
-Currently under complete rework!\
-The branch [old](https://github.com/Blackoutburst/Wally/tree/old) is just here for legacy purpose it will be deleted once the rework is done!
-
 # Wally
 Wally is a discord bot that allow you to check your Hypixel Hole in the Wall stats, he contains much more features such as a score tracker, customizable user profile, leaderboards and much more!
 
