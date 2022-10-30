@@ -25,7 +25,11 @@ class CommandStats : CommandExecutable() {
         val discordID = commandSender.member.id
 
         val uuid: String? = if (args.isNotEmpty()) {
-            getPlayerUUID(args[0])
+            if (args[0].length == 32) {
+                args[0]
+            } else {
+                getPlayerUUID(args[0])
+            }
         } else if (isLinked(discordID)) {
             val data = getWallyUserData(discordID)
             data!!.mainAccountUUID
