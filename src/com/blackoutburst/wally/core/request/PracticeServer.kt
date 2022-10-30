@@ -20,7 +20,6 @@ object PracticeServer {
                 throw Exception("Invalid json")
             res
         } catch (e: Exception) {
-            Wally.logger.logStackTrace(e)
             null
         }
     }
