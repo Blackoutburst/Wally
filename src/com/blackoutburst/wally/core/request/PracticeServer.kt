@@ -12,8 +12,16 @@ import java.nio.charset.StandardCharsets
 object PracticeServer {
 
     fun getPlayerStats( uuid: String, silent :Boolean = false): String? {
-        if (!silent)
-            Wally.logger.log(LogLevel.INFO, "New Practice server request sent for [$uuid]")
-        return ConnectionManager.readFromURL("http://178.32.125.169:30100/user?uuid=$uuid")
+        return try {
+            if (!silent)
+                Wally.logger.log(LogLevel.INFO, "New Practice server request sent for [$uuid]")
+            val res = ConnectionManager.readFromURL("http://178.32.125.169:30100/user?uuid=$uuid")
+            if (res?.get(0) != '{')
+                throw Exception("Invalid json")
+            res
+        } catch (e: Exception) {
+            Wally.logger.logStackTrace(e)
+            null
+        }
     }
 }
