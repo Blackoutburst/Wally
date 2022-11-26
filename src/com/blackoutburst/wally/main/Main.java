@@ -11,8 +11,7 @@ import java.util.List;
 public class Main {
     public static String DISCORD_TOKEN = readEnv(0);
     public static String  HYPIXEL_API = readEnv(1);
-    public static String  PRACTICE_SERVER_IP = readEnv(2);
-    public static String  PRACTICE_SERVER_PORT = readEnv(3);
+    public static String PRACTICE_TOKEN = readEnv(2);
 
     private static String readEnv(int index) {
         try {
