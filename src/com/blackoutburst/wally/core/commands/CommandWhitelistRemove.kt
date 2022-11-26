@@ -20,7 +20,7 @@ class CommandWhitelistRemove : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         if (args.isEmpty()) {
-            message.reply(ConfigManager.loadMessage( "invalid command usage").replace("%usage%", CommandManager.prefix + "whitelistRemove [UUID]")).queue()
+            message.reply(ConfigManager.loadMessage( "invalid command usage").replace("%usage%", CommandManager.prefix + "whitelistRemove [Minecraft Name]")).queue()
             return
         }
 

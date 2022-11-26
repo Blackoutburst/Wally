@@ -31,20 +31,20 @@ object PracticeServer {
         }
     }
 
-    fun whitelistAdd( uuid: String) : String? {
+    fun whitelistAdd( name: String) : String? {
         return try {
-            Wally.logger.log(LogLevel.INFO, "Adding [$uuid] to the whitelist")
-            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistadd?token=${Main.PRACTICE_TOKEN}&uuid=$uuid")
+            Wally.logger.log(LogLevel.INFO, "Adding [$name] to the whitelist")
+            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistadd?token=${Main.PRACTICE_TOKEN}&name=$name")
         } catch (e: Exception) {
             e.printStackTrace()
             null
         }
     }
 
-    fun whitelistRemove( uuid: String) : String? {
+    fun whitelistRemove( name: String) : String? {
         return try {
-            Wally.logger.log(LogLevel.INFO, "Adding [$uuid] to the whitelist")
-            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistremove?token=${Main.PRACTICE_TOKEN}&uuid=$uuid")
+            Wally.logger.log(LogLevel.INFO, "Adding [$name] to the whitelist")
+            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistremove?token=${Main.PRACTICE_TOKEN}&name=$name")
         } catch (e: Exception) {
             e.printStackTrace()
             null
