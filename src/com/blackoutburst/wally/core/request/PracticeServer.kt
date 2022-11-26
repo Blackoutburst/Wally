@@ -11,6 +11,46 @@ import java.nio.charset.StandardCharsets
 
 object PracticeServer {
 
+    fun enableWhitelist() : String? {
+        return try {
+            Wally.logger.log(LogLevel.INFO, "Enabling server whitelist")
+            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistenable?token=${Main.PRACTICE_TOKEN}")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    fun disableWhitelist() : String? {
+        return try {
+            Wally.logger.log(LogLevel.INFO, "Disabling server whitelist")
+            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistdisable?token=${Main.PRACTICE_TOKEN}")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    fun whitelistAdd( uuid: String) : String? {
+        return try {
+            Wally.logger.log(LogLevel.INFO, "Adding [$uuid] to the whitelist")
+            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistadd?token=${Main.PRACTICE_TOKEN}&uuid=$uuid")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    fun whitelistRemove( uuid: String) : String? {
+        return try {
+            Wally.logger.log(LogLevel.INFO, "Adding [$uuid] to the whitelist")
+            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistremove?token=${Main.PRACTICE_TOKEN}&uuid=$uuid")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
     fun getPlayerStats( uuid: String, silent :Boolean = false): String? {
         return try {
             if (!silent)

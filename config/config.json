@@ -153,6 +153,7 @@
     "pb display": "%user%'s pbs have been displayed",
     "no pb": "%user% didn't have any pbs!",
     "header update": "Your stats header is now **%state%**",
-    "user db empty": "Database is empty, skipping user loading"
+    "user db empty": "Database is empty, skipping user loading",
+    "whitelist error": "Something went wrong while updating the whitelist"
   }
 }

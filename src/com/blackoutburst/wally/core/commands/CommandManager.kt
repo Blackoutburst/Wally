@@ -80,6 +80,10 @@ object CommandManager {
         register(PermissionLevel.MEMBER, CommandCrossCompare(), "crossCompare", "cc")
         register(PermissionLevel.MEMBER, CommandHelp(), "help")
         register(PermissionLevel.MEMBER, CommandPGraph(), "pGraph", "practiceGraph")
+        register(PermissionLevel.STAFF, CommandWhitelistAdd(), "whitelistAdd", "wa")
+        register(PermissionLevel.STAFF, CommandWhitelistRemove(), "whitelistRemove", "wr")
+        register(PermissionLevel.ADMIN, CommandWhitelistEnable(), "whitelistEnable", "we")
+        register(PermissionLevel.ADMIN, CommandWhitelistDisable(), "whitelistDisable", "wd")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 
