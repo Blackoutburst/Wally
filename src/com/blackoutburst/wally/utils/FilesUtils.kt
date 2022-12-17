@@ -13,10 +13,16 @@ object FilesUtils {
     fun isExcluded(uuid: String?): Boolean {
         try {
             val file = File("config/excluded.txt")
+            val lines = Files.lines(file.toPath())
 
-            return Files.lines(file.toPath()).anyMatch { line: String ->
+
+            val data = lines.anyMatch { line: String ->
                 line.contains(uuid!!)
             }
+
+            lines.close()
+
+            return data
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e)
         }
@@ -26,11 +32,13 @@ object FilesUtils {
     fun removeExclusion(uuid: String?) {
         try {
             val file = File("config/excluded.txt")
-            val out = Files.lines(file.toPath())
+            val lines = Files.lines(file.toPath())
+            val out = lines
                 .filter { line: String -> !line.contains(uuid!!) }
                 .collect(Collectors.toList())
 
             Files.write(file.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)
+            lines.close()
         } catch (e: Exception) {
             Wally.logger.logStackTrace(e)
         }

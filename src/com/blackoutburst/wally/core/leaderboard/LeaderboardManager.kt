@@ -7,11 +7,15 @@ import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.core.statsobject.StatsObject
 import com.blackoutburst.wally.utils.DatabaseUtils
+import com.sun.management.UnixOperatingSystemMXBean
 import java.io.File
+import java.lang.management.ManagementFactory
+import java.lang.management.OperatingSystemMXBean
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.time.Duration
 import java.time.Instant
+
 
 object LeaderboardManager {
 

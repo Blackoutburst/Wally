@@ -14,8 +14,8 @@ Wally is a discord bot that allow you to check your Hypixel Hole in the Wall sta
 * [Kotlin 1.7.0](https://kotlinlang.org/) - Kotlin is necessary to run the bot since it's made with Kotlin
 * [Java 8+](https://www.java.com/) - Java is necessary to run the bot
 * [A config file](https://github.com/Blackoutburst/Wally/blob/master/config/config.json) - see the [config.json](https://github.com/Blackoutburst/Wally/blob/master/config/config.json) file and modify it to your needs
-* [A Hypixel key](https://hypixel.net/) - In order to get the data from hypixel you need a key
-* [A Discord bot](https://discord.com/developers/) - To send an receive messages via discord you need a bot and a token for that bot
+* [A Hypixel key](https://hypixel.net/) - In order to get the data from Hypixel you need a key
+* [A Discord bot](https://discord.com/developers/) - To send and receive messages via discord you need a bot and a token for that bot
 * [A .env file](https://github.com/Blackoutburst/Wally/blob/master/config/.env.example) To put confidential values such as API key or discord token
 
 ## Building
