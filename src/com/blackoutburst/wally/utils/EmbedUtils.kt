@@ -275,15 +275,15 @@ object EmbedUtils {
             .setThumbnail("https://visage.surgeplay.com/full/512/${stats.uuid}?&time=$time")
             .setFooter("Discord ID: ${user.member.id}\nUUID: ${stats.uuid}")
             .setColor(getColorFromScore(newScore))
-            .setAuthor("${user.member.effectiveName}#${user.member.user.discriminator} new $gameType PB !", wallyURL, avatarUrl)
+            .setAuthor("${stats.name} new $gameType PB !", wallyURL, avatarUrl)
 
         if (oldScore > 0) {
-            embed.setTitle("${stats.name} improved ${Utils.getGenderPrefix(user.member.id)} **$gameType** Personal Best!")
+            embed.setDescription("<@${user.member.id}> improved ${Utils.getGenderPrefix(user.member.id)} **$gameType** Personal Best!")
             embed.addField("Old PB", "**$oldScore**",true)
             embed.addField("New PB", "**$newScore**",true)
             embed.addField("Increase","**${(newScore - oldScore)}**",true)
         } else {
-            embed.setTitle("${stats.name} completed ${Utils.getGenderPrefix(user.member.id)} first game of **$gameType**!")
+            embed.setDescription("<@${user.member.id}> completed ${Utils.getGenderPrefix(user.member.id)} first game of **$gameType**!")
             embed.addField("They got", "**$newScore** points!",true)
         }
 
