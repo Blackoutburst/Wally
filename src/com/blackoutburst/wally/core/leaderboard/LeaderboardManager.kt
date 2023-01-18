@@ -233,6 +233,6 @@ object LeaderboardManager {
         Wally.logger.log(LogLevel.INFO, "Leaderboard initialized in " +
             Wally.decimalFormat.format(Duration.between(begin, Instant.now()).toMillis() / 1000.0f).toString() + "s")
 
-        Wally.isReady = true
+        Wally.setReady()
     }
 }

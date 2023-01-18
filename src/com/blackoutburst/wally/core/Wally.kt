@@ -7,6 +7,7 @@ import com.blackoutburst.wally.main.Main
 import com.google.gson.Gson
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
+import net.dv8tion.jda.api.OnlineStatus
 import net.dv8tion.jda.api.entities.Activity
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.requests.GatewayIntent
@@ -30,6 +31,11 @@ object Wally {
     var hitwDiscord: Guild? = null
     var devServer: Guild? = null
     var threadSet: Set<Thread>? = null
+
+    fun setReady() {
+        isReady = true
+        jda!!.presence.setStatus(OnlineStatus.ONLINE)
+    }
 
     fun loadUser() {
         users.clear()
@@ -70,6 +76,7 @@ object Wally {
         val builder = JDABuilder.createDefault(Main.DISCORD_TOKEN)
             .setCompression(Compression.NONE)
             .setAutoReconnect(true)
+            .setStatus(OnlineStatus.IDLE)
             .setActivity(Activity.competing("Hole in the Wall"))
             .setChunkingFilter(ChunkingFilter.ALL)
             .setMemberCachePolicy(MemberCachePolicy.ALL)

@@ -30,6 +30,7 @@ dependencies {
   implementation 'net.dv8tion:JDA:5.0.0-alpha.13'
   implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+  implementation "com.sparkjava:spark-core:2.9.4"
 }
 
 allprojects {

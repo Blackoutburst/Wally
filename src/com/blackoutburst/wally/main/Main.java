@@ -1,5 +1,6 @@
 package com.blackoutburst.wally.main;
 
+import com.blackoutburst.wally.core.api.Core;
 import com.blackoutburst.wally.core.config.ConfigManager;
 import com.blackoutburst.wally.core.database.DatabaseManager;
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager;
@@ -10,8 +11,9 @@ import java.util.List;
 
 public class Main {
     public static String DISCORD_TOKEN = readEnv(0);
-    public static String  HYPIXEL_API = readEnv(1);
+    public static String HYPIXEL_API = readEnv(1);
     public static String PRACTICE_TOKEN = readEnv(2);
+    public static String API_TOKEN = readEnv(3);
 
     private static String readEnv(int index) {
         try {
@@ -28,5 +30,6 @@ public class Main {
         ConfigManager configManager = ConfigManager.INSTANCE;
         DatabaseManager databaseManager = DatabaseManager.INSTANCE;
         LeaderboardManager leaderboardManager = LeaderboardManager.INSTANCE;
+        Core.start();
     }
 }
