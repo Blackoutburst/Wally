@@ -37,5 +37,16 @@ public class Core {
 
             return JSONMaker.INSTANCE.createUserListJson();
         });
+
+        Spark.get("/leaderboards", (req, res) -> {
+            final String token = req.queryParams("token");
+
+            if (token == null || !token.equals(Main.API_TOKEN)) {
+                res.status(401);
+                return "Invalid token";
+            }
+
+            return JSONMaker.INSTANCE.createLeaderboard();
+        });
     }
 }

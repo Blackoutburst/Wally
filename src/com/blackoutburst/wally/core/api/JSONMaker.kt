@@ -1,15 +1,141 @@
 package com.blackoutburst.wally.core.api
 
 import com.blackoutburst.wally.core.Wally
-import com.blackoutburst.wally.core.leaderboard.Leaderboard
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
 import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats
-import com.blackoutburst.wally.utils.DatabaseUtils
 import java.nio.file.Files
 import java.nio.file.Paths
 
 object JSONMaker {
+
+    fun createLeaderboard(): String {
+        var builder = StringBuilder()
+        builder.append("{")
+        builder.append("\"hypixelwins\": [")
+        for (user in LeaderboardManager.winsLeaderboardHypixel.players) {
+            user as HypixelStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.wins}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"hypixelwall\": [")
+        for (user in LeaderboardManager.wallLeaderboardHypixel.players) {
+            user as HypixelStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.walls}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"hypixelqualification\": [")
+        for (user in LeaderboardManager.qualificationLeaderboardHypixel.players) {
+            user as HypixelStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.qualification}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"hypixelfinals\": [")
+        for (user in LeaderboardManager.finalsLeaderboardHypixel.players) {
+            user as HypixelStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.finals}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"hypixeltotal\": [")
+        for (user in LeaderboardManager.totalLeaderboardHypixel.players) {
+            user as HypixelStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.total}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"hypixeltotalapi\": [")
+        for (user in LeaderboardManager.totalApiLeaderboardHypixel.players) {
+            user as HypixelStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.totalAPI}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"hypixelchallenges\": [")
+        for (user in LeaderboardManager.challengesLeaderboardHypixel.players) {
+            user as HypixelStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.challenges}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"hypixeloverall\": [")
+        for (user in LeaderboardManager.overallLeaderboardHypixel.players) {
+            user as HypixelStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.overall}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"practicequalification\": [")
+        for (user in LeaderboardManager.qualificationLeaderboardPractice.players) {
+            user as PracticeStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.qualification}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"practicefinals\": [")
+        for (user in LeaderboardManager.finalsLeaderboardPractice.players) {
+            user as PracticeStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.finals}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"practicelobby\": [")
+        for (user in LeaderboardManager.lobbyLeaderboardPractice.players) {
+            user as PracticeStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.lobby}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"practicewidequalification\": [")
+        for (user in LeaderboardManager.wideQualificationLeaderboardPractice.players) {
+            user as PracticeStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.wideQualification}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"practicewidefinals\": [")
+        for (user in LeaderboardManager.wideFinalsLeaderboardPractice.players) {
+            user as PracticeStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.wideFinals}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"practicetotal\": [")
+        for (user in LeaderboardManager.totalLeaderboardPractice.players) {
+            user as PracticeStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.total}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"practiceoverall\": [")
+        for (user in LeaderboardManager.overallLeaderboardPractice.players) {
+            user as PracticeStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.overall}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("]")
+
+        builder.append("}")
+
+        return builder.toString()
+    }
 
     fun createUserListJson(): String {
         var builder = StringBuilder()
