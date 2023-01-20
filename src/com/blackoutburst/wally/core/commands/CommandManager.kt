@@ -84,6 +84,7 @@ object CommandManager {
         register(PermissionLevel.STAFF, CommandWhitelistRemove(), "whitelistRemove", "wr")
         register(PermissionLevel.ADMIN, CommandWhitelistEnable(), "whitelistEnable", "we")
         register(PermissionLevel.ADMIN, CommandWhitelistDisable(), "whitelistDisable", "wd")
+        register(PermissionLevel.MEMBER, CommandHitW(), "hitw")
         Wally.logger.log(LogLevel.INFO, "Command registered!")
     }
 

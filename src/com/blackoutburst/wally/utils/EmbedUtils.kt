@@ -487,6 +487,9 @@ object EmbedUtils {
         commands += "Cross compare a player Hypixel and Practice stats\n\n"
         commands += "`convert` `[score] [Q | F]`\n"
         commands += "Convert a Qualification score to Finals or Finals to Qualification\n\n"
+        commands += "`hitw`\n"
+        commands += "Shows how dead the game is\n\n"
+
 
 
         return EmbedBuilder()
