@@ -12,7 +12,7 @@ object Hypixel {
             val res = ConnectionManager.readFromURL("https://api.hypixel.net/counts?key=${Main.HYPIXEL_API}")
             if (res?.get(0) != '{')
                 throw Exception("Invalid json")
-            getValuesFromAPI(res, "games.ARCADE.modes.HOLE_IN_THE_WALL", "unknown")
+            getValuesFromAPI(res, "games.ARCADE.modes.HOLE_IN_THE_WALL", "0")
         } catch (e: Exception) {
             null
         }

@@ -13,71 +13,97 @@ object JSONMaker {
         var builder = StringBuilder()
         builder.append("{")
         builder.append("\"hypixelwins\": [")
-        for (user in LeaderboardManager.winsLeaderboardHypixel.players) {
+        var length = LeaderboardManager.winsLeaderboardHypixel.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.winsLeaderboardHypixel.players[i]
             user as HypixelStats
+            if (user.walls == 0) continue
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.wins}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
         builder = StringBuilder(builder.substring(0, builder.length-1))
         builder.append("],")
 
         builder.append("\"hypixelwall\": [")
-        for (user in LeaderboardManager.wallLeaderboardHypixel.players) {
+        length = LeaderboardManager.wallLeaderboardHypixel.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.wallLeaderboardHypixel.players[i]
             user as HypixelStats
+            if (user.walls == 0) continue
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.walls}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
         builder = StringBuilder(builder.substring(0, builder.length-1))
         builder.append("],")
 
         builder.append("\"hypixelqualification\": [")
-        for (user in LeaderboardManager.qualificationLeaderboardHypixel.players) {
+        length = LeaderboardManager.qualificationLeaderboardHypixel.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.qualificationLeaderboardHypixel.players[i]
             user as HypixelStats
+            if (user.walls == 0) continue
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.qualification}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
         builder = StringBuilder(builder.substring(0, builder.length-1))
         builder.append("],")
 
         builder.append("\"hypixelfinals\": [")
-        for (user in LeaderboardManager.finalsLeaderboardHypixel.players) {
+        length = LeaderboardManager.finalsLeaderboardHypixel.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.finalsLeaderboardHypixel.players[i]
             user as HypixelStats
+            if (user.walls == 0) continue
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.finals}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
         builder = StringBuilder(builder.substring(0, builder.length-1))
         builder.append("],")
 
         builder.append("\"hypixeltotal\": [")
-        for (user in LeaderboardManager.totalLeaderboardHypixel.players) {
+        length = LeaderboardManager.totalLeaderboardHypixel.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.totalLeaderboardHypixel.players[i]
             user as HypixelStats
+            if (user.walls == 0) continue
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.total}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
         builder = StringBuilder(builder.substring(0, builder.length-1))
         builder.append("],")
 
         builder.append("\"hypixeltotalapi\": [")
-        for (user in LeaderboardManager.totalApiLeaderboardHypixel.players) {
+        length = LeaderboardManager.totalApiLeaderboardHypixel.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.totalApiLeaderboardHypixel.players[i]
             user as HypixelStats
+            if (user.walls == 0) continue
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.totalAPI}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
         builder = StringBuilder(builder.substring(0, builder.length-1))
         builder.append("],")
 
         builder.append("\"hypixelchallenges\": [")
-        for (user in LeaderboardManager.challengesLeaderboardHypixel.players) {
+        length = LeaderboardManager.challengesLeaderboardHypixel.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.challengesLeaderboardHypixel.players[i]
             user as HypixelStats
+            if (user.walls == 0) continue
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.challenges}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
         builder = StringBuilder(builder.substring(0, builder.length-1))
         builder.append("],")
 
         builder.append("\"hypixeloverall\": [")
-        for (user in LeaderboardManager.overallLeaderboardHypixel.players) {
+        length = LeaderboardManager.overallLeaderboardHypixel.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.overallLeaderboardHypixel.players[i]
             user as HypixelStats
+            if (user.walls == 0) continue
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.overall}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
         builder = StringBuilder(builder.substring(0, builder.length-1))
         builder.append("],")
 
         builder.append("\"practicequalification\": [")
-        for (user in LeaderboardManager.qualificationLeaderboardPractice.players) {
+        length = LeaderboardManager.qualificationLeaderboardPractice.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.qualificationLeaderboardPractice.players[i]
             user as PracticeStats
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.qualification}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
@@ -85,7 +111,9 @@ object JSONMaker {
         builder.append("],")
 
         builder.append("\"practicefinals\": [")
-        for (user in LeaderboardManager.finalsLeaderboardPractice.players) {
+        length = LeaderboardManager.finalsLeaderboardPractice.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.finalsLeaderboardPractice.players[i]
             user as PracticeStats
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.finals}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
@@ -93,7 +121,9 @@ object JSONMaker {
         builder.append("],")
 
         builder.append("\"practicelobby\": [")
-        for (user in LeaderboardManager.lobbyLeaderboardPractice.players) {
+        length = LeaderboardManager.lobbyLeaderboardPractice.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.lobbyLeaderboardPractice.players[i]
             user as PracticeStats
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.lobby}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
@@ -101,7 +131,9 @@ object JSONMaker {
         builder.append("],")
 
         builder.append("\"practicewidequalification\": [")
-        for (user in LeaderboardManager.wideQualificationLeaderboardPractice.players) {
+        length = LeaderboardManager.wideQualificationLeaderboardPractice.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.wideQualificationLeaderboardPractice.players[i]
             user as PracticeStats
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.wideQualification}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
@@ -109,7 +141,9 @@ object JSONMaker {
         builder.append("],")
 
         builder.append("\"practicewidefinals\": [")
-        for (user in LeaderboardManager.wideFinalsLeaderboardPractice.players) {
+        length = LeaderboardManager.wideFinalsLeaderboardPractice.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.wideFinalsLeaderboardPractice.players[i]
             user as PracticeStats
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.wideFinals}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
@@ -117,7 +151,9 @@ object JSONMaker {
         builder.append("],")
 
         builder.append("\"practicetotal\": [")
-        for (user in LeaderboardManager.totalLeaderboardPractice.players) {
+        length = LeaderboardManager.totalLeaderboardPractice.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.totalLeaderboardPractice.players[i]
             user as PracticeStats
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.total}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
@@ -125,7 +161,9 @@ object JSONMaker {
         builder.append("],")
 
         builder.append("\"practiceoverall\": [")
-        for (user in LeaderboardManager.overallLeaderboardPractice.players) {
+        length = LeaderboardManager.overallLeaderboardPractice.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.overallLeaderboardPractice.players[i]
             user as PracticeStats
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.overall}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
@@ -141,7 +179,11 @@ object JSONMaker {
         var builder = StringBuilder()
         builder.append("{ \"users\": [")
 
-        for (user in LeaderboardManager.winsLeaderboardHypixel.players) {
+        val length = LeaderboardManager.winsLeaderboardHypixel.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.winsLeaderboardHypixel.players[i]
+            user as HypixelStats
+            if (user.walls == 0) continue
             builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
         }
 
