@@ -62,10 +62,10 @@ object MessageUtils {
 
     fun sendPGraph(commandSender: WallyUser, data: String, message: Message, type: String, typeName: String, edit: Boolean, gameCount: Int = 100) {
         if (edit) {
-            val menu = pGraphMenu(commandSender, PracticeStats(data).uuid)
+            val menu = pGraphMenu(commandSender, PracticeStats(data).uuid, gameCount)
             message.editMessageEmbeds(generatePGraphEmbed(data, type, typeName, gameCount)).override(true).addFile(File("pgraph.png"), "graph.png").setActionRow(menu).queue()
         } else {
-            val menu = pGraphMenu(commandSender, PracticeStats(data).uuid)
+            val menu = pGraphMenu(commandSender, PracticeStats(data).uuid, gameCount)
             message.replyEmbeds(generatePGraphEmbed(data, type, typeName, gameCount)).addFile(File("pgraph.png"), "graph.png").setActionRow(menu).queue()
         }
     }
@@ -361,15 +361,15 @@ object MessageUtils {
         return menu.build()
     }
 
-    private fun pGraphMenu(commandSender: WallyUser, uuid: String): SelectMenu {
+    private fun pGraphMenu(commandSender: WallyUser, uuid: String, gameCount: Int): SelectMenu {
         val menu = SelectMenu.create(commandSender.member.id + ":practice graph")
             .setRequiredRange(1, 1)
             .setPlaceholder("Select a game type")
-            .addOption("Qualification", "qualification_history:$uuid")
-            .addOption("Finals", "finals_history:$uuid")
-            .addOption("Lobby", "lobby_history:$uuid")
-            .addOption("Wide Qualification", "wide_qualification_history:$uuid")
-            .addOption("Wide Finals", "wide_finals_history:$uuid")
+            .addOption("Qualification", "qualification_history:$uuid:$gameCount")
+            .addOption("Finals", "finals_history:$uuid:$gameCount")
+            .addOption("Lobby", "lobby_history:$uuid:$gameCount")
+            .addOption("Wide Qualification", "wide_qualification_history:$uuid:$gameCount")
+            .addOption("Wide Finals", "wide_finals_history:$uuid:$gameCount")
         return menu.build()
     }
 

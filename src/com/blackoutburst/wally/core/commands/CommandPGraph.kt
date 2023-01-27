@@ -57,7 +57,7 @@ class CommandPGraph : CommandExecutable() {
 
         try {
             var gameCount = args[1].toInt()
-
+            
             if (gameCount < 2) 
                 gameCount = 2
             if (gameCount > 100)

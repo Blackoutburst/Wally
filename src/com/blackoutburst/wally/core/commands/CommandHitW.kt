@@ -1,14 +1,13 @@
 package com.blackoutburst.wally.core.commands
 
+import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.WallyUser
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.request.Hypixel.getPlayerCount
-import com.blackoutburst.wally.utils.CommandUtils.concatArgs
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
-import net.dv8tion.jda.api.entities.emoji.Emoji
 import java.awt.Color
 import java.time.LocalDate
 
@@ -23,6 +22,7 @@ class CommandHitW : CommandExecutable() {
             .setColor(Color(71, 165, 255))
             .setFooter("Date: " + LocalDate.now())
 
+        Wally.hitwDiscord!!.getVoiceChannelById(ConfigManager.loadValue("channels", "player count"))!!.manager.setName("${getPlayerCount()} playing HitW").queue()
         channel.sendMessageEmbeds(embed.build()).queue()
     }
 }
