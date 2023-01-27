@@ -56,7 +56,12 @@ class CommandPGraph : CommandExecutable() {
         Visage.getPlayerHead(uuid)
 
         try {
-            val gameCount = args[1].toInt()
+            var gameCount = args[1].toInt()
+
+            if (gameCount < 2) 
+                gameCount = 2
+            if (gameCount > 100)
+                gameCount = 100
             sendPGraph(commandSender, data, message, "qualification_history", "Qualification", false, gameCount)
         } catch (ignored: Exception) {
             sendPGraph(commandSender, data, message, "qualification_history", "Qualification", false)
