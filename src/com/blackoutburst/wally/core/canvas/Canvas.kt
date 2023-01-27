@@ -157,32 +157,63 @@ class Canvas(width: Int, height: Int) {
         g!!.drawRect(x, y, w, h)
     }
 
-    fun drawGraphLine(data: IntArray, games: Int) {
-        g!!.stroke = BasicStroke(3.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+    fun drawGraphLine(data: IntArray, games: Int, average: Int, low : Int, high: Int) {
+        g!!.stroke = BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+        g!!.paint = Color(255, 255, 255, 80)
+        val avrline = Line2D.Float(
+            0f,
+            600 - (average * 1.08f + 5),
+            1000f,
+            600 - (average * 1.08f + 5))
+        g!!.draw(avrline)
+
+
         for (i in 0 until games - 1) {
+            g!!.stroke = BasicStroke(3.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
             var line = Line2D.Float(
                     1000 - i.toFloat() * 1000 / games,
-                    600 - (data[i] * 1.08f + 4),
+                    600 - (data[i] * 1.08f + 6),
                     1000 - (i.toFloat() + 1) * 1000 / games,
-                    600 - (data[i + 1] * 1.08f + 4))
+                    600 - (data[i + 1] * 1.08f + 6))
             var gradient = GradientPaint(
-                1000 - i.toFloat() * 1000 / games, 600 - (data[i] * 1.08f + 4), getColorFromScore(data[i]),
-                1000 - (i.toFloat() + 1) * 1000 / games, 600 - (data[i + 1] * 1.08f + 4), getColorFromScore(data[i + 1])
+                1000 - i.toFloat() * 1000 / games, 600 - (data[i] * 1.08f + 6), getColorFromScore(data[i]),
+                1000 - (i.toFloat() + 1) * 1000 / games, 600 - (data[i + 1] * 1.08f + 6), getColorFromScore(data[i + 1])
             )
             g!!.paint = gradient
             g!!.draw(line)
+
+            if (data[i] == low) {
+                g!!.stroke = BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+                g!!.paint = Color.RED
+                g!!.fillOval((1000 - i.toFloat() * 1000 / games).toInt() - 5,
+                    (600 - (data[i] * 1.08f + 6)).toInt() - 5, 10, 10)
+                g!!.paint = Color.WHITE
+                g!!.drawOval((1000 - i.toFloat() * 1000 / games).toInt() - 5,
+                    (600 - (data[i] * 1.08f + 6)).toInt() - 5, 10, 10)
+            }
+
+            if (data[i] == high) {
+                g!!.stroke = BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+                g!!.paint = Color.GREEN
+                g!!.fillOval((1000 - i.toFloat() * 1000 / games).toInt() - 5,
+                    (600 - (data[i] * 1.08f + 6)).toInt() - 5, 10, 10)
+                g!!.paint = Color.WHITE
+                g!!.drawOval((1000 - i.toFloat() * 1000 / games).toInt() - 5,
+                    (600 - (data[i] * 1.08f + 6)).toInt() - 5, 10, 10)
+            }
+
             if (i == games - 2) {
                 line = Line2D.Float(
                     1000 - (i.toFloat() + 1) * 1000 / games,
-                    600 - (data[i + 1] * 1.08f + 4),
+                    600 - (data[i + 1] * 1.08f + 6),
                     1000 - (i.toFloat() + 2) * 1000 / games,
-                    600 - (data[i + 1] * 1.08f + 4)
+                    600 - (data[i + 1] * 1.08f + 6)
                 )
                 gradient = GradientPaint(
-                    1000 - (i.toFloat() + 1) * 1000 / games, 600 - (data[i + 1] * 1.08f + 4), getColorFromScore(
+                    1000 - (i.toFloat() + 1) * 1000 / games, 600 - (data[i + 1] * 1.08f + 6), getColorFromScore(
                         data[i + 1]
                     ),
-                    1000 - (i.toFloat() + 2) * 1000 / games, 600 - (data[i + 1] * 1.08f + 4), getColorFromScore(data[i + 1])
+                    1000 - (i.toFloat() + 2) * 1000 / games, 600 - (data[i + 1] * 1.08f + 6), getColorFromScore(data[i + 1])
                 )
                 g!!.paint = gradient
                 g!!.draw(line)

@@ -443,30 +443,45 @@ object EmbedUtils {
             .build()
     }
 
-    fun generatePGraphEmbed(data: String, type: String, typeName: String) : MessageEmbed {
+    fun generatePGraphEmbed(data: String, type: String, typeName: String, gameCount: Int) : MessageEmbed {
         var average = 0
+        var high = 0
+        var low = Integer.MAX_VALUE
 
-        val history = APIUtils.getValuesFromAPI(data, type, "[0,0]").removeSurrounding("[", "]").split(",").map { it.toInt() }
-        var validGames = 1
-        for (i in 0 until history.size) {
-            if (history[i] != 0) {
-                average += history[i]
-                validGames++
-            }
+
+        val history = APIUtils.getValuesFromAPI(data, type, "[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]")
+            .removeSurrounding("[", "]")
+            .split(",")
+            .map { it.toInt() }
+            .slice(0 until gameCount)
+
+        var validGames = 0
+        for (i in history.indices) {
+            if (history[i] == 0)
+                continue
+            if (history[i] > high)
+                high = history[i]
+            if (history[i] < low)
+                low = history[i]
+            average += history[i]
+            validGames++
         }
         average /= validGames
 
         var validHistory = history
 
-        validHistory = validHistory.filter { it >= (average - 50) }
+        validHistory = validHistory.filter { it > 0 }
 
-        CanvasUtils.createPGraphImage(validHistory.toIntArray(), validHistory.size)
+        CanvasUtils.createPGraphImage(validHistory.toIntArray(), validHistory.size, average, low, high)
 
         val stats = PracticeStats(data)
 
         return EmbedBuilder()
-            .setAuthor("${stats.name} | $typeName - latest 100 games","https://namemc.com/profile/${stats.uuid}","https://www.blackoutburst.com/img/wally.png")
-            .setTitle("Average Score: $average")
+            .setAuthor(stats.name,"https://namemc.com/profile/${stats.uuid}","https://www.blackoutburst.com/img/wally.png")
+            .setTitle("$typeName - latest ${validHistory.size} games")
+            .addField("Average Score", "$average", true)
+            .addField("Highest Score", "$high", true)
+            .addField("Lowest Score", "$low", true)
             .setThumbnail("https://visage.surgeplay.com/face/128/${stats.uuid}")
             .setColor(getColorFromScore(average))
             .setImage("attachment://graph.png")

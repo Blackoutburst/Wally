@@ -13,6 +13,7 @@ import com.blackoutburst.wally.utils.MessageUtils.sendPGraph
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
+import java.lang.Exception
 
 
 class CommandPGraph : CommandExecutable() {
@@ -54,6 +55,12 @@ class CommandPGraph : CommandExecutable() {
         }
         Visage.getPlayerHead(uuid)
 
-        sendPGraph(commandSender, data, message, "qualification_history", "Qualification", false)
+        try {
+            val gameCount = args[1].toInt()
+            sendPGraph(commandSender, data, message, "qualification_history", "Qualification", false, gameCount)
+        } catch (ignored: Exception) {
+            sendPGraph(commandSender, data, message, "qualification_history", "Qualification", false)
+        }
+
     }
 }

@@ -60,13 +60,13 @@ object MessageUtils {
         }
     }
 
-    fun sendPGraph(commandSender: WallyUser, data: String, message: Message, type: String, typeName: String, edit: Boolean) {
+    fun sendPGraph(commandSender: WallyUser, data: String, message: Message, type: String, typeName: String, edit: Boolean, gameCount: Int = 100) {
         if (edit) {
             val menu = pGraphMenu(commandSender, PracticeStats(data).uuid)
-            message.editMessageEmbeds(generatePGraphEmbed(data, type, typeName)).override(true).addFile(File("pgraph.png"), "graph.png").setActionRow(menu).queue()
+            message.editMessageEmbeds(generatePGraphEmbed(data, type, typeName, gameCount)).override(true).addFile(File("pgraph.png"), "graph.png").setActionRow(menu).queue()
         } else {
             val menu = pGraphMenu(commandSender, PracticeStats(data).uuid)
-            message.replyEmbeds(generatePGraphEmbed(data, type, typeName)).addFile(File("pgraph.png"), "graph.png").setActionRow(menu).queue()
+            message.replyEmbeds(generatePGraphEmbed(data, type, typeName, gameCount)).addFile(File("pgraph.png"), "graph.png").setActionRow(menu).queue()
         }
     }
 

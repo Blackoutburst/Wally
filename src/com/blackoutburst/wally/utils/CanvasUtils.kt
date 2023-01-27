@@ -43,7 +43,7 @@ import java.io.File
 
 object CanvasUtils {
 
-    fun createPGraphImage(data: IntArray, games: Int) {
+    fun createPGraphImage(data: IntArray, games: Int, average: Int, low: Int, high: Int) {
         val canvas = Canvas(1000, 600)
 
         canvas.loadFont("res/font.ttf")
@@ -57,10 +57,10 @@ object CanvasUtils {
             canvas.drawQuad(0, (i + 1) * 54, 1000, 1, Color(color.red, color.green, color.blue, 70))
         }
         canvas.drawEmptyQuad(0, 0, 999, 599, Color.WHITE)
-        canvas.drawGraphLine(data, games)
+        canvas.drawGraphLine(data, games, average, low, high)
         for (i in 0..9) {
             canvas.drawStringLeft((i * games / 10).toString(), 1000 - i * 100 + 5, 580, 16.0f, Color.white)
-            canvas.drawStringLeft((500 - 50 * i).toString(), 5, (i + 1) * 54 - 15, 16.0f, getColorFromScore(500 - 50 * i))
+            canvas.drawStringLeft((500 - 50 * i).toString(), 5, (i + 1) * 54 - 20, 16.0f, getColorFromScore(500 - 50 * i))
         }
         canvas.save("pgraph.png")
     }
