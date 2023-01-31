@@ -61,7 +61,7 @@ class CommandPing : CommandExecutable() {
             .addField("Uptime", "`$uptime` minutes", true)
             .addField("Files", "`$filesOpen`", true)
 
-            .addField("Version", "`2.0.7`", true)
+            .addField("Version", "`2.0.8`", true)
 
             .addField("", "[GitHub](https://github.com/Blackoutburst/Wally)", true)
             .setFooter("Made with ❤️ by Blackoutburst", "https://www.blackoutburst.com/img/pfp.jpg")
