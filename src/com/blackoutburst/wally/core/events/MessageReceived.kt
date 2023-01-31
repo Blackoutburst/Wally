@@ -107,7 +107,7 @@ object MessageReceived {
         "Lets be friends instead of fighting okay?"
         )
 
-        if (event.message.contentRaw.contains("ez", true)) {
+        if (event.message.contentRaw.split(" ").find { it.equals("ez", true) } !== null) {
             event.channel.sendTyping().queue()
             event.channel.sendMessage(messages.random()).queue()
         }
