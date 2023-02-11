@@ -1,10 +1,10 @@
 {
   "settings": {
-    "command prefix": "!",
+    "command prefix": ":",
     "answer lifetime": "120"
   },
   "servers": {
-    "hitw server": "709521394848890880",
+    "hitw server": "813806897542594560",
     "dev server": "813806897542594560"
   },
   "messages": {
@@ -36,6 +36,7 @@
     "Unverified": "1008143373686816880"
   },
   "channels": {
+    "player count": "1068628078252806314",
     "changelog channel": "739630025304703068",
     "practice tracker channel": "909117760116756570",
     "tracker channel": "709548207717220352",

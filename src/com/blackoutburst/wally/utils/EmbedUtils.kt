@@ -466,6 +466,9 @@ object EmbedUtils {
             average += history[i]
             validGames++
         }
+        if (validGames == 0)
+            validGames = 1;
+
         average /= validGames
 
         var validHistory = history
