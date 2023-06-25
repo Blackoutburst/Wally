@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang.getPlayerName
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.core.request.PracticeServer.getPlayerCredits
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
 import com.blackoutburst.wally.core.request.Visage
 import com.blackoutburst.wally.core.statsobject.PracticeStats
@@ -66,8 +67,14 @@ class CommandPracticeStats : CommandExecutable() {
             return
         }
 
+        var credits = getPlayerCredits(uuid)
+        if (credits == null)
+            credits = ""
+
         updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, uuid)
         Visage.getPlayerHead(uuid)
-        sendPracticeStats(commandSender, message, PracticeStats(data), uuid, false)
+
+        sendPracticeStats(commandSender, message, PracticeStats(data, credits), uuid, false,
+            (channel.id == "1017583816321290348" || channel.id == "1114857944857727026"))
     }
 }

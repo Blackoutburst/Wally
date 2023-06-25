@@ -22,6 +22,7 @@ class PracticeStats() : StatsObject {
     var wideQualificationPosition = 0
     var wideFinalsPosition = 0
     var totalPosition = 0
+    var credits = 0
     override var overallPosition = 0
     var combined = false
 
@@ -46,7 +47,7 @@ class PracticeStats() : StatsObject {
         overallPosition = getPlayerPosition(uuid, LeaderboardManager.overallLeaderboardPractice)
     }
 
-    constructor(data: String, noLeaderboard: Boolean = false) : this() {
+    constructor(data: String, creditsData: String = "", noLeaderboard: Boolean = false) : this() {
         uuid = getValuesFromAPI(data, "uuid", "unknown")
         name = getValuesFromAPI(data, "name", "Unknown")
         qualification = getValuesFromAPI(data, "scores.qualification", "0").toInt()
@@ -55,6 +56,9 @@ class PracticeStats() : StatsObject {
         wideQualification = getValuesFromAPI(data, "scores.wide_qualification", "0").toInt()
         wideFinals = getValuesFromAPI(data, "scores.wide_finals", "0").toInt()
         total = qualification + finals + lobby + wideQualification + wideFinals
+
+        if (creditsData.isNotEmpty())
+            credits = creditsData.split(", ")[0].toInt()
 
         if (!noLeaderboard) {
             qualificationPosition = getPlayerPosition(uuid, LeaderboardManager.qualificationLeaderboardPractice)

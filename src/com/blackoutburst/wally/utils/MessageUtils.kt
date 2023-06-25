@@ -70,13 +70,13 @@ object MessageUtils {
         }
     }
 
-    fun sendPracticeStats(commandSender: WallyUser, message: Message, stats: PracticeStats, uuid: String, edit: Boolean) {
+    fun sendPracticeStats(commandSender: WallyUser, message: Message, stats: PracticeStats, uuid: String, edit: Boolean, showCredits: Boolean = false) {
         if (edit) {
             when (commandSender.displayPreference) {
-                DisplayPreference.TEXT -> message.editMessage(generatePracticeStatsMessage(stats)).queue()
-                DisplayPreference.EMBED -> message.editMessageEmbeds(generatePracticeStatsEmbed(stats)).queue()
+                DisplayPreference.TEXT -> message.editMessage(generatePracticeStatsMessage(stats, showCredits)).queue()
+                DisplayPreference.EMBED -> message.editMessageEmbeds(generatePracticeStatsEmbed(stats, showCredits)).queue()
                 else -> {
-                    CanvasUtils.createPracticeStatsCanvas(stats)
+                    CanvasUtils.createPracticeStatsCanvas(stats, showCredits)
                     message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("practice_stats.png")).queue()
                 }
             }
@@ -85,20 +85,20 @@ object MessageUtils {
 
             when (commandSender.displayPreference) {
                 DisplayPreference.TEXT -> menu?.let {
-                    message.reply(generatePracticeStatsMessage(stats)).setActionRow(it).queue()
+                    message.reply(generatePracticeStatsMessage(stats, showCredits)).setActionRow(it).queue()
                 } ?: run {
-                    message.reply(generatePracticeStatsMessage(stats)).queue()
+                    message.reply(generatePracticeStatsMessage(stats, showCredits)).queue()
                 }
                 DisplayPreference.EMBED -> menu?.let {
-                    message.replyEmbeds(generatePracticeStatsEmbed(stats)).setActionRow(it).queue()
+                    message.replyEmbeds(generatePracticeStatsEmbed(stats, showCredits)).setActionRow(it).queue()
                 } ?: run {
-                    message.replyEmbeds(generatePracticeStatsEmbed(stats)).queue()
+                    message.replyEmbeds(generatePracticeStatsEmbed(stats, showCredits)).queue()
                 }
                 else -> menu?.let {
-                    CanvasUtils.createPracticeStatsCanvas(stats)
+                    CanvasUtils.createPracticeStatsCanvas(stats, showCredits)
                     message.reply("\u00A0").addFile(File("practice_stats.png")).setActionRow(it).queue()
                 } ?: run {
-                    CanvasUtils.createPracticeStatsCanvas(stats)
+                    CanvasUtils.createPracticeStatsCanvas(stats, showCredits)
                     message.reply("\u00A0").addFile(File("practice_stats.png")).queue()
                 }
             }
@@ -273,7 +273,7 @@ object MessageUtils {
         return builder.toString()
     }
 
-    private fun generatePracticeStatsMessage(stats: PracticeStats): String {
+    private fun generatePracticeStatsMessage(stats: PracticeStats, showCredits: Boolean): String {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + stats.name + System.lineSeparator() + System.lineSeparator() +
                 "Qualification: " + Utils.formatLine(stats.qualification, stats.qualificationPosition) + System.lineSeparator() +
@@ -283,6 +283,7 @@ object MessageUtils {
                 "Wide Finals: " + Utils.formatLine(stats.wideFinals, stats.wideFinalsPosition) + System.lineSeparator() +
                 "Total Score: " + Utils.formatLine(stats.total, stats.totalPosition) + System.lineSeparator() +
                 if (stats.overall.toInt() != 0) { "Overall Rank: " + Utils.formatLine(stats.overall, stats.overallPosition) } else { "" } + System.lineSeparator() +
+                if (showCredits) { "Credits: " + Utils.formatLine(stats.credits, 0) } else { "" } + System.lineSeparator() +
                 "```"
     }
 

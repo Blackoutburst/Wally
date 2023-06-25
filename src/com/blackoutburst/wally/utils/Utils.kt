@@ -35,9 +35,9 @@ object Utils {
 
     fun formatLine(label :String, score: Number, position: Int): String {
         return if (score is Int)
-            "$label: " + Wally.numberFormat.format(score.toLong()) + " " + LeaderboardUtils.formatPosition(position)
+            "$label: " + Wally.numberFormat.format(score.toLong()) + if (position > 0) " " + LeaderboardUtils.formatPosition(position) else ""
         else
-            "$label: " + Wally.decimalFormat.format(score.toDouble()) + " " + LeaderboardUtils.formatPosition(position)
+            "$label: " + Wally.decimalFormat.format(score.toDouble()) + if (position > 0) " " + LeaderboardUtils.formatPosition(position) else ""
     }
 
     fun formatLineReverse(label :String, score: Number, position: Int): String {

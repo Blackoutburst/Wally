@@ -323,11 +323,11 @@ object CanvasUtils {
         canvas.save("compare.png")
     }
 
-    fun createPracticeStatsCanvas(data: PracticeStats) {
+    fun createPracticeStatsCanvas(data: PracticeStats, showCredits: Boolean) {
         val user = DatabaseUtils.getWallyUserFromUUID(data.uuid)
         val canvas = Canvas(1000, 600)
         val fontColor = Color.decode(user?.fontColor ?: "#FFFFFF")
-        val color = Utils.getColorFromScore(Utils.getHighestScore(data.scores))
+        val color = getColorFromScore(Utils.getHighestScore(data.scores))
         val fontSize = user?.fontSize ?: 0f
 
         if (user != null && user.hasFont()) {
@@ -395,6 +395,11 @@ object CanvasUtils {
         if (data.overall.toInt() != 0) {
             canvas.drawImage(iconPracticeOverall, 490, 410, 50, 50)
             canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 425, 30.0f + fontSize, fontColor)
+        }
+
+        if (showCredits) {
+            canvas.drawImage(iconPracticeOverall, 490, 480, 50, 50)
+            canvas.drawStringLeft(formatLine("Credits", data.credits, 0), 560, 495, 30.0f + fontSize, fontColor)
         }
 
         canvas.save("practice_stats.png")

@@ -39,7 +39,7 @@ object EmbedUtils {
             .build()
     }
 
-    fun generatePracticeStatsEmbed(stats: PracticeStats): MessageEmbed {
+    fun generatePracticeStatsEmbed(stats: PracticeStats, showCredits: Boolean): MessageEmbed {
         val user = DatabaseUtils.getWallyUserFromUUID(stats.uuid)
         val time = System.currentTimeMillis()
         val uuid = stats.uuid
@@ -64,6 +64,10 @@ object EmbedUtils {
 
         if (stats.overall.toInt() != 0)
             builder.addField("Overall Rank", "`"+Utils.formatLine(stats.overall, stats.overallPosition)+"`",true)
+
+        if (showCredits)
+            builder.addField("Credits", "`"+Utils.formatLine(stats.credits, 0)+"`",true)
+
         builder.addBlankField(true)
         builder.setFooter("$date | $uuid")
 

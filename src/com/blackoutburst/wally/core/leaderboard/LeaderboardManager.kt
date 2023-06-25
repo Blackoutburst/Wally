@@ -54,7 +54,7 @@ object LeaderboardManager {
                 val data = String(Files.readAllBytes(filePath))
                 leaderboard.add(
                     if (type == DatabaseUtils.DataType.HYPIXEL) HypixelStats(data, skipPosition)
-                    else PracticeStats(data, skipPosition)
+                    else PracticeStats(data, noLeaderboard = skipPosition)
                 )
             } catch (e: Exception) {
                 Wally.logger.logStackTrace(e)
@@ -86,7 +86,7 @@ object LeaderboardManager {
     }
 
     fun addPracticePlayer(data: String) {
-        val playerData = PracticeStats(data, true)
+        val playerData = PracticeStats(data, noLeaderboard = true)
         if (qualificationLeaderboardPractice.players.find { it.uuid == playerData.uuid } != null) {
             qualificationLeaderboardPractice.players[qualificationLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
             finalsLeaderboardPractice.players[finalsLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
@@ -102,7 +102,7 @@ object LeaderboardManager {
             sort(wideFinalsLeaderboardPractice)
             sort(totalLeaderboardPractice)
 
-            val playerOverallData = PracticeStats(data, false)
+            val playerOverallData = PracticeStats(data, noLeaderboard = false)
             overallLeaderboardPractice.players[overallLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerOverallData
             sort(overallLeaderboardPractice)
             return
@@ -122,7 +122,7 @@ object LeaderboardManager {
         sort(wideFinalsLeaderboardPractice)
         sort(totalLeaderboardPractice)
 
-        val playerOverallData = PracticeStats(data, false)
+        val playerOverallData = PracticeStats(data, noLeaderboard = false)
         overallLeaderboardPractice.players.add(playerOverallData)
         sort(overallLeaderboardPractice)
     }
