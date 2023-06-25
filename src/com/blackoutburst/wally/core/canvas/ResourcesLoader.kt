@@ -30,6 +30,7 @@ object ResourcesLoader {
     val iconPracticeWideQualification = loadImage("res/icon_practice_wide_qualification.png")
     val iconPracticeWideFinals = loadImage("res/icon_practice_wide_finals.png")
     val iconPracticeTotal = loadImage("res/icon_practice_total.png")
+    val iconCredits = loadImage("res/icon_credits.png")
     val line = loadImage("res/line.png")
     val practiceHeader = loadImage("res/practice_header.png")
     val missingHead = loadImage("res/missing_head.png")

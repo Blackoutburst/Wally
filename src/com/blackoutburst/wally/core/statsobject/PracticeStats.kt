@@ -57,7 +57,7 @@ class PracticeStats() : StatsObject {
         wideFinals = getValuesFromAPI(data, "scores.wide_finals", "0").toInt()
         total = qualification + finals + lobby + wideQualification + wideFinals
 
-        if (creditsData.isNotEmpty())
+        if (creditsData.isNotEmpty() && creditsData !== "null")
             credits = creditsData.split(", ")[0].toInt()
 
         if (!noLeaderboard) {

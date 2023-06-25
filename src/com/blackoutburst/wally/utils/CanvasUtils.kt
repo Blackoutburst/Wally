@@ -7,6 +7,7 @@ import com.blackoutburst.wally.core.canvas.ResourcesLoader.background
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.hypixel
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.hypixelHeader
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconChallenges
+import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconCredits
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconDev
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconFinals
 import com.blackoutburst.wally.core.canvas.ResourcesLoader.iconOverall
@@ -398,7 +399,7 @@ object CanvasUtils {
         }
 
         if (showCredits) {
-            canvas.drawImage(iconPracticeOverall, 490, 480, 50, 50)
+            canvas.drawImage(iconCredits, 490, 480, 50, 50)
             canvas.drawStringLeft(formatLine("Credits", data.credits, 0), 560, 495, 30.0f + fontSize, fontColor)
         }
 
