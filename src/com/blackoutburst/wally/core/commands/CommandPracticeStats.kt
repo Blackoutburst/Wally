@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang.getPlayerName
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.core.request.PracticeServer.getBetaStats
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerCredits
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
 import com.blackoutburst.wally.core.request.Visage
@@ -26,6 +27,11 @@ class CommandPracticeStats : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         val discordID = commandSender.member.id
+        val showCredits = (
+                    channel.id == "1017583816321290348" ||
+                    channel.id == "1114857944857727026" ||
+                    channel.id == "1122712929855348856"
+                )
 
         val uuid: String? = if (args.isNotEmpty()) {
             if (args[0].length == 32) {
@@ -55,7 +61,7 @@ class CommandPracticeStats : CommandExecutable() {
             return
         }
 
-        var data = getPlayerStats(uuid)
+        var data = if (showCredits) getBetaStats(uuid) else getPlayerStats(uuid)
         if (data == null) {
             Wally.logger.log(LogLevel.WARN, "Data is missing")
             data = getBackupLocalData(uuid, DatabaseUtils.DataType.PRACTICE, channel)
@@ -74,7 +80,6 @@ class CommandPracticeStats : CommandExecutable() {
         updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, uuid)
         Visage.getPlayerHead(uuid)
 
-        sendPracticeStats(commandSender, message, PracticeStats(data, credits), uuid, false,
-            (channel.id == "1017583816321290348" || channel.id == "1114857944857727026"))
+        sendPracticeStats(commandSender, message, PracticeStats(data, credits), uuid, false, showCredits)
     }
 }
