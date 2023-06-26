@@ -59,6 +59,19 @@ object PracticeServer {
         }
     }
 
+    fun getBetaStats( uuid: String, silent :Boolean = false): String? {
+        return try {
+            if (!silent)
+                Wally.logger.log(LogLevel.INFO, "New Practice server request sent for [$uuid]")
+            val res = ConnectionManager.readFromURL("http://beta.hitw.community:30150/user?uuid=$uuid")
+            if (res?.get(0) != '{')
+                throw Exception("Invalid json")
+            res
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     fun getPlayerCredits( uuid: String, silent :Boolean = false): String? {
         return try {
             if (!silent)
