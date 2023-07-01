@@ -72,11 +72,21 @@ object PracticeServer {
         }
     }
 
+    fun getBetaPlayerCredits( uuid: String, silent :Boolean = false): String? {
+        return try {
+            if (!silent)
+                Wally.logger.log(LogLevel.INFO, "New Practice server request sent for [$uuid]")
+            ConnectionManager.readFromURL("http://178.32.125.169:30100/credits?uuid=$uuid")
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     fun getPlayerCredits( uuid: String, silent :Boolean = false): String? {
         return try {
             if (!silent)
                 Wally.logger.log(LogLevel.INFO, "New Practice server request sent for [$uuid]")
-            ConnectionManager.readFromURL("http://beta.hitw.community:30150/credits?uuid=$uuid")
+            ConnectionManager.readFromURL("http://178.32.125.169:30100/credits?uuid=$uuid")
         } catch (e: Exception) {
             null
         }

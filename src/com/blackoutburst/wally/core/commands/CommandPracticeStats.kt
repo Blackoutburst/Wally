@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang.getPlayerName
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.core.request.PracticeServer.getBetaPlayerCredits
 import com.blackoutburst.wally.core.request.PracticeServer.getBetaStats
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerCredits
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
@@ -27,7 +28,7 @@ class CommandPracticeStats : CommandExecutable() {
 
     override fun onCommand(commandSender: WallyUser, commandName: String, args: Array<String>, guild: Guild, channel: MessageChannel, message: Message) {
         val discordID = commandSender.member.id
-        val showCredits = (
+        val isBetaChannel = (
                     channel.id == "1017583816321290348" ||
                     channel.id == "1114857944857727026" ||
                     channel.id == "1122712929855348856"
@@ -61,7 +62,7 @@ class CommandPracticeStats : CommandExecutable() {
             return
         }
 
-        var data = if (showCredits) getBetaStats(uuid) else getPlayerStats(uuid)
+        var data = if (isBetaChannel) getBetaStats(uuid) else getPlayerStats(uuid)
         if (data == null) {
             Wally.logger.log(LogLevel.WARN, "Data is missing")
             data = getBackupLocalData(uuid, DatabaseUtils.DataType.PRACTICE, channel)
@@ -73,13 +74,13 @@ class CommandPracticeStats : CommandExecutable() {
             return
         }
 
-        var credits = getPlayerCredits(uuid)
+        var credits = if (isBetaChannel) getBetaPlayerCredits(uuid) else getPlayerCredits(uuid)
         if (credits == null)
             credits = ""
 
         updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, uuid)
         Visage.getPlayerHead(uuid)
 
-        sendPracticeStats(commandSender, message, PracticeStats(data, credits), uuid, false, showCredits)
+        sendPracticeStats(commandSender, message, PracticeStats(data, credits), uuid, false, isBetaChannel)
     }
 }

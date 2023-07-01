@@ -70,13 +70,13 @@ object MessageUtils {
         }
     }
 
-    fun sendPracticeStats(commandSender: WallyUser, message: Message, stats: PracticeStats, uuid: String, edit: Boolean, showCredits: Boolean = false) {
+    fun sendPracticeStats(commandSender: WallyUser, message: Message, stats: PracticeStats, uuid: String, edit: Boolean, isBetaChannel: Boolean = false) {
         if (edit) {
             when (commandSender.displayPreference) {
-                DisplayPreference.TEXT -> message.editMessage(generatePracticeStatsMessage(stats, showCredits)).queue()
-                DisplayPreference.EMBED -> message.editMessageEmbeds(generatePracticeStatsEmbed(stats, showCredits)).queue()
+                DisplayPreference.TEXT -> message.editMessage(generatePracticeStatsMessage(stats, isBetaChannel)).queue()
+                DisplayPreference.EMBED -> message.editMessageEmbeds(generatePracticeStatsEmbed(stats, isBetaChannel)).queue()
                 else -> {
-                    CanvasUtils.createPracticeStatsCanvas(stats, showCredits)
+                    CanvasUtils.createPracticeStatsCanvas(stats, isBetaChannel)
                     message.editMessage("\u00A0").retainFiles(message.attachments.subList(1, message.attachments.size)).addFile(File("practice_stats.png")).queue()
                 }
             }
@@ -85,20 +85,20 @@ object MessageUtils {
 
             when (commandSender.displayPreference) {
                 DisplayPreference.TEXT -> menu?.let {
-                    message.reply(generatePracticeStatsMessage(stats, showCredits)).setActionRow(it).queue()
+                    message.reply(generatePracticeStatsMessage(stats, isBetaChannel)).setActionRow(it).queue()
                 } ?: run {
-                    message.reply(generatePracticeStatsMessage(stats, showCredits)).queue()
+                    message.reply(generatePracticeStatsMessage(stats, isBetaChannel)).queue()
                 }
                 DisplayPreference.EMBED -> menu?.let {
-                    message.replyEmbeds(generatePracticeStatsEmbed(stats, showCredits)).setActionRow(it).queue()
+                    message.replyEmbeds(generatePracticeStatsEmbed(stats, isBetaChannel)).setActionRow(it).queue()
                 } ?: run {
-                    message.replyEmbeds(generatePracticeStatsEmbed(stats, showCredits)).queue()
+                    message.replyEmbeds(generatePracticeStatsEmbed(stats, isBetaChannel)).queue()
                 }
                 else -> menu?.let {
-                    CanvasUtils.createPracticeStatsCanvas(stats, showCredits)
+                    CanvasUtils.createPracticeStatsCanvas(stats, isBetaChannel)
                     message.reply("\u00A0").addFile(File("practice_stats.png")).setActionRow(it).queue()
                 } ?: run {
-                    CanvasUtils.createPracticeStatsCanvas(stats, showCredits)
+                    CanvasUtils.createPracticeStatsCanvas(stats, isBetaChannel)
                     message.reply("\u00A0").addFile(File("practice_stats.png")).queue()
                 }
             }
@@ -273,7 +273,7 @@ object MessageUtils {
         return builder.toString()
     }
 
-    private fun generatePracticeStatsMessage(stats: PracticeStats, showCredits: Boolean): String {
+    private fun generatePracticeStatsMessage(stats: PracticeStats, isBetaChannel: Boolean): String {
         return "```yml" + System.lineSeparator() +
                 "Player name: " + stats.name + System.lineSeparator() + System.lineSeparator() +
                 "Qualification: " + Utils.formatLine(stats.qualification, stats.qualificationPosition) + System.lineSeparator() +
@@ -283,7 +283,7 @@ object MessageUtils {
                 "Wide Finals: " + Utils.formatLine(stats.wideFinals, stats.wideFinalsPosition) + System.lineSeparator() +
                 "Total Score: " + Utils.formatLine(stats.total, stats.totalPosition) + System.lineSeparator() +
                 if (stats.overall.toInt() != 0) { "Overall Rank: " + Utils.formatLine(stats.overall, stats.overallPosition) } else { "" } + System.lineSeparator() +
-                if (showCredits) { "Credits: " + Utils.formatLine(stats.credits, 0) } else { "" } + System.lineSeparator() +
+                "Credits: " + Utils.formatLine(stats.credits, 0) + System.lineSeparator() +
                 "```"
     }
 
