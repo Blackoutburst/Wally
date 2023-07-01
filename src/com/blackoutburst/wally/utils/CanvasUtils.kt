@@ -399,7 +399,7 @@ object CanvasUtils {
         }
 
         canvas.drawImage(iconCredits, 510, 480, 50, 50)
-        canvas.drawStringLeft(formatLine("Credits", data.credits, 0), 580, 495, 30.0f + fontSize, fontColor)
+        canvas.drawStringLeft(formatLine("Credits", data.credits, data.creditPosition), 580, 495, 30.0f + fontSize, fontColor)
 
         canvas.save("practice_stats.png")
     }
