@@ -324,7 +324,7 @@ object CanvasUtils {
         canvas.save("compare.png")
     }
 
-    fun createPracticeStatsCanvas(data: PracticeStats, showCredits: Boolean) {
+    fun createPracticeStatsCanvas(data: PracticeStats, isBetaChannel: Boolean) {
         val user = DatabaseUtils.getWallyUserFromUUID(data.uuid)
         val canvas = Canvas(1000, 600)
         val fontColor = Color.decode(user?.fontColor ?: "#FFFFFF")
@@ -388,20 +388,18 @@ object CanvasUtils {
         canvas.drawImage(iconPracticeWideQualification, 40, 480, 50, 50)
         canvas.drawStringLeft(formatLine("Wide Qualification", data.wideQualification, data.wideQualificationPosition), 110, 495, 30.0f + fontSize, fontColor)
 
-        canvas.drawImage(iconPracticeWideFinals, 490, 270, 50, 50)
-        canvas.drawStringLeft(formatLine("Wide Finals", data.wideFinals, data.wideFinalsPosition), 560, 285, 30.0f + fontSize, fontColor)
-        canvas.drawImage(iconPracticeTotal, 490, 340, 50, 50)
-        canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 560, 355, 30.0f + fontSize, fontColor)
+        canvas.drawImage(iconPracticeWideFinals, 430, 270, 50, 50)
+        canvas.drawStringLeft(formatLine("Wide Finals", data.wideFinals, data.wideFinalsPosition), 580, 285, 30.0f + fontSize, fontColor)
+        canvas.drawImage(iconPracticeTotal, 510, 340, 50, 50)
+        canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 580, 355, 30.0f + fontSize, fontColor)
 
         if (data.overall.toInt() != 0) {
-            canvas.drawImage(iconPracticeOverall, 490, 410, 50, 50)
-            canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 560, 425, 30.0f + fontSize, fontColor)
+            canvas.drawImage(iconPracticeOverall, 510, 410, 50, 50)
+            canvas.drawStringLeft(formatLine("Overall Rank", data.overall, data.overallPosition), 580, 425, 30.0f + fontSize, fontColor)
         }
 
-        if (showCredits) {
-            canvas.drawImage(iconCredits, 490, 480, 50, 50)
-            canvas.drawStringLeft(formatLine("Credits", data.credits, 0), 560, 495, 30.0f + fontSize, fontColor)
-        }
+        canvas.drawImage(iconCredits, 510, 480, 50, 50)
+        canvas.drawStringLeft(formatLine("Credits", data.credits, 0), 580, 495, 30.0f + fontSize, fontColor)
 
         canvas.save("practice_stats.png")
     }
