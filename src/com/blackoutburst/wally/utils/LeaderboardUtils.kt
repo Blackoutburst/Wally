@@ -22,6 +22,8 @@ object LeaderboardUtils {
             12 -> LeaderboardManager.wideFinalsLeaderboardPractice
             13 -> LeaderboardManager.totalLeaderboardPractice
             14 -> LeaderboardManager.overallLeaderboardPractice
+            15 -> LeaderboardManager.creditLeaderboardPractice
+            16 -> LeaderboardManager.creditEarnedLeaderboardPractice
             else -> LeaderboardManager.winsLeaderboardHypixel
         }
     }

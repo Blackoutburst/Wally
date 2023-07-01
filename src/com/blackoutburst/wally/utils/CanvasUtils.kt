@@ -561,9 +561,13 @@ object CanvasUtils {
                     canvas.drawImage(iconPracticeTotal, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
                     canvas.drawImage(iconPracticeTotal, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
                 }
-                else -> {
+                Leaderboard.Type.OVERALL -> {
                     canvas.drawImage(iconPracticeOverall, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
                     canvas.drawImage(iconPracticeOverall, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
+                }
+                else -> {
+                    canvas.drawImage(iconCredits, 350 - canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 - 40, 60, 50, 50)
+                    canvas.drawImage(iconCredits, 350 + canvas.getStringLength(leaderboard.name, 42.0f) / 2 - 25 + 40, 60, 50, 50)
                 }
             }
         }

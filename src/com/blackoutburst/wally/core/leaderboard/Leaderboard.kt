@@ -17,7 +17,9 @@ class Leaderboard(val name: String, val comparator: Comparator<StatsObject>, val
         OVERALL,
         LOBBY,
         WIDE_QUALIFICATION,
-        WIDE_FINALS
+        WIDE_FINALS,
+        CREDITS,
+        CREDITS_EARNED
     }
 
     val players: MutableList<StatsObject> = ArrayList()

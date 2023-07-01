@@ -160,6 +160,26 @@ object JSONMaker {
         builder = StringBuilder(builder.substring(0, builder.length-1))
         builder.append("],")
 
+        builder.append("\"credits\": [")
+        length = LeaderboardManager.creditLeaderboardPractice.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.creditLeaderboardPractice.players[i]
+            user as PracticeStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.total}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
+        builder.append("\"creditsearned\": [")
+        length = LeaderboardManager.creditEarnedLeaderboardPractice.players.size
+        for (i in 0 until length) {
+            val user = LeaderboardManager.creditEarnedLeaderboardPractice.players[i]
+            user as PracticeStats
+            builder.append("{\"name\": \"${user.name}\",\"uuid\": \"${user.uuid}\", \"point\": ${user.total}, \"club\": ${if (user.qualification > user.finals) user.qualification else user.finals}},")
+        }
+        builder = StringBuilder(builder.substring(0, builder.length-1))
+        builder.append("],")
+
         builder.append("\"practiceoverall\": [")
         length = LeaderboardManager.overallLeaderboardPractice.players.size
         for (i in 0 until length) {
@@ -250,7 +270,9 @@ object JSONMaker {
                         "widequalification": ${pstats?.wideQualification ?: 0},
                         "widefinals": ${pstats?.wideFinals ?: 0},
                         "total": ${pstats?.total ?: 0},
-                        "overallrank": ${pstats?.overall ?: 0}
+                        "overallrank": ${pstats?.overall ?: 0},
+                        "credits": ${pstats?.credits ?: 0},
+                        "creditsearned": ${pstats?.creditsEarned ?: 0}
                     },
                     "positions": {
                         "qualification": ${pstats?.qualificationPosition ?: 0},
@@ -259,7 +281,9 @@ object JSONMaker {
                         "widequalification": ${pstats?.wideQualificationPosition ?: 0},
                         "widefinals": ${pstats?.wideFinalsPosition ?: 0},
                         "total": ${pstats?.totalPosition ?: 0},
-                        "overallrank": ${pstats?.overallPosition ?: 0}
+                        "overallrank": ${pstats?.overallPosition ?: 0},
+                        "credits": ${pstats?.creditPosition ?: 0},
+                        "creditsearned": ${pstats?.creditEarnedPosition ?: 0}
                     }
                 }
             }

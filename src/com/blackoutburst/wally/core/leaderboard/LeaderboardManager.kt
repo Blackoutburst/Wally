@@ -7,18 +7,14 @@ import com.blackoutburst.wally.core.statsobject.HypixelStats
 import com.blackoutburst.wally.core.statsobject.PracticeStats
 import com.blackoutburst.wally.core.statsobject.StatsObject
 import com.blackoutburst.wally.utils.DatabaseUtils
-import com.sun.management.UnixOperatingSystemMXBean
+import com.blackoutburst.wally.utils.Utils.getHighestScore
 import java.io.File
-import java.lang.management.ManagementFactory
-import java.lang.management.OperatingSystemMXBean
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.time.Duration
 import java.time.Instant
 
-
 object LeaderboardManager {
-
     val winsLeaderboardHypixel = Leaderboard("Hypixel Wins", HypixelWinsComparator(), Leaderboard.Type.WINS)
     val wallLeaderboardHypixel = Leaderboard("Hypixel Walls", HypixelWallsComparator(), Leaderboard.Type.WALLS)
     val qualificationLeaderboardHypixel = Leaderboard("Hypixel Qualification", QualificationComparator(), Leaderboard.Type.QUALIFICATION)
@@ -34,12 +30,16 @@ object LeaderboardManager {
     val wideFinalsLeaderboardPractice = Leaderboard("Practice Wide Finals", PracticeWideFinalsComparator(), Leaderboard.Type.WIDE_FINALS)
     val totalLeaderboardPractice = Leaderboard("Practice Total Score", TotalComparator(), Leaderboard.Type.TOTAL)
     val overallLeaderboardPractice = Leaderboard("Practice Overall Rank", OverallComparator(), Leaderboard.Type.OVERALL)
+    val creditLeaderboardPractice = Leaderboard("Credit", PracticeCreditComparator(), Leaderboard.Type.CREDITS)
+    val creditEarnedLeaderboardPractice = Leaderboard("Total Credit Earned", PracticeCreditEarnedComparator(), Leaderboard.Type.CREDITS_EARNED)
 
     private fun calculateOverallLeaderboards() {
         populate(overallLeaderboardHypixel.players, DatabaseUtils.DataType.HYPIXEL, false)
         sort(overallLeaderboardHypixel)
         populate(overallLeaderboardPractice.players, DatabaseUtils.DataType.PRACTICE, false)
         sort(overallLeaderboardPractice)
+
+        creditLeaderboardPractice.players.groupBy { getHighestScore(it.scores) / 50 }
     }
 
     private fun populate(leaderboard: MutableList<StatsObject>, type: DatabaseUtils.DataType, skipPosition: Boolean) {
@@ -82,6 +82,8 @@ object LeaderboardManager {
         sort(wideQualificationLeaderboardPractice)
         sort(wideFinalsLeaderboardPractice)
         sort(totalLeaderboardPractice)
+        sort(creditLeaderboardPractice)
+        sort(creditEarnedLeaderboardPractice)
         sort(overallLeaderboardPractice)
     }
 
@@ -94,6 +96,9 @@ object LeaderboardManager {
             wideQualificationLeaderboardPractice.players[wideQualificationLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
             wideFinalsLeaderboardPractice.players[wideFinalsLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
             totalLeaderboardPractice.players[totalLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            creditLeaderboardPractice.players[creditLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+            creditEarnedLeaderboardPractice.players[creditEarnedLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerData
+
 
             sort(qualificationLeaderboardPractice)
             sort(finalsLeaderboardPractice)
@@ -101,6 +106,8 @@ object LeaderboardManager {
             sort(wideQualificationLeaderboardPractice)
             sort(wideFinalsLeaderboardPractice)
             sort(totalLeaderboardPractice)
+            sort(creditLeaderboardPractice)
+            sort(creditEarnedLeaderboardPractice)
 
             val playerOverallData = PracticeStats(data, noLeaderboard = false)
             overallLeaderboardPractice.players[overallLeaderboardPractice.players.indexOfFirst {it.uuid == playerData.uuid}] = playerOverallData
@@ -114,6 +121,8 @@ object LeaderboardManager {
         wideQualificationLeaderboardPractice.players.add(playerData)
         wideFinalsLeaderboardPractice.players.add(playerData)
         totalLeaderboardPractice.players.add(playerData)
+        creditLeaderboardPractice.players.add(playerData)
+        creditEarnedLeaderboardPractice.players.add(playerData)
 
         sort(qualificationLeaderboardPractice)
         sort(finalsLeaderboardPractice)
@@ -121,6 +130,8 @@ object LeaderboardManager {
         sort(wideQualificationLeaderboardPractice)
         sort(wideFinalsLeaderboardPractice)
         sort(totalLeaderboardPractice)
+        sort(creditLeaderboardPractice)
+        sort(creditEarnedLeaderboardPractice)
 
         val playerOverallData = PracticeStats(data, noLeaderboard = false)
         overallLeaderboardPractice.players.add(playerOverallData)
@@ -194,6 +205,8 @@ object LeaderboardManager {
             wideFinalsLeaderboardPractice.players.remove(wideFinalsLeaderboardPractice.players.first { it.uuid == uuid })
             totalLeaderboardPractice.players.remove(totalLeaderboardPractice.players.first { it.uuid == uuid })
             overallLeaderboardPractice.players.remove(overallLeaderboardPractice.players.first { it.uuid == uuid })
+            creditLeaderboardPractice.players.remove(creditLeaderboardPractice.players.first { it.uuid == uuid })
+            creditEarnedLeaderboardPractice.players.remove(creditEarnedLeaderboardPractice.players.first { it.uuid == uuid })
         }
     }
 
@@ -216,6 +229,9 @@ object LeaderboardManager {
         wideQualificationLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players)
         wideFinalsLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players)
         totalLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players)
+        creditLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players)
+        creditEarnedLeaderboardPractice.players.addAll(qualificationLeaderboardPractice.players)
+
         sort(wallLeaderboardHypixel)
         sort(qualificationLeaderboardHypixel)
         sort(finalsLeaderboardHypixel)
@@ -227,6 +243,9 @@ object LeaderboardManager {
         sort(wideQualificationLeaderboardPractice)
         sort(wideFinalsLeaderboardPractice)
         sort(totalLeaderboardPractice)
+        sort(creditLeaderboardPractice)
+        sort(creditEarnedLeaderboardPractice)
+
 
         calculateOverallLeaderboards()
 

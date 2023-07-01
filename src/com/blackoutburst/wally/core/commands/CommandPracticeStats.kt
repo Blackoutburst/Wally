@@ -6,9 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang.getPlayerName
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
-import com.blackoutburst.wally.core.request.PracticeServer.getBetaPlayerCredits
 import com.blackoutburst.wally.core.request.PracticeServer.getBetaStats
-import com.blackoutburst.wally.core.request.PracticeServer.getPlayerCredits
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
 import com.blackoutburst.wally.core.request.Visage
 import com.blackoutburst.wally.core.statsobject.PracticeStats
@@ -17,7 +15,6 @@ import com.blackoutburst.wally.utils.DatabaseUtils.getBackupLocalData
 import com.blackoutburst.wally.utils.DatabaseUtils.getWallyUserData
 import com.blackoutburst.wally.utils.DatabaseUtils.isLinked
 import com.blackoutburst.wally.utils.DatabaseUtils.updateLeaderboardStats
-import com.blackoutburst.wally.utils.DatabaseUtils.updateLinkedPlayerStats
 import com.blackoutburst.wally.utils.MessageUtils.sendLogButtonReply
 import com.blackoutburst.wally.utils.MessageUtils.sendPracticeStats
 import net.dv8tion.jda.api.entities.Guild
@@ -74,13 +71,9 @@ class CommandPracticeStats : CommandExecutable() {
             return
         }
 
-        var credits = if (isBetaChannel) getBetaPlayerCredits(uuid) else getPlayerCredits(uuid)
-        if (credits == null)
-            credits = ""
-
         updateLeaderboardStats(data, DatabaseUtils.DataType.PRACTICE, uuid)
         Visage.getPlayerHead(uuid)
 
-        sendPracticeStats(commandSender, message, PracticeStats(data, credits), uuid, false, isBetaChannel)
+        sendPracticeStats(commandSender, message, PracticeStats(data), uuid, false, isBetaChannel)
     }
 }

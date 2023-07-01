@@ -359,6 +359,8 @@ object MessageUtils {
             .addOption(LeaderboardManager.wideFinalsLeaderboardPractice.name, "12:$page")
             .addOption(LeaderboardManager.totalLeaderboardPractice.name, "13:$page")
             .addOption(LeaderboardManager.overallLeaderboardPractice.name, "14:$page")
+            .addOption(LeaderboardManager.creditLeaderboardPractice.name, "15:$page")
+            //.addOption(LeaderboardManager.creditEarnedLeaderboardPractice.name, "16:$page")
         return menu.build()
     }
 
