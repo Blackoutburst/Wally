@@ -6,6 +6,7 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang.getPlayerName
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
+import com.blackoutburst.wally.core.request.PracticeServer.getBetaPlayerCredits
 import com.blackoutburst.wally.core.request.PracticeServer.getBetaStats
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerCredits
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
@@ -73,7 +74,7 @@ class CommandPracticeStats : CommandExecutable() {
             return
         }
 
-        var credits = getPlayerCredits(uuid)
+        var credits = if (isBetaChannel) getBetaPlayerCredits(uuid) else getPlayerCredits(uuid)
         if (credits == null)
             credits = ""
 

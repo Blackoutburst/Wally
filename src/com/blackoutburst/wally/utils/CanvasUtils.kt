@@ -388,7 +388,7 @@ object CanvasUtils {
         canvas.drawImage(iconPracticeWideQualification, 40, 480, 50, 50)
         canvas.drawStringLeft(formatLine("Wide Qualification", data.wideQualification, data.wideQualificationPosition), 110, 495, 30.0f + fontSize, fontColor)
 
-        canvas.drawImage(iconPracticeWideFinals, 430, 270, 50, 50)
+        canvas.drawImage(iconPracticeWideFinals, 510, 270, 50, 50)
         canvas.drawStringLeft(formatLine("Wide Finals", data.wideFinals, data.wideFinalsPosition), 580, 285, 30.0f + fontSize, fontColor)
         canvas.drawImage(iconPracticeTotal, 510, 340, 50, 50)
         canvas.drawStringLeft(formatLine("Total Score", data.total, data.totalPosition), 580, 355, 30.0f + fontSize, fontColor)
