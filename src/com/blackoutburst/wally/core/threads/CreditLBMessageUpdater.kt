@@ -29,13 +29,13 @@ object CreditLBMessageUpdater {
                     playersByScores.entries
                     .filter { (club, _) -> club >= 200 }
                     .sortedByDescending { (club, _) -> club }
-                    .take(3)
                     .forEach { (club, players) ->
                         val name = "**${club}+ (QF)**"
-                        var value = ""
-                        players.forEach {
-                            value += "```yml\n${it.name}: ${Wally.numberFormat.format((it as PracticeStats).credits)}\n"
+                        var value = "```yml\n"
+                        players.take(3).forEach {
+                            value += "${it.name}: ${Wally.numberFormat.format((it as PracticeStats).credits)}\n"
                         }
+                        value += "```\n"
 
                         tmp.addField(name, value, true)
                     }
