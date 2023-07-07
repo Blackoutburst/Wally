@@ -3,6 +3,7 @@ package com.blackoutburst.wally.core.threads
 import com.blackoutburst.wally.core.Wally
 import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.leaderboard.LeaderboardManager
+import com.blackoutburst.wally.core.statsobject.PracticeStats
 import net.dv8tion.jda.api.EmbedBuilder
 import java.awt.Color
 import java.lang.Thread.sleep
@@ -25,11 +26,15 @@ object CreditLBMessageUpdater {
                         .setFooter("Updated on")
                         .setTimestamp(ZonedDateTime.now(ZoneId.of("America/New_York")))
 
-                    playersByScores.entries.filter { (club, _) -> club >= 200 }.forEach { (club, players) ->
+                    playersByScores.entries
+                    .filter { (club, _) -> club >= 200 }
+                    .sortedByDescending { (club, _) -> club }
+                    .take(3)
+                    .forEach { (club, players) ->
                         val name = "**${club}+ (QF)**"
                         var value = ""
                         players.forEach {
-                            value += "${it.name}\n"
+                            value += "```yml\n${it.name}: ${Wally.numberFormat.format((it as PracticeStats).credits)}\n"
                         }
 
                         tmp.addField(name, value, true)

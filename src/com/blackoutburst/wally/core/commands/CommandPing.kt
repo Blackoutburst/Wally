@@ -10,7 +10,6 @@ import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
 import java.lang.management.ManagementFactory
-import java.lang.management.OperatingSystemMXBean
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
