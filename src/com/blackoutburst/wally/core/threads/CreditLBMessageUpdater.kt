@@ -16,7 +16,9 @@ object CreditLBMessageUpdater {
         val thread = Thread {
             while (true) {
                 try {
-                    val playersByScores = LeaderboardManager.creditLeaderboardPractice.players.groupBy {
+                    val playersByScores = LeaderboardManager.creditLeaderboardPractice.players
+                    .filter { (it as PracticeStats).credits > 0 }
+                    .groupBy {
                         (it.finals + it.qualification) / 50 * 50
                     }
 
@@ -29,19 +31,28 @@ object CreditLBMessageUpdater {
                     playersByScores.entries
                     .filter { (club, _) -> club >= 200 }
                     .sortedByDescending { (club, _) -> club }
-                    .forEach { (club, players) ->
+                    .forEachIndexed { i, (club, players) ->
                         val name = "**${club}+ (QF)**"
-                        var value = "```yml\n"
-                        players.take(3).forEach {
-                            value += "${it.name}: ${Wally.numberFormat.format((it as PracticeStats).credits)}\n"
+                        var value = "```ex\n"
+                        players.take(3).forEachIndexed { j, it ->
+                            value += "${j + 1}. ${it.name}: ${Wally.numberFormat.format((it as PracticeStats).credits)}\n"
                         }
                         value += "```\n"
 
                         tmp.addField(name, value, true)
+                        if ((i + 1) % 2 == 0)
+                            tmp.addBlankField(true)
                     }
 
-                    Wally.hitwDiscord!!.getTextChannelById(ConfigManager.loadValue("channels", "credit leaderboard channel"))!!
-                        .editMessageEmbedsById(ConfigManager.loadValue("messages", "credit leaderboard"), tmp.build()).queue()
+                    Wally.hitwDiscord!!
+                    .getTextChannelById(
+                        ConfigManager.loadValue("channels", "credit leaderboard channel")
+                    )!!
+                    .editMessageEmbedsById(
+                        ConfigManager.loadValue("messages", "credit leaderboard"), tmp.build()
+                    )
+                    .queue()
+
                     sleep(60000)
                 } catch (e: Exception) {
                     Wally.logger.logStackTrace(e)
