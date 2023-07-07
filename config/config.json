@@ -8,7 +8,8 @@
     "dev server": "813806897542594560"
   },
   "messages": {
-    "gender message": "778301653748285460"
+    "gender message": "778301653748285460",
+    "credit leaderboard": "1126967467282018444"
   },
   "roles": {
     "Tournament Player": "715691790984019988",
@@ -40,7 +41,8 @@
     "changelog channel": "739630025304703068",
     "practice tracker channel": "909117760116756570",
     "tracker channel": "709548207717220352",
-    "dev suggestion channel": "949052086258106380"
+    "dev suggestion channel": "949052086258106380",
+    "credit leaderboard channel": "1114857944857727026"
   },
   "replies": {
     "missing permission": "I\u0027m sorry, but you don\u0027t have permission to use this command!",

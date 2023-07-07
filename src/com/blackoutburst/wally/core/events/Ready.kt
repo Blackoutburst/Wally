@@ -22,6 +22,8 @@ object Ready {
 
         Wally.logger.log(LogLevel.INFO, "Discord servers retrieved successfully")
 
+        CreditLBMessageUpdater.run()
+
         // HypixelTracker.run()
         PracticeTracker.run()
         Wally.logger.log(LogLevel.INFO, "Trackers started successfully")
