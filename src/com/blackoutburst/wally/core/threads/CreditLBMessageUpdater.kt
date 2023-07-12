@@ -19,7 +19,7 @@ object CreditLBMessageUpdater {
                     val playersByScores = LeaderboardManager.creditLeaderboardPractice.players
                     .filter { (it as PracticeStats).credits > 0 }
                     .groupBy {
-                        (it.finals + it.qualification) / 50 * 50
+                        (it.finals + it.qualification) / 100 * 100
                     }
 
                     val tmp = EmbedBuilder()
