@@ -6,7 +6,6 @@ import com.blackoutburst.wally.core.config.ConfigManager
 import com.blackoutburst.wally.core.logger.LogLevel
 import com.blackoutburst.wally.core.request.Mojang.getPlayerName
 import com.blackoutburst.wally.core.request.Mojang.getPlayerUUID
-import com.blackoutburst.wally.core.request.PracticeServer.getBetaStats
 import com.blackoutburst.wally.core.request.PracticeServer.getPlayerStats
 import com.blackoutburst.wally.core.request.Visage
 import com.blackoutburst.wally.core.statsobject.PracticeStats
@@ -59,7 +58,7 @@ class CommandPracticeStats : CommandExecutable() {
             return
         }
 
-        var data = if (isBetaChannel) getBetaStats(uuid) else getPlayerStats(uuid)
+        var data =  getPlayerStats(uuid)
         if (data == null) {
             Wally.logger.log(LogLevel.WARN, "Data is missing")
             data = getBackupLocalData(uuid, DatabaseUtils.DataType.PRACTICE, channel)

@@ -9,7 +9,7 @@ object PracticeServer {
     fun enableWhitelist() : String? {
         return try {
             Wally.logger.log(LogLevel.INFO, "Enabling server whitelist")
-            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistenable?token=${Main.PRACTICE_TOKEN}")
+            ConnectionManager.readFromURL("http://91.197.6.29:30600/whitelistenable?token=${Main.PRACTICE_TOKEN}")
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -19,7 +19,7 @@ object PracticeServer {
     fun disableWhitelist() : String? {
         return try {
             Wally.logger.log(LogLevel.INFO, "Disabling server whitelist")
-            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistdisable?token=${Main.PRACTICE_TOKEN}")
+            ConnectionManager.readFromURL("http://91.197.6.29:30600/whitelistdisable?token=${Main.PRACTICE_TOKEN}")
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -29,7 +29,7 @@ object PracticeServer {
     fun whitelistAdd( name: String) : String? {
         return try {
             Wally.logger.log(LogLevel.INFO, "Adding [$name] to the whitelist")
-            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistadd?token=${Main.PRACTICE_TOKEN}&name=$name")
+            ConnectionManager.readFromURL("http://91.197.6.29:30600/whitelistadd?token=${Main.PRACTICE_TOKEN}&name=$name")
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -39,7 +39,7 @@ object PracticeServer {
     fun whitelistRemove( name: String) : String? {
         return try {
             Wally.logger.log(LogLevel.INFO, "Adding [$name] to the whitelist")
-            ConnectionManager.readFromURL("http://178.32.125.169:30100/whitelistremove?token=${Main.PRACTICE_TOKEN}&name=$name")
+            ConnectionManager.readFromURL("http://91.197.6.29:30600/whitelistremove?token=${Main.PRACTICE_TOKEN}&name=$name")
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -50,20 +50,7 @@ object PracticeServer {
         return try {
             if (!silent)
                 Wally.logger.log(LogLevel.INFO, "New Practice server request sent for [$uuid]")
-            val res = ConnectionManager.readFromURL("http://178.32.125.169:30100/user?uuid=$uuid")
-            if (res?.get(0) != '{')
-                throw Exception("Invalid json")
-            res
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    fun getBetaStats( uuid: String, silent :Boolean = false): String? {
-        return try {
-            if (!silent)
-                Wally.logger.log(LogLevel.INFO, "New Practice server request sent for [$uuid]")
-            val res = ConnectionManager.readFromURL("http://beta.hitw.community:30150/user?uuid=$uuid")
+            val res = ConnectionManager.readFromURL("http://91.197.6.29:30600/user?uuid=$uuid")
             if (res?.get(0) != '{')
                 throw Exception("Invalid json")
             res
